@@ -11,6 +11,12 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        ada: {
+          purple: '#606090',
+          navy: '#0c2231',
+          red: '#ed1c24',
+          cyan: '#00aeef',
+        },
       },
     },
   },
