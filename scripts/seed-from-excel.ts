@@ -39,8 +39,8 @@ function computeProficiency(score: number | null): string | null {
 }
 
 function excelDateToISO(serial: number | string | null): string | null {
-  if (serial === null || serial === undefined) return null;
-  if (typeof serial === 'string') return serial;
+  if (serial === null || serial === undefined || serial === '') return null;
+  if (typeof serial === 'string') return serial.trim() || null;
   // Excel serial date → JS Date
   const utcDays = Math.floor(serial - 25569);
   const date = new Date(utcDays * 86400 * 1000);
