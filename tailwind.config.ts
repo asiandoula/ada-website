@@ -44,11 +44,17 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         ada: {
-          purple: '#606090',
           navy: '#0c2231',
+          purple: '#662d91',
+          'purple-accent': '#6969c1',
           red: '#ed1c24',
           cyan: '#00aeef',
+          burgundy: '#260a00',
         },
+      },
+      fontFamily: {
+        poppins: ['var(--font-poppins)', 'sans-serif'],
+        inter: ['var(--font-inter)', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

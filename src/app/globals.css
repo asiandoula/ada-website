@@ -34,3 +34,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ADA Public Site Brand */
+:root {
+  --ada-navy: #0c2231;
+  --ada-purple: #662d91;
+  --ada-purple-accent: #6969c1;
+  --ada-red: #ed1c24;
+  --ada-cyan: #00aeef;
+  --ada-burgundy: #260a00;
+}
