@@ -11,6 +11,7 @@ const navItems = [
   { href: '/admin/doulas', label: 'Doulas', icon: '👤' },
   { href: '/admin/exams', label: 'Exams', icon: '📝' },
   { href: '/admin/certificates', label: 'Certificates', icon: '📜' },
+  { href: '/admin/articles', label: 'Articles', icon: '📰' },
 ];
 
 export function AdminSidebar() {
