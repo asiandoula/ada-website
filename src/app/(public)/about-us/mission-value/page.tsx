@@ -1,6 +1,19 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { ScrollAnimate } from '@/components/public/scroll-animate';
 import { Heart, Shield, Star, BookOpen } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Mission & Values',
+  description:
+    'The principles that guide the Asian Doula Alliance — compassion, integrity, excellence, and knowledge in culturally integrated postpartum care.',
+  openGraph: {
+    title: 'Mission & Values | Asian Doula Alliance',
+    description:
+      'The principles that guide the Asian Doula Alliance — compassion, integrity, excellence, and knowledge in culturally integrated postpartum care.',
+    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+  },
+};
 
 const coreValues = [
   {

@@ -1,6 +1,19 @@
+import { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { ArticleCard } from '@/components/public/article-card';
 import { CategoryTabs } from './category-tabs';
+
+export const metadata: Metadata = {
+  title: 'Articles',
+  description:
+    'Stay informed with the latest news, educational resources, and community stories from the Asian Doula Alliance.',
+  openGraph: {
+    title: 'Articles | Asian Doula Alliance',
+    description:
+      'Stay informed with the latest news, educational resources, and community stories from the Asian Doula Alliance.',
+    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+  },
+};
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

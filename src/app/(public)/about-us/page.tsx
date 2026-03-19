@@ -1,7 +1,20 @@
+import { Metadata } from 'next';
 import { ScrollAnimate } from '@/components/public/scroll-animate';
 import { TeamCard } from '@/components/public/team-card';
 import { Heart, Globe, Award, Users } from 'lucide-react';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description:
+    'Learn about the Asian Doula Alliance — a 501(c)(3) non-profit setting the standard in culturally integrated postpartum doula care and certification.',
+  openGraph: {
+    title: 'About Us | Asian Doula Alliance',
+    description:
+      'Learn about the Asian Doula Alliance — a 501(c)(3) non-profit setting the standard in culturally integrated postpartum doula care and certification.',
+    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+  },
+};
 
 const teamMembers = [
   {

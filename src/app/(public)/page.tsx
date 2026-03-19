@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { Hero } from '@/components/public/hero';
 import { Counter } from '@/components/public/counter';
 import { TestimonialCarousel } from '@/components/public/testimonial-carousel';
@@ -5,6 +6,19 @@ import { ContactForm } from '@/components/public/contact-form';
 import { ScrollAnimate } from '@/components/public/scroll-animate';
 import { Star, BookOpen, GraduationCap, Award } from 'lucide-react';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Asian Doula Alliance — Bridging Cultures, Supporting Moms, Celebrating Life',
+  description:
+    'Setting standards in postpartum care through culturally integrated training, certification, and multilingual support for Asian doulas.',
+  openGraph: {
+    title: 'Asian Doula Alliance — Bridging Cultures, Supporting Moms, Celebrating Life',
+    description:
+      'Setting standards in postpartum care through culturally integrated training, certification, and multilingual support for Asian doulas.',
+    url: 'https://asiandoula.org',
+    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+  },
+};
 
 const testimonials = [
   {
@@ -58,9 +72,26 @@ const certSteps = [
   },
 ];
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Asian Doula Alliance',
+  url: 'https://asiandoula.org',
+  logo: 'https://asiandoula.org/ada-logo.svg',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+1-714-202-6501',
+    email: 'contact@asiandoula.org',
+  },
+};
+
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero — full viewport */}
       <Hero />
 
