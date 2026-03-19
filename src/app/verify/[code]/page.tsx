@@ -41,8 +41,9 @@ export default async function VerifyPage({
   }
 
   const doula = cert.doulas as Record<string, string>;
-  const isActive = doula.status === 'certified_active';
-  const isExpired = doula.status === 'expired';
+  const isRevoked = cert.status === 'revoked';
+  const isActive = !isRevoked && doula.status === 'certified_active';
+  const isExpired = !isRevoked && doula.status === 'expired';
 
   return (
     <div className="min-h-screen bg-zinc-100 flex items-center justify-center p-4">
@@ -61,6 +62,11 @@ export default async function VerifyPage({
           </div>
 
           <div className="text-center mb-6">
+            {isRevoked && (
+              <Badge className="bg-red-100 text-red-800 text-sm px-4 py-1">
+                ✗ Certificate Revoked
+              </Badge>
+            )}
             {isActive && (
               <Badge className="bg-green-100 text-green-800 text-sm px-4 py-1">
                 ✓ Verified — Active
@@ -71,7 +77,7 @@ export default async function VerifyPage({
                 ⚠ Verified — Expired
               </Badge>
             )}
-            {!isActive && !isExpired && (
+            {!isRevoked && !isActive && !isExpired && (
               <Badge className="bg-red-100 text-red-800 text-sm px-4 py-1">
                 ✗ {doula.status.replace('_', ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}
               </Badge>

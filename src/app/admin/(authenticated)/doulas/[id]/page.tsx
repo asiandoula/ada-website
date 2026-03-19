@@ -15,6 +15,7 @@ import {
   CERT_TYPE_LABELS,
 } from '@/lib/constants';
 import type { DoulaStatus, CertificateType } from '@/lib/constants';
+import { ExamEditDialog, type ExamRecord } from '@/components/admin/exam-edit-dialog';
 
 export default function EditDoulaPage() {
   const router = useRouter();
@@ -22,37 +23,38 @@ export default function EditDoulaPage() {
   const supabase = createClient();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [doula, setDoula] = useState<Record<string, any> | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [exams, setExams] = useState<Record<string, any>[]>([]);
+  const [exams, setExams] = useState<ExamRecord[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [certs, setCerts] = useState<Record<string, any>[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  async function reloadData() {
+    const { data: d } = await supabase
+      .from('doulas')
+      .select('*')
+      .eq('id', params.id)
+      .single();
+    setDoula(d);
+
+    const { data: e } = await supabase
+      .from('exam_results')
+      .select('*')
+      .eq('doula_id', params.id)
+      .order('exam_date', { ascending: false });
+    setExams(e ?? []);
+
+    const { data: c } = await supabase
+      .from('certificates')
+      .select('*')
+      .eq('doula_id', params.id)
+      .order('issued_date', { ascending: false });
+    setCerts(c ?? []);
+  }
+
   useEffect(() => {
-    async function load() {
-      const { data: d } = await supabase
-        .from('doulas')
-        .select('*')
-        .eq('id', params.id)
-        .single();
-      setDoula(d);
-
-      const { data: e } = await supabase
-        .from('exam_results')
-        .select('*')
-        .eq('doula_id', params.id)
-        .order('exam_date', { ascending: false });
-      setExams(e ?? []);
-
-      const { data: c } = await supabase
-        .from('certificates')
-        .select('*')
-        .eq('doula_id', params.id)
-        .order('issued_date', { ascending: false });
-      setCerts(c ?? []);
-    }
-    load();
+    reloadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -224,17 +226,29 @@ export default function EditDoulaPage() {
                   <th className="text-left p-2">Overall</th>
                   <th className="text-left p-2">Proficiency</th>
                   <th className="text-left p-2">Passed</th>
+                  <th className="text-left p-2">Status</th>
+                  <th className="p-2"></th>
                 </tr>
               </thead>
               <tbody>
                 {exams.map((exam) => (
-                  <tr key={exam.id} className="border-b">
+                  <tr key={exam.id} className={`border-b ${exam.voided ? 'opacity-50' : ''}`}>
                     <td className="p-2 font-mono">{exam.exam_session ?? '—'}</td>
                     <td className="p-2">{exam.exam_date ?? '—'}</td>
                     <td className="p-2">{exam.overall_score ?? '—'}</td>
                     <td className="p-2">{exam.proficiency_level ?? '—'}</td>
                     <td className="p-2">
                       {exam.passed === true ? '✓' : exam.passed === false ? '✗' : '—'}
+                    </td>
+                    <td className="p-2">
+                      {exam.voided ? (
+                        <Badge className="bg-gray-100 text-gray-500">Voided</Badge>
+                      ) : (
+                        <Badge className="bg-green-100 text-green-800">Valid</Badge>
+                      )}
+                    </td>
+                    <td className="p-2">
+                      <ExamEditDialog exam={exam} onSaved={reloadData} />
                     </td>
                   </tr>
                 ))}
@@ -260,12 +274,13 @@ export default function EditDoulaPage() {
                   <th className="text-left p-2">Number</th>
                   <th className="text-left p-2">Issued</th>
                   <th className="text-left p-2">Expires</th>
-                  <th className="text-left p-2">PDF</th>
+                  <th className="text-left p-2">Status</th>
+                  <th className="text-left p-2">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {certs.map((cert) => (
-                  <tr key={cert.id} className="border-b">
+                  <tr key={cert.id} className={`border-b ${cert.status === 'revoked' ? 'opacity-50' : ''}`}>
                     <td className="p-2">
                       {CERT_TYPE_LABELS[cert.certificate_type as CertificateType] ?? cert.certificate_type}
                     </td>
@@ -273,14 +288,63 @@ export default function EditDoulaPage() {
                     <td className="p-2">{cert.issued_date}</td>
                     <td className="p-2">{cert.expiration_date}</td>
                     <td className="p-2">
+                      {cert.status === 'revoked' ? (
+                        <Badge className="bg-red-100 text-red-800">Revoked</Badge>
+                      ) : (
+                        <Badge className="bg-green-100 text-green-800">Active</Badge>
+                      )}
+                    </td>
+                    <td className="p-2 space-x-2">
                       {cert.pdf_url && (
                         <a
                           href={cert.pdf_url}
                           target="_blank"
-                          className="text-ada-cyan hover:underline"
+                          className="text-ada-cyan hover:underline text-xs"
                         >
-                          Download
+                          PDF
                         </a>
+                      )}
+                      {cert.status !== 'revoked' && (
+                        <>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-xs h-7"
+                            onClick={async () => {
+                              const res = await fetch('/api/certificates/generate', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                  doula_id: params.id,
+                                  certificate_type: cert.certificate_type,
+                                  regenerate_id: cert.id,
+                                }),
+                              });
+                              if (res.ok) reloadData();
+                            }}
+                          >
+                            Regen PDF
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-xs h-7 text-red-600 border-red-200 hover:bg-red-50"
+                            onClick={async () => {
+                              if (!confirm('Revoke this certificate? This cannot be undone.')) return;
+                              await supabase
+                                .from('certificates')
+                                .update({
+                                  status: 'revoked',
+                                  revoked_at: new Date().toISOString(),
+                                  updated_at: new Date().toISOString(),
+                                })
+                                .eq('id', cert.id);
+                              reloadData();
+                            }}
+                          >
+                            Revoke
+                          </Button>
+                        </>
                       )}
                     </td>
                   </tr>
