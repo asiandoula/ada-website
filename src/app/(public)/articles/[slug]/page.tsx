@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import DOMPurify from 'isomorphic-dompurify';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArticleCard } from '@/components/public/article-card';
@@ -110,7 +111,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           {/* Article Content */}
           <div
             className="prose prose-lg max-w-none prose-headings:font-poppins prose-headings:text-ada-navy prose-a:text-ada-purple"
-            dangerouslySetInnerHTML={{ __html: article.content }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
           />
         </div>
 

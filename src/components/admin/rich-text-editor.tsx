@@ -71,6 +71,10 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
     if (!editor) return;
     const url = window.prompt('Enter URL:');
     if (!url) return;
+    if (!/^https?:\/\//i.test(url)) {
+      alert('Only http:// and https:// URLs are allowed');
+      return;
+    }
     editor
       .chain()
       .focus()

@@ -3,6 +3,9 @@ import { createClient } from '@supabase/supabase-js';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
+const VALID_STATUSES = ['draft', 'published', 'archived'] as const;
+const VALID_CATEGORIES = ['general', 'news', 'education', 'community', 'certification'] as const;
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -95,6 +98,13 @@ export async function POST(request: NextRequest) {
 
   if (!title || typeof title !== 'string' || !title.trim()) {
     return NextResponse.json({ error: 'Title is required' }, { status: 400 });
+  }
+
+  if (articleStatus && !VALID_STATUSES.includes(articleStatus)) {
+    return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
+  }
+  if (category && !VALID_CATEGORIES.includes(category)) {
+    return NextResponse.json({ error: 'Invalid category' }, { status: 400 });
   }
 
   // Auto-generate slug from title, or use provided slug

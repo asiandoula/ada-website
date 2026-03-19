@@ -3,6 +3,9 @@ import { createClient } from '@supabase/supabase-js';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
+const VALID_STATUSES = ['draft', 'published', 'archived'] as const;
+const VALID_CATEGORIES = ['general', 'news', 'education', 'community', 'certification'] as const;
+
 async function getAuthUser() {
   const cookieStore = await cookies();
   const supabase = createServerClient(
@@ -38,6 +41,11 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const user = await getAuthUser();
+  if (!user) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
   const { id } = await params;
 
   const { data, error } = await adminClient
@@ -65,6 +73,13 @@ export async function PUT(
   const { id } = await params;
   const body = await request.json();
   const { title, slug, content, excerpt, cover_image, category, status: articleStatus, author } = body;
+
+  if (articleStatus && !VALID_STATUSES.includes(articleStatus)) {
+    return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
+  }
+  if (category && !VALID_CATEGORIES.includes(category)) {
+    return NextResponse.json({ error: 'Invalid category' }, { status: 400 });
+  }
 
   // Build update object with only provided fields
   const update: Record<string, unknown> = { updated_at: new Date().toISOString() };
