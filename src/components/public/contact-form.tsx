@@ -41,8 +41,17 @@ export function ContactForm() {
   }
 
   return (
-    <section className="bg-ada-lavender">
-      <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
+    <section className="bg-ada-lavender relative overflow-hidden">
+      {/* Decorative glows */}
+      <div
+        className="absolute -top-20 -right-20 w-64 h-64 rounded-full opacity-[0.06]"
+        style={{ background: 'radial-gradient(circle, #606090, transparent 70%)' }}
+      />
+      <div
+        className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full opacity-[0.04]"
+        style={{ background: 'radial-gradient(circle, #606090, transparent 70%)' }}
+      />
+      <div className="relative max-w-6xl mx-auto px-6 py-24 md:py-32">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left: Info */}
           <div className="text-ada-navy">

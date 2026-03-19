@@ -398,15 +398,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Our Community — map with city labels */}
+      {/* Our Community — left progress bars + right west coast map */}
       <section className="py-24 md:py-32 bg-ada-cream relative overflow-hidden">
         <div
           className="absolute -top-24 -left-24 w-72 h-72 rounded-full opacity-[0.04]"
           style={{ background: 'radial-gradient(circle, #606090, transparent 70%)' }}
         />
         <div className="relative max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-16 items-center">
-            {/* Left — text + city list */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16 items-center">
+            {/* Left — text + progress bars */}
             <div>
               <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
                 Our Community
@@ -415,8 +415,7 @@ export default function HomePage() {
                 Where our doulas serve
               </h2>
               <p className="mt-4 text-ada-navy/50 leading-relaxed">
-                164+ certified doulas supporting families across major metropolitan areas
-                in California and nationwide.
+                164+ certified doulas supporting families across California and nationwide.
               </p>
               <div className="mt-8 space-y-4">
                 {[
@@ -442,7 +441,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Right — real California map */}
+            {/* Right — west coast map */}
             <div className="hidden lg:block">
               <CommunityMap />
             </div>

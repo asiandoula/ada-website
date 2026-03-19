@@ -5,63 +5,92 @@ import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps
 const geoUrl = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
 
 const markers = [
-  { name: 'Los Angeles', count: '60+', coordinates: [-118.2437, 34.0522] as [number, number], size: 18, labelSide: 'right' as const },
-  { name: 'Bay Area', count: '40+', coordinates: [-122.4194, 37.7749] as [number, number], size: 14, labelSide: 'right' as const },
-  { name: 'San Diego', count: '30+', coordinates: [-117.1611, 32.7157] as [number, number], size: 12, labelSide: 'right' as const },
-  { name: 'Seattle', count: '15+', coordinates: [-122.3321, 47.6062] as [number, number], size: 10, labelSide: 'right' as const },
-  { name: 'New York', count: '10+', coordinates: [-74.006, 40.7128] as [number, number], size: 8, labelSide: 'left' as const },
+  { name: 'Seattle', count: '15+', coordinates: [-122.33, 47.61] as [number, number], size: 8, labelPos: 'right' as const },
+  { name: 'Bay Area', count: '40+', coordinates: [-122.42, 37.77] as [number, number], size: 12, labelPos: 'right' as const },
+  { name: 'Los Angeles', count: '60+', coordinates: [-118.24, 34.05] as [number, number], size: 15, labelPos: 'right' as const },
+  { name: 'San Diego', count: '30+', coordinates: [-117.16, 32.72] as [number, number], size: 10, labelPos: 'left' as const },
 ];
 
-// California FIPS code for highlighting
-const CALIFORNIA_FIPS = '06';
+const STATES: Record<string, boolean> = {
+  '06': true,  // California
+  '53': false, // Washington
+  '41': false, // Oregon
+  '32': false, // Nevada
+  '04': false, // Arizona
+  '16': false, // Idaho
+  '49': false, // Utah
+  '30': false, // Montana (fills top)
+};
 
 export function CommunityMap() {
   return (
-    <div className="w-full max-w-lg mx-auto">
+    <div className="w-full">
+      <style>{`
+        @keyframes pulse-ring {
+          0% { r: var(--base-r); opacity: 0.18; }
+          50% { r: var(--pulse-r); opacity: 0.06; }
+          100% { r: var(--base-r); opacity: 0.18; }
+        }
+        .marker-pulse {
+          animation: pulse-ring 3s ease-in-out infinite;
+        }
+      `}</style>
       <ComposableMap
-        projection="geoAlbersUsa"
-        width={500}
-        height={320}
+        projection="geoMercator"
+        projectionConfig={{
+          center: [-119.5, 41],
+          scale: 1200,
+        }}
+        width={380}
+        height={520}
         style={{ width: '100%', height: 'auto' }}
       >
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
-            geographies.map((geo) => {
-              const isCalifornia = geo.id === CALIFORNIA_FIPS;
-              return (
-                <Geography
-                  key={geo.rpiKey || geo.id}
-                  geography={geo}
-                  fill={isCalifornia ? 'rgba(96, 96, 144, 0.12)' : 'rgba(96, 96, 144, 0.04)'}
-                  stroke="rgba(96, 96, 144, 0.1)"
-                  strokeWidth={0.5}
-                  style={{
-                    default: { outline: 'none' },
-                    hover: { outline: 'none' },
-                    pressed: { outline: 'none' },
-                  }}
-                />
-              );
-            })
+            geographies
+              .filter((geo) => geo.id in STATES)
+              .map((geo) => {
+                const highlight = STATES[geo.id];
+                return (
+                  <Geography
+                    key={geo.rpiKey || geo.id}
+                    geography={geo}
+                    fill={highlight ? 'rgba(96, 96, 144, 0.10)' : 'rgba(96, 96, 144, 0.04)'}
+                    stroke="rgba(96, 96, 144, 0.15)"
+                    strokeWidth={0.5}
+                    style={{
+                      default: { outline: 'none' },
+                      hover: { outline: 'none' },
+                      pressed: { outline: 'none' },
+                    }}
+                  />
+                );
+              })
           }
         </Geographies>
 
-        {markers.map((marker) => {
-          const isLeft = marker.labelSide === 'left';
-          const xOffset = isLeft ? -(marker.size + 6) : marker.size + 6;
-          const anchor = isLeft ? 'end' : 'start';
-
+        {markers.map((marker, i) => {
+          const isLeft = marker.labelPos === 'left';
           return (
             <Marker key={marker.name} coordinates={marker.coordinates}>
-              {/* Outer glow */}
-              <circle r={marker.size} fill="rgba(96, 96, 144, 0.15)" />
-              {/* Inner dot */}
-              <circle r={marker.size * 0.4} fill="#606090" />
-              {/* City name label */}
+              {/* Animated pulse ring */}
+              <circle
+                className="marker-pulse"
+                r={marker.size}
+                fill="rgba(96, 96, 144, 0.18)"
+                style={{
+                  '--base-r': marker.size,
+                  '--pulse-r': marker.size * 1.6,
+                  animationDelay: `${i * 0.7}s`,
+                } as React.CSSProperties}
+              />
+              {/* Solid dot */}
+              <circle r={marker.size * 0.38} fill="#606090" />
+              {/* Label */}
               <text
-                textAnchor={anchor}
-                x={xOffset}
-                y={-4}
+                textAnchor={isLeft ? 'end' : 'start'}
+                x={isLeft ? -(marker.size + 5) : marker.size + 5}
+                y={-2}
                 style={{
                   fontFamily: 'Outfit, sans-serif',
                   fontSize: '11px',
@@ -71,11 +100,10 @@ export function CommunityMap() {
               >
                 {marker.name}
               </text>
-              {/* Doula count sub-label */}
               <text
-                textAnchor={anchor}
-                x={xOffset}
-                y={9}
+                textAnchor={isLeft ? 'end' : 'start'}
+                x={isLeft ? -(marker.size + 5) : marker.size + 5}
+                y={10}
                 style={{
                   fontFamily: 'Outfit, sans-serif',
                   fontSize: '9px',

@@ -7,16 +7,25 @@ export function Hero() {
     <section className="relative min-h-screen flex items-end">
       {/* Background image with warm gradient overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-[right_top] bg-no-repeat"
         style={{ backgroundImage: "url('/images/hero.jpg')" }}
       >
+        {/* Left-to-right darken for text readability */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(135deg, rgba(12,34,49,0.8), rgba(26,51,70,0.75))',
+            background: 'linear-gradient(to right, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.15) 100%)',
           }}
         />
       </div>
+
+      {/* Bottom fade to white — outside image div, covers full section bottom */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-48 z-[1]"
+        style={{
+          background: 'linear-gradient(to bottom, transparent, white)',
+        }}
+      />
 
       {/* Content — left aligned */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pb-24 md:pb-32 lg:pb-40">

@@ -55,7 +55,7 @@ export function Counter({ target, label, suffix = '+', numberClassName = 'text-a
   }, [hasStarted, target]);
 
   return (
-    <div ref={ref} className="text-center">
+    <div ref={ref} className="bg-white/10 rounded-2xl py-8 px-4 text-center backdrop-blur-sm">
       <div className={`font-outfit text-4xl md:text-5xl font-semibold ${numberClassName}`}>
         {count}
         {suffix}
