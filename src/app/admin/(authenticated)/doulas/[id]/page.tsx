@@ -13,8 +13,11 @@ import {
   STATUS_LABELS,
   STATUS_COLORS,
   CERT_TYPE_LABELS,
+  CREDENTIAL_TYPES,
+  CREDENTIAL_LABELS,
+  CREDENTIAL_COLORS,
 } from '@/lib/constants';
-import type { DoulaStatus, CertificateType } from '@/lib/constants';
+import type { DoulaStatus, CertificateType, CredentialType } from '@/lib/constants';
 import { ExamEditDialog, type ExamRecord } from '@/components/admin/exam-edit-dialog';
 
 export default function EditDoulaPage() {
@@ -26,6 +29,8 @@ export default function EditDoulaPage() {
   const [exams, setExams] = useState<ExamRecord[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [certs, setCerts] = useState<Record<string, any>[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [credentials, setCredentials] = useState<Record<string, any>[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -50,6 +55,13 @@ export default function EditDoulaPage() {
       .eq('doula_id', params.id)
       .order('issued_date', { ascending: false });
     setCerts(c ?? []);
+
+    const { data: cr } = await supabase
+      .from('doula_credentials')
+      .select('*')
+      .eq('doula_id', params.id)
+      .order('credential_type');
+    setCredentials(cr ?? []);
   }
 
   useEffect(() => {
@@ -113,6 +125,87 @@ export default function EditDoulaPage() {
           {STATUS_LABELS[doula.status as DoulaStatus]}
         </Badge>
       </div>
+
+      {/* Credentials */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <CardTitle>Credentials</CardTitle>
+            <select
+              className="border rounded-md px-2 py-1 text-sm"
+              onChange={async (e) => {
+                const type = e.target.value;
+                if (!type) return;
+                // Check if credential already exists
+                if (credentials.some((c) => c.credential_type === type)) {
+                  alert('This credential already exists for this doula.');
+                  e.target.value = '';
+                  return;
+                }
+                const isIbclc = type === 'ibclc_training';
+                await supabase.from('doula_credentials').insert({
+                  doula_id: params.id,
+                  credential_type: type,
+                  status: 'certified_active',
+                  certification_date: new Date().toISOString().split('T')[0],
+                  expiration_date: isIbclc ? null : new Date(
+                    new Date().setFullYear(new Date().getFullYear() + 3)
+                  ).toISOString().split('T')[0],
+                });
+                reloadData();
+                e.target.value = '';
+              }}
+              defaultValue=""
+            >
+              <option value="" disabled>+ Add Credential</option>
+              {CREDENTIAL_TYPES.map((t) => (
+                <option key={t} value={t}>{CREDENTIAL_LABELS[t]}</option>
+              ))}
+            </select>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {credentials.length === 0 ? (
+            <p className="text-muted-foreground text-sm">No credentials assigned.</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {credentials.map((cred) => (
+                <div key={cred.id} className="border rounded-lg p-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Badge className={CREDENTIAL_COLORS[cred.credential_type as CredentialType]}>
+                      {CREDENTIAL_LABELS[cred.credential_type as CredentialType]}
+                    </Badge>
+                    <Badge className={STATUS_COLORS[cred.status as DoulaStatus]}>
+                      {STATUS_LABELS[cred.status as DoulaStatus]}
+                    </Badge>
+                  </div>
+                  <div className="text-xs text-muted-foreground space-y-1">
+                    <p>Certified: {cred.certification_date ?? '—'}</p>
+                    <p>Expires: {cred.expiration_date ?? 'Permanent'}</p>
+                  </div>
+                  <div className="flex gap-1">
+                    <select
+                      className="border rounded px-1 py-0.5 text-xs flex-1"
+                      value={cred.status}
+                      onChange={async (e) => {
+                        await supabase
+                          .from('doula_credentials')
+                          .update({ status: e.target.value, updated_at: new Date().toISOString() })
+                          .eq('id', cred.id);
+                        reloadData();
+                      }}
+                    >
+                      {DOULA_STATUSES.map((s) => (
+                        <option key={s} value={s}>{STATUS_LABELS[s]}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Edit Form */}
       <Card>
