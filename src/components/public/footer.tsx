@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const quickLinks = [
   { label: 'About Us', href: '/about-us' },
@@ -17,17 +18,19 @@ const doulaLinks = [
 export function Footer() {
   return (
     <footer className="bg-ada-navy text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* About */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <img
+              <Image
                 src="/images/ada-logo.svg"
                 alt="Asian Doula Alliance Logo"
+                width={40}
+                height={40}
                 className="h-10 w-10"
               />
-              <span className="font-poppins font-semibold text-sm tracking-wide">
+              <span className="font-outfit font-semibold text-sm tracking-wide">
                 ASIAN DOULA ALLIANCE
               </span>
             </div>
@@ -39,7 +42,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-poppins font-semibold text-sm tracking-wider uppercase mb-4">
+            <h3 className="font-outfit font-semibold text-sm tracking-wider uppercase mb-4">
               Quick Links
             </h3>
             <ul className="space-y-2.5">
@@ -58,7 +61,7 @@ export function Footer() {
 
           {/* Become a Doula */}
           <div>
-            <h3 className="font-poppins font-semibold text-sm tracking-wider uppercase mb-4">
+            <h3 className="font-outfit font-semibold text-sm tracking-wider uppercase mb-4">
               Become a Doula
             </h3>
             <ul className="space-y-2.5">
@@ -77,7 +80,7 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-poppins font-semibold text-sm tracking-wider uppercase mb-4">
+            <h3 className="font-outfit font-semibold text-sm tracking-wider uppercase mb-4">
               Contact
             </h3>
             <ul className="space-y-2.5 text-white/60 text-sm">

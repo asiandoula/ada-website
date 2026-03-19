@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
 const aboutLinks = [
@@ -104,12 +105,14 @@ export function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0">
-            <img
+            <Image
               src="/images/ada-logo.svg"
               alt="Asian Doula Alliance Logo"
+              width={48}
+              height={48}
               className="h-10 w-10 lg:h-12 lg:w-12"
             />
-            <span className="text-white font-poppins font-semibold text-sm lg:text-base tracking-wide hidden sm:block">
+            <span className="text-white font-outfit font-semibold text-sm lg:text-base tracking-wide hidden sm:block">
               ASIAN DOULA ALLIANCE
             </span>
           </Link>
@@ -124,9 +127,9 @@ export function Header() {
           <div className="hidden lg:block">
             <Link
               href="/become-a-doula/steps-to-certification"
-              className="inline-flex items-center px-5 py-2.5 bg-ada-purple text-white text-sm font-semibold rounded-lg hover:bg-ada-purple-accent transition-colors"
+              className="inline-flex items-center px-5 py-2.5 bg-ada-purple text-white text-sm font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
             >
-              GET CERTIFIED
+              Get Certified →
             </Link>
           </div>
 
@@ -142,8 +145,7 @@ export function Header() {
       </div>
 
       {/* Mobile overlay */}
-      {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 bg-ada-navy z-40">
+      <div className={`lg:hidden fixed inset-0 top-16 bg-ada-navy z-40 transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <nav className="px-6 py-6 space-y-1 overflow-y-auto max-h-[calc(100vh-4rem)]">
             <MobileAccordion
               label="About Us"
@@ -162,15 +164,14 @@ export function Header() {
             <div className="pt-6">
               <Link
                 href="/become-a-doula/steps-to-certification"
-                className="block w-full text-center px-5 py-3 bg-ada-purple text-white font-semibold rounded-lg hover:bg-ada-purple-accent transition-colors"
+                className="block w-full text-center px-5 py-3 bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
-                GET CERTIFIED
+                Get Certified →
               </Link>
             </div>
           </nav>
-        </div>
-      )}
+      </div>
     </header>
   );
 }
