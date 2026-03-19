@@ -20,7 +20,7 @@ export function SidebarNav({ items }: SidebarNavProps) {
             <Link
               key={item.href}
               href={item.href}
-              className={`block px-4 py-2.5 text-sm rounded-r-md border-l-3 transition-colors ${
+              className={`block px-4 py-2.5 text-sm rounded-r-md border-l-4 transition-colors ${
                 isActive
                   ? 'border-ada-purple bg-ada-purple/5 text-ada-purple font-semibold'
                   : 'border-transparent text-gray-600 hover:text-ada-purple hover:bg-gray-50'

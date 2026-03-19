@@ -30,7 +30,9 @@ export function Steps({ steps }: StepsProps) {
             className="border border-gray-200 rounded-xl overflow-hidden transition-shadow hover:shadow-sm"
           >
             <button
+              type="button"
               onClick={() => toggle(index)}
+              aria-expanded={isOpen}
               className="w-full flex items-center gap-4 px-5 py-4 text-left"
             >
               <span className="flex items-center justify-center w-10 h-10 rounded-full bg-ada-purple text-white font-poppins font-bold text-sm shrink-0">
@@ -51,7 +53,7 @@ export function Steps({ steps }: StepsProps) {
               }`}
             >
               <div className="overflow-hidden">
-                <div className="px-5 pb-5 pl-19 text-gray-600 text-sm leading-relaxed">
+                <div className="px-5 pb-5 pl-14 text-gray-600 text-sm leading-relaxed">
                   {step.description}
                 </div>
               </div>
