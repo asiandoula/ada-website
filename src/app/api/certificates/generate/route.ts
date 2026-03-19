@@ -106,5 +106,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Auto-sync doula's expiration_date and certification_date
+  await supabase
+    .from('doulas')
+    .update({
+      certification_date: issuedDate,
+      expiration_date: expirationDate,
+      status: 'certified_active',
+    })
+    .eq('id', doula_id);
+
   return NextResponse.json({ certificate: cert, pdf_url: publicUrl });
 }

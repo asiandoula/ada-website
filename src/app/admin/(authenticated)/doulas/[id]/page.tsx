@@ -209,6 +209,56 @@ export default function EditDoulaPage() {
         </CardContent>
       </Card>
 
+      {/* Renew Certification */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Certification Renewal</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-between">
+            <div className="text-sm space-y-1">
+              <p>
+                <span className="text-muted-foreground">Current Expiration:</span>{' '}
+                <span className={`font-medium ${doula.expiration_date && new Date(doula.expiration_date) < new Date() ? 'text-red-600' : ''}`}>
+                  {doula.expiration_date ?? 'Not set'}
+                </span>
+              </p>
+              <p className="text-muted-foreground text-xs">
+                Generates a new certificate and extends expiration by 3 years from today.
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                className="bg-ada-purple/10 text-ada-purple border-ada-purple/20 hover:bg-ada-purple/20"
+                onClick={async () => {
+                  if (!confirm('Renew certification? This will generate a new Postpartum Doula certificate and extend expiration by 3 years.')) return;
+                  setLoading(true);
+                  const res = await fetch('/api/certificates/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      doula_id: params.id,
+                      certificate_type: 'postpartum',
+                    }),
+                  });
+                  if (res.ok) {
+                    reloadData();
+                  } else {
+                    const data = await res.json();
+                    alert(data.error || 'Renewal failed');
+                  }
+                  setLoading(false);
+                }}
+                disabled={loading}
+              >
+                {loading ? 'Processing...' : 'Renew (Postpartum)'}
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Exam Results */}
       <Card>
         <CardHeader>
