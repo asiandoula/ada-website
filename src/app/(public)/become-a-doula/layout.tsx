@@ -11,9 +11,9 @@ const navItems = [
 
 export default function BecomeADoulaLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row gap-8 pt-28 md:pt-32">
+    <div className="max-w-6xl mx-auto px-4 py-12 flex flex-col md:flex-row gap-8 pt-28 md:pt-32">
       <aside className="md:w-64 shrink-0">
-        <h2 className="font-poppins text-xl font-semibold mb-4 text-ada-navy">Become a Doula</h2>
+        <h2 className="font-dm-serif text-xl mb-4 text-ada-navy">Become a Doula</h2>
         <SidebarNav items={navItems} />
       </aside>
       <div className="flex-1 min-w-0">{children}</div>

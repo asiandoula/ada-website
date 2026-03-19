@@ -27,7 +27,7 @@ export function Steps({ steps }: StepsProps) {
         return (
           <div
             key={step.number}
-            className="border border-gray-200 rounded-xl overflow-hidden transition-shadow hover:shadow-sm"
+            className="bg-ada-lavender rounded-xl overflow-hidden transition-shadow hover:shadow-sm"
           >
             <button
               type="button"
@@ -35,10 +35,10 @@ export function Steps({ steps }: StepsProps) {
               aria-expanded={isOpen}
               className="w-full flex items-center gap-4 px-5 py-4 text-left"
             >
-              <span className="flex items-center justify-center w-10 h-10 rounded-full bg-ada-purple text-white font-poppins font-bold text-sm shrink-0">
+              <span className="font-outfit text-xl font-semibold text-ada-purple min-w-[2rem]">
                 {step.number}
               </span>
-              <span className="flex-1 font-poppins font-semibold text-ada-navy">
+              <span className="flex-1 font-outfit font-semibold text-ada-navy">
                 {step.title}
               </span>
               <ChevronDown

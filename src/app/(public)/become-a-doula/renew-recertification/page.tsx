@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { ScrollAnimate } from '@/components/public/scroll-animate';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -54,70 +53,62 @@ export default function RenewRecertificationPage() {
         <span className="text-ada-navy font-medium">Renew &amp; Recertification</span>
       </nav>
 
-      <ScrollAnimate animation="fade-up">
-        <h1 className="font-poppins text-3xl md:text-4xl font-bold text-ada-navy mb-4">
-          Renew &amp; Recertification
-        </h1>
-        <p className="text-gray-600 text-lg mb-10 max-w-2xl">
-          ADA certifications are valid for 3 years. Keep your credential current to maintain your
-          standing as a certified postpartum doula and continue providing care recognized by
-          insurance partners.
-        </p>
-      </ScrollAnimate>
+      <h1 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-4">
+        Renew &amp; Recertification
+      </h1>
+      <p className="text-gray-600 text-lg mb-10 max-w-2xl">
+        ADA certifications are valid for 3 years. Keep your credential current to maintain your
+        standing as a certified postpartum doula and continue providing care recognized by
+        insurance partners.
+      </p>
 
       {/* Key info card */}
-      <ScrollAnimate animation="fade-up" delay={100}>
-        <div className="p-6 bg-ada-purple/5 rounded-2xl mb-10 flex flex-col sm:flex-row gap-6">
-          <div className="flex-1">
-            <h3 className="font-poppins font-semibold text-ada-navy mb-1">Certificate Validity</h3>
-            <p className="text-3xl font-poppins font-bold text-ada-purple">3 Years</p>
-          </div>
-          <div className="flex-1">
-            <h3 className="font-poppins font-semibold text-ada-navy mb-1">Insurance Recognition</h3>
-            <p className="text-gray-600 text-sm">
-              Medi-Cal, Kaiser, Cigna, IEHP, Carrot Fertility, Progyny
-            </p>
-          </div>
+      <div className="p-6 bg-ada-lavender rounded-2xl mb-10 flex flex-col sm:flex-row gap-6">
+        <div className="flex-1">
+          <h3 className="font-outfit font-semibold text-ada-navy mb-1">Certificate Validity</h3>
+          <p className="text-3xl font-outfit font-bold text-ada-purple">3 Years</p>
         </div>
-      </ScrollAnimate>
+        <div className="flex-1">
+          <h3 className="font-outfit font-semibold text-ada-navy mb-1">Insurance Recognition</h3>
+          <p className="text-gray-600 text-sm">
+            Medi-Cal, Kaiser, Cigna, IEHP, Carrot Fertility, Progyny
+          </p>
+        </div>
+      </div>
 
       {/* Renewal Steps */}
-      <ScrollAnimate animation="fade-up" delay={200}>
-        <h2 className="font-poppins text-2xl font-bold text-ada-navy mb-6">
-          How to Renew Your Certification
-        </h2>
-        <div className="space-y-6 mb-12">
-          {renewalSteps.map((item) => (
-            <div key={item.step} className="flex gap-4">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-ada-purple text-white font-poppins font-bold text-sm shrink-0">
-                {item.step}
-              </div>
-              <div>
-                <h3 className="font-poppins font-semibold text-ada-navy mb-1">{item.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
-              </div>
+      <h2 className="font-dm-serif text-2xl text-ada-navy mb-6">
+        How to Renew Your Certification
+      </h2>
+      <div className="space-y-6 mb-12">
+        {renewalSteps.map((item) => (
+          <div key={item.step} className="flex gap-4">
+            <span className="font-outfit text-xl font-semibold text-ada-purple min-w-[2rem]">
+              {item.step}
+            </span>
+            <div>
+              <h3 className="font-outfit font-semibold text-ada-navy mb-1">{item.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
             </div>
-          ))}
-        </div>
-      </ScrollAnimate>
+          </div>
+        ))}
+      </div>
 
       {/* CTA */}
-      <ScrollAnimate animation="fade-up" delay={300}>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link
-            href="/become-a-doula/doula-verification"
-            className="inline-flex items-center justify-center px-6 py-3 bg-ada-purple text-white font-semibold rounded-lg hover:bg-ada-purple-accent transition-colors"
-          >
-            Check Certification Status
-          </Link>
-          <a
-            href="mailto:contact@asiandoula.org"
-            className="inline-flex items-center justify-center px-6 py-3 border-2 border-ada-purple text-ada-purple font-semibold rounded-lg hover:bg-ada-purple/5 transition-colors"
-          >
-            Contact Us for Renewal
-          </a>
-        </div>
-      </ScrollAnimate>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <Link
+          href="/become-a-doula/doula-verification"
+          className="inline-flex items-center justify-center px-6 py-3 bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
+        >
+          Check Certification Status
+        </Link>
+        <a
+          href="mailto:contact@asiandoula.org"
+          className="inline-flex items-center justify-center px-6 py-3 border-2 border-ada-purple text-ada-purple font-medium rounded-full hover:bg-ada-lavender transition-colors"
+        >
+          Contact Us for Renewal
+        </a>
+      </div>
     </div>
   );
 }

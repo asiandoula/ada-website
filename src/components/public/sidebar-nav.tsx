@@ -20,9 +20,9 @@ export function SidebarNav({ items }: SidebarNavProps) {
             <Link
               key={item.href}
               href={item.href}
-              className={`block px-4 py-2.5 text-sm rounded-r-md border-l-4 transition-colors ${
+              className={`block px-4 py-2.5 text-sm rounded-r-md border-l-2 transition-colors ${
                 isActive
-                  ? 'border-ada-purple bg-ada-purple/5 text-ada-purple font-semibold'
+                  ? 'border-ada-purple bg-ada-lavender text-ada-purple font-medium'
                   : 'border-transparent text-gray-600 hover:text-ada-purple hover:bg-gray-50'
               }`}
             >
@@ -42,7 +42,7 @@ export function SidebarNav({ items }: SidebarNavProps) {
               href={item.href}
               className={`whitespace-nowrap px-3 py-2 text-sm rounded-full border transition-colors ${
                 isActive
-                  ? 'border-ada-purple bg-ada-purple text-white font-semibold'
+                  ? 'border-ada-purple bg-ada-purple text-white font-medium'
                   : 'border-gray-200 text-gray-600 hover:border-ada-purple hover:text-ada-purple'
               }`}
             >

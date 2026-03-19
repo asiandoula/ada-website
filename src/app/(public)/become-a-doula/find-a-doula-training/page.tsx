@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { ScrollAnimate } from '@/components/public/scroll-animate';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -67,91 +66,83 @@ export default function FindADoulaTrainingPage() {
         <span className="text-ada-navy font-medium">Find a Doula Training</span>
       </nav>
 
-      <ScrollAnimate animation="fade-up">
-        <h1 className="font-poppins text-3xl md:text-4xl font-bold text-ada-navy mb-4">
-          Find a Doula Training
-        </h1>
-        <p className="text-gray-600 text-lg mb-10 max-w-2xl">
-          The first step to becoming a certified doula is completing an ADA-approved training
-          program. Find a program that fits your schedule, language, and learning style.
-        </p>
-      </ScrollAnimate>
+      <h1 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-4">
+        Find a Doula Training
+      </h1>
+      <p className="text-gray-600 text-lg mb-10 max-w-2xl">
+        The first step to becoming a certified doula is completing an ADA-approved training
+        program. Find a program that fits your schedule, language, and learning style.
+      </p>
 
       {/* What to look for */}
-      <ScrollAnimate animation="fade-up" delay={100}>
-        <h2 className="font-poppins text-2xl font-bold text-ada-navy mb-6">
-          What to Look for in a Training Program
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-          {lookForItems.map((item) => (
-            <div key={item.title} className="p-5 border border-gray-200 rounded-xl">
-              <h3 className="font-poppins font-semibold text-ada-navy mb-2 text-sm">
-                {item.title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
-            </div>
-          ))}
-        </div>
-      </ScrollAnimate>
+      <h2 className="font-dm-serif text-2xl text-ada-navy mb-6">
+        What to Look for in a Training Program
+      </h2>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+        {lookForItems.map((item) => (
+          <div key={item.title} className="p-5 bg-ada-lavender rounded-xl">
+            <h3 className="font-outfit font-semibold text-ada-navy mb-2 text-sm">
+              {item.title}
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+          </div>
+        ))}
+      </div>
 
       {/* ADA-Approved Providers */}
-      <ScrollAnimate animation="fade-up" delay={200}>
-        <h2 className="font-poppins text-2xl font-bold text-ada-navy mb-6">
-          ADA-Approved Training Providers
-        </h2>
-        <div className="space-y-6 mb-12">
-          {trainingProviders.map((provider) => (
-            <div
-              key={provider.name}
-              className="p-6 border border-gray-200 rounded-2xl hover:shadow-md transition-shadow"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
-                <div>
-                  <h3 className="font-poppins text-lg font-semibold text-ada-navy">
-                    {provider.name}
-                  </h3>
-                  <p className="text-gray-500 text-sm">{provider.location}</p>
-                </div>
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold shrink-0">
-                  ADA Approved
-                </span>
+      <h2 className="font-dm-serif text-2xl text-ada-navy mb-6">
+        ADA-Approved Training Providers
+      </h2>
+      <div className="space-y-6 mb-12">
+        {trainingProviders.map((provider) => (
+          <div
+            key={provider.name}
+            className="p-6 bg-ada-lavender rounded-2xl hover:shadow-md transition-shadow"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+              <div>
+                <h3 className="font-outfit text-lg font-semibold text-ada-navy">
+                  {provider.name}
+                </h3>
+                <p className="text-gray-500 text-sm">{provider.location}</p>
               </div>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">{provider.description}</p>
-              <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-                <span>
-                  <strong className="text-ada-navy">Duration:</strong> {provider.duration}
-                </span>
-                <span>
-                  <strong className="text-ada-navy">Languages:</strong>{' '}
-                  {provider.languages.join(', ')}
-                </span>
-              </div>
-              <p className="text-sm text-gray-500 mt-2">
-                <strong className="text-ada-navy">Address:</strong> {provider.address}
-              </p>
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-medium shrink-0">
+                ADA Approved
+              </span>
             </div>
-          ))}
-        </div>
-      </ScrollAnimate>
+            <p className="text-gray-600 text-sm mb-4 leading-relaxed">{provider.description}</p>
+            <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+              <span>
+                <strong className="text-ada-navy">Duration:</strong> {provider.duration}
+              </span>
+              <span>
+                <strong className="text-ada-navy">Languages:</strong>{' '}
+                {provider.languages.join(', ')}
+              </span>
+            </div>
+            <p className="text-sm text-gray-500 mt-2">
+              <strong className="text-ada-navy">Address:</strong> {provider.address}
+            </p>
+          </div>
+        ))}
+      </div>
 
       {/* Interested in becoming a provider */}
-      <ScrollAnimate animation="fade-up" delay={300}>
-        <div className="p-8 bg-ada-purple/5 rounded-2xl text-center">
-          <h3 className="font-poppins text-xl font-semibold text-ada-navy mb-3">
-            Interested in Becoming an Approved Training Provider?
-          </h3>
-          <p className="text-gray-600 mb-6 max-w-lg mx-auto">
-            If you operate a doula training program and would like to apply for ADA approval,
-            please contact us for more information on our approval process.
-          </p>
-          <a
-            href="mailto:contact@asiandoula.org"
-            className="inline-flex items-center px-6 py-3 bg-ada-purple text-white font-semibold rounded-lg hover:bg-ada-purple-accent transition-colors"
-          >
-            Contact ADA
-          </a>
-        </div>
-      </ScrollAnimate>
+      <div className="p-8 bg-ada-lavender rounded-2xl text-center">
+        <h3 className="font-dm-serif text-xl text-ada-navy mb-3">
+          Interested in Becoming an Approved Training Provider?
+        </h3>
+        <p className="text-gray-600 mb-6 max-w-lg mx-auto">
+          If you operate a doula training program and would like to apply for ADA approval,
+          please contact us for more information on our approval process.
+        </p>
+        <a
+          href="mailto:contact@asiandoula.org"
+          className="inline-flex items-center px-6 py-3 bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
+        >
+          Contact ADA
+        </a>
+      </div>
     </div>
   );
 }

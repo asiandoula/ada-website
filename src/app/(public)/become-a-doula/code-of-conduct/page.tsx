@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { ScrollAnimate } from '@/components/public/scroll-animate';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -90,24 +89,22 @@ const ethicalGuidelines = [
 function Section({
   title,
   items,
-  delay,
 }: {
   title: string;
   items: { title: string; description: string }[];
-  delay: number;
 }) {
   return (
-    <ScrollAnimate animation="fade-up" delay={delay}>
-      <h2 className="font-poppins text-2xl font-bold text-ada-navy mb-6">{title}</h2>
+    <>
+      <h2 className="font-dm-serif text-2xl text-ada-navy mb-6">{title}</h2>
       <div className="space-y-4 mb-12">
         {items.map((item) => (
-          <div key={item.title} className="p-5 border border-gray-200 rounded-xl">
-            <h3 className="font-poppins font-semibold text-ada-navy mb-2">{item.title}</h3>
+          <div key={item.title} className="p-5 bg-ada-lavender rounded-xl">
+            <h3 className="font-outfit font-semibold text-ada-navy mb-2">{item.title}</h3>
             <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
           </div>
         ))}
       </div>
-    </ScrollAnimate>
+    </>
   );
 }
 
@@ -130,55 +127,48 @@ export default function CodeOfConductPage() {
         <span className="text-ada-navy font-medium">Code of Conduct</span>
       </nav>
 
-      <ScrollAnimate animation="fade-up">
-        <h1 className="font-poppins text-3xl md:text-4xl font-bold text-ada-navy mb-4">
-          Code of Conduct
-        </h1>
-        <p className="text-gray-600 text-lg mb-10 max-w-2xl">
-          As an ADA-certified doula, you are expected to uphold the highest standards of
-          professional and ethical conduct. This Code of Conduct outlines the principles that
-          guide our certified doulas in providing exceptional, culturally sensitive care.
-        </p>
-      </ScrollAnimate>
+      <h1 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-4">
+        Code of Conduct
+      </h1>
+      <p className="text-gray-600 text-lg mb-10 max-w-2xl">
+        As an ADA-certified doula, you are expected to uphold the highest standards of
+        professional and ethical conduct. This Code of Conduct outlines the principles that
+        guide our certified doulas in providing exceptional, culturally sensitive care.
+      </p>
 
       <Section
         title="Professional Standards"
         items={professionalStandards}
-        delay={100}
       />
 
       <Section
         title="Client Care Principles"
         items={clientCarePrinciples}
-        delay={200}
       />
 
       <Section
         title="Ethical Guidelines"
         items={ethicalGuidelines}
-        delay={300}
       />
 
       {/* Enforcement note */}
-      <ScrollAnimate animation="fade-up" delay={400}>
-        <div className="p-6 bg-ada-navy/5 rounded-2xl">
-          <h3 className="font-poppins font-semibold text-ada-navy mb-2">
-            Enforcement
-          </h3>
-          <p className="text-gray-600 text-sm leading-relaxed">
-            Violations of this Code of Conduct may result in disciplinary action, including
-            suspension or revocation of ADA certification. If you become aware of a potential
-            violation, please report it to the Asian Doula Alliance at{' '}
-            <a
-              href="mailto:contact@asiandoula.org"
-              className="text-ada-purple hover:underline"
-            >
-              contact@asiandoula.org
-            </a>
-            . All reports will be reviewed confidentially.
-          </p>
-        </div>
-      </ScrollAnimate>
+      <div className="p-6 bg-ada-navy/5 rounded-2xl">
+        <h3 className="font-outfit font-semibold text-ada-navy mb-2">
+          Enforcement
+        </h3>
+        <p className="text-gray-600 text-sm leading-relaxed">
+          Violations of this Code of Conduct may result in disciplinary action, including
+          suspension or revocation of ADA certification. If you become aware of a potential
+          violation, please report it to the Asian Doula Alliance at{' '}
+          <a
+            href="mailto:contact@asiandoula.org"
+            className="text-ada-purple hover:underline"
+          >
+            contact@asiandoula.org
+          </a>
+          . All reports will be reviewed confidentially.
+        </p>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { Steps } from '@/components/public/steps';
-import { ScrollAnimate } from '@/components/public/scroll-animate';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -30,13 +29,6 @@ const certSteps = [
   },
 ];
 
-const values = [
-  { label: 'Compassion', color: 'bg-ada-purple/10 text-ada-purple' },
-  { label: 'Integrity', color: 'bg-ada-cyan/10 text-ada-cyan' },
-  { label: 'Excellence', color: 'bg-ada-purple-accent/10 text-ada-purple-accent' },
-  { label: 'Knowledge', color: 'bg-ada-navy/10 text-ada-navy' },
-];
-
 export default function StepsToCertificationPage() {
   return (
     <div>
@@ -49,53 +41,33 @@ export default function StepsToCertificationPage() {
         <span className="text-ada-navy font-medium">Get Certified</span>
       </nav>
 
-      <ScrollAnimate animation="fade-up">
-        <h1 className="font-poppins text-3xl md:text-4xl font-bold text-ada-navy mb-4">
-          Steps to Apply for Certification
-        </h1>
-        <p className="text-gray-600 text-lg mb-8 max-w-2xl">
-          The Asian Doula Alliance certification demonstrates your commitment to providing
-          culturally sensitive, high-quality postpartum care. Follow these steps to earn your
-          credential.
-        </p>
-      </ScrollAnimate>
-
-      {/* Value badges */}
-      <ScrollAnimate animation="fade-up" delay={100}>
-        <div className="flex flex-wrap gap-3 mb-10">
-          {values.map((v) => (
-            <span
-              key={v.label}
-              className={`px-4 py-2 rounded-full text-sm font-semibold ${v.color}`}
-            >
-              {v.label}
-            </span>
-          ))}
-        </div>
-      </ScrollAnimate>
+      <h1 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-4">
+        Steps to Apply for Certification
+      </h1>
+      <p className="text-gray-600 text-lg mb-8 max-w-2xl">
+        The Asian Doula Alliance certification demonstrates your commitment to providing
+        culturally sensitive, high-quality postpartum care. Follow these steps to earn your
+        credential.
+      </p>
 
       {/* Steps */}
-      <ScrollAnimate animation="fade-up" delay={200}>
-        <Steps steps={certSteps} />
-      </ScrollAnimate>
+      <Steps steps={certSteps} />
 
       {/* CTA */}
-      <ScrollAnimate animation="fade-up" delay={300}>
-        <div className="mt-12 p-8 bg-ada-purple/5 rounded-2xl text-center">
-          <h3 className="font-poppins text-xl font-semibold text-ada-navy mb-3">
-            Ready to Get Started?
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Find an ADA-approved training program near you and begin your journey.
-          </p>
-          <Link
-            href="/become-a-doula/find-a-doula-training"
-            className="inline-flex items-center px-6 py-3 bg-ada-purple text-white font-semibold rounded-lg hover:bg-ada-purple-accent transition-colors"
-          >
-            Find a Training Program
-          </Link>
-        </div>
-      </ScrollAnimate>
+      <div className="mt-12 p-8 bg-ada-lavender rounded-2xl text-center">
+        <h3 className="font-dm-serif text-xl text-ada-navy mb-3">
+          Ready to Get Started?
+        </h3>
+        <p className="text-gray-600 mb-6">
+          Find an ADA-approved training program near you and begin your journey.
+        </p>
+        <Link
+          href="/become-a-doula/find-a-doula-training"
+          className="inline-flex items-center px-6 py-3 bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
+        >
+          Find a Training Program
+        </Link>
+      </div>
     </div>
   );
 }

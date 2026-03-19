@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { Accordion } from '@/components/public/accordion';
-import { ScrollAnimate } from '@/components/public/scroll-animate';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -75,89 +74,81 @@ export default function LicenseAndExamPage() {
         <span className="text-ada-navy font-medium">License and Exam</span>
       </nav>
 
-      <ScrollAnimate animation="fade-up">
-        <h1 className="font-poppins text-3xl md:text-4xl font-bold text-ada-navy mb-4">
-          License and Exam
-        </h1>
-        <p className="text-gray-600 text-lg mb-10 max-w-2xl">
-          The ADA Certification Examination validates your skills and knowledge in postpartum
-          doula care. Here is everything you need to know about the exam.
-        </p>
-      </ScrollAnimate>
+      <h1 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-4">
+        License and Exam
+      </h1>
+      <p className="text-gray-600 text-lg mb-10 max-w-2xl">
+        The ADA Certification Examination validates your skills and knowledge in postpartum
+        doula care. Here is everything you need to know about the exam.
+      </p>
 
       {/* Exam details grid */}
-      <ScrollAnimate animation="fade-up" delay={100}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-          {examDetails.map((detail) => (
-            <div
-              key={detail.label}
-              className="p-5 border border-gray-200 rounded-xl"
-            >
-              <p className="text-sm text-gray-500 mb-1">{detail.label}</p>
-              <p className="font-poppins font-semibold text-ada-navy">{detail.value}</p>
-            </div>
-          ))}
-        </div>
-      </ScrollAnimate>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+        {examDetails.map((detail) => (
+          <div
+            key={detail.label}
+            className="p-5 bg-ada-lavender rounded-xl"
+          >
+            <p className="text-sm text-gray-500 mb-1">{detail.label}</p>
+            <p className="font-outfit font-semibold text-ada-navy">{detail.value}</p>
+          </div>
+        ))}
+      </div>
 
       {/* What to expect */}
-      <ScrollAnimate animation="fade-up" delay={200}>
-        <h2 className="font-poppins text-2xl font-bold text-ada-navy mb-4">
-          What to Expect
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          <div className="p-6 bg-ada-purple/5 rounded-xl">
-            <h3 className="font-poppins font-semibold text-ada-navy mb-2">Written Exam</h3>
-            <ul className="space-y-2 text-gray-600 text-sm">
-              <li className="flex items-start gap-2">
-                <span className="text-ada-purple mt-0.5">&#x2022;</span>
-                60-minute timed examination
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-ada-purple mt-0.5">&#x2022;</span>
-                Multiple choice and short answer questions
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-ada-purple mt-0.5">&#x2022;</span>
-                Covers postpartum care, newborn care, and cultural competency
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-ada-purple mt-0.5">&#x2022;</span>
-                Available in 4 languages
-              </li>
-            </ul>
-          </div>
-          <div className="p-6 bg-ada-purple/5 rounded-xl">
-            <h3 className="font-poppins font-semibold text-ada-navy mb-2">Practical Exam</h3>
-            <ul className="space-y-2 text-gray-600 text-sm">
-              <li className="flex items-start gap-2">
-                <span className="text-ada-purple mt-0.5">&#x2022;</span>
-                30-minute one-on-one evaluation
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-ada-purple mt-0.5">&#x2022;</span>
-                Hands-on demonstration of doula skills
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-ada-purple mt-0.5">&#x2022;</span>
-                Assessed by a certified ADA examiner
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-ada-purple mt-0.5">&#x2022;</span>
-                Evaluates practical competency and communication
-              </li>
-            </ul>
-          </div>
+      <h2 className="font-dm-serif text-2xl text-ada-navy mb-4">
+        What to Expect
+      </h2>
+      <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div className="p-6 bg-ada-lavender rounded-xl">
+          <h3 className="font-outfit font-semibold text-ada-navy mb-2">Written Exam</h3>
+          <ul className="space-y-2 text-gray-600 text-sm">
+            <li className="flex items-start gap-2">
+              <span className="text-ada-purple mt-0.5">&#x2022;</span>
+              60-minute timed examination
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-ada-purple mt-0.5">&#x2022;</span>
+              Multiple choice and short answer questions
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-ada-purple mt-0.5">&#x2022;</span>
+              Covers postpartum care, newborn care, and cultural competency
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-ada-purple mt-0.5">&#x2022;</span>
+              Available in 4 languages
+            </li>
+          </ul>
         </div>
-      </ScrollAnimate>
+        <div className="p-6 bg-ada-lavender rounded-xl">
+          <h3 className="font-outfit font-semibold text-ada-navy mb-2">Practical Exam</h3>
+          <ul className="space-y-2 text-gray-600 text-sm">
+            <li className="flex items-start gap-2">
+              <span className="text-ada-purple mt-0.5">&#x2022;</span>
+              30-minute one-on-one evaluation
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-ada-purple mt-0.5">&#x2022;</span>
+              Hands-on demonstration of doula skills
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-ada-purple mt-0.5">&#x2022;</span>
+              Assessed by a certified ADA examiner
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-ada-purple mt-0.5">&#x2022;</span>
+              Evaluates practical competency and communication
+            </li>
+          </ul>
+        </div>
+      </div>
 
       {/* FAQ */}
-      <ScrollAnimate animation="fade-up" delay={300}>
-        <h2 className="font-poppins text-2xl font-bold text-ada-navy mb-6">
-          Frequently Asked Questions
-        </h2>
-        <Accordion items={faqItems} />
-      </ScrollAnimate>
+      <h2 className="font-dm-serif text-2xl text-ada-navy mb-6">
+        Frequently Asked Questions
+      </h2>
+      <Accordion items={faqItems} />
     </div>
   );
 }
