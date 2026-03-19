@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ScrollAnimate } from '@/components/public/scroll-animate';
 import { Heart, Shield, Star, BookOpen } from 'lucide-react';
 
@@ -144,18 +145,18 @@ export default function MissionValuePage() {
               culturally competent care, we welcome you to the Asian Doula Alliance community.
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <a
+              <Link
                 href="/become-a-doula/steps-to-certification"
                 className="inline-flex items-center px-6 py-3 bg-ada-purple text-white font-semibold rounded-lg hover:bg-ada-purple-accent transition-colors"
               >
                 Get Certified
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/about-us"
                 className="inline-flex items-center px-6 py-3 border-2 border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
               >
                 Learn More About Us
-              </a>
+              </Link>
             </div>
           </ScrollAnimate>
         </div>

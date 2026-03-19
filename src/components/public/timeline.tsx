@@ -23,7 +23,7 @@ export function Timeline({ items }: TimelineProps) {
           const isLeft = index % 2 === 0;
           return (
             <ScrollAnimate
-              key={index}
+              key={`${item.year}-${item.title}`}
               animation={isLeft ? 'fade-right' : 'fade-left'}
               delay={index * 100}
             >
