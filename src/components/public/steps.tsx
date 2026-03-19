@@ -1,0 +1,64 @@
+'use client';
+
+import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
+
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface StepsProps {
+  steps: Step[];
+}
+
+export function Steps({ steps }: StepsProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggle = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <div className="space-y-4">
+      {steps.map((step, index) => {
+        const isOpen = openIndex === index;
+        return (
+          <div
+            key={step.number}
+            className="border border-gray-200 rounded-xl overflow-hidden transition-shadow hover:shadow-sm"
+          >
+            <button
+              onClick={() => toggle(index)}
+              className="w-full flex items-center gap-4 px-5 py-4 text-left"
+            >
+              <span className="flex items-center justify-center w-10 h-10 rounded-full bg-ada-purple text-white font-poppins font-bold text-sm shrink-0">
+                {step.number}
+              </span>
+              <span className="flex-1 font-poppins font-semibold text-ada-navy">
+                {step.title}
+              </span>
+              <ChevronDown
+                className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${
+                  isOpen ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+            <div
+              className={`grid transition-all duration-300 ease-in-out ${
+                isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+              }`}
+            >
+              <div className="overflow-hidden">
+                <div className="px-5 pb-5 pl-19 text-gray-600 text-sm leading-relaxed">
+                  {step.description}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
