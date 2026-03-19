@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { ScrollAnimate } from '@/components/public/scroll-animate';
 import { Timeline } from '@/components/public/timeline';
 
 export const metadata: Metadata = {
@@ -69,23 +68,23 @@ export default function HistoryPage() {
   return (
     <>
       {/* Hero banner */}
-      <section className="relative bg-ada-navy pt-32 pb-20 md:pt-40 md:pb-28">
-        <div className="absolute inset-0 bg-gradient-to-b from-ada-navy via-ada-navy/95 to-ada-navy" />
-        <div className="relative max-w-7xl mx-auto px-6 text-center">
-          <ScrollAnimate animation="fade-up">
-            <h1 className="font-poppins text-4xl md:text-5xl lg:text-6xl font-bold text-white">
-              Our History
-            </h1>
-            <p className="mt-6 text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-              From a small initiative in Irvine to a nationally recognized certification
-              body — tracing the journey of the Asian Doula Alliance.
-            </p>
-          </ScrollAnimate>
+      <section className="bg-ada-navy pt-32 pb-16 md:pt-40 md:pb-20">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple-hover">
+            About
+          </span>
+          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-white">
+            Our History
+          </h1>
+          <p className="mt-6 text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+            From a small initiative in Irvine to a nationally recognized certification
+            body — tracing the journey of the Asian Doula Alliance.
+          </p>
         </div>
       </section>
 
       {/* Timeline */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-24 md:py-32 bg-white">
         <div className="max-w-5xl mx-auto px-6">
           <Timeline items={milestones} />
         </div>

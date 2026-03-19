@@ -1,7 +1,3 @@
-'use client';
-
-import { ScrollAnimate } from './scroll-animate';
-
 interface TimelineItem {
   year: string;
   title: string;
@@ -22,64 +18,58 @@ export function Timeline({ items }: TimelineProps) {
         {items.map((item, index) => {
           const isLeft = index % 2 === 0;
           return (
-            <ScrollAnimate
-              key={`${item.year}-${item.title}`}
-              animation={isLeft ? 'fade-right' : 'fade-left'}
-              delay={index * 100}
-            >
-              <div className="relative flex items-start md:items-center">
-                {/* Dot */}
-                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-ada-purple border-4 border-white shadow-md z-10" />
+            <div key={`${item.year}-${item.title}`} className="relative flex items-start md:items-center">
+              {/* Dot */}
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-ada-purple border-4 border-white shadow-md z-10" />
 
-                {/* Mobile: single column, always right of the line */}
-                <div className="md:hidden pl-12 pr-2">
-                  <span className="inline-block font-poppins text-sm font-bold text-ada-purple bg-ada-purple/10 px-3 py-1 rounded-full">
-                    {item.year}
-                  </span>
-                  <h3 className="mt-2 font-poppins text-lg font-bold text-ada-navy">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1 text-ada-navy/70 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-
-                {/* Desktop: alternating left/right */}
-                <div className="hidden md:grid md:grid-cols-2 md:gap-12 w-full">
-                  {isLeft ? (
-                    <>
-                      <div className="text-right pr-8">
-                        <span className="inline-block font-poppins text-sm font-bold text-ada-purple bg-ada-purple/10 px-3 py-1 rounded-full">
-                          {item.year}
-                        </span>
-                        <h3 className="mt-2 font-poppins text-xl font-bold text-ada-navy">
-                          {item.title}
-                        </h3>
-                        <p className="mt-2 text-ada-navy/70 leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-                      <div />
-                    </>
-                  ) : (
-                    <>
-                      <div />
-                      <div className="pl-8">
-                        <span className="inline-block font-poppins text-sm font-bold text-ada-purple bg-ada-purple/10 px-3 py-1 rounded-full">
-                          {item.year}
-                        </span>
-                        <h3 className="mt-2 font-poppins text-xl font-bold text-ada-navy">
-                          {item.title}
-                        </h3>
-                        <p className="mt-2 text-ada-navy/70 leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-                    </>
-                  )}
-                </div>
+              {/* Mobile: single column, always right of the line */}
+              <div className="md:hidden pl-12 pr-2">
+                <span className="inline-block font-outfit text-sm font-bold text-ada-purple bg-ada-purple/10 px-3 py-1 rounded-full">
+                  {item.year}
+                </span>
+                <h3 className="mt-2 font-dm-serif text-lg text-ada-navy">
+                  {item.title}
+                </h3>
+                <p className="mt-1 text-ada-navy/70 leading-relaxed">
+                  {item.description}
+                </p>
               </div>
-            </ScrollAnimate>
+
+              {/* Desktop: alternating left/right */}
+              <div className="hidden md:grid md:grid-cols-2 md:gap-12 w-full">
+                {isLeft ? (
+                  <>
+                    <div className="text-right pr-8">
+                      <span className="inline-block font-outfit text-sm font-bold text-ada-purple bg-ada-purple/10 px-3 py-1 rounded-full">
+                        {item.year}
+                      </span>
+                      <h3 className="mt-2 font-dm-serif text-xl text-ada-navy">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-ada-navy/70 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                    <div />
+                  </>
+                ) : (
+                  <>
+                    <div />
+                    <div className="pl-8">
+                      <span className="inline-block font-outfit text-sm font-bold text-ada-purple bg-ada-purple/10 px-3 py-1 rounded-full">
+                        {item.year}
+                      </span>
+                      <h3 className="mt-2 font-dm-serif text-xl text-ada-navy">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-ada-navy/70 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
           );
         })}
       </div>
