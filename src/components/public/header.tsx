@@ -15,8 +15,24 @@ const doulaLinks = [
   { label: 'Steps to Certification', href: '/become-a-doula/steps-to-certification' },
   { label: 'License & Exam', href: '/become-a-doula/license-and-exam' },
   { label: 'Renew / Recertification', href: '/become-a-doula/renew-recertification' },
-  { label: 'Find a Doula Training', href: '/become-a-doula/find-a-doula-training' },
   { label: 'Code of Conduct', href: '/become-a-doula/code-of-conduct' },
+];
+
+const familyLinks = [
+  { label: 'Verify a Doula', href: '/verify' },
+  { label: 'How We Train', href: '/for-families/how-we-train' },
+  { label: 'Find a Doula', href: '/for-families/find-a-doula' },
+];
+
+const programLinks = [
+  { label: 'Find a Training', href: '/become-a-doula/find-a-doula-training' },
+  { label: 'Scholarship Program', href: '/programs/scholarship' },
+];
+
+const supportLinks = [
+  { label: 'FAQ', href: '/support/faq' },
+  { label: 'Contact Us', href: '/support/contact' },
+  { label: 'Articles', href: '/articles' },
 ];
 
 function DesktopDropdown({
@@ -100,17 +116,17 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-ada-navy">
+    <header className="fixed top-0 left-0 right-0 z-50" style={{ backgroundColor: 'rgba(96, 96, 144, 0.85)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0">
             <Image
-              src="/images/ada-logo.svg"
+              src="/images/ada-logo-white.svg"
               alt="Asian Doula Alliance Logo"
-              width={48}
-              height={48}
-              className="h-10 w-10 lg:h-12 lg:w-12"
+              width={32}
+              height={32}
+              className="h-7 w-7 lg:h-8 lg:w-8"
             />
             <span className="text-white font-outfit font-semibold text-sm lg:text-base tracking-wide hidden sm:block">
               ASIAN DOULA ALLIANCE
@@ -118,16 +134,19 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
-            <DesktopDropdown label="About Us" links={aboutLinks} />
-            <DesktopDropdown label="Become a Doula" links={doulaLinks} />
+          <nav className="hidden lg:flex items-center gap-6">
+            <DesktopDropdown label="About" links={aboutLinks} />
+            <DesktopDropdown label="For Doulas" links={doulaLinks} />
+            <DesktopDropdown label="For Families" links={familyLinks} />
+            <DesktopDropdown label="Programs" links={programLinks} />
+            <DesktopDropdown label="Support" links={supportLinks} />
           </nav>
 
           {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Link
               href="/become-a-doula/steps-to-certification"
-              className="inline-flex items-center px-5 py-2.5 bg-ada-purple text-white text-sm font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
+              className="inline-flex items-center px-5 py-2.5 bg-white/15 text-white text-sm font-medium rounded-full hover:bg-white/25 transition-colors"
             >
               Get Certified →
             </Link>
@@ -145,20 +164,41 @@ export function Header() {
       </div>
 
       {/* Mobile overlay */}
-      <div className={`lg:hidden fixed inset-0 top-16 bg-ada-navy z-40 transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`lg:hidden fixed inset-0 top-16 z-40 transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`} style={{ backgroundColor: 'rgba(96, 96, 144, 0.95)' }}>
           <nav className="px-6 py-6 space-y-1 overflow-y-auto max-h-[calc(100vh-4rem)]">
             <MobileAccordion
-              label="About Us"
+              label="About"
               links={aboutLinks}
               isOpen={openAccordion === 'about'}
               onToggle={() => toggleAccordion('about')}
               onLinkClick={() => setMobileOpen(false)}
             />
             <MobileAccordion
-              label="Become a Doula"
+              label="For Doulas"
               links={doulaLinks}
               isOpen={openAccordion === 'doula'}
               onToggle={() => toggleAccordion('doula')}
+              onLinkClick={() => setMobileOpen(false)}
+            />
+            <MobileAccordion
+              label="For Families"
+              links={familyLinks}
+              isOpen={openAccordion === 'family'}
+              onToggle={() => toggleAccordion('family')}
+              onLinkClick={() => setMobileOpen(false)}
+            />
+            <MobileAccordion
+              label="Programs"
+              links={programLinks}
+              isOpen={openAccordion === 'program'}
+              onToggle={() => toggleAccordion('program')}
+              onLinkClick={() => setMobileOpen(false)}
+            />
+            <MobileAccordion
+              label="Support"
+              links={supportLinks}
+              isOpen={openAccordion === 'support'}
+              onToggle={() => toggleAccordion('support')}
               onLinkClick={() => setMobileOpen(false)}
             />
             <div className="pt-6">

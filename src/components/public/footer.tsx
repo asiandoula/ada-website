@@ -1,18 +1,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const quickLinks = [
-  { label: 'About Us', href: '/about-us' },
-  { label: 'Our History', href: '/about-us/history' },
-  { label: 'Mission & Values', href: '/about-us/mission-value' },
-];
-
 const doulaLinks = [
   { label: 'Steps to Certification', href: '/become-a-doula/steps-to-certification' },
   { label: 'License & Exam', href: '/become-a-doula/license-and-exam' },
   { label: 'Renew / Recertification', href: '/become-a-doula/renew-recertification' },
-  { label: 'Find a Doula Training', href: '/become-a-doula/find-a-doula-training' },
   { label: 'Code of Conduct', href: '/become-a-doula/code-of-conduct' },
+];
+
+const familyLinks = [
+  { label: 'Verify a Doula', href: '/verify' },
+  { label: 'How We Train', href: '/for-families/how-we-train' },
+  { label: 'Find a Doula', href: '/for-families/find-a-doula' },
 ];
 
 export function Footer() {
@@ -40,13 +39,13 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* For Doulas */}
           <div>
             <h3 className="font-outfit font-semibold text-sm tracking-wider uppercase mb-4">
-              Quick Links
+              For Doulas
             </h3>
             <ul className="space-y-2.5">
-              {quickLinks.map((link) => (
+              {doulaLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -59,13 +58,13 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Become a Doula */}
+          {/* For Families */}
           <div>
             <h3 className="font-outfit font-semibold text-sm tracking-wider uppercase mb-4">
-              Become a Doula
+              For Families
             </h3>
             <ul className="space-y-2.5">
-              {doulaLinks.map((link) => (
+              {familyLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -106,6 +105,30 @@ export function Footer() {
                 </a>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Newsletter */}
+        <div className="mt-12 pt-10 border-t border-white/10">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h3 className="font-outfit font-semibold text-sm">Stay connected with ADA</h3>
+              <p className="text-white/40 text-xs mt-1">Training updates, certification news, and community stories.</p>
+            </div>
+            <div className="flex gap-2 max-w-sm w-full sm:w-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                readOnly
+                className="flex-1 sm:w-56 px-4 py-2.5 rounded-full bg-white/10 text-white text-sm placeholder:text-white/30 border border-white/10 focus:outline-none focus:border-white/30"
+              />
+              <a
+                href="mailto:contact@asiandoula.org?subject=Newsletter%20Signup"
+                className="px-5 py-2.5 rounded-full bg-ada-purple text-white text-sm font-medium hover:bg-ada-purple-hover transition-colors shrink-0"
+              >
+                Subscribe
+              </a>
+            </div>
           </div>
         </div>
       </div>
