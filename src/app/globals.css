@@ -48,9 +48,30 @@
 /* ADA Public Site Brand */
 :root {
   --ada-navy: #0c2231;
-  --ada-purple: #662d91;
-  --ada-purple-accent: #6969c1;
-  --ada-red: #ed1c24;
-  --ada-cyan: #00aeef;
-  --ada-burgundy: #260a00;
+  --ada-navy-warm: #1a3346;
+  --ada-purple: #606090;
+  --ada-purple-hover: #6969C1;
+  --ada-cream: #fdfcfa;
+  --ada-lavender: #f8f7fc;
+  --ada-off-white: #f8f8fa;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-hero-title {
+  animation: fadeSlideUp 0.8s ease-out both;
+}
+.animate-hero-subtitle {
+  animation: fadeSlideUp 0.8s ease-out 0.2s both;
+}
+.animate-hero-buttons {
+  animation: fadeSlideUp 0.8s ease-out 0.4s both;
 }
