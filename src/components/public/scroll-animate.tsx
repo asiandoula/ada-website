@@ -46,7 +46,7 @@ export function ScrollAnimate({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay);
+          setIsVisible(true);
           observer.unobserve(element);
         }
       },
@@ -55,7 +55,7 @@ export function ScrollAnimate({
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [delay]);
+  }, []);
 
   const { hidden, visible } = animationStyles[animation];
 
@@ -63,6 +63,7 @@ export function ScrollAnimate({
     <div
       ref={ref}
       className={`transition-all duration-700 ease-out ${isVisible ? visible : hidden} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
     </div>

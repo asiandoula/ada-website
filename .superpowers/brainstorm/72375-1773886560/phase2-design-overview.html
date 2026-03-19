@@ -1,0 +1,115 @@
+<h2>Phase 2 完整设计方案</h2>
+<p class="subtitle">公开站 + 博客 + 考试查询 — 7 个实施步骤</p>
+
+<div class="section">
+  <h3>Step 1 — 公共布局 + 导航</h3>
+  <div style="background:#f8f8fc;padding:16px;border-radius:8px;border-left:4px solid #662d91;">
+    <p style="margin:0 0 8px;font-weight:600;">共用 Header / Footer / 响应式框架</p>
+    <ul style="margin:0;color:#555;font-size:14px;">
+      <li>Header：深色导航栏（#0c2231），樱花 Logo，About Us / Programs / Become a Doula 下拉菜单 + "Get Certified" CTA 按钮</li>
+      <li>Footer：联系信息、社交链接、快速导航、版权</li>
+      <li>Mobile：汉堡菜单 + 侧滑导航</li>
+      <li>字体：Poppins（标题）+ Inter（正文）</li>
+      <li>品牌色 CSS 变量系统（紫色系 + Navy）</li>
+    </ul>
+    <p style="margin:8px 0 0;font-size:13px;color:#888;">产出：公共 layout、全局样式、Header/Footer 组件</p>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Step 2 — 首页（Scroll-Driven Storytelling）</h3>
+  <div style="background:#f8f8fc;padding:16px;border-radius:8px;border-left:4px solid #662d91;">
+    <ul style="margin:0;color:#555;font-size:14px;">
+      <li><strong>Hero 区</strong>：全屏母婴背景图 + 暗色遮罩 + 标语动画淡入 + 双 CTA（"I'm a Caregiver" / "Find a Doula"）</li>
+      <li><strong>Mission 区</strong>：滚动淡入，品牌介绍 + 四个核心价值 badge（Compassion, Integrity, Excellence, Knowledge）</li>
+      <li><strong>数据统计区</strong>：数字滚动计数器 — "164+ Certified Doulas" / "5+ Languages" / "6+ Insurance Partners"</li>
+      <li><strong>认证路径预览</strong>：3 步简化流程卡片，点击跳转详情</li>
+      <li><strong>Testimonial 轮播</strong>：学员/客户评价</li>
+      <li><strong>联系区</strong>：紫色渐变背景 + 联系表单（还原 Framer 设计）</li>
+    </ul>
+    <p style="margin:8px 0 0;font-size:13px;color:#888;">交互：Intersection Observer 驱动的滚动动画，无需额外动画库</p>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Step 3 — About Us 页面组（3页）</h3>
+  <div style="background:#f8f8fc;padding:16px;border-radius:8px;border-left:4px solid #662d91;">
+    <ul style="margin:0;color:#555;font-size:14px;">
+      <li><strong>/about-us</strong>：组织介绍 + 团队卡片（hover 翻转效果）</li>
+      <li><strong>/about-us/history</strong>：交互式时间线（滚动展开，左右交替布局）</li>
+      <li><strong>/about-us/mission-value</strong>：使命/愿景 + 核心价值观卡片动画</li>
+    </ul>
+    <p style="margin:8px 0 0;font-size:13px;color:#888;">产出：3 个页面 + Timeline 组件 + TeamCard 组件</p>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Step 4 — Become a Doula 页面组（6页）</h3>
+  <div style="background:#f8f8fc;padding:16px;border-radius:8px;border-left:4px solid #662d91;">
+    <p style="margin:0 0 8px;font-weight:600;">左侧边栏导航 + 右侧内容（还原 Framer 布局）</p>
+    <ul style="margin:0;color:#555;font-size:14px;">
+      <li><strong>/become-a-doula/steps-to-certification</strong>：Interactive Steps — 点击/hover 展开详情，带进度指示</li>
+      <li><strong>/become-a-doula/license-and-exam</strong>：考试信息 + Accordion FAQ</li>
+      <li><strong>/become-a-doula/renew-recertification</strong>：续期流程 + 在线验证入口</li>
+      <li><strong>/become-a-doula/find-a-doula-training</strong>：培训机构列表（卡片式 + 筛选）</li>
+      <li><strong>/become-a-doula/doula-verification</strong>：重定向到 /verify/[code]（Phase 1 已做）</li>
+      <li><strong>/become-a-doula/code-of-conduct</strong>：行为准则（静态内容页）</li>
+    </ul>
+    <p style="margin:8px 0 0;font-size:13px;color:#888;">交互：Sidebar 导航高亮当前页，Steps 组件可点击展开，Accordion 折叠面板</p>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Step 5 — 博客系统</h3>
+  <div style="background:#f8f8fc;padding:16px;border-radius:8px;border-left:4px solid #662d91;">
+    <ul style="margin:0;color:#555;font-size:14px;">
+      <li><strong>数据库</strong>：Supabase 新建 <code>articles</code> 表（title, slug, content, cover_image, category, published_at, status）</li>
+      <li><strong>/articles</strong>：文章列表页 — 卡片网格布局 + 分类筛选 Tab</li>
+      <li><strong>/articles/[slug]</strong>：文章详情 — 富文本渲染 + 侧边目录 + 相关文章推荐</li>
+      <li><strong>Admin 后台</strong>：新增文章管理页 — 创建/编辑/发布（富文本编辑器）</li>
+      <li><strong>数据迁移</strong>：从 Framer 抓取 10 篇文章内容导入 Supabase</li>
+    </ul>
+    <p style="margin:8px 0 0;font-size:13px;color:#888;">SEO：每篇文章生成 Open Graph 元数据 + 结构化数据</p>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Step 6 — 考试查询系统（动态）</h3>
+  <div style="background:#f8f8fc;padding:16px;border-radius:8px;border-left:4px solid #662d91;">
+    <p style="margin:0 0 8px;font-weight:600;">替代 Framer 250+ 静态页面</p>
+    <ul style="margin:0;color:#555;font-size:14px;">
+      <li><strong>入口页</strong>：输入考试编号 + 姓名验证身份</li>
+      <li><strong>结果页</strong>：动画展示考试结果（分数、各科目成绩、是否通过）</li>
+      <li><strong>证书链接</strong>：通过的学员直接链接到证书验证页</li>
+      <li><strong>路由</strong>：<code>/exam-home/exam-chs/[id]</code> 保持和 Framer 一致</li>
+      <li><strong>301 重定向</strong>：旧的静态 URL 自动指向新动态页面</li>
+    </ul>
+    <p style="margin:8px 0 0;font-size:13px;color:#888;">数据来源：Phase 1 已有的 exam_results + doulas 表</p>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Step 7 — SEO + 部署 + 域名切换</h3>
+  <div style="background:#f8f8fc;padding:16px;border-radius:8px;border-left:4px solid #662d91;">
+    <ul style="margin:0;color:#555;font-size:14px;">
+      <li>每页 meta title / description / Open Graph</li>
+      <li>自动生成 sitemap.xml + robots.txt</li>
+      <li>结构化数据（Organization, Article, BreadcrumbList）</li>
+      <li>将 <code>asiandoula.org</code> 主域名指向 Next.js 站</li>
+      <li>Framer 旧站停用（或保留为备份）</li>
+      <li>验证所有页面 + 功能正常</li>
+    </ul>
+    <p style="margin:8px 0 0;font-size:13px;color:#888;">admin.asiandoula.org 保持不变，公开站用 asiandoula.org</p>
+  </div>
+</div>
+
+<div style="margin-top:24px;padding:16px;background:linear-gradient(135deg,#f0f0ff,#fff0f8);border-radius:8px;">
+  <h3 style="margin:0 0 8px;">总结</h3>
+  <table style="width:100%;font-size:14px;border-collapse:collapse;">
+    <tr style="border-bottom:1px solid #ddd;"><td style="padding:6px;font-weight:600;">新页面</td><td>~15 个公开页面 + 动态考试/文章页</td></tr>
+    <tr style="border-bottom:1px solid #ddd;"><td style="padding:6px;font-weight:600;">新数据库表</td><td>articles（博客）</td></tr>
+    <tr style="border-bottom:1px solid #ddd;"><td style="padding:6px;font-weight:600;">新组件</td><td>Header, Footer, Timeline, Steps, Accordion, ArticleCard, ExamQuery, RichTextEditor</td></tr>
+    <tr style="border-bottom:1px solid #ddd;"><td style="padding:6px;font-weight:600;">交互</td><td>滚动动画、计数器、轮播、折叠面板、Tab 筛选</td></tr>
+    <tr><td style="padding:6px;font-weight:600;">域名</td><td>asiandoula.org → Next.js 公开站<br>admin.asiandoula.org → 管理后台（不变）</td></tr>
+  </table>
+</div>

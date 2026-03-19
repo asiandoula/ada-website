@@ -53,11 +53,13 @@ function MobileAccordion({
   links,
   isOpen,
   onToggle,
+  onLinkClick,
 }: {
   label: string;
   links: { label: string; href: string }[];
   isOpen: boolean;
   onToggle: () => void;
+  onLinkClick: () => void;
 }) {
   return (
     <div>
@@ -77,6 +79,7 @@ function MobileAccordion({
               key={link.href}
               href={link.href}
               className="block py-2.5 text-white/70 hover:text-white text-base transition-colors"
+              onClick={onLinkClick}
             >
               {link.label}
             </Link>
@@ -147,12 +150,14 @@ export function Header() {
               links={aboutLinks}
               isOpen={openAccordion === 'about'}
               onToggle={() => toggleAccordion('about')}
+              onLinkClick={() => setMobileOpen(false)}
             />
             <MobileAccordion
               label="Become a Doula"
               links={doulaLinks}
               isOpen={openAccordion === 'doula'}
               onToggle={() => toggleAccordion('doula')}
+              onLinkClick={() => setMobileOpen(false)}
             />
             <div className="pt-6">
               <Link
