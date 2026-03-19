@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const CATEGORY_COLORS: Record<string, string> = {
   news: 'bg-blue-100 text-blue-800',
@@ -31,15 +32,15 @@ export function ArticleCard({
         {/* Cover Image */}
         <div className="aspect-[16/10] bg-gray-100 overflow-hidden">
           {cover_image ? (
-            <img
+            <Image
               src={cover_image}
               alt={title}
+              width={640}
+              height={400}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-ada-purple/10 to-ada-navy/10">
-              <span className="text-4xl opacity-30">📄</span>
-            </div>
+            <div className="w-full h-full bg-ada-lavender" />
           )}
         </div>
 
@@ -55,7 +56,7 @@ export function ArticleCard({
           </span>
 
           {/* Title */}
-          <h3 className="font-poppins font-semibold text-lg text-ada-navy mb-2 line-clamp-2 group-hover:text-ada-purple transition-colors">
+          <h3 className="font-dm-serif text-lg text-ada-navy mb-2 line-clamp-2 group-hover:text-ada-purple transition-colors">
             {title}
           </h3>
 

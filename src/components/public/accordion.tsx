@@ -31,7 +31,7 @@ export function Accordion({ items }: AccordionProps) {
               aria-expanded={isOpen}
               className="w-full flex items-center justify-between gap-4 py-5 text-left"
             >
-              <span className="font-poppins font-medium text-ada-navy text-base">
+              <span className="font-outfit font-medium text-ada-navy text-base">
                 {item.question}
               </span>
               <ChevronDown

@@ -20,7 +20,7 @@ export function ScoreBreakdown({ scores }: { scores: ScoreItem[] }) {
   return (
     <Card className="shadow-lg border-0">
       <CardContent className="pt-6 pb-6 px-8">
-        <h2 className="text-lg font-poppins font-semibold text-ada-navy mb-5">
+        <h2 className="text-lg font-dm-serif text-ada-navy mb-5">
           Score Breakdown
         </h2>
         <div className="space-y-4">

@@ -75,7 +75,7 @@ export default function CertificatesPage() {
                 <td className="p-3 font-mono text-xs">{cert.verification_code}</td>
                 <td className="p-3">
                   {cert.pdf_url && (
-                    <a href={cert.pdf_url} target="_blank" className="text-ada-cyan hover:underline">
+                    <a href={cert.pdf_url} target="_blank" className="text-cyan-500 hover:underline">
                       Download
                     </a>
                   )}

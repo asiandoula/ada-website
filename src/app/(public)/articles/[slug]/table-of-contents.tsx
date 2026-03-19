@@ -30,7 +30,7 @@ export function TableOfContents({ content }: { content: string }) {
 
   return (
     <div className="bg-gray-50 rounded-lg p-5">
-      <h4 className="font-poppins font-semibold text-sm text-ada-navy mb-3 uppercase tracking-wide">
+      <h4 className="font-outfit font-semibold text-sm text-ada-navy mb-3 uppercase tracking-wide">
         Table of Contents
       </h4>
       <nav className="space-y-2">

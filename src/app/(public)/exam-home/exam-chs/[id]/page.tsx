@@ -63,7 +63,7 @@ export default function ExamVerifyPage() {
               alt="ADA"
               className="h-12 mx-auto mb-4"
             />
-            <h1 className="text-xl font-poppins font-bold text-ada-navy mb-1">
+            <h1 className="text-xl font-dm-serif text-ada-navy mb-1">
               Exam Result Lookup
             </h1>
             <p className="text-sm text-muted-foreground">

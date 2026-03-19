@@ -64,7 +64,7 @@ export default async function ExamResultPage({
         <Card className="max-w-md w-full text-center shadow-lg border-0">
           <CardContent className="pt-8 pb-8">
             <FileCheck className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-            <h1 className="text-xl font-poppins font-bold text-ada-navy mb-2">
+            <h1 className="text-xl font-dm-serif text-ada-navy mb-2">
               No Exam Results Found
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -119,7 +119,7 @@ export default async function ExamResultPage({
                   alt="ADA"
                   className="h-10 mb-3"
                 />
-                <h1 className="text-xl font-poppins font-bold text-ada-navy">
+                <h1 className="text-xl font-dm-serif text-ada-navy">
                   Exam Results
                 </h1>
               </div>
@@ -167,7 +167,7 @@ export default async function ExamResultPage({
                   Overall Score
                 </span>
                 <span
-                  className={`text-3xl font-poppins font-bold ${
+                  className={`text-3xl font-dm-serif ${
                     passed ? 'text-green-600' : 'text-red-600'
                   }`}
                 >
@@ -201,7 +201,7 @@ export default async function ExamResultPage({
                   <Award className="h-6 w-6 text-ada-purple" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-poppins font-semibold text-ada-navy">
+                  <h3 className="font-outfit font-semibold text-ada-navy">
                     Certificate Available
                   </h3>
                   <p className="text-sm text-muted-foreground">

@@ -60,7 +60,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     .limit(3);
 
   return (
-    <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <article className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 py-24 md:py-32">
       {/* Breadcrumb */}
       <nav className="mb-8 text-sm text-gray-500">
         <Link href="/articles" className="hover:text-ada-purple">
@@ -90,7 +90,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           </span>
 
           {/* Title */}
-          <h1 className="font-poppins text-3xl sm:text-4xl font-bold text-ada-navy mb-4">
+          <h1 className="font-dm-serif text-3xl sm:text-4xl text-ada-navy mb-4">
             {article.title}
           </h1>
 
@@ -110,7 +110,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
           {/* Article Content */}
           <div
-            className="prose prose-lg max-w-none prose-headings:font-poppins prose-headings:text-ada-navy prose-a:text-ada-purple"
+            className="prose prose-lg max-w-none prose-headings:font-dm-serif prose-headings:text-ada-navy prose-a:text-ada-purple"
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
           />
         </div>
@@ -126,7 +126,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       {/* Related Articles */}
       {related && related.length > 0 && (
         <section className="mt-16 pt-12 border-t">
-          <h2 className="font-poppins text-2xl font-bold text-ada-navy mb-8">
+          <h2 className="font-dm-serif text-2xl text-ada-navy mb-8">
             Related Articles
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -80,7 +80,7 @@ export function ContactForm() {
               {/* Full Name */}
               <div>
                 <label htmlFor="full_name" className="block text-sm font-medium text-ada-navy mb-1.5">
-                  Full Name <span className="text-ada-red">*</span>
+                  Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="full_name"
@@ -111,7 +111,7 @@ export function ContactForm() {
               {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-ada-navy mb-1.5">
-                  Email <span className="text-ada-red">*</span>
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="email"
@@ -146,7 +146,7 @@ export function ContactForm() {
               {/* Message */}
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-ada-navy mb-1.5">
-                  Message <span className="text-ada-red">*</span>
+                  Message <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="message"

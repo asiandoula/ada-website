@@ -442,7 +442,7 @@ export default function EditDoulaPage() {
                         <a
                           href={cert.pdf_url}
                           target="_blank"
-                          className="text-ada-cyan hover:underline text-xs"
+                          className="text-cyan-500 hover:underline text-xs"
                         >
                           PDF
                         </a>

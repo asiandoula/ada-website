@@ -27,7 +27,7 @@ export function TeamCard({ name, role, bio, image }: TeamCardProps) {
                 <User className="w-14 h-14 text-ada-purple/50" />
               </div>
             )}
-            <h3 className="mt-5 font-poppins text-xl font-bold text-ada-navy">
+            <h3 className="mt-5 font-dm-serif text-xl text-ada-navy">
               {name}
             </h3>
             <p className="mt-1 text-sm text-ada-purple font-medium">{role}</p>
@@ -37,10 +37,10 @@ export function TeamCard({ name, role, bio, image }: TeamCardProps) {
         {/* Back */}
         <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl overflow-hidden shadow-lg">
           <div className="h-full flex flex-col items-center justify-center bg-ada-navy p-6 text-center">
-            <h3 className="font-poppins text-lg font-bold text-white">
+            <h3 className="font-dm-serif text-lg text-white">
               {name}
             </h3>
-            <p className="mt-1 text-sm text-ada-purple-accent font-medium">
+            <p className="mt-1 text-sm text-ada-purple-hover font-medium">
               {role}
             </p>
             <p className="mt-4 text-white/80 text-sm leading-relaxed">{bio}</p>

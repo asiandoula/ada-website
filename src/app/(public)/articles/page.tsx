@@ -47,10 +47,10 @@ export default async function ArticlesPage({
   const { data: articles } = await query;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 py-24 md:py-32">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="font-poppins text-4xl font-bold text-ada-navy mb-4">
+        <h1 className="font-dm-serif text-4xl text-ada-navy mb-4">
           Articles & News
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
