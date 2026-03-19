@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 // In-memory rate limiter: doula_id_code -> { count, resetAt }
+// NOTE: This is per-instance and resets on cold start. Provides best-effort
+// protection only. For production hardening, move to Supabase or Vercel KV.
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 
 const RATE_LIMIT = 5;

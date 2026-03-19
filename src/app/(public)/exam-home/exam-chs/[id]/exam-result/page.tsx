@@ -13,14 +13,14 @@ const supabase = createClient(
 );
 
 const SUBCATEGORIES = [
-  { key: 'score_infant_care', label: 'Infant Care' },
-  { key: 'score_maternal_care', label: 'Maternal Care' },
-  { key: 'score_breastfeeding', label: 'Breastfeeding' },
-  { key: 'score_nutrition', label: 'Nutrition' },
-  { key: 'score_communication', label: 'Communication' },
-  { key: 'score_safety', label: 'Safety' },
-  { key: 'score_cultural', label: 'Cultural Competency' },
-  { key: 'score_professional', label: 'Professional Ethics' },
+  { key: 'score_terminology', label: 'Terminology' },
+  { key: 'score_newborn', label: 'Newborn Care' },
+  { key: 'score_lactation', label: 'Lactation' },
+  { key: 'score_emergency', label: 'Emergency' },
+  { key: 'score_practical', label: 'Practical Skills' },
+  { key: 'score_postpartum', label: 'Postpartum Care' },
+  { key: 'score_knowledge', label: 'Knowledge' },
+  { key: 'score_ethics', label: 'Ethics' },
 ] as const;
 
 export default async function ExamResultPage({
@@ -51,7 +51,7 @@ export default async function ExamResultPage({
   // Fetch exam results (most recent non-voided)
   const { data: examResult } = await supabase
     .from('exam_results')
-    .select('*')
+    .select('overall_score, passed, exam_date, session, exam_type, score_terminology, score_newborn, score_lactation, score_emergency, score_practical, score_postpartum, score_knowledge, score_ethics')
     .eq('doula_id', doula.id)
     .eq('voided', false)
     .order('exam_date', { ascending: false })
@@ -85,6 +85,7 @@ export default async function ExamResultPage({
       .select('verification_code')
       .eq('doula_id', doula.id)
       .eq('status', 'active')
+      .eq('credential_type', examResult.exam_type || 'postpartum')
       .limit(1)
       .single();
 
@@ -147,7 +148,11 @@ export default async function ExamResultPage({
               </div>
               <div>
                 <span className="text-muted-foreground block">Exam Date</span>
-                <span className="font-medium">{examResult.exam_date}</span>
+                <span className="font-medium">
+                  {examResult.exam_date
+                    ? new Date(examResult.exam_date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                    : 'N/A'}
+                </span>
               </div>
               <div>
                 <span className="text-muted-foreground block">Session</span>
