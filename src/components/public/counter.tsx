@@ -6,9 +6,11 @@ interface CounterProps {
   target: number;
   label: string;
   suffix?: string;
+  numberClassName?: string;
+  labelClassName?: string;
 }
 
-export function Counter({ target, label, suffix = '+' }: CounterProps) {
+export function Counter({ target, label, suffix = '+', numberClassName = 'text-ada-purple', labelClassName = 'text-ada-navy/70' }: CounterProps) {
   const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -54,11 +56,11 @@ export function Counter({ target, label, suffix = '+' }: CounterProps) {
 
   return (
     <div ref={ref} className="text-center">
-      <div className="font-poppins text-5xl md:text-6xl font-bold text-ada-purple">
+      <div className={`font-outfit text-4xl md:text-5xl font-semibold ${numberClassName}`}>
         {count}
         {suffix}
       </div>
-      <div className="mt-2 text-lg text-ada-navy/70 font-medium">{label}</div>
+      <div className={`mt-2 text-sm font-medium ${labelClassName}`}>{label}</div>
     </div>
   );
 }

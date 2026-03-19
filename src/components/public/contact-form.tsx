@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { Phone, Mail, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 
 export function ContactForm() {
@@ -42,52 +41,32 @@ export function ContactForm() {
   }
 
   return (
-    <section className="relative overflow-hidden">
-      {/* Purple gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-ada-purple via-ada-purple-accent to-purple-300" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 md:py-28">
+    <section className="bg-ada-lavender">
+      <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left: Info */}
-          <div className="text-white">
-            <h2 className="font-poppins text-3xl md:text-4xl font-bold leading-tight">
+          <div className="text-ada-navy">
+            <h2 className="font-dm-serif text-3xl md:text-4xl leading-tight">
               Let&apos;s Connect and Support Families Together!
             </h2>
-            <p className="mt-4 text-white/80 text-lg leading-relaxed">
+            <p className="mt-4 text-ada-navy/60 text-lg leading-relaxed">
               Whether you&apos;re interested in becoming a certified doula, looking for
               postpartum support, or want to learn more about our programs, we&apos;d
               love to hear from you.
             </p>
 
-            <div className="mt-10 space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-sm text-white/60">Phone</div>
-                  <a href="tel:+17142026501" className="hover:underline">+1 (714) 202-6501</a>
-                </div>
+            <div className="mt-10 space-y-4 text-ada-navy/60">
+              <div>
+                <div className="text-sm text-ada-navy/40">Phone</div>
+                <a href="tel:+17142026501" className="hover:text-ada-purple transition-colors">+1 (714) 202-6501</a>
               </div>
-
-              <div className="flex items-center gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-sm text-white/60">Email</div>
-                  <a href="mailto:contact@asiandoula.org" className="hover:underline">contact@asiandoula.org</a>
-                </div>
+              <div>
+                <div className="text-sm text-ada-navy/40">Email</div>
+                <a href="mailto:contact@asiandoula.org" className="hover:text-ada-purple transition-colors">contact@asiandoula.org</a>
               </div>
-
-              <div className="flex items-center gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-sm text-white/60">Hours</div>
-                  <div>Mon - Fri, 10AM - 5PM PST</div>
-                </div>
+              <div>
+                <div className="text-sm text-ada-navy/40">Hours</div>
+                <div>Mon - Fri, 10AM - 5PM PST</div>
               </div>
             </div>
           </div>
@@ -183,7 +162,7 @@ export function ContactForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-lg bg-ada-purple px-6 py-3 text-white font-semibold transition-colors hover:bg-ada-purple-accent disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full rounded-full bg-ada-purple px-6 py-3 text-white font-medium transition-colors hover:bg-ada-purple-hover disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {loading ? 'Sending...' : 'Send Message'}
               </button>
