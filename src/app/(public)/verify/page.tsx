@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, ShieldCheck, Clock, FileCheck } from 'lucide-react';
+import { Search, ShieldCheck, BadgeCheck, BookOpen, Scale, GraduationCap } from 'lucide-react';
 
 export default function VerifyPage() {
   const [code, setCode] = useState('');
@@ -19,135 +19,72 @@ export default function VerifyPage() {
 
   return (
     <>
-      {/* Hero — institutional, minimal */}
-      <section className="bg-[#f7f8fa] pt-32 pb-20 md:pt-40 md:pb-28 border-b border-gray-200">
-        <div className="max-w-[960px] mx-auto px-6 text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <Image
-              src="/images/ada-logo-white.svg"
-              alt="ADA"
-              width={36}
-              height={36}
-              className="opacity-60"
-            />
-            <div className="h-6 w-px bg-gray-300" />
-            <span className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-gray-500">
-              Official Verification System
-            </span>
+      {/* Dark navy banner — institutional header */}
+      <section className="bg-ada-navy pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
+        {/* Subtle pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: 'repeating-linear-gradient(45deg, white 0, white 1px, transparent 1px, transparent 12px)',
+        }} />
+        <div className="relative max-w-[1000px] mx-auto px-6 text-center">
+          {/* Seal / emblem */}
+          <div className="flex items-center justify-center mb-8">
+            <div className="w-20 h-20 rounded-full border-2 border-white/20 flex items-center justify-center bg-white/5">
+              <Image
+                src="/images/ada-logo-white.svg"
+                alt="ADA Seal"
+                width={44}
+                height={44}
+              />
+            </div>
           </div>
-          <h1 className="font-outfit text-3xl md:text-4xl font-semibold text-ada-navy tracking-tight">
+          <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-white/50 mb-3">
+            Asian Doula Alliance
+          </p>
+          <h1 className="font-dm-serif text-4xl md:text-5xl text-white">
             Credential Verification
           </h1>
-          <p className="mt-4 text-base text-gray-500 font-outfit max-w-xl mx-auto leading-relaxed">
-            Verify that a doula holds a valid certification issued by the Asian Doula Alliance.
+          <p className="mt-5 text-base text-white/50 font-outfit max-w-lg mx-auto leading-relaxed">
+            Verify the certification status of any ADA-credentialed doula.
+            This is an official verification service.
           </p>
 
           {/* Search */}
-          <form onSubmit={handleSubmit} className="mt-10 max-w-lg mx-auto">
+          <form onSubmit={handleSubmit} className="mt-10 max-w-md mx-auto">
             <div className="flex gap-2">
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ada-navy/40" />
                 <input
                   type="text"
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="Enter verification code"
                   required
-                  className="w-full pl-11 pr-4 py-3 rounded-lg border border-gray-300 bg-white text-ada-navy font-outfit text-sm focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-xl border-0 bg-white text-ada-navy font-outfit text-sm shadow-lg focus:outline-none focus:ring-2 focus:ring-white/30"
                 />
               </div>
               <button
                 type="submit"
-                className="shrink-0 px-5 py-3 rounded-lg bg-ada-navy text-white font-outfit font-medium text-sm hover:bg-ada-navy/90 transition-colors"
+                className="shrink-0 px-6 py-3.5 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-sm hover:bg-ada-purple-hover transition-colors shadow-lg"
               >
                 Verify
               </button>
             </div>
-            <p className="mt-3 text-xs text-gray-400 font-outfit">
-              The verification code is printed on the doula&apos;s official ADA certificate.
+            <p className="mt-4 text-xs text-white/30 font-outfit">
+              Found on the doula&apos;s official ADA certification certificate
             </p>
           </form>
         </div>
       </section>
 
-      {/* Info sections */}
-      <section className="py-16 bg-white">
-        <div className="max-w-[960px] mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200 rounded-xl overflow-hidden border border-gray-200">
-            <div className="bg-white p-8">
-              <ShieldCheck className="w-6 h-6 text-ada-navy/70 mb-4" />
-              <h3 className="font-outfit font-semibold text-ada-navy text-sm mb-2">
-                Why Verify
-              </h3>
-              <p className="text-sm text-gray-500 font-outfit leading-relaxed">
-                Confirms that a doula has completed ADA&apos;s accredited training
-                and passed both written and practical certification exams.
-              </p>
-            </div>
-            <div className="bg-white p-8">
-              <FileCheck className="w-6 h-6 text-ada-navy/70 mb-4" />
-              <h3 className="font-outfit font-semibold text-ada-navy text-sm mb-2">
-                Who Can Verify
-              </h3>
-              <p className="text-sm text-gray-500 font-outfit leading-relaxed">
-                Open to all — expectant parents, insurance providers, healthcare
-                facilities, and doula agencies. No account required.
-              </p>
-            </div>
-            <div className="bg-white p-8">
-              <Clock className="w-6 h-6 text-ada-navy/70 mb-4" />
-              <h3 className="font-outfit font-semibold text-ada-navy text-sm mb-2">
-                What You&apos;ll See
-              </h3>
-              <p className="text-sm text-gray-500 font-outfit leading-relaxed">
-                Certification type, status (active/expired/revoked),
-                issue date, and validity period. Results are real-time.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section className="py-16 bg-[#f7f8fa] border-t border-gray-200">
-        <div className="max-w-[960px] mx-auto px-6">
-          <h2 className="font-outfit font-semibold text-ada-navy text-lg mb-8">
-            How to Verify
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { num: '1', text: 'Request the verification code from the doula — it is printed on their ADA certificate.' },
-              { num: '2', text: 'Enter the code in the search field above and click Verify.' },
-              { num: '3', text: 'Review the official verification record showing credential status and validity.' },
-            ].map((step) => (
-              <div key={step.num} className="flex gap-4">
-                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-ada-navy text-white text-xs font-outfit font-bold shrink-0">
-                  {step.num}
-                </span>
-                <p className="text-sm text-gray-600 font-outfit leading-relaxed">
-                  {step.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Insurance partners */}
-      <section className="py-16 bg-white border-t border-gray-200">
-        <div className="max-w-[960px] mx-auto px-6">
-          <h2 className="font-outfit font-semibold text-ada-navy text-lg mb-2">
-            Recognized by Insurance Partners
-          </h2>
-          <p className="text-sm text-gray-500 font-outfit mb-8">
-            ADA certification is accepted by the following insurance providers for doula service reimbursement.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {['Medi-Cal', 'Kaiser Permanente', 'Cigna', 'IEHP', 'Carrot Fertility', 'Progyny'].map((name) => (
-              <span
-                key={name}
-                className="px-4 py-2 rounded-lg bg-[#f7f8fa] border border-gray-200 text-sm font-outfit text-ada-navy/70"
-              >
+      {/* Trust bar — partner logos */}
+      <section className="py-6 bg-white border-b border-gray-100">
+        <div className="max-w-[1000px] mx-auto px-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+            <span className="text-xs text-gray-400 font-outfit uppercase tracking-wider shrink-0">
+              Recognized by
+            </span>
+            {['Medi-Cal', 'Kaiser', 'Cigna', 'Carrot Fertility', 'Progyny', 'IEHP'].map((name) => (
+              <span key={name} className="text-sm font-outfit text-gray-500 font-medium">
                 {name}
               </span>
             ))}
@@ -155,20 +92,143 @@ export default function VerifyPage() {
         </div>
       </section>
 
-      {/* Footer links */}
-      <section className="py-12 bg-[#f7f8fa] border-t border-gray-200">
-        <div className="max-w-[960px] mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-400 font-outfit">
-            Asian Doula Alliance — Official Credential Verification
-          </p>
-          <div className="flex gap-6">
-            <Link href="/portal" className="text-sm text-ada-purple font-outfit hover:underline">
-              Doula Portal
-            </Link>
-            <Link href="/support/contact" className="text-sm text-ada-purple font-outfit hover:underline">
-              Report an Issue
-            </Link>
+      {/* Three-column info */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1000px] mx-auto px-6">
+          <div className="text-center mb-14">
+            <h2 className="font-dm-serif text-3xl text-ada-navy">
+              About ADA Certification
+            </h2>
+            <p className="mt-3 text-ada-navy/50 font-outfit max-w-2xl mx-auto">
+              The Asian Doula Alliance maintains rigorous standards for postpartum doula certification,
+              ensuring families receive culturally competent, evidence-based care.
+            </p>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-2xl bg-ada-navy/5 flex items-center justify-center mx-auto mb-5">
+                <ShieldCheck className="w-7 h-7 text-ada-navy/60" />
+              </div>
+              <h3 className="font-outfit font-semibold text-ada-navy mb-2">
+                Why Verify
+              </h3>
+              <p className="text-sm text-ada-navy/50 font-outfit leading-relaxed">
+                Confirms the doula has completed ADA&apos;s accredited training program
+                and passed both written and practical certification exams under supervised conditions.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-2xl bg-ada-navy/5 flex items-center justify-center mx-auto mb-5">
+                <BadgeCheck className="w-7 h-7 text-ada-navy/60" />
+              </div>
+              <h3 className="font-outfit font-semibold text-ada-navy mb-2">
+                What You&apos;ll See
+              </h3>
+              <p className="text-sm text-ada-navy/50 font-outfit leading-relaxed">
+                Full credential details including certification type, current status,
+                date issued, and validity period. All information is verified in real-time
+                against our registry.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-14 h-14 rounded-2xl bg-ada-navy/5 flex items-center justify-center mx-auto mb-5">
+                <Scale className="w-7 h-7 text-ada-navy/60" />
+              </div>
+              <h3 className="font-outfit font-semibold text-ada-navy mb-2">
+                Open to Everyone
+              </h3>
+              <p className="text-sm text-ada-navy/50 font-outfit leading-relaxed">
+                This service is available to expectant parents, insurance providers,
+                healthcare facilities, and doula agencies. No registration required.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works — numbered steps */}
+      <section className="py-20 bg-ada-cream">
+        <div className="max-w-[1000px] mx-auto px-6">
+          <h2 className="font-dm-serif text-3xl text-ada-navy text-center mb-14">
+            Verification Process
+          </h2>
+          <div className="max-w-2xl mx-auto">
+            <div className="relative">
+              {/* Vertical line */}
+              <div className="absolute left-5 top-2 bottom-2 w-px bg-ada-purple/15" />
+              <div className="space-y-10">
+                {[
+                  { title: 'Obtain the Code', text: 'Request the verification code from the doula — it is printed on their official ADA certification certificate.', icon: BookOpen },
+                  { title: 'Enter & Search', text: 'Enter the code in the search field above. The system checks the code against the ADA certification registry.', icon: Search },
+                  { title: 'Review Results', text: 'View the official verification record showing the doula\'s credential type, certification status, and validity dates.', icon: GraduationCap },
+                ].map((step, i) => (
+                  <div key={i} className="flex gap-6">
+                    <div className="relative z-10 w-10 h-10 rounded-full bg-ada-purple flex items-center justify-center text-white font-outfit font-bold text-sm shrink-0 shadow-md">
+                      {i + 1}
+                    </div>
+                    <div className="pt-1">
+                      <h3 className="font-outfit font-semibold text-ada-navy mb-1">{step.title}</h3>
+                      <p className="text-sm text-ada-navy/50 font-outfit leading-relaxed">{step.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Certification standards */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1000px] mx-auto px-6">
+          <div className="bg-ada-navy rounded-2xl p-10 md:p-14 text-center relative overflow-hidden">
+            <div className="absolute inset-0 opacity-[0.03]" style={{
+              backgroundImage: 'repeating-linear-gradient(45deg, white 0, white 1px, transparent 1px, transparent 12px)',
+            }} />
+            <div className="relative">
+              <h2 className="font-dm-serif text-3xl text-white mb-4">
+                ADA Certification Standards
+              </h2>
+              <p className="text-white/50 font-outfit max-w-xl mx-auto leading-relaxed mb-8">
+                Our doulas complete a comprehensive program including classroom training,
+                supervised practice, and dual examinations before earning their credential.
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {[
+                  { num: '164+', label: 'Certified Doulas' },
+                  { num: '4-5', label: 'Day Training' },
+                  { num: '90', label: 'Min Exam Score' },
+                  { num: '3yr', label: 'Validity Period' },
+                ].map((stat) => (
+                  <div key={stat.label}>
+                    <p className="font-outfit text-2xl font-bold text-white">{stat.num}</p>
+                    <p className="text-xs text-white/40 font-outfit mt-1">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 bg-ada-cream">
+        <div className="max-w-[1000px] mx-auto px-6 text-center">
+          <h2 className="font-dm-serif text-2xl text-ada-navy mb-3">
+            Are you a certified doula?
+          </h2>
+          <p className="text-ada-navy/50 font-outfit mb-6">
+            Access your credential portal to view records, download certificates, and check exam history.
+          </p>
+          <Link
+            href="/portal"
+            className="inline-flex items-center rounded-full bg-ada-purple text-white px-6 py-3 text-sm font-outfit font-medium hover:bg-ada-purple-hover transition-colors"
+          >
+            Access Doula Portal &rarr;
+          </Link>
         </div>
       </section>
     </>
