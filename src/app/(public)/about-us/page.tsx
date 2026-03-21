@@ -140,7 +140,7 @@ export default function AboutUsPage() {
             <div className="relative w-full max-w-[454px] mx-auto lg:mx-0">
               <div className="relative aspect-[3/4] rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/about-ada-help.jpg"
+                  src="/images/about-ada-help.webp"
                   alt="How ADA Can Help"
                   fill
                   className="object-cover"

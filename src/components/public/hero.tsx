@@ -1,23 +1,25 @@
-'use client';
-
+import Image from 'next/image';
 import Link from 'next/link';
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-end">
       {/* Background image with warm gradient overlay */}
+      <Image
+        src="/images/hero.webp"
+        alt="Asian Doula Alliance — postpartum care"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-[right_top]"
+      />
+      {/* Left-to-right darken for text readability */}
       <div
-        className="absolute inset-0 bg-cover bg-[right_top] bg-no-repeat"
-        style={{ backgroundImage: "url('/images/hero.jpg')" }}
-      >
-        {/* Left-to-right darken for text readability */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to right, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.15) 100%)',
-          }}
-        />
-      </div>
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(to right, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.15) 100%)',
+        }}
+      />
 
       {/* Bottom fade to white — outside image div, covers full section bottom */}
       <div

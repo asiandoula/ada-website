@@ -1,13 +1,18 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Hero } from '@/components/public/hero';
 import { Counter } from '@/components/public/counter';
 import { TestimonialCarousel } from '@/components/public/testimonial-carousel';
 import { ContactForm } from '@/components/public/contact-form';
-import { CommunityMap } from '@/components/public/california-map';
 import { ShapeHeart, ShapeFlower } from '@/components/public/decorative-shapes';
 import { GraduationCap, Trophy, Users, Globe, Soup, Heart } from 'lucide-react';
+
+const CommunityMap = dynamic(
+  () => import('@/components/public/california-map').then((m) => m.CommunityMap),
+  { ssr: false }
+);
 
 export const metadata: Metadata = {
   title: 'Asian Doula Alliance — Bridging Cultures, Supporting Moms, Celebrating Life',
@@ -442,7 +447,7 @@ export default function HomePage() {
               },
               {
                 name: 'IBLCE',
-                logo: '/images/partners/iblce.png',
+                logo: '/images/partners/iblce.webp',
                 description: 'ADA aligns with IBLCE in promoting breastfeeding education and certification. We support doulas who wish to expand their knowledge in lactation support and pursue IBCLC credentials.',
               },
             ].map((partner) => (
@@ -481,12 +486,15 @@ export default function HomePage() {
 
       {/* Upcoming Training — full-bleed image + overlay */}
       <section className="relative min-h-[500px] flex items-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/pict1.png')" }}
-        >
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(12,34,49,0.92) 40%, rgba(12,34,49,0.6) 100%)' }} />
-        </div>
+        <Image
+          src="/images/pict1.webp"
+          alt="Doula training session"
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+          loading="lazy"
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(12,34,49,0.92) 40%, rgba(12,34,49,0.6) 100%)' }} />
         <div className="relative z-10 max-w-[1200px] mx-auto px-6 py-20 w-full">
           <div className="max-w-xl">
             <h2 className="font-dm-serif text-4xl text-white">
