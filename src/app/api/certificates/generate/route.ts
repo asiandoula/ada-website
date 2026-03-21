@@ -1,13 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { renderToBuffer } from '@react-pdf/renderer';
-import { CertificatePDF } from '@/components/certificate/pdf-template';
+import { generateCertificatePDF } from '@/components/certificate/pdf-template';
 import { generateVerificationCode, generateCertificateNumber } from '@/lib/utils';
-import { CERT_TYPE_LABELS } from '@/lib/constants';
-import type { CertificateType } from '@/lib/constants';
-import React from 'react';
 
-// Use service role for storage uploads
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -44,24 +39,13 @@ export async function POST(request: NextRequest) {
     .toISOString()
     .split('T')[0];
 
-  const verificationUrl = `https://asiandoula.org/verify/${verificationCode}`;
-
-  // Generate PDF
-  const pdfElement = React.createElement(CertificatePDF, {
+  // Generate PDF using Adobe form template
+  const pdfBuffer = await generateCertificatePDF({
     fullName: doula.full_name,
     fullNameZh: doula.full_name_zh || undefined,
-    certificateType: certificate_type,
-    certificateTypeLabel: CERT_TYPE_LABELS[certificate_type as CertificateType],
     certificateNumber,
-    issuedDate,
     expirationDate,
-    verificationCode,
-    verificationUrl,
   });
-  // CertificatePDF returns a <Document> — cast to satisfy renderToBuffer's type
-  const pdfBuffer = await renderToBuffer(
-    pdfElement as unknown as React.ReactElement
-  );
 
   // Upload to Supabase Storage
   const storagePath = `certificates/${doula_id}/${certificateNumber}.pdf`;
@@ -106,7 +90,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Auto-sync doula's expiration_date and certification_date
+  // Auto-sync doula's dates and status
   await supabase
     .from('doulas')
     .update({
