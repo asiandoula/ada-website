@@ -156,7 +156,7 @@ export default function FindADoulaTrainingPage() {
 
             {/* Sidebar */}
             <aside className="lg:w-1/5">
-              <div className="sticky top-32">
+              <div className="lg:sticky lg:top-32">
                 <span className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-navy/40">
                   Postpartum Doula Certification
                 </span>

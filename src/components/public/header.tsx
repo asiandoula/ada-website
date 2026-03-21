@@ -160,7 +160,7 @@ export function Header() {
   }, [mobileOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50" style={{ backgroundColor: 'rgba(96, 96, 144, 0.85)', backdropFilter: 'blur(8px)' }}>
+    <header className="fixed top-0 left-0 right-0 z-50 transition-colors duration-300" style={{ backgroundColor: mobileOpen ? '#606090' : 'rgba(96, 96, 144, 0.85)', backdropFilter: mobileOpen ? 'none' : 'blur(8px)' }}>
       <div className="max-w-[1200px] mx-auto px-6">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
@@ -210,7 +210,7 @@ export function Header() {
       {/* Mobile overlay */}
       <div
         className={`lg:hidden fixed inset-0 top-16 z-40 transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
-        style={{ backgroundColor: 'rgba(96, 96, 144, 0.95)' }}
+        style={{ backgroundColor: '#606090' }}
         aria-hidden={!mobileOpen}
       >
         <nav className="px-6 py-6 space-y-1 overflow-y-auto max-h-[calc(100vh-4rem)]" aria-label="Mobile navigation">

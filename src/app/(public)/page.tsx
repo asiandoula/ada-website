@@ -328,7 +328,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[10px] p-[10px]" style={{ gridTemplateColumns: 'repeat(3, minmax(50px, 1fr))' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[10px] p-[10px]">
             {[
               {
                 icon: <GraduationCap className="w-5 h-5 text-[#662d91]" />,

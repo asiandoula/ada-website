@@ -78,7 +78,7 @@ export function TestimonialCarousel({ testimonials, darkMode, autoPlay = true, i
       {/* Arrow buttons */}
       <button
         onClick={() => { prev(); setPaused(true); setTimeout(() => setPaused(false), 8000); }}
-        className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 p-2 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-ada-purple/40 ${
+        className={`absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-ada-purple/40 ${
           darkMode ? 'bg-white/10 text-white/60 hover:text-white' : 'bg-white shadow-md text-ada-navy/40 hover:text-ada-purple'
         }`}
         aria-label="Previous testimonial"
@@ -87,7 +87,7 @@ export function TestimonialCarousel({ testimonials, darkMode, autoPlay = true, i
       </button>
       <button
         onClick={() => { next(); setPaused(true); setTimeout(() => setPaused(false), 8000); }}
-        className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 p-2 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-ada-purple/40 ${
+        className={`absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-ada-purple/40 ${
           darkMode ? 'bg-white/10 text-white/60 hover:text-white' : 'bg-white shadow-md text-ada-navy/40 hover:text-ada-purple'
         }`}
         aria-label="Next testimonial"

@@ -139,7 +139,7 @@ export default function StepsToCertificationPage() {
                 <h3 className="font-dm-serif text-xl text-ada-navy mb-5">
                   At a Glance
                 </h3>
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {glanceItems.map((item) => (
                     <div key={item.label}>
                       <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">
