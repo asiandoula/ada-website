@@ -24,15 +24,36 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Doula not found' }, { status: 404 });
     }
 
-    // Get next sequence number
-    const { count } = await supabase
+    // Check if this doula already has a certificate of this type
+    const { data: existingCert } = await supabase
       .from('certificates')
-      .select('*', { count: 'exact', head: true })
-      .eq('certificate_type', certificate_type);
+      .select('id, certificate_number, verification_code, pdf_url')
+      .eq('doula_id', doula_id)
+      .eq('certificate_type', certificate_type)
+      .single();
 
-    const sequence = (count ?? 0) + 1;
-    const certificateNumber = generateCertificateNumber(certificate_type, sequence);
-    const verificationCode = generateVerificationCode();
+    let certificateNumber: string;
+    let verificationCode: string;
+    let certId: string;
+
+    if (existingCert) {
+      // Update existing certificate with new PDF
+      certificateNumber = existingCert.certificate_number;
+      verificationCode = existingCert.verification_code;
+      certId = existingCert.id;
+    } else {
+      // Create new certificate record
+      const { count } = await supabase
+        .from('certificates')
+        .select('*', { count: 'exact', head: true })
+        .eq('certificate_type', certificate_type);
+
+      const sequence = (count ?? 0) + 1;
+      certificateNumber = generateCertificateNumber(certificate_type, sequence);
+      verificationCode = generateVerificationCode();
+      certId = '';
+    }
+
     const issuedDate = new Date().toISOString().split('T')[0];
     const expirationDate = new Date(
       new Date().setFullYear(new Date().getFullYear() + 3)
@@ -71,26 +92,44 @@ export async function POST(request: NextRequest) {
       data: { publicUrl },
     } = supabase.storage.from('certificates').getPublicUrl(storagePath);
 
-    // Save to database
-    const { data: cert, error: insertError } = await supabase
-      .from('certificates')
-      .insert({
-        doula_id,
-        certificate_type,
-        certificate_number: certificateNumber,
-        issued_date: issuedDate,
-        expiration_date: expirationDate,
-        pdf_url: publicUrl,
-        verification_code: verificationCode,
-      })
-      .select()
-      .single();
+    let cert;
+    if (existingCert) {
+      // Update existing record with PDF URL and new dates
+      const { data, error } = await supabase
+        .from('certificates')
+        .update({
+          issued_date: issuedDate,
+          expiration_date: expirationDate,
+          pdf_url: publicUrl,
+        })
+        .eq('id', certId)
+        .select()
+        .single();
 
-    if (insertError) {
-      return NextResponse.json(
-        { error: `Save failed: ${insertError.message}` },
-        { status: 500 }
-      );
+      if (error) {
+        return NextResponse.json({ error: `Update failed: ${error.message}` }, { status: 500 });
+      }
+      cert = data;
+    } else {
+      // Insert new record
+      const { data, error } = await supabase
+        .from('certificates')
+        .insert({
+          doula_id,
+          certificate_type,
+          certificate_number: certificateNumber,
+          issued_date: issuedDate,
+          expiration_date: expirationDate,
+          pdf_url: publicUrl,
+          verification_code: verificationCode,
+        })
+        .select()
+        .single();
+
+      if (error) {
+        return NextResponse.json({ error: `Save failed: ${error.message}` }, { status: 500 });
+      }
+      cert = data;
     }
 
     // Auto-sync doula's dates and status

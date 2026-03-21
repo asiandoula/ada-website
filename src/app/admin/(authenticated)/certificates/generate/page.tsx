@@ -18,6 +18,8 @@ export default function GenerateCertificatePage() {
   const [error, setError] = useState('');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [result, setResult] = useState<Record<string, any> | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [existingCert, setExistingCert] = useState<Record<string, any> | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -32,6 +34,25 @@ export default function GenerateCertificatePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Check for existing certificate when doula or type changes
+  useEffect(() => {
+    async function checkExisting() {
+      if (!selectedDoula || !certType) {
+        setExistingCert(null);
+        return;
+      }
+      const { data } = await supabase
+        .from('certificates')
+        .select('certificate_number, verification_code, pdf_url, issued_date')
+        .eq('doula_id', selectedDoula)
+        .eq('certificate_type', certType)
+        .single();
+      setExistingCert(data);
+    }
+    checkExisting();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDoula, certType]);
+
   async function handleGenerate() {
     if (!selectedDoula || !certType) {
       setError('Please select a doula and certificate type.');
@@ -42,24 +63,36 @@ export default function GenerateCertificatePage() {
     setError('');
     setResult(null);
 
-    const response = await fetch('/api/certificates/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        doula_id: selectedDoula,
-        certificate_type: certType,
-      }),
-    });
+    try {
+      const response = await fetch('/api/certificates/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          doula_id: selectedDoula,
+          certificate_type: certType,
+        }),
+      });
 
-    const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        setError('Server error — please restart dev server and try again.');
+        setLoading(false);
+        return;
+      }
 
-    if (!response.ok) {
-      setError(data.error || 'Generation failed');
-      setLoading(false);
-      return;
+      if (!response.ok) {
+        setError(data.error || 'Generation failed');
+        setLoading(false);
+        return;
+      }
+
+      setResult(data);
+      setExistingCert(null); // refresh
+    } catch {
+      setError('Network error — please check your connection.');
     }
-
-    setResult(data);
     setLoading(false);
   }
 
@@ -74,7 +107,7 @@ export default function GenerateCertificatePage() {
             <select
               className="w-full border rounded-md px-3 py-2 text-sm"
               value={selectedDoula}
-              onChange={(e) => setSelectedDoula(e.target.value)}
+              onChange={(e) => { setSelectedDoula(e.target.value); setResult(null); setError(''); }}
             >
               <option value="">Choose a doula...</option>
               {doulas.map((d) => (
@@ -90,7 +123,7 @@ export default function GenerateCertificatePage() {
             <select
               className="w-full border rounded-md px-3 py-2 text-sm"
               value={certType}
-              onChange={(e) => setCertType(e.target.value)}
+              onChange={(e) => { setCertType(e.target.value); setResult(null); setError(''); }}
             >
               {CERTIFICATE_TYPES.map((t) => (
                 <option key={t} value={t}>
@@ -99,6 +132,22 @@ export default function GenerateCertificatePage() {
               ))}
             </select>
           </div>
+
+          {/* Show existing certificate info */}
+          {existingCert && !result && (
+            <div className="bg-blue-50 border border-blue-200 rounded-md p-4 space-y-1">
+              <p className="text-blue-800 font-medium text-sm">This doula already has a certificate</p>
+              <p className="text-sm text-blue-700">Number: <code>{existingCert.certificate_number}</code></p>
+              <p className="text-sm text-blue-700">Issued: {existingCert.issued_date}</p>
+              {existingCert.pdf_url ? (
+                <a href={existingCert.pdf_url} target="_blank" className="text-ada-purple hover:underline text-sm">
+                  Download existing PDF
+                </a>
+              ) : (
+                <p className="text-sm text-blue-600 italic">No PDF generated yet — click Generate to create one.</p>
+              )}
+            </div>
+          )}
 
           {error && <p className="text-sm text-red-600">{error}</p>}
 
@@ -111,13 +160,15 @@ export default function GenerateCertificatePage() {
               <p className="text-sm">
                 Verification: <code>{result.certificate.verification_code}</code>
               </p>
-              <a
-                href={result.pdf_url}
-                target="_blank"
-                className="text-ada-purple hover:underline text-sm"
-              >
-                Download PDF
-              </a>
+              {result.pdf_url && (
+                <a
+                  href={result.pdf_url}
+                  target="_blank"
+                  className="text-ada-purple hover:underline text-sm"
+                >
+                  Download PDF
+                </a>
+              )}
             </div>
           )}
 
@@ -127,7 +178,7 @@ export default function GenerateCertificatePage() {
               onClick={handleGenerate}
               disabled={loading}
             >
-              {loading ? 'Generating...' : 'Generate Certificate'}
+              {loading ? 'Generating...' : existingCert?.pdf_url ? 'Regenerate PDF' : 'Generate Certificate'}
             </Button>
             <Button variant="outline" onClick={() => router.back()}>
               Cancel
