@@ -66,7 +66,7 @@ const credentialLabels: Record<string, string> = {
 function StatusBadge({ status }: { status: string }) {
   const config = statusConfig[status] || { label: status, color: 'bg-gray-100 text-gray-600' };
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.color}`}>
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium font-outfit ${config.color}`}>
       {config.label}
     </span>
   );
@@ -134,97 +134,118 @@ export default function PortalPage() {
   if (!data) {
     return (
       <>
+        {/* Hero */}
         <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
           <div className="max-w-[1200px] mx-auto px-6 text-center">
             <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-              Doula Portal
+              For Doulas
             </span>
-            <h1 className="mt-3 font-dm-serif text-4xl md:text-5xl text-ada-navy">
-              Access Your Profile
+            <h1 className="mt-3 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
+              My Portal
             </h1>
-            <p className="mt-4 text-lg text-ada-navy/60 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
               View your certifications, download certificates, and check exam results.
             </p>
           </div>
         </section>
 
+        {/* Form */}
         <section className="py-20 bg-white">
-          <div className="max-w-md mx-auto px-6">
-            <form onSubmit={handleVerify} className="space-y-5">
-              {/* Doula ID Code */}
-              <div>
-                <label htmlFor="idCode" className="block text-sm font-outfit font-medium text-ada-navy mb-1.5">
-                  Doula ID Code
-                </label>
-                <input
-                  id="idCode"
-                  type="text"
-                  value={idCode}
-                  onChange={(e) => setIdCode(e.target.value)}
-                  placeholder="e.g., 25-80301"
-                  required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-ada-navy focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple"
-                />
-              </div>
+          <div className="max-w-[1200px] mx-auto px-6">
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+              {/* Main form */}
+              <div className="lg:w-4/5">
+                <div className="max-w-md">
+                  <form onSubmit={handleVerify} className="space-y-5">
+                    <div>
+                      <label htmlFor="idCode" className="block text-sm font-outfit font-medium text-ada-navy mb-1.5">
+                        Doula ID Code
+                      </label>
+                      <input
+                        id="idCode"
+                        type="text"
+                        value={idCode}
+                        onChange={(e) => setIdCode(e.target.value)}
+                        placeholder="e.g., 25-80301"
+                        required
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-ada-navy font-outfit focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple"
+                      />
+                    </div>
 
-              {/* Contact method toggle */}
-              <div>
-                <div className="flex gap-2 mb-1.5">
-                  <button
-                    type="button"
-                    onClick={() => { setContactMethod('email'); setContactValue(''); }}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-outfit font-medium transition-colors ${
-                      contactMethod === 'email'
-                        ? 'bg-ada-purple text-white'
-                        : 'bg-gray-100 text-ada-navy/60 hover:bg-gray-200'
-                    }`}
-                  >
-                    <Mail className="w-3.5 h-3.5" /> Email
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => { setContactMethod('phone'); setContactValue(''); }}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-outfit font-medium transition-colors ${
-                      contactMethod === 'phone'
-                        ? 'bg-ada-purple text-white'
-                        : 'bg-gray-100 text-ada-navy/60 hover:bg-gray-200'
-                    }`}
-                  >
-                    <Phone className="w-3.5 h-3.5" /> Phone
-                  </button>
+                    <div>
+                      <div className="flex gap-2 mb-1.5">
+                        <button
+                          type="button"
+                          onClick={() => { setContactMethod('email'); setContactValue(''); }}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-outfit font-medium transition-colors ${
+                            contactMethod === 'email'
+                              ? 'bg-ada-purple text-white'
+                              : 'bg-gray-100 text-ada-navy/60 hover:bg-gray-200'
+                          }`}
+                        >
+                          <Mail className="w-3.5 h-3.5" /> Email
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => { setContactMethod('phone'); setContactValue(''); }}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-outfit font-medium transition-colors ${
+                            contactMethod === 'phone'
+                              ? 'bg-ada-purple text-white'
+                              : 'bg-gray-100 text-ada-navy/60 hover:bg-gray-200'
+                          }`}
+                        >
+                          <Phone className="w-3.5 h-3.5" /> Phone
+                        </button>
+                      </div>
+                      <input
+                        type={contactMethod === 'email' ? 'email' : 'tel'}
+                        value={contactValue}
+                        onChange={(e) => setContactValue(e.target.value)}
+                        placeholder={contactMethod === 'email' ? 'your@email.com' : '(626) 555-1234'}
+                        required
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-ada-navy font-outfit focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple"
+                      />
+                    </div>
+
+                    {error && (
+                      <p className="text-sm text-red-600 font-outfit">{error}</p>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full py-3 rounded-full bg-ada-purple text-white font-outfit font-medium hover:bg-ada-purple-hover transition-colors disabled:opacity-50"
+                    >
+                      {loading ? 'Verifying...' : 'Access My Profile'}
+                    </button>
+                  </form>
+
+                  <p className="mt-6 text-sm text-ada-navy/40 font-outfit">
+                    Your Doula ID Code is on your certification certificate (e.g., 25-80301 or #25-311).
+                  </p>
                 </div>
-                <input
-                  type={contactMethod === 'email' ? 'email' : 'tel'}
-                  value={contactValue}
-                  onChange={(e) => setContactValue(e.target.value)}
-                  placeholder={contactMethod === 'email' ? 'your@email.com' : '(626) 555-1234'}
-                  required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-ada-navy focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple"
-                />
               </div>
 
-              {error && (
-                <p className="text-sm text-red-600 font-outfit">{error}</p>
-              )}
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-3 rounded-full bg-ada-purple text-white font-outfit font-medium hover:bg-ada-purple-hover transition-colors disabled:opacity-50"
-              >
-                {loading ? 'Verifying...' : 'Access My Profile'}
-              </button>
-            </form>
-
-            <p className="mt-6 text-center text-sm text-ada-navy/40 font-outfit">
-              Your Doula ID Code is on your certification certificate.
-            </p>
-            <p className="mt-2 text-center text-sm text-ada-navy/40 font-outfit">
-              Looking to verify a doula&apos;s certification?{' '}
-              <Link href="/verify" className="text-ada-purple hover:underline">
-                Public Verification &rarr;
-              </Link>
-            </p>
+              {/* Sidebar */}
+              <aside className="lg:w-1/5">
+                <div className="lg:sticky lg:top-32">
+                  <span className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-navy/40">
+                    For Doulas
+                  </span>
+                  <nav className="mt-4 flex flex-col">
+                    <Link href="/for-doulas/renew" className="block py-1.5 text-sm text-ada-navy/60 hover:text-ada-purple transition-colors font-outfit">
+                      Renew / Recertification
+                    </Link>
+                    <Link href="/for-doulas/code-of-conduct" className="block py-1.5 text-sm text-ada-navy/60 hover:text-ada-purple transition-colors font-outfit">
+                      Code of Conduct
+                    </Link>
+                    <Link href="/verify" className="block py-1.5 text-sm text-ada-navy/60 hover:text-ada-purple transition-colors font-outfit">
+                      Verify a Doula
+                    </Link>
+                  </nav>
+                </div>
+              </aside>
+            </div>
           </div>
         </section>
       </>
@@ -236,7 +257,7 @@ export default function PortalPage() {
 
   return (
     <>
-      {/* Header bar */}
+      {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
@@ -244,13 +265,13 @@ export default function PortalPage() {
               <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
                 Doula Portal
               </span>
-              <h1 className="mt-2 font-dm-serif text-3xl md:text-4xl text-ada-navy">
+              <h1 className="mt-3 font-dm-serif text-3xl md:text-4xl lg:text-5xl text-ada-navy">
                 {doula.full_name}
                 {doula.full_name_zh && (
-                  <span className="ml-3 text-ada-navy/40 text-2xl">{doula.full_name_zh}</span>
+                  <span className="ml-3 text-ada-navy/40 text-2xl md:text-3xl">{doula.full_name_zh}</span>
                 )}
               </h1>
-              <div className="mt-3 flex flex-wrap items-center gap-3">
+              <div className="mt-4 flex flex-wrap items-center gap-3">
                 <span className="font-outfit text-sm text-ada-navy/50">
                   ID: {doula.doula_id_code}
                 </span>
@@ -270,154 +291,180 @@ export default function PortalPage() {
         </div>
       </section>
 
-      <section className="py-12 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6 space-y-12">
+      {/* Content */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+            {/* Main content */}
+            <div className="lg:w-4/5 space-y-16">
 
-          {/* Credentials */}
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <Shield className="w-5 h-5 text-ada-purple" />
-              <h2 className="font-dm-serif text-2xl text-ada-navy">Credentials</h2>
-            </div>
-            {credentials.length === 0 ? (
-              <p className="text-ada-navy/40 font-outfit">No credentials on file.</p>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {credentials.map((cred) => (
-                  <div
-                    key={cred.credential_type}
-                    className="border border-gray-200 rounded-2xl p-5 hover:shadow-md transition-[transform,box-shadow] duration-300"
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-outfit font-semibold text-ada-navy">
-                        {credentialLabels[cred.credential_type] || cred.credential_type}
-                      </h3>
-                      <StatusBadge status={cred.status} />
-                    </div>
-                    <div className="space-y-1 text-sm text-ada-navy/60 font-outfit">
-                      <p>Certified: {formatDate(cred.certification_date)}</p>
-                      <p>Expires: {cred.expiration_date ? formatDate(cred.expiration_date) : 'Permanent'}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Certificates */}
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <Award className="w-5 h-5 text-ada-purple" />
-              <h2 className="font-dm-serif text-2xl text-ada-navy">Certificates</h2>
-            </div>
-            {certificates.length === 0 ? (
-              <p className="text-ada-navy/40 font-outfit">No certificates issued yet.</p>
-            ) : (
-              <div className="space-y-3">
-                {certificates.map((cert) => (
-                  <div
-                    key={cert.id}
-                    className="flex items-center justify-between border border-gray-200 rounded-xl px-5 py-4"
-                  >
-                    <div className="flex items-center gap-4">
-                      <FileText className="w-5 h-5 text-ada-navy/30 shrink-0" />
-                      <div>
-                        <p className="font-outfit font-medium text-ada-navy">{cert.certificate_number}</p>
-                        <p className="text-sm text-ada-navy/50 font-outfit">Issued {formatDate(cert.issued_date)}</p>
-                      </div>
-                    </div>
-                    {cert.pdf_url && (
-                      <a
-                        href={cert.pdf_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-ada-purple/10 text-ada-purple text-sm font-outfit font-medium hover:bg-ada-purple/20 transition-colors"
+              {/* Credentials */}
+              <div>
+                <div className="flex items-center gap-2 mb-6">
+                  <Shield className="w-5 h-5 text-ada-purple" />
+                  <h2 className="font-dm-serif text-2xl text-ada-navy">Credentials</h2>
+                </div>
+                {credentials.length === 0 ? (
+                  <p className="text-ada-navy/40 font-outfit">No credentials on file.</p>
+                ) : (
+                  <div className="flex flex-col sm:flex-row gap-6">
+                    {credentials.map((cred) => (
+                      <div
+                        key={cred.credential_type}
+                        className="flex-1 bg-[#fafafa] rounded-xl p-6"
                       >
-                        <Download className="w-4 h-4" /> PDF
-                      </a>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Exam Results */}
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <GraduationCap className="w-5 h-5 text-ada-purple" />
-              <h2 className="font-dm-serif text-2xl text-ada-navy">Exam Results</h2>
-            </div>
-            {exam_results.length === 0 ? (
-              <p className="text-ada-navy/40 font-outfit">No exam results on file.</p>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm font-outfit">
-                  <thead>
-                    <tr className="border-b border-gray-200 text-left text-ada-navy/40">
-                      <th className="py-3 pr-4 font-medium">Session</th>
-                      <th className="py-3 pr-4 font-medium">Type</th>
-                      <th className="py-3 pr-4 font-medium">Date</th>
-                      <th className="py-3 pr-4 font-medium">Score</th>
-                      <th className="py-3 font-medium">Result</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {exam_results.map((exam, i) => (
-                      <tr key={i} className="border-b border-gray-100">
-                        <td className="py-3 pr-4 text-ada-navy">{exam.exam_session}</td>
-                        <td className="py-3 pr-4 text-ada-navy/70">
-                          {credentialLabels[exam.exam_type] || exam.exam_type}
-                        </td>
-                        <td className="py-3 pr-4 text-ada-navy/70">{formatDate(exam.exam_date)}</td>
-                        <td className="py-3 pr-4 text-ada-navy font-medium">{exam.score}</td>
-                        <td className="py-3">
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                            exam.passed ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
-                          }`}>
-                            {exam.passed ? 'Passed' : 'Failed'}
-                          </span>
-                        </td>
-                      </tr>
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className="font-outfit font-semibold text-ada-navy">
+                            {credentialLabels[cred.credential_type] || cred.credential_type}
+                          </h3>
+                          <StatusBadge status={cred.status} />
+                        </div>
+                        <div className="space-y-1 text-sm text-ada-navy/60 font-outfit">
+                          <p>Certified: {formatDate(cred.certification_date)}</p>
+                          <p>Expires: {cred.expiration_date ? formatDate(cred.expiration_date) : 'Permanent'}</p>
+                        </div>
+                      </div>
                     ))}
-                  </tbody>
-                </table>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* Profile Info */}
-          <div className="bg-[#fafafa] rounded-2xl p-6">
-            <h3 className="font-outfit font-semibold text-ada-navy mb-4">Profile Information</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-outfit">
-              {doula.email && (
-                <div>
-                  <span className="text-ada-navy/40 block">Email</span>
-                  <span className="text-ada-navy">{doula.email}</span>
+              {/* Certificates */}
+              <div>
+                <div className="flex items-center gap-2 mb-6">
+                  <Award className="w-5 h-5 text-ada-purple" />
+                  <h2 className="font-dm-serif text-2xl text-ada-navy">Certificates</h2>
                 </div>
-              )}
-              {doula.phone && (
-                <div>
-                  <span className="text-ada-navy/40 block">Phone</span>
-                  <span className="text-ada-navy">{doula.phone}</span>
+                {certificates.length === 0 ? (
+                  <p className="text-ada-navy/40 font-outfit">No certificates issued yet.</p>
+                ) : (
+                  <div className="space-y-3">
+                    {certificates.map((cert) => (
+                      <div
+                        key={cert.id}
+                        className="flex items-center justify-between bg-[#fafafa] rounded-xl px-6 py-4"
+                      >
+                        <div className="flex items-center gap-4">
+                          <FileText className="w-5 h-5 text-ada-navy/30 shrink-0" />
+                          <div>
+                            <p className="font-outfit font-medium text-ada-navy">{cert.certificate_number}</p>
+                            <p className="text-sm text-ada-navy/50 font-outfit">Issued {formatDate(cert.issued_date)}</p>
+                          </div>
+                        </div>
+                        {cert.pdf_url && (
+                          <a
+                            href={cert.pdf_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-ada-purple/10 text-ada-purple text-sm font-outfit font-medium hover:bg-ada-purple/20 transition-colors"
+                          >
+                            <Download className="w-4 h-4" /> PDF
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Exam Results */}
+              <div>
+                <div className="flex items-center gap-2 mb-6">
+                  <GraduationCap className="w-5 h-5 text-ada-purple" />
+                  <h2 className="font-dm-serif text-2xl text-ada-navy">Exam Results</h2>
                 </div>
-              )}
-              {doula.languages && doula.languages.length > 0 && (
-                <div>
-                  <span className="text-ada-navy/40 block">Languages</span>
-                  <span className="text-ada-navy">{doula.languages.join(', ')}</span>
+                {exam_results.length === 0 ? (
+                  <p className="text-ada-navy/40 font-outfit">No exam results on file.</p>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm font-outfit">
+                      <thead>
+                        <tr className="border-b border-gray-200 text-left text-ada-navy/40">
+                          <th className="py-3 pr-4 font-medium">Session</th>
+                          <th className="py-3 pr-4 font-medium">Type</th>
+                          <th className="py-3 pr-4 font-medium">Date</th>
+                          <th className="py-3 pr-4 font-medium">Score</th>
+                          <th className="py-3 font-medium">Result</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {exam_results.map((exam, i) => (
+                          <tr key={i} className="border-b border-gray-100">
+                            <td className="py-3 pr-4 text-ada-navy">{exam.exam_session}</td>
+                            <td className="py-3 pr-4 text-ada-navy/70">
+                              {credentialLabels[exam.exam_type] || exam.exam_type}
+                            </td>
+                            <td className="py-3 pr-4 text-ada-navy/70">{formatDate(exam.exam_date)}</td>
+                            <td className="py-3 pr-4 text-ada-navy font-medium">{exam.score}</td>
+                            <td className="py-3">
+                              <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                                exam.passed ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
+                              }`}>
+                                {exam.passed ? 'Passed' : 'Failed'}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              {/* Profile Info */}
+              <div className="bg-[#fafafa] rounded-2xl p-10">
+                <h3 className="font-dm-serif text-2xl text-ada-navy mb-6">Profile Information</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm font-outfit">
+                  {doula.email && (
+                    <div>
+                      <span className="text-ada-navy/40 block mb-1">Email</span>
+                      <span className="text-ada-navy">{doula.email}</span>
+                    </div>
+                  )}
+                  {doula.phone && (
+                    <div>
+                      <span className="text-ada-navy/40 block mb-1">Phone</span>
+                      <span className="text-ada-navy">{doula.phone}</span>
+                    </div>
+                  )}
+                  {doula.languages && doula.languages.length > 0 && (
+                    <div>
+                      <span className="text-ada-navy/40 block mb-1">Languages</span>
+                      <span className="text-ada-navy">{doula.languages.join(', ')}</span>
+                    </div>
+                  )}
+                  {doula.region && (
+                    <div>
+                      <span className="text-ada-navy/40 block mb-1">Region</span>
+                      <span className="text-ada-navy">{doula.region}</span>
+                    </div>
+                  )}
                 </div>
-              )}
-              {doula.region && (
-                <div>
-                  <span className="text-ada-navy/40 block">Region</span>
-                  <span className="text-ada-navy">{doula.region}</span>
-                </div>
-              )}
+                <p className="mt-6 text-xs text-ada-navy/30 font-outfit">
+                  To update your profile information, please contact ADA at contact@asiandoula.org.
+                </p>
+              </div>
             </div>
-            <p className="mt-4 text-xs text-ada-navy/30 font-outfit">
-              To update your profile information, please contact ADA at contact@asiandoula.org.
-            </p>
+
+            {/* Sidebar */}
+            <aside className="lg:w-1/5">
+              <div className="lg:sticky lg:top-32">
+                <span className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-navy/40">
+                  For Doulas
+                </span>
+                <nav className="mt-4 flex flex-col">
+                  <Link href="/for-doulas/renew" className="block py-1.5 text-sm text-ada-navy/60 hover:text-ada-purple transition-colors font-outfit">
+                    Renew / Recertification
+                  </Link>
+                  <Link href="/for-doulas/code-of-conduct" className="block py-1.5 text-sm text-ada-navy/60 hover:text-ada-purple transition-colors font-outfit">
+                    Code of Conduct
+                  </Link>
+                  <Link href="/verify" className="block py-1.5 text-sm text-ada-navy/60 hover:text-ada-purple transition-colors font-outfit">
+                    Verify a Doula
+                  </Link>
+                </nav>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
