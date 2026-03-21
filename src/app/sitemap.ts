@@ -28,6 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/support', priority: 0.5, changeFrequency: 'monthly' as const },
     { path: '/support/faq', priority: 0.6, changeFrequency: 'monthly' as const },
     { path: '/support/contact', priority: 0.5, changeFrequency: 'yearly' as const },
+    { path: '/portal', priority: 0.6, changeFrequency: 'monthly' as const },
     { path: '/articles', priority: 0.7, changeFrequency: 'weekly' as const },
   ].map((page) => ({
     url: `${baseUrl}${page.path}`,

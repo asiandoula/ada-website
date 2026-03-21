@@ -19,6 +19,7 @@ const certificationLinks = [
 ];
 
 const doulaLinks = [
+  { label: 'My Portal', href: '/portal' },
   { label: 'Renew / Recertification', href: '/for-doulas/renew' },
   { label: 'Code of Conduct', href: '/for-doulas/code-of-conduct' },
   { label: 'Verify a Doula', href: '/verify' },
