@@ -33,9 +33,18 @@ interface Certificate {
 }
 
 interface ExamResult {
+  id: string;
   exam_session: string;
   exam_type: string;
   overall_score: number;
+  score_terminology: number;
+  score_newborn: number;
+  score_lactation: number;
+  score_emergency: number;
+  score_practical: number;
+  score_postpartum: number;
+  score_knowledge: number;
+  score_ethics: number;
   passed: boolean;
   exam_date: string;
 }
@@ -79,10 +88,110 @@ function formatDate(dateStr: string | null): string {
   return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-function daysUntilExpiry(dateStr: string | null): number | null {
+function expiryText(dateStr: string | null): { text: string; color: string } | null {
   if (!dateStr) return null;
   const diff = new Date(dateStr).getTime() - Date.now();
-  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  if (days <= 0) return { text: 'Expired', color: 'text-red-600' };
+  if (days <= 90) return { text: `Expires in ${days} days`, color: 'text-amber-600' };
+  const months = Math.floor(days / 30);
+  const years = Math.floor(months / 12);
+  const remMonths = months % 12;
+  if (years > 0) return { text: `Expires in ${years}yr ${remMonths}mo`, color: 'text-emerald-600' };
+  return { text: `Expires in ${months} months`, color: 'text-emerald-600' };
+}
+
+const scoreLabels: Record<string, string> = {
+  score_terminology: 'Terminology',
+  score_newborn: 'Newborn Care',
+  score_lactation: 'Lactation',
+  score_emergency: 'Emergency',
+  score_practical: 'Practical',
+  score_postpartum: 'Postpartum',
+  score_knowledge: 'Knowledge',
+  score_ethics: 'Ethics',
+};
+
+function ExamSection({ examResults }: { examResults: ExamResult[] }) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  return (
+    <div>
+      <h2 className="font-outfit font-semibold text-ada-navy text-lg mb-5">
+        Examination History
+      </h2>
+      {examResults.length === 0 ? (
+        <p className="text-sm text-ada-navy/40 font-outfit">No exam results on file.</p>
+      ) : (
+        <div className="space-y-3">
+          {examResults.map((exam) => {
+            const isExpanded = expandedId === exam.id;
+            return (
+              <div key={exam.id} className="border border-gray-200 rounded-xl overflow-hidden">
+                {/* Summary row */}
+                <button
+                  type="button"
+                  onClick={() => setExpandedId(isExpanded ? null : exam.id)}
+                  className="w-full flex items-center justify-between px-6 py-4 hover:bg-ada-navy/[0.02] transition-colors text-left"
+                >
+                  <div className="flex items-center gap-6">
+                    <div>
+                      <p className="font-mono text-xs text-ada-navy/50">{exam.exam_session}</p>
+                      <p className="text-sm font-outfit text-ada-navy/60 mt-0.5">
+                        {credentialLabels[exam.exam_type] || exam.exam_type} — {formatDate(exam.exam_date)}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="text-2xl font-outfit font-bold text-ada-navy">{exam.overall_score}</span>
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold font-outfit ${
+                      exam.passed ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
+                    }`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${exam.passed ? 'bg-emerald-500' : 'bg-red-500'}`} />
+                      {exam.passed ? 'Passed' : 'Failed'}
+                    </span>
+                    <svg className={`w-4 h-4 text-ada-navy/30 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </button>
+
+                {/* Expanded breakdown */}
+                {isExpanded && (
+                  <div className="px-6 pb-5 pt-2 border-t border-gray-100 bg-ada-navy/[0.015]">
+                    <p className="text-xs text-ada-navy/40 font-outfit uppercase tracking-wider font-semibold mb-4">
+                      Score Breakdown
+                    </p>
+                    <div className="space-y-3">
+                      {Object.entries(scoreLabels).map(([key, label]) => {
+                        const score = exam[key as keyof ExamResult] as number;
+                        return (
+                          <div key={key} className="flex items-center gap-4">
+                            <span className="w-24 text-xs text-ada-navy/50 font-outfit shrink-0">{label}</span>
+                            <div className="flex-1 h-2 bg-ada-navy/5 rounded-full overflow-hidden">
+                              <div
+                                className={`h-full rounded-full ${
+                                  score >= 90 ? 'bg-emerald-400' : score >= 80 ? 'bg-blue-400' : 'bg-red-400'
+                                }`}
+                                style={{ width: `${score}%` }}
+                              />
+                            </div>
+                            <span className={`w-8 text-right text-xs font-outfit font-semibold ${
+                              score >= 90 ? 'text-emerald-600' : score >= 80 ? 'text-blue-600' : 'text-red-600'
+                            }`}>{score}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function PortalPage() {
@@ -303,8 +412,8 @@ export default function PortalPage() {
       </section>
 
       {/* Summary cards */}
-      <section className="bg-white border-b border-gray-100">
-        <div className="max-w-[1000px] mx-auto px-6 -mt-6">
+      <section className="py-8 bg-white border-b border-gray-100">
+        <div className="max-w-[1000px] mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
               <div className="flex items-center gap-3 mb-2">
@@ -343,13 +452,9 @@ export default function PortalPage() {
             {credentials.length === 0 ? (
               <p className="text-sm text-ada-navy/40 font-outfit">No credentials on file.</p>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className={`grid gap-4 ${credentials.length === 1 ? 'grid-cols-1 max-w-lg' : 'grid-cols-1 md:grid-cols-2'}`}>
                 {credentials.map((cred) => {
-                  const days = daysUntilExpiry(cred.expiration_date);
-                  const totalDays = cred.certification_date && cred.expiration_date
-                    ? (new Date(cred.expiration_date).getTime() - new Date(cred.certification_date).getTime()) / (1000 * 60 * 60 * 24)
-                    : null;
-                  const progress = days !== null && totalDays ? Math.max(0, Math.min(100, (days / totalDays) * 100)) : null;
+                  const expiry = expiryText(cred.expiration_date);
 
                   return (
                     <div key={cred.credential_type} className="border-2 border-ada-navy/10 rounded-2xl p-6">
@@ -369,20 +474,11 @@ export default function PortalPage() {
                           <span className="text-ada-navy">{cred.expiration_date ? formatDate(cred.expiration_date) : 'Permanent'}</span>
                         </div>
                       </div>
-                      {progress !== null && (
-                        <div className="mt-4">
-                          <div className="flex justify-between text-xs text-ada-navy/30 font-outfit mb-1">
-                            <span>Validity</span>
-                            <span>{days !== null && days > 0 ? `${Math.floor(days / 365)}yr ${Math.floor((days % 365) / 30)}mo remaining` : 'Expired'}</span>
-                          </div>
-                          <div className="h-2 bg-ada-navy/5 rounded-full overflow-hidden">
-                            <div
-                              className={`h-full rounded-full transition-[width] duration-500 ${
-                                progress > 30 ? 'bg-emerald-400' : progress > 10 ? 'bg-amber-400' : 'bg-red-400'
-                              }`}
-                              style={{ width: `${progress}%` }}
-                            />
-                          </div>
+                      {expiry && (
+                        <div className="mt-4 pt-3 border-t border-ada-navy/5">
+                          <span className={`text-xs font-outfit font-semibold ${expiry.color}`}>
+                            {expiry.text}
+                          </span>
                         </div>
                       )}
                     </div>
@@ -431,46 +527,7 @@ export default function PortalPage() {
           </div>
 
           {/* Exam Results */}
-          <div>
-            <h2 className="font-outfit font-semibold text-ada-navy text-lg mb-5">
-              Examination History
-            </h2>
-            {exam_results.length === 0 ? (
-              <p className="text-sm text-ada-navy/40 font-outfit">No exam results on file.</p>
-            ) : (
-              <div className="border border-gray-200 rounded-xl overflow-hidden">
-                <table className="w-full text-sm font-outfit">
-                  <thead>
-                    <tr className="bg-ada-navy/[0.03] text-left text-xs text-ada-navy/40 uppercase tracking-wider">
-                      <th className="px-6 py-3 font-semibold">Session</th>
-                      <th className="px-6 py-3 font-semibold">Type</th>
-                      <th className="px-6 py-3 font-semibold">Date</th>
-                      <th className="px-6 py-3 font-semibold">Score</th>
-                      <th className="px-6 py-3 font-semibold">Result</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {exam_results.map((exam, i) => (
-                      <tr key={i} className="border-t border-gray-100">
-                        <td className="px-6 py-4 text-ada-navy font-mono text-xs">{exam.exam_session}</td>
-                        <td className="px-6 py-4 text-ada-navy/70">{credentialLabels[exam.exam_type] || exam.exam_type}</td>
-                        <td className="px-6 py-4 text-ada-navy/70">{formatDate(exam.exam_date)}</td>
-                        <td className="px-6 py-4 text-ada-navy font-semibold">{exam.overall_score}</td>
-                        <td className="px-6 py-4">
-                          <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                            exam.passed ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
-                          }`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${exam.passed ? 'bg-emerald-500' : 'bg-red-500'}`} />
-                            {exam.passed ? 'Passed' : 'Failed'}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
+          <ExamSection examResults={exam_results} />
 
           {/* Profile */}
           <div>

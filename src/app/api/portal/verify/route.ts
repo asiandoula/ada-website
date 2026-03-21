@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
   // Fetch exam results
   const { data: examResults } = await supabase
     .from('exam_results')
-    .select('exam_session, exam_type, overall_score, passed, exam_date, voided')
+    .select('id, exam_session, exam_type, overall_score, score_terminology, score_newborn, score_lactation, score_emergency, score_practical, score_postpartum, score_knowledge, score_ethics, passed, exam_date, voided')
     .eq('doula_id', doula.id)
     .neq('voided', true)
     .order('exam_date', { ascending: false });
