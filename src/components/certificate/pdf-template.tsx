@@ -2,6 +2,16 @@ import { PDFDocument } from 'pdf-lib';
 import fs from 'fs';
 import path from 'path';
 
+// Cache template bytes in memory — read once, never trigger file watcher again
+let cachedTemplate: Uint8Array | null = null;
+function getTemplate(): Uint8Array {
+  if (!cachedTemplate) {
+    const templatePath = path.join(process.cwd(), 'public', 'cert-template.pdf');
+    cachedTemplate = new Uint8Array(fs.readFileSync(templatePath));
+  }
+  return cachedTemplate;
+}
+
 interface CertificatePDFProps {
   fullName: string;
   fullNameZh?: string;
@@ -15,16 +25,14 @@ export async function generateCertificatePDF({
   certificateNumber,
   expirationDate,
 }: CertificatePDFProps): Promise<Buffer> {
-  // Read template directly from public directory as raw bytes
-  const templatePath = path.join(process.cwd(), 'public', 'cert-template.pdf');
-  const templateBytes = new Uint8Array(fs.readFileSync(templatePath));
-
-  const pdfDoc = await PDFDocument.load(templateBytes);
+  const pdfDoc = await PDFDocument.load(getTemplate());
   const form = pdfDoc.getForm();
 
   // Text1 = Name, Text2 = Cert ID, Text3 = Expiry
   const displayName = fullNameZh ? `${fullName} (${fullNameZh})` : fullName;
-  form.getTextField('Text1').setText(displayName);
+  const nameField = form.getTextField('Text1');
+  nameField.setFontSize(50);
+  nameField.setText(displayName);
   form.getTextField('Text2').setText(certificateNumber);
 
   const expFormatted = new Date(expirationDate).toLocaleDateString('en-US', {
