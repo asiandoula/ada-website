@@ -201,7 +201,7 @@ export default function HomePage() {
               { num: '4', emoji: '🎓', title: 'Certification and Beyond', description: "Upon passing the exam, you will be awarded the ADA Postpartum Doula Certification. Benefit from ADA's continuous education opportunities, professional resources, and a supportive community to help you thrive in your doula career.", color: '#662d91', cardSide: 'left' as const },
             ].map((step, i) => {
               const card = (
-                <div className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <div className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300">
                   <h3 className="font-dm-serif text-2xl text-ada-navy">
                     {step.emoji} {step.title}
                   </h3>
@@ -296,7 +296,7 @@ export default function HomePage() {
             ].map((value) => (
               <div
                 key={value.title}
-                className="bg-white rounded-2xl border border-gray-200 overflow-hidden flex flex-col lg:h-[395px] hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                className="bg-white rounded-2xl border border-gray-200 overflow-hidden flex flex-col lg:h-[395px] hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300"
               >
                 <div className="p-4 flex-1">
                   <h3 className="font-dm-serif text-xl text-ada-navy">
@@ -387,7 +387,7 @@ export default function HomePage() {
               <Link
                 key={service.title}
                 href={service.link}
-                className="bg-white rounded-2xl border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col lg:h-[314px]"
+                className="bg-white rounded-2xl border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300 flex flex-col lg:h-[314px]"
               >
                 <div className="flex flex-col justify-between h-full p-4 overflow-hidden">
                   <div>
@@ -453,7 +453,7 @@ export default function HomePage() {
             ].map((partner) => (
               <div
                 key={partner.name}
-                className="bg-white rounded-2xl border border-gray-200 p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                className="bg-white rounded-2xl border border-gray-200 p-4 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300"
               >
                 <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 overflow-hidden bg-[#fafafa]">
                   {partner.logo ? (

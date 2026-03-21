@@ -60,7 +60,7 @@ export default function SupportPage() {
               <Link
                 key={card.href}
                 href={card.href}
-                className="bg-[#fafafa] rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                className="bg-[#fafafa] rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300 group"
               >
                 <h2 className="font-dm-serif text-xl text-ada-navy">
                   {card.title}

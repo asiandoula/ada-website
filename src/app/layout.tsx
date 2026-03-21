@@ -1,19 +1,7 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { DM_Serif_Display, Outfit } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 const dmSerif = DM_Serif_Display({
   subsets: ["latin"],
@@ -35,7 +23,13 @@ export const metadata: Metadata = {
     default: "Asian Doula Alliance",
     template: "%s | Asian Doula Alliance",
   },
-  description: "Asian Doula Alliance — Setting standards in postpartum care through culturally integrated training and certification.",
+  description:
+    "Asian Doula Alliance — Setting standards in postpartum care through culturally integrated training and certification.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Asian Doula Alliance",
+  },
 };
 
 export default function RootLayout({
@@ -45,9 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${dmSerif.variable} ${outfit.variable} antialiased`}
-      >
+      <body className={`${dmSerif.variable} ${outfit.variable} antialiased`}>
         {children}
         <Toaster position="top-right" richColors />
       </body>

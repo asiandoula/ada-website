@@ -71,7 +71,7 @@ export default function ForFamiliesPage() {
             {cards.map((card) => (
               <div
                 key={card.href}
-                className="bg-[#fafafa] rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                className="bg-[#fafafa] rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300"
               >
                 <h3 className="font-dm-serif text-xl text-ada-navy">
                   {card.title}

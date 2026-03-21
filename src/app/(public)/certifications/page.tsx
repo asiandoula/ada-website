@@ -77,7 +77,7 @@ export default function CertificationsPage() {
             {tracks.map((track) => (
               <div
                 key={track.title}
-                className={`bg-white border-2 ${track.cardBorder} rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ${track.opacity}`}
+                className={`bg-white border-2 ${track.cardBorder} rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300 ${track.opacity}`}
               >
                 <span
                   className={`inline-block ${track.badgeClass} text-xs px-2.5 py-0.5 rounded-full font-medium mb-4`}

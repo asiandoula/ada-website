@@ -96,7 +96,7 @@ export default function ProgramsPage() {
             {certificationTracks.map((track) => (
               <div
                 key={track.title}
-                className={`bg-white border ${track.cardBorder} rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col`}
+                className={`bg-white border ${track.cardBorder} rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300 flex flex-col`}
               >
                 <span
                   className={`${track.badgeStyle} text-xs font-medium px-2.5 py-0.5 rounded-full self-start`}

@@ -211,7 +211,7 @@ export default function AboutUsPage() {
               const inner = (
                 <div
                   key={value.title}
-                  className="bg-white rounded-2xl p-8 min-h-[395px] flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                  className="bg-white rounded-2xl p-8 min-h-[395px] flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300"
                 >
                   <div>
                     <h3 className="font-dm-serif text-xl text-ada-navy">
