@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { NewsletterForm } from './newsletter-form';
 
 const doulaLinks = [
   { label: 'Postpartum Doula', href: '/certifications/postpartum-doula' },
@@ -115,12 +116,7 @@ export function Footer() {
               <h3 className="font-outfit font-semibold text-sm">Stay connected with ADA</h3>
               <p className="text-white/40 text-xs mt-1">Training updates, certification news, and community stories.</p>
             </div>
-            <a
-              href="mailto:contact@asiandoula.org?subject=Newsletter%20Signup&body=Hi%2C%20I%E2%80%99d%20like%20to%20subscribe%20to%20the%20ADA%20newsletter."
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-ada-purple text-white text-sm font-medium hover:bg-ada-purple-hover transition-colors shrink-0"
-            >
-              Subscribe via Email &rarr;
-            </a>
+            <NewsletterForm />
           </div>
         </div>
       </div>
