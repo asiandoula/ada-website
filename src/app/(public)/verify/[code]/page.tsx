@@ -1,8 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CERT_TYPE_LABELS } from '@/lib/constants';
 import type { CertificateType } from '@/lib/constants';
-import { Shield, AlertTriangle, XCircle, CheckCircle } from 'lucide-react';
+import { ShieldCheck, ShieldAlert, ShieldX, Search } from 'lucide-react';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -31,34 +32,37 @@ export default async function VerifyResultPage({
     .eq('verification_code', code)
     .single();
 
-  // Not found
+  // ============ NOT FOUND ============
   if (!cert) {
     return (
       <>
-        <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
-          <div className="max-w-[1200px] mx-auto px-6 text-center">
-            <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-              Verification
-            </span>
-            <h1 className="mt-3 font-dm-serif text-4xl md:text-5xl text-ada-navy">
+        <section className="bg-[#f7f8fa] pt-32 pb-20 md:pt-40 md:pb-28 border-b border-gray-200">
+          <div className="max-w-[960px] mx-auto px-6 text-center">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Image src="/images/ada-logo-white.svg" alt="ADA" width={36} height={36} className="opacity-60" />
+              <div className="h-6 w-px bg-gray-300" />
+              <span className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-gray-500">
+                Verification Result
+              </span>
+            </div>
+            <h1 className="font-outfit text-3xl md:text-4xl font-semibold text-ada-navy tracking-tight">
               Certificate Not Found
             </h1>
           </div>
         </section>
+
         <section className="py-20 bg-white">
           <div className="max-w-md mx-auto px-6 text-center">
-            <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-6">
-              <XCircle className="w-8 h-8 text-red-500" />
-            </div>
-            <p className="text-ada-navy/60 font-outfit leading-relaxed">
-              The verification code &ldquo;{code}&rdquo; does not match any certificate in our system.
-              Please check the code and try again.
+            <ShieldX className="w-12 h-12 text-gray-300 mx-auto mb-6" />
+            <p className="text-gray-500 font-outfit leading-relaxed">
+              The verification code &ldquo;{code}&rdquo; does not match any certificate
+              in the ADA registry. Please check the code and try again.
             </p>
             <Link
               href="/verify"
-              className="mt-8 inline-flex items-center rounded-full bg-ada-purple text-white px-6 py-2.5 text-sm font-outfit font-medium hover:bg-ada-purple-hover transition-colors"
+              className="mt-8 inline-flex items-center gap-2 rounded-lg bg-ada-navy text-white px-5 py-2.5 text-sm font-outfit font-medium hover:bg-ada-navy/90 transition-colors"
             >
-              &larr; Try Again
+              <Search className="w-4 h-4" /> Try Again
             </Link>
           </div>
         </section>
@@ -66,112 +70,124 @@ export default async function VerifyResultPage({
     );
   }
 
+  // ============ FOUND ============
   const doula = cert.doulas as Record<string, string>;
   const isRevoked = cert.status === 'revoked';
   const isActive = !isRevoked && doula.status === 'certified_active';
   const isExpired = !isRevoked && doula.status === 'expired';
 
   const statusIcon = isActive
-    ? <CheckCircle className="w-8 h-8 text-emerald-500" />
+    ? <ShieldCheck className="w-10 h-10 text-emerald-600" />
     : isExpired
-    ? <AlertTriangle className="w-8 h-8 text-amber-500" />
-    : <XCircle className="w-8 h-8 text-red-500" />;
+    ? <ShieldAlert className="w-10 h-10 text-amber-500" />
+    : <ShieldX className="w-10 h-10 text-red-500" />;
 
   const statusLabel = isRevoked
-    ? 'Certificate Revoked'
+    ? 'REVOKED'
     : isActive
-    ? 'Verified — Active'
+    ? 'VERIFIED — ACTIVE'
     : isExpired
-    ? 'Verified — Expired'
-    : doula.status.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+    ? 'VERIFIED — EXPIRED'
+    : doula.status.replace(/_/g, ' ').toUpperCase();
 
   const statusColor = isActive
-    ? 'bg-emerald-100 text-emerald-700'
+    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
     : isExpired
-    ? 'bg-amber-100 text-amber-700'
-    : 'bg-red-100 text-red-700';
-
-  const statusBgColor = isActive
-    ? 'bg-emerald-50'
-    : isExpired
-    ? 'bg-amber-50'
-    : 'bg-red-50';
+    ? 'bg-amber-50 text-amber-700 border-amber-200'
+    : 'bg-red-50 text-red-700 border-red-200';
 
   return (
     <>
-      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            Verification Result
-          </span>
-          <h1 className="mt-3 font-dm-serif text-4xl md:text-5xl text-ada-navy">
+      {/* Header */}
+      <section className="bg-[#f7f8fa] pt-32 pb-20 md:pt-40 md:pb-28 border-b border-gray-200">
+        <div className="max-w-[960px] mx-auto px-6 text-center">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <Image src="/images/ada-logo-white.svg" alt="ADA" width={36} height={36} className="opacity-60" />
+            <div className="h-6 w-px bg-gray-300" />
+            <span className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-gray-500">
+              Official Verification Record
+            </span>
+          </div>
+          <h1 className="font-outfit text-3xl md:text-4xl font-semibold text-ada-navy tracking-tight">
             Certificate Verification
           </h1>
         </div>
       </section>
 
-      <section className="py-20 bg-white">
-        <div className="max-w-lg mx-auto px-6">
-          {/* Status card */}
-          <div className="text-center mb-10">
-            <div className={`w-16 h-16 rounded-full ${statusBgColor} flex items-center justify-center mx-auto mb-4`}>
-              {statusIcon}
-            </div>
-            <span className={`inline-flex items-center px-4 py-1.5 rounded-full text-sm font-outfit font-medium ${statusColor}`}>
-              {statusLabel}
-            </span>
-          </div>
-
-          {/* Details */}
-          <div className="border border-gray-200 rounded-2xl overflow-hidden">
-            <div className="divide-y divide-gray-100">
-              <div className="flex justify-between px-6 py-4">
-                <span className="text-sm text-ada-navy/50 font-outfit">Name</span>
-                <span className="text-sm font-outfit font-medium text-ada-navy">
-                  {doula.full_name}
-                  {doula.full_name_zh && ` (${doula.full_name_zh})`}
-                </span>
-              </div>
-              <div className="flex justify-between px-6 py-4">
-                <span className="text-sm text-ada-navy/50 font-outfit">Certificate Type</span>
-                <span className="text-sm font-outfit font-medium text-ada-navy">
-                  {CERT_TYPE_LABELS[cert.certificate_type as CertificateType]}
-                </span>
-              </div>
-              <div className="flex justify-between px-6 py-4">
-                <span className="text-sm text-ada-navy/50 font-outfit">Certificate Number</span>
-                <span className="text-sm font-mono text-ada-navy">{cert.certificate_number}</span>
-              </div>
-              <div className="flex justify-between px-6 py-4">
-                <span className="text-sm text-ada-navy/50 font-outfit">Issued</span>
-                <span className="text-sm font-outfit text-ada-navy">{formatDate(cert.issued_date)}</span>
-              </div>
-              <div className="flex justify-between px-6 py-4">
-                <span className="text-sm text-ada-navy/50 font-outfit">Valid Through</span>
-                <span className="text-sm font-outfit text-ada-navy">{formatDate(cert.expiration_date)}</span>
-              </div>
+      {/* Result */}
+      <section className="py-16 bg-white">
+        <div className="max-w-[580px] mx-auto px-6">
+          {/* Status banner */}
+          <div className={`flex items-center gap-4 p-5 rounded-xl border ${statusColor} mb-8`}>
+            {statusIcon}
+            <div>
+              <p className="font-outfit font-bold text-sm tracking-wide">
+                {statusLabel}
+              </p>
+              <p className="font-outfit text-xs opacity-70 mt-0.5">
+                {isActive ? 'This credential is current and in good standing.' :
+                 isExpired ? 'This credential has passed its validity period.' :
+                 isRevoked ? 'This credential has been revoked by ADA.' :
+                 'This credential is not currently active.'}
+              </p>
             </div>
           </div>
 
-          {/* Actions */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/verify"
-              className="inline-flex items-center rounded-full border border-ada-navy/20 px-5 py-2.5 text-sm font-outfit text-ada-navy/60 hover:bg-gray-50 transition-colors"
-            >
-              &larr; Verify Another
-            </Link>
-            <Link
-              href="/support/contact"
-              className="inline-flex items-center rounded-full bg-ada-purple/10 text-ada-purple px-5 py-2.5 text-sm font-outfit font-medium hover:bg-ada-purple/20 transition-colors"
-            >
-              <Shield className="w-4 h-4 mr-1.5" /> Report an Issue
-            </Link>
+          {/* Data table */}
+          <div className="border border-gray-200 rounded-xl overflow-hidden">
+            <table className="w-full text-sm font-outfit">
+              <tbody>
+                <tr className="border-b border-gray-100">
+                  <td className="px-5 py-3.5 text-gray-400 w-[140px]">Name</td>
+                  <td className="px-5 py-3.5 text-ada-navy font-medium">
+                    {doula.full_name}
+                    {doula.full_name_zh && (
+                      <span className="text-gray-400 ml-2">({doula.full_name_zh})</span>
+                    )}
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="px-5 py-3.5 text-gray-400">Certificate Type</td>
+                  <td className="px-5 py-3.5 text-ada-navy font-medium">
+                    {CERT_TYPE_LABELS[cert.certificate_type as CertificateType]}
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="px-5 py-3.5 text-gray-400">Certificate No.</td>
+                  <td className="px-5 py-3.5 text-ada-navy font-mono text-xs">{cert.certificate_number}</td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="px-5 py-3.5 text-gray-400">Date Issued</td>
+                  <td className="px-5 py-3.5 text-ada-navy">{formatDate(cert.issued_date)}</td>
+                </tr>
+                <tr>
+                  <td className="px-5 py-3.5 text-gray-400">Valid Through</td>
+                  <td className="px-5 py-3.5 text-ada-navy">{formatDate(cert.expiration_date)}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <p className="mt-8 text-xs text-ada-navy/30 font-outfit text-center">
-            Asian Doula Alliance — asiandoula.org
-          </p>
+          {/* Footer */}
+          <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-gray-400 font-outfit">
+              Asian Doula Alliance — Official Verification Record
+            </p>
+            <div className="flex gap-4">
+              <Link
+                href="/verify"
+                className="text-sm text-ada-navy/60 font-outfit hover:text-ada-navy transition-colors"
+              >
+                &larr; Verify Another
+              </Link>
+              <Link
+                href="/support/contact"
+                className="text-sm text-ada-purple font-outfit hover:underline"
+              >
+                Report Issue
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </>
