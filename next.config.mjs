@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  serverExternalPackages: ['pdf-lib'],
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 828, 1200, 1920],

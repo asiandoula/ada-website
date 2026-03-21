@@ -2,8 +2,6 @@ import { PDFDocument } from 'pdf-lib';
 import fs from 'fs';
 import path from 'path';
 
-const templatePath = path.join(process.cwd(), 'src/components/certificate/cert-template.pdf');
-
 interface CertificatePDFProps {
   fullName: string;
   fullNameZh?: string;
@@ -17,7 +15,10 @@ export async function generateCertificatePDF({
   certificateNumber,
   expirationDate,
 }: CertificatePDFProps): Promise<Buffer> {
-  const templateBytes = fs.readFileSync(templatePath);
+  // Read template directly from public directory as raw bytes
+  const templatePath = path.join(process.cwd(), 'public', 'cert-template.pdf');
+  const templateBytes = new Uint8Array(fs.readFileSync(templatePath));
+
   const pdfDoc = await PDFDocument.load(templateBytes);
   const form = pdfDoc.getForm();
 
@@ -33,7 +34,6 @@ export async function generateCertificatePDF({
   });
   form.getTextField('Text3').setText(expFormatted);
 
-  // Flatten form fields into static content
   form.flatten();
 
   const pdfBytes = await pdfDoc.save();
