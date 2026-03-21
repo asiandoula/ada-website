@@ -35,7 +35,7 @@ interface Certificate {
 interface ExamResult {
   exam_session: string;
   exam_type: string;
-  score: number;
+  overall_score: number;
   passed: boolean;
   exam_date: string;
 }
@@ -455,7 +455,7 @@ export default function PortalPage() {
                         <td className="px-6 py-4 text-ada-navy font-mono text-xs">{exam.exam_session}</td>
                         <td className="px-6 py-4 text-ada-navy/70">{credentialLabels[exam.exam_type] || exam.exam_type}</td>
                         <td className="px-6 py-4 text-ada-navy/70">{formatDate(exam.exam_date)}</td>
-                        <td className="px-6 py-4 text-ada-navy font-semibold">{exam.score}</td>
+                        <td className="px-6 py-4 text-ada-navy font-semibold">{exam.overall_score}</td>
                         <td className="px-6 py-4">
                           <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
                             exam.passed ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
