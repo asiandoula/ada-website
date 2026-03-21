@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
 
   const { error } = await supabase.from('newsletter_subscribers').upsert(
@@ -52,8 +52,8 @@ export async function POST(request: NextRequest) {
   );
 
   if (error) {
-    console.error('Newsletter subscription error:', error);
-    return NextResponse.json({ error: 'Failed to subscribe. Please try again.' }, { status: 500 });
+    console.error('Newsletter subscription error:', JSON.stringify(error, null, 2));
+    return NextResponse.json({ error: `Failed: ${error.message || error.code || 'unknown'}` }, { status: 500 });
   }
 
   return NextResponse.json({ success: true });
