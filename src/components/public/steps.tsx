@@ -42,7 +42,7 @@ export function Steps({ steps }: StepsProps) {
                 {step.title}
               </span>
               <ChevronDown
-                className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${
+                className={`h-5 w-5 text-ada-navy/40 transition-transform duration-300 ${
                   isOpen ? 'rotate-180' : ''
                 }`}
               />
@@ -53,7 +53,7 @@ export function Steps({ steps }: StepsProps) {
               }`}
             >
               <div className="overflow-hidden">
-                <div className="px-5 pb-5 pl-14 text-gray-600 text-sm leading-relaxed">
+                <div className="px-5 pb-5 pl-14 text-ada-navy/60 text-sm leading-relaxed">
                   {step.description}
                 </div>
               </div>

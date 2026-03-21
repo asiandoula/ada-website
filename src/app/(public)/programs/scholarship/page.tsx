@@ -31,15 +31,15 @@ export default function ScholarshipPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-ada-navy pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple-hover">
+      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
+        <div className="max-w-[1200px] mx-auto px-6 text-center">
+          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
             Scholarship
           </span>
-          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-white">
+          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
             ADA Scholarship Program
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
             Making doula certification accessible to aspiring caregivers from
             all backgrounds.
           </p>
@@ -47,8 +47,8 @@ export default function ScholarshipPage() {
       </section>
 
       {/* About the Scholarship */}
-      <section className="py-24 md:py-32 bg-ada-cream">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="py-20 bg-ada-cream">
+        <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
             <div className="lg:col-span-3">
               <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
@@ -95,8 +95,8 @@ export default function ScholarshipPage() {
       </section>
 
       {/* Eligibility */}
-      <section className="py-24 md:py-32 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="py-20 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
           <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy text-center">
             Eligibility
           </h2>
@@ -116,7 +116,7 @@ export default function ScholarshipPage() {
       </section>
 
       {/* How to Apply */}
-      <section className="py-24 md:py-32 bg-ada-cream">
+      <section className="py-20 bg-ada-cream">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
             How to Apply
@@ -156,21 +156,21 @@ export default function ScholarshipPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 md:py-32 bg-ada-navy">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+      <section className="py-20 bg-ada-navy">
+        <div className="max-w-[1200px] mx-auto px-6 text-center">
           <h2 className="font-dm-serif text-3xl md:text-4xl text-white">
             Take the Next Step
           </h2>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
               href="mailto:contact@asiandoula.org"
-              className="inline-flex items-center px-8 py-3 bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
+              className="inline-flex items-center px-4 py-2.5 text-sm bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
             >
               Apply Now
             </a>
             <Link
-              href="/become-a-doula/find-a-doula-training"
-              className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-medium rounded-full hover:bg-white hover:text-ada-navy transition-colors"
+              href="/certifications/postpartum-doula/training"
+              className="inline-flex items-center px-4 py-2.5 text-sm border-2 border-white text-white font-medium rounded-full hover:bg-white hover:text-ada-navy transition-colors"
             >
               Find Training Programs
             </Link>

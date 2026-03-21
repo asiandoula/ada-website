@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -9,24 +9,24 @@ const aboutLinks = [
   { label: 'About Us', href: '/about-us' },
   { label: 'Our History', href: '/about-us/history' },
   { label: 'Mission & Values', href: '/about-us/mission-value' },
+  { label: 'Board of Directors', href: '/about-us/board' },
+];
+
+const certificationLinks = [
+  { label: 'Postpartum Doula', href: '/certifications/postpartum-doula' },
+  { label: 'Birth Doula (Coming Soon)', href: '/certifications/birth-doula' },
+  { label: 'IBCLC Exam Prep (Coming Soon)', href: '/certifications/ibclc' },
 ];
 
 const doulaLinks = [
-  { label: 'Steps to Certification', href: '/become-a-doula/steps-to-certification' },
-  { label: 'License & Exam', href: '/become-a-doula/license-and-exam' },
-  { label: 'Renew / Recertification', href: '/become-a-doula/renew-recertification' },
-  { label: 'Code of Conduct', href: '/become-a-doula/code-of-conduct' },
+  { label: 'Renew / Recertification', href: '/for-doulas/renew' },
+  { label: 'Code of Conduct', href: '/for-doulas/code-of-conduct' },
+  { label: 'Verify a Doula', href: '/verify' },
 ];
 
 const familyLinks = [
-  { label: 'Verify a Doula', href: '/verify' },
   { label: 'How We Train', href: '/for-families/how-we-train' },
   { label: 'Find a Doula', href: '/for-families/find-a-doula' },
-];
-
-const programLinks = [
-  { label: 'Find a Training', href: '/become-a-doula/find-a-doula-training' },
-  { label: 'Scholarship Program', href: '/programs/scholarship' },
 ];
 
 const supportLinks = [
@@ -38,23 +38,43 @@ const supportLinks = [
 function DesktopDropdown({
   label,
   links,
+  isOpen,
+  onOpen,
+  onClose,
 }: {
   label: string;
   links: { label: string; href: string }[];
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="relative group">
-      <button className="flex items-center gap-1 text-white/90 hover:text-white text-sm font-medium py-2 transition-colors">
+    <div ref={ref} className="relative" onKeyDown={(e) => { if (e.key === 'Escape') onClose(); }}>
+      <button
+        onClick={() => isOpen ? onClose() : onOpen()}
+        onMouseEnter={onOpen}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+        className="flex items-center gap-1 text-white/90 hover:text-white text-sm font-medium py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded"
+      >
         {label}
-        <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
+        <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
-      <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-        <div className="bg-white rounded-lg shadow-xl py-2 min-w-[220px] border border-gray-100">
+      <div
+        className={`absolute left-0 top-full pt-2 z-50 transition-all duration-200 ${
+          isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}
+        onMouseLeave={onClose}
+      >
+        <div className="bg-white rounded-lg shadow-xl py-2 min-w-[220px] border border-gray-200">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-ada-purple/5 hover:text-ada-purple transition-colors"
+              className="block px-4 py-2.5 text-sm text-ada-navy/70 hover:bg-ada-purple/5 hover:text-ada-purple transition-colors focus-visible:bg-ada-purple/5 focus-visible:text-ada-purple focus-visible:outline-none"
+              onClick={onClose}
             >
               {link.label}
             </Link>
@@ -82,6 +102,7 @@ function MobileAccordion({
     <div>
       <button
         onClick={onToggle}
+        aria-expanded={isOpen}
         className="flex items-center justify-between w-full text-white text-lg font-medium py-3 border-b border-white/10"
       >
         {label}
@@ -110,14 +131,37 @@ function MobileAccordion({
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const navRef = useRef<HTMLElement>(null);
 
   const toggleAccordion = (key: string) => {
     setOpenAccordion(openAccordion === key ? null : key);
   };
 
+  // Close dropdown on click outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
+    }
+    if (openDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [openDropdown]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = ''; };
+    }
+  }, [mobileOpen]);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50" style={{ backgroundColor: 'rgba(96, 96, 144, 0.85)' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="fixed top-0 left-0 right-0 z-50" style={{ backgroundColor: 'rgba(96, 96, 144, 0.85)', backdropFilter: 'blur(8px)' }}>
+      <div className="max-w-[1200px] mx-auto px-6">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0">
@@ -134,28 +178,28 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
-            <DesktopDropdown label="About" links={aboutLinks} />
-            <DesktopDropdown label="For Doulas" links={doulaLinks} />
-            <DesktopDropdown label="For Families" links={familyLinks} />
-            <DesktopDropdown label="Programs" links={programLinks} />
-            <DesktopDropdown label="Support" links={supportLinks} />
+          <nav ref={navRef} className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
+            <DesktopDropdown label="About" links={aboutLinks} isOpen={openDropdown === 'about'} onOpen={() => setOpenDropdown('about')} onClose={() => setOpenDropdown(null)} />
+            <DesktopDropdown label="Certifications" links={certificationLinks} isOpen={openDropdown === 'cert'} onOpen={() => setOpenDropdown('cert')} onClose={() => setOpenDropdown(null)} />
+            <DesktopDropdown label="For Families" links={familyLinks} isOpen={openDropdown === 'family'} onOpen={() => setOpenDropdown('family')} onClose={() => setOpenDropdown(null)} />
+            <DesktopDropdown label="For Doulas" links={doulaLinks} isOpen={openDropdown === 'doula'} onOpen={() => setOpenDropdown('doula')} onClose={() => setOpenDropdown(null)} />
+            <DesktopDropdown label="Support" links={supportLinks} isOpen={openDropdown === 'support'} onOpen={() => setOpenDropdown('support')} onClose={() => setOpenDropdown(null)} />
           </nav>
 
           {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Link
-              href="/become-a-doula/steps-to-certification"
-              className="inline-flex items-center px-5 py-2.5 bg-white/15 text-white text-sm font-medium rounded-full hover:bg-white/25 transition-colors"
+              href="/certifications"
+              className="inline-flex items-center px-4 py-2.5 bg-white/15 text-white text-sm font-medium rounded-full hover:bg-white/25 transition-colors"
             >
-              Get Certified →
+              Get Certified &rarr;
             </Link>
           </div>
 
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden text-white p-2"
+            className="lg:hidden text-white p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           >
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -164,53 +208,57 @@ export function Header() {
       </div>
 
       {/* Mobile overlay */}
-      <div className={`lg:hidden fixed inset-0 top-16 z-40 transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`} style={{ backgroundColor: 'rgba(96, 96, 144, 0.95)' }}>
-          <nav className="px-6 py-6 space-y-1 overflow-y-auto max-h-[calc(100vh-4rem)]">
-            <MobileAccordion
-              label="About"
-              links={aboutLinks}
-              isOpen={openAccordion === 'about'}
-              onToggle={() => toggleAccordion('about')}
-              onLinkClick={() => setMobileOpen(false)}
-            />
-            <MobileAccordion
-              label="For Doulas"
-              links={doulaLinks}
-              isOpen={openAccordion === 'doula'}
-              onToggle={() => toggleAccordion('doula')}
-              onLinkClick={() => setMobileOpen(false)}
-            />
-            <MobileAccordion
-              label="For Families"
-              links={familyLinks}
-              isOpen={openAccordion === 'family'}
-              onToggle={() => toggleAccordion('family')}
-              onLinkClick={() => setMobileOpen(false)}
-            />
-            <MobileAccordion
-              label="Programs"
-              links={programLinks}
-              isOpen={openAccordion === 'program'}
-              onToggle={() => toggleAccordion('program')}
-              onLinkClick={() => setMobileOpen(false)}
-            />
-            <MobileAccordion
-              label="Support"
-              links={supportLinks}
-              isOpen={openAccordion === 'support'}
-              onToggle={() => toggleAccordion('support')}
-              onLinkClick={() => setMobileOpen(false)}
-            />
-            <div className="pt-6">
-              <Link
-                href="/become-a-doula/steps-to-certification"
-                className="block w-full text-center px-5 py-3 bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
-                onClick={() => setMobileOpen(false)}
-              >
-                Get Certified →
-              </Link>
-            </div>
-          </nav>
+      <div
+        className={`lg:hidden fixed inset-0 top-16 z-40 transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        style={{ backgroundColor: 'rgba(96, 96, 144, 0.95)' }}
+        aria-hidden={!mobileOpen}
+      >
+        <nav className="px-6 py-6 space-y-1 overflow-y-auto max-h-[calc(100vh-4rem)]" aria-label="Mobile navigation">
+          <MobileAccordion
+            label="About"
+            links={aboutLinks}
+            isOpen={openAccordion === 'about'}
+            onToggle={() => toggleAccordion('about')}
+            onLinkClick={() => setMobileOpen(false)}
+          />
+          <MobileAccordion
+            label="Certifications"
+            links={certificationLinks}
+            isOpen={openAccordion === 'cert'}
+            onToggle={() => toggleAccordion('cert')}
+            onLinkClick={() => setMobileOpen(false)}
+          />
+          <MobileAccordion
+            label="For Families"
+            links={familyLinks}
+            isOpen={openAccordion === 'family'}
+            onToggle={() => toggleAccordion('family')}
+            onLinkClick={() => setMobileOpen(false)}
+          />
+          <MobileAccordion
+            label="For Doulas"
+            links={doulaLinks}
+            isOpen={openAccordion === 'doula'}
+            onToggle={() => toggleAccordion('doula')}
+            onLinkClick={() => setMobileOpen(false)}
+          />
+          <MobileAccordion
+            label="Support"
+            links={supportLinks}
+            isOpen={openAccordion === 'support'}
+            onToggle={() => toggleAccordion('support')}
+            onLinkClick={() => setMobileOpen(false)}
+          />
+          <div className="pt-6">
+            <Link
+              href="/certifications"
+              className="block w-full text-center px-4 py-2.5 bg-ada-purple text-white font-medium text-sm rounded-full hover:bg-ada-purple-hover transition-colors"
+              onClick={() => setMobileOpen(false)}
+            >
+              Get Certified &rarr;
+            </Link>
+          </div>
+        </nav>
       </div>
     </header>
   );

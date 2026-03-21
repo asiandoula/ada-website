@@ -31,10 +31,10 @@ export function ContactForm() {
         return;
       }
 
-      toast.success('Message sent! We\'ll get back to you soon.');
+      toast.success('Message sent! We\'ll get back to you within 1-2 business days.');
       setFormData({ full_name: '', phone: '', email: '', topic: '', message: '' });
     } catch {
-      toast.error('Network error. Please try again.');
+      toast.error('Could not send your message. Please check your connection and try again, or email us directly at contact@asiandoula.org.');
     } finally {
       setLoading(false);
     }
@@ -95,6 +95,7 @@ export function ContactForm() {
                   id="full_name"
                   type="text"
                   required
+                  autoComplete="name"
                   value={formData.full_name}
                   onChange={(e) => setFormData((p) => ({ ...p, full_name: e.target.value }))}
                   className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-ada-navy focus:outline-none focus:ring-2 focus:ring-ada-purple/40 focus:border-ada-purple"
@@ -110,6 +111,7 @@ export function ContactForm() {
                 <input
                   id="phone"
                   type="tel"
+                  autoComplete="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
                   className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-ada-navy focus:outline-none focus:ring-2 focus:ring-ada-purple/40 focus:border-ada-purple"
@@ -126,6 +128,7 @@ export function ContactForm() {
                   id="email"
                   type="email"
                   required
+                  autoComplete="email"
                   value={formData.email}
                   onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
                   className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-ada-navy focus:outline-none focus:ring-2 focus:ring-ada-purple/40 focus:border-ada-purple"

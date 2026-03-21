@@ -1,39 +1,64 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { ContactForm } from '@/components/public/contact-form';
 
 export const metadata: Metadata = {
   title: 'Programs',
   description:
-    'Explore ADA programs — doula training, scholarship opportunities, and partnership pathways for aspiring and certified doulas.',
+    'Certification tracks, training programs, and scholarships for aspiring doulas and lactation professionals.',
   openGraph: {
     title: 'Programs | Asian Doula Alliance',
     description:
-      'Explore ADA programs — doula training, scholarship opportunities, and partnership pathways for aspiring and certified doulas.',
+      'Certification tracks, training programs, and scholarships for aspiring doulas and lactation professionals.',
     images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
   },
 };
 
-const programs = [
+const certificationTracks = [
   {
-    number: '01',
-    title: 'Training Programs',
+    badge: 'Now Enrolling',
+    badgeStyle: 'bg-green-50 text-green-700',
+    title: 'Postpartum Doula Certification',
     description:
-      'ADA-approved postpartum doula training programs combining cultural integration with evidence-based practice.',
-    href: '/become-a-doula/find-a-doula-training',
+      'The gold standard in culturally integrated postpartum care. Exams in 5 languages, recognized by 6 insurance partners.',
+    facts: '$625 exam fee \u00b7 3-year validity',
+    link: { label: 'Learn More \u2192', href: '/certifications/postpartum-doula' },
+    cardBorder: 'border-2 border-ada-purple/20',
   },
   {
-    number: '02',
+    badge: 'Coming Soon',
+    badgeStyle: 'bg-ada-purple/10 text-ada-purple',
+    title: 'Birth Doula Certification',
+    description:
+      'Support families through labor and delivery with culturally integrated training and ADA certification.',
+    facts: null,
+    link: { label: 'Get Notified \u2192', href: '/certifications/birth-doula' },
+    cardBorder: 'border-gray-200',
+  },
+  {
+    badge: 'Coming Soon',
+    badgeStyle: 'bg-ada-purple/10 text-ada-purple',
+    title: 'IBCLC Exam Prep',
+    description:
+      'Multilingual preparation course for the International Board Certified Lactation Consultant exam.',
+    facts: null,
+    link: { label: 'Get Notified \u2192', href: '/certifications/ibclc' },
+    cardBorder: 'border-gray-200',
+  },
+];
+
+const additionalPrograms = [
+  {
     title: 'Scholarship Program',
     description:
-      'Financial assistance for aspiring doulas from underserved communities.',
-    href: '/programs/scholarship',
+      'Financial assistance for qualifying doula trainees. ADA believes cost should never be a barrier to certification.',
+    link: { label: 'Learn More \u2192', href: '/programs/scholarship' },
   },
   {
-    number: '03',
-    title: 'Partner With Us',
+    title: 'Find a Training',
     description:
-      'Become an ADA-approved training provider or community partner.',
-    href: '/support/contact',
+      'Browse ADA-approved training programs in your area and language.',
+    link: { label: 'Browse Programs \u2192', href: '/certifications/postpartum-doula/training' },
   },
 ];
 
@@ -41,77 +66,100 @@ export default function ProgramsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-ada-navy pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple-hover">
+      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
+        <div className="max-w-[1200px] mx-auto px-6 text-center">
+          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
             Programs
           </span>
-          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-white">
+          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
             Our Programs
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-            Training, scholarship, and partnership opportunities for aspiring
-            and certified doulas.
+          <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
+            Certification tracks, training programs, and scholarships for
+            aspiring doulas and lactation professionals.
           </p>
         </div>
       </section>
 
-      {/* Program Cards */}
-      <section className="py-24 md:py-32 bg-ada-cream">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {programs.map((program) => (
-              <Link
-                key={program.number}
-                href={program.href}
-                className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow"
+      {/* Certification Tracks */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
+              Certification Tracks
+            </h2>
+            <p className="mt-4 text-lg text-ada-navy/60">
+              Choose the path that fits your career goals.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {certificationTracks.map((track) => (
+              <div
+                key={track.title}
+                className={`bg-white border ${track.cardBorder} rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col`}
               >
-                <span className="font-dm-serif text-3xl text-ada-purple">
-                  {program.number}
+                <span
+                  className={`${track.badgeStyle} text-xs font-medium px-2.5 py-0.5 rounded-full self-start`}
+                >
+                  {track.badge}
                 </span>
                 <h3 className="mt-4 font-dm-serif text-xl text-ada-navy">
-                  {program.title}
+                  {track.title}
                 </h3>
-                <p className="mt-3 text-ada-navy/70 leading-relaxed">
-                  {program.description}
+                <p className="mt-3 text-ada-navy/70 leading-relaxed flex-1">
+                  {track.description}
                 </p>
-              </Link>
+                {track.facts && (
+                  <p className="mt-4 text-sm text-ada-navy/50 font-outfit">
+                    {track.facts}
+                  </p>
+                )}
+                <Link
+                  href={track.link.href}
+                  className="mt-6 inline-flex items-center text-sm font-medium text-ada-purple hover:text-ada-purple-hover transition-colors"
+                >
+                  {track.link.label}
+                </Link>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Impact Statement */}
-      <section className="py-24 md:py-32 bg-white">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-            Our Impact
-          </h2>
-          <p className="mt-8 text-lg md:text-xl text-ada-navy/70 leading-relaxed">
-            Since 2017, ADA has certified over 164 doulas in 5 languages,
-            partnered with 6 major insurance providers, and helped make
-            culturally competent postpartum care accessible to families across
-            the United States.
-          </p>
-        </div>
-      </section>
-
-      {/* CTA Band */}
-      <section className="py-24 md:py-32 bg-ada-navy">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="font-dm-serif text-3xl md:text-4xl text-white">
-            Interested in partnering with ADA?
-          </h2>
-          <div className="mt-8">
-            <Link
-              href="/support/contact"
-              className="inline-flex items-center px-8 py-3 bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
-            >
-              Get in Touch
-            </Link>
+      {/* Additional Programs */}
+      <section className="py-20 bg-[#fafafa]">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
+              Additional Programs
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {additionalPrograms.map((program) => (
+              <div
+                key={program.title}
+                className="bg-white rounded-2xl p-8 hover:shadow-md transition-shadow"
+              >
+                <h3 className="font-dm-serif text-xl text-ada-navy">
+                  {program.title}
+                </h3>
+                <p className="mt-3 text-ada-navy/70 leading-relaxed">
+                  {program.description}
+                </p>
+                <Link
+                  href={program.link.href}
+                  className="mt-6 inline-flex items-center text-sm font-medium text-ada-purple hover:text-ada-purple-hover transition-colors"
+                >
+                  {program.link.label}
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* Contact */}
+      <ContactForm />
     </>
   );
 }

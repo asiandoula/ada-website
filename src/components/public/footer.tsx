@@ -2,10 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const doulaLinks = [
-  { label: 'Steps to Certification', href: '/become-a-doula/steps-to-certification' },
-  { label: 'License & Exam', href: '/become-a-doula/license-and-exam' },
-  { label: 'Renew / Recertification', href: '/become-a-doula/renew-recertification' },
-  { label: 'Code of Conduct', href: '/become-a-doula/code-of-conduct' },
+  { label: 'Postpartum Doula', href: '/certifications/postpartum-doula' },
+  { label: 'Birth Doula', href: '/certifications/birth-doula' },
+  { label: 'Renew / Recertification', href: '/for-doulas/renew' },
+  { label: 'Code of Conduct', href: '/for-doulas/code-of-conduct' },
 ];
 
 const familyLinks = [
@@ -23,7 +23,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Image
-                src="/images/ada-logo.svg"
+                src="/images/ada-logo-white.svg"
                 alt="Asian Doula Alliance Logo"
                 width={40}
                 height={40}
@@ -115,20 +115,12 @@ export function Footer() {
               <h3 className="font-outfit font-semibold text-sm">Stay connected with ADA</h3>
               <p className="text-white/40 text-xs mt-1">Training updates, certification news, and community stories.</p>
             </div>
-            <div className="flex gap-2 max-w-sm w-full sm:w-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                readOnly
-                className="flex-1 sm:w-56 px-4 py-2.5 rounded-full bg-white/10 text-white text-sm placeholder:text-white/30 border border-white/10 focus:outline-none focus:border-white/30"
-              />
-              <a
-                href="mailto:contact@asiandoula.org?subject=Newsletter%20Signup"
-                className="px-5 py-2.5 rounded-full bg-ada-purple text-white text-sm font-medium hover:bg-ada-purple-hover transition-colors shrink-0"
-              >
-                Subscribe
-              </a>
-            </div>
+            <a
+              href="mailto:contact@asiandoula.org?subject=Newsletter%20Signup&body=Hi%2C%20I%E2%80%99d%20like%20to%20subscribe%20to%20the%20ADA%20newsletter."
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-ada-purple text-white text-sm font-medium hover:bg-ada-purple-hover transition-colors shrink-0"
+            >
+              Subscribe via Email &rarr;
+            </a>
           </div>
         </div>
       </div>
@@ -137,7 +129,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <p className="text-white/40 text-xs text-center">
-            &copy; 2026 Asian Doula Alliance. All rights reserved.
+            &copy; {new Date().getFullYear()} Asian Doula Alliance. All rights reserved.
           </p>
         </div>
       </div>

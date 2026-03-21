@@ -27,9 +27,9 @@ export function CommunityMap() {
     <div className="w-full">
       <style>{`
         @keyframes pulse-ring {
-          0% { r: var(--base-r); opacity: 0.18; }
-          50% { r: var(--pulse-r); opacity: 0.06; }
-          100% { r: var(--base-r); opacity: 0.18; }
+          0% { r: var(--base-r); opacity: 0.35; }
+          50% { r: var(--pulse-r); opacity: 0.12; }
+          100% { r: var(--base-r); opacity: 0.35; }
         }
         .marker-pulse {
           animation: pulse-ring 3s ease-in-out infinite;
@@ -55,9 +55,9 @@ export function CommunityMap() {
                   <Geography
                     key={geo.rpiKey || geo.id}
                     geography={geo}
-                    fill={highlight ? 'rgba(96, 96, 144, 0.10)' : 'rgba(96, 96, 144, 0.04)'}
-                    stroke="rgba(96, 96, 144, 0.15)"
-                    strokeWidth={0.5}
+                    fill={highlight ? 'rgba(96, 96, 144, 0.18)' : 'rgba(96, 96, 144, 0.08)'}
+                    stroke="rgba(96, 96, 144, 0.25)"
+                    strokeWidth={1}
                     style={{
                       default: { outline: 'none' },
                       hover: { outline: 'none' },
@@ -77,7 +77,7 @@ export function CommunityMap() {
               <circle
                 className="marker-pulse"
                 r={marker.size}
-                fill="rgba(96, 96, 144, 0.18)"
+                fill="rgba(96, 96, 144, 0.35)"
                 style={{
                   '--base-r': marker.size,
                   '--pulse-r': marker.size * 1.6,
@@ -85,7 +85,7 @@ export function CommunityMap() {
                 } as React.CSSProperties}
               />
               {/* Solid dot */}
-              <circle r={marker.size * 0.38} fill="#606090" />
+              <circle r={marker.size * 0.5} fill="#606090" />
               {/* Label */}
               <text
                 textAnchor={isLeft ? 'end' : 'start'}
@@ -95,7 +95,7 @@ export function CommunityMap() {
                   fontFamily: 'Outfit, sans-serif',
                   fontSize: '11px',
                   fontWeight: 600,
-                  fill: '#606090',
+                  fill: '#6969C1',
                 }}
               >
                 {marker.name}

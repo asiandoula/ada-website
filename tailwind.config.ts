@@ -46,11 +46,16 @@ const config: Config = {
         ada: {
           navy: '#0c2231',
           'navy-warm': '#1a3346',
-          purple: '#606090',
-          'purple-hover': '#6969C1',
+          purple: '#6969C1',
+          'purple-hover': '#7b7bd4',
+          'purple-muted': '#606090',
           cream: '#fdfcfa',
           lavender: '#f8f7fc',
           'off-white': '#f8f8fa',
+          'sage': '#f3f9eb',
+          'sky': '#eef5fb',
+          'rose': '#fdf2f8',
+          'peach': '#fef7ed',
         },
       },
       fontFamily: {

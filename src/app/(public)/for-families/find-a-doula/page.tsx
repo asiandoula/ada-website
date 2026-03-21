@@ -1,201 +1,194 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { ContactForm } from '@/components/public/contact-form';
 
 export const metadata: Metadata = {
   title: 'Find a Doula | Asian Doula Alliance',
   description:
-    'Connect with an ADA-certified postpartum doula through our partner network. Culturally competent, multilingual care for your family.',
+    'Connect with an ADA-certified postpartum doula who speaks your language and understands your cultural needs.',
   openGraph: {
     title: 'Find a Doula | Asian Doula Alliance',
     description:
-      'Connect with an ADA-certified postpartum doula through our partner network. Culturally competent, multilingual care for your family.',
+      'Connect with an ADA-certified postpartum doula who speaks your language and understands your cultural needs.',
   },
 };
 
-const steps = [
+const sidebarLinks = [
+  { label: 'How We Train', href: '/for-families/how-we-train' },
+  { label: 'Verify a Doula', href: '/verify' },
+  { label: 'FAQ', href: '/support/faq' },
+];
+
+const matchSteps = [
   {
     number: '01',
+    title: 'Tell us about your needs',
     description:
-      'ADA certifies doulas through rigorous training and examination.',
+      'Contact ADA with your due date, location, language preference, and any specific cultural practices you\u2019d like supported.',
   },
   {
     number: '02',
-    description: 'Certified doulas join partner service networks.',
+    title: 'We match you with a doula',
+    description:
+      'Based on your needs, we recommend certified doulas in your area who speak your language and understand your traditions.',
   },
   {
     number: '03',
+    title: 'Meet and choose',
     description:
-      'Families connect with doulas through partners for personalized matching.',
+      'Interview your matched doulas to find the right fit for your family.',
   },
+];
+
+const languages = ['English', 'Mandarin', 'Cantonese', 'Japanese', 'Korean'];
+
+const serviceAreas = [
+  'Los Angeles',
+  'Bay Area',
+  'San Diego',
+  'Seattle',
+  'New York City',
+  'Chicago',
+  'and growing',
 ];
 
 export default function FindADoulaPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-ada-navy pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple-hover">
-            Find a Doula
+      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
+        <div className="max-w-[1200px] mx-auto px-6 text-center">
+          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
+            For Families
           </span>
-          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-white">
-            Connect with a Certified Doula
+          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
+            Find a Doula
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-            ADA partners with professional doula service providers to connect
-            families with certified caregivers.
+          <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
+            Connect with a certified postpartum doula who speaks your language.
           </p>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-24 md:py-32 bg-ada-cream">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy text-center">
-            How It Works
-          </h2>
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
-            {steps.map((step) => (
-              <div key={step.number} className="text-center">
-                <span className="font-dm-serif text-5xl text-ada-purple/30">
-                  {step.number}
-                </span>
-                <p className="mt-4 text-lg text-ada-navy/80 leading-relaxed">
-                  {step.description}
+      {/* Main Content */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+            {/* Main Column */}
+            <div className="lg:w-4/5 space-y-16">
+              {/* Intro */}
+              <p className="text-lg text-ada-navy/70 leading-relaxed">
+                ADA-certified doulas serve families across the United States,
+                with the largest communities in California, the Pacific
+                Northwest, and the New York metro area. All our doulas are
+                trained in culturally integrated care and can support you in your
+                preferred language.
+              </p>
+
+              {/* How to Get Matched */}
+              <div>
+                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
+                  How to Get Matched
+                </h2>
+                <div className="mt-8 space-y-8">
+                  {matchSteps.map((step) => (
+                    <div key={step.number}>
+                      <span className="font-dm-serif text-3xl text-ada-purple/40">
+                        {step.number}
+                      </span>
+                      <h3 className="mt-2 font-dm-serif text-xl text-ada-navy">
+                        {step.title}
+                      </h3>
+                      <p className="mt-2 text-ada-navy/70 leading-relaxed">
+                        {step.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Languages Supported */}
+              <div>
+                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
+                  Languages Supported
+                </h2>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  {languages.map((lang) => (
+                    <span
+                      key={lang}
+                      className="px-4 py-2 bg-[#fafafa] rounded-full text-ada-navy/70 text-sm"
+                    >
+                      {lang}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Service Areas */}
+              <div>
+                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
+                  Service Areas
+                </h2>
+                <ul className="mt-6 space-y-3">
+                  {serviceAreas.map((area) => (
+                    <li
+                      key={area}
+                      className="flex items-start gap-3 text-ada-navy/70 leading-relaxed"
+                    >
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-ada-purple shrink-0" />
+                      {area}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* CTA Block */}
+              <div className="bg-[#fafafa] rounded-2xl p-10 text-center">
+                <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
+                  Ready to Find Your Doula?
+                </h2>
+                <div className="mt-6 flex flex-wrap justify-center gap-4">
+                  <Link
+                    href="/support/contact"
+                    className="inline-flex items-center px-4 py-2.5 text-sm bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
+                  >
+                    Contact Us
+                  </Link>
+                  <Link
+                    href="/verify"
+                    className="inline-flex items-center px-4 py-2.5 text-sm border-2 border-ada-purple text-ada-purple font-medium rounded-full hover:bg-ada-purple hover:text-white transition-colors"
+                  >
+                    Verify a Doula
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar */}
+            <aside className="lg:w-1/5">
+              <div className="lg:sticky lg:top-32">
+                <p className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
+                  For Families
                 </p>
+                <nav className="mt-4 space-y-3">
+                  {sidebarLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="block text-ada-navy/60 hover:text-ada-purple transition-colors text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </nav>
               </div>
-            ))}
+            </aside>
           </div>
         </div>
       </section>
 
-      {/* Partner — Cooings */}
-      <section className="py-24 md:py-32 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-3">
-              <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-                Our Partner
-              </span>
-              <h2 className="mt-4 font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                Cooings Doula Care
-              </h2>
-              <p className="mt-6 text-lg text-ada-navy/70 leading-relaxed">
-                Cooings is a professional postpartum doula service specializing
-                in Asian families. They offer 26-day live-in care with
-                ADA-certified doulas, providing culturally integrated support
-                during your postpartum recovery.
-              </p>
-              <p className="mt-4 text-lg text-ada-navy/70 leading-relaxed">
-                From newborn care and breastfeeding support to traditional
-                postpartum nutrition and recovery practices, Cooings doulas are
-                trained and certified to the highest ADA standards. Insurance is
-                accepted through multiple major providers.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a
-                  href="https://cooings.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
-                >
-                  Visit Cooings &rarr;
-                </a>
-                <Link
-                  href="/support/contact"
-                  className="inline-flex items-center px-6 py-3 border-2 border-ada-purple text-ada-purple font-medium rounded-full hover:bg-ada-purple hover:text-white transition-colors"
-                >
-                  Contact ADA
-                </Link>
-              </div>
-            </div>
-            <div className="lg:col-span-2 bg-ada-lavender rounded-2xl p-8">
-              <h3 className="font-dm-serif text-xl text-ada-navy mb-6">
-                Cooings at a Glance
-              </h3>
-              <dl className="space-y-5">
-                <div>
-                  <dt className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-                    Coverage
-                  </dt>
-                  <dd className="mt-1 text-ada-navy/80">
-                    LA, Bay Area, San Diego, Seattle, NYC
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-                    Insurance
-                  </dt>
-                  <dd className="mt-1 text-ada-navy/80">
-                    Medi-Cal, Kaiser, Cigna, Carrot Fertility, Blue Shield
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-                    Services
-                  </dt>
-                  <dd className="mt-1 text-ada-navy/80">
-                    Live-in postpartum care, lactation support, newborn care
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Other Ways */}
-      <section className="py-24 md:py-32 bg-ada-lavender">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-            Other Ways to Find a Doula
-          </h2>
-          <div className="mt-12 space-y-6 text-left">
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 className="font-dm-serif text-lg text-ada-navy">
-                Contact ADA Directly
-              </h3>
-              <p className="mt-2 text-ada-navy/70 leading-relaxed">
-                Reach us at{' '}
-                <a
-                  href="mailto:contact@asiandoula.org"
-                  className="text-ada-purple hover:text-ada-purple-hover underline"
-                >
-                  contact@asiandoula.org
-                </a>{' '}
-                or{' '}
-                <a
-                  href="tel:+17142026501"
-                  className="text-ada-purple hover:text-ada-purple-hover underline"
-                >
-                  (714) 202-6501
-                </a>{' '}
-                and we can help connect you with a certified doula in your area.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 className="font-dm-serif text-lg text-ada-navy">
-                Ask Your Insurance Provider
-              </h3>
-              <p className="mt-2 text-ada-navy/70 leading-relaxed">
-                Contact your insurance company and ask about coverage for
-                ADA-certified postpartum doulas. Many major providers recognize
-                our certification.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <h3 className="font-dm-serif text-lg text-ada-navy">
-                Check with Your Hospital or Birthing Center
-              </h3>
-              <p className="mt-2 text-ada-navy/70 leading-relaxed">
-                Many hospitals and birthing centers maintain referral lists of
-                certified doulas. Ask if they work with ADA-certified
-                professionals.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Contact */}
+      <ContactForm />
     </>
   );
 }

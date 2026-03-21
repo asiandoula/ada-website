@@ -42,14 +42,14 @@ export function Hero() {
 
           <div className="mt-8 flex flex-wrap gap-4 animate-hero-buttons">
             <Link
-              href="/become-a-doula/steps-to-certification"
+              href="/certifications/postpartum-doula/steps"
               className="inline-flex items-center gap-2 rounded-full bg-ada-purple px-8 py-3 text-white font-medium transition-colors hover:bg-ada-purple-hover"
             >
               For Doulas
               <span aria-hidden="true">&rarr;</span>
             </Link>
             <Link
-              href="/become-a-doula/find-a-doula-training"
+              href="/for-families"
               className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-white/40 px-8 py-3 text-white font-medium transition-colors hover:bg-white/10"
             >
               For Families

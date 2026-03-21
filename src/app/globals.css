@@ -49,11 +49,29 @@
 :root {
   --ada-navy: #0c2231;
   --ada-navy-warm: #1a3346;
-  --ada-purple: #606090;
-  --ada-purple-hover: #6969C1;
+  --ada-purple: #6969C1;
+  --ada-purple-hover: #7b7bd4;
+  --ada-purple-muted: #606090;
   --ada-cream: #fdfcfa;
   --ada-lavender: #f8f7fc;
   --ada-off-white: #f8f8fa;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(121deg); }
+  50% { transform: translateY(-12px) rotate(121deg); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+.animate-float-delayed {
+  animation: float 4s ease-in-out 1.5s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-float, .animate-float-delayed,
+  .animate-hero-title, .animate-hero-subtitle, .animate-hero-buttons {
+    animation: none;
+  }
 }
 
 @keyframes fadeSlideUp {

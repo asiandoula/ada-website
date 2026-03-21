@@ -8,9 +8,10 @@ interface CounterProps {
   suffix?: string;
   numberClassName?: string;
   labelClassName?: string;
+  containerClassName?: string;
 }
 
-export function Counter({ target, label, suffix = '+', numberClassName = 'text-ada-purple', labelClassName = 'text-ada-navy/70' }: CounterProps) {
+export function Counter({ target, label, suffix = '+', numberClassName = 'text-ada-purple', labelClassName = 'text-ada-navy/70', containerClassName }: CounterProps) {
   const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -55,7 +56,7 @@ export function Counter({ target, label, suffix = '+', numberClassName = 'text-a
   }, [hasStarted, target]);
 
   return (
-    <div ref={ref} className="bg-white/10 rounded-2xl py-8 px-4 text-center backdrop-blur-sm">
+    <div ref={ref} className={containerClassName ?? "text-center"}>
       <div className={`font-outfit text-4xl md:text-5xl font-semibold ${numberClassName}`}>
         {count}
         {suffix}

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" fill="none" viewBox="0 0 250 250">
+<!-- SVG created with Arrow, by QuiverAI (https://quiver.ai) -->
+  <path d="m124.3 249c68.37 0 124-55.85 124.7-125.3 0.71-69.48-55.1-123.7-124.7-123.7-68.1 0-123.4 54.92-123.4 124.5 0 68.45 55.55 124.5 123.4 124.5z" fill="url(#paint0_radial_1302_12281)"/>
+  <path d="m125.6 229.9c54.88 0 106-49.8 106-108.7s-49.79-105.4-108-105.4c-58.2 0-109.1 47.23-109.1 107.7 0 59.19 50.87 106.5 111.1 106.5z" fill="url(#paint1_radial_1302_12281)"/>
+  <path d="m73.37 205.9c-17.49-14.7-25.84-32.57-26.04-57.22-0.38-44.78 32.88-115.2 85.27-115.2 23.56 0 39.49 16.44 39.49 30.87 0 9.4-7.18 32.81-28.27 50.68-15.63 11.85-21.13 2.76-25.65-6.27-3.21-0.98-5.21 9.95-4.49 15.41 1.58 11.95 11.86 21.37 14.5 27.27l3.94-0.66c3.02 0.81 3.29 5.5 1.1 9.09-0.81 1.39 2.86 7.63 4.12 10.05 4.53-3.9 8.84-6.43 16.26-7.45-6.37-1.85-6.86-8.74-5.62-15.48 1.08-5.39 5.17-4.28 7.07-9.45 3.11-8.75 10.4-14.55 20.73-13.75 11.03 0.89 21.37 9.49 21.7 20.97 0.39 8.44-4 15.96-9.57 20.37 1.36 5.39 0 18.87-10.98 32.69-12.86 15.91-33.02 33.97-60.82 37.47-17.21 1.74-30.16-12.18-36.46-20.83l-6.28-8.57z" fill="#6975BF" stroke="#002A3A" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"/>
+  <path d="m169.9 72.31c-6.48 12.6-19.44 14-46.71 14.89-32.12 0.47-50.45 16.05-60.67 42.86-11.34 30.72-2.23 61.45 11.11 76.6" stroke="#002A3A" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"/>
+  <path d="m187.8 165c-4.33 1.74-6.17 5.18-8.77 9.58-1.13 2.04-4.93 7.15-6.2 5.4-1.26-1.75 0.57-7.18-1.89-9.51-2.3-1.38-3.46 0.46-3.98 3.56-1.04 4.77-4.7 9.45-5.23 14.39-0.75 7.27-4.54 10.47-13.45 15.16-8.54 4.34-14.58 5.99-22.56 6.17-6.43-0.15-10.95-1.64-13.58-5.08-4.76-4.25-10.32-12.27-12.42-17.53-3.13-8.14-5.08-20.72-5.41-30.17" stroke="#002A3A" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"/>
+  <path d="m101.1 189.8c2.48-9.59 6.99-17.53 14.66-17.53 9.05 0 12.12 11.78 12.65 21.78" stroke="#002A3A" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"/>
+  <path d="m112.1 204.7c-2.65-4.68-2.02-11.33-0.53-15.05" stroke="#002A3A" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"/>
+  <path d="m126.2 152.4c3.06-3.06 8.8-2.91 8.54 3.11-0.12 2.9-1.92 3.93-1.75 5.83 0.16 1.83 3.93 8.75 4.43 8.75 6.41-5.79 10.53-7.1 15.78-7.63 2.23-0.24 4.32 0.78 7.41 1.22" stroke="#002A3A" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"/>
+  <path d="m126.3 177.5c4.1 7.17 16.63 6.09 25.47 3.6" stroke="#002A3A" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"/>
+  <defs>
+    <radialGradient id="paint0_radial_1302_12281" cx="0" cy="0" r="1" gradientTransform="translate(125 124.5) scale(156 156.7)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FEEAD0" offset="0"/>
+      <stop stop-color="#FEE5C1" stop-opacity=".6232" offset=".3768"/>
+      <stop stop-color="#FEE9C5" stop-opacity=".01" offset="1"/>
+    </radialGradient>
+    <radialGradient id="paint1_radial_1302_12281" cx="0" cy="0" r="1" gradientTransform="translate(124 122.8) scale(105.6 106.2)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FEE9C5" stop-opacity=".01" offset="0"/>
+      <stop stop-color="#FEC282" stop-opacity=".949" offset=".948"/>
+      <stop stop-color="#FEC78A" stop-opacity=".96" offset="1"/>
+    </radialGradient>
+  </defs>
+</svg>
