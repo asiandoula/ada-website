@@ -185,7 +185,7 @@ export default async function VerifyResultPage({
               <p className="text-xs text-ada-navy/30 font-outfit text-center">
                 This record was retrieved from the Asian Doula Alliance official certification registry.
                 <br />
-                Verification performed on {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}.
+                Verification records are retrieved in real-time from the ADA registry.
               </p>
             </div>
           </div>

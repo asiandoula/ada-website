@@ -59,7 +59,8 @@ export default function VerifyPage() {
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="Enter verification code"
                   required
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl border-0 bg-white text-ada-navy font-outfit text-sm shadow-lg focus:outline-none focus:ring-2 focus:ring-white/30"
+                  aria-label="Verification code"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-xl border-0 bg-white text-ada-navy font-outfit text-sm shadow-lg focus:outline-none focus:ring-2 focus:ring-ada-purple/50"
                 />
               </div>
               <button
@@ -69,7 +70,7 @@ export default function VerifyPage() {
                 Verify
               </button>
             </div>
-            <p className="mt-4 text-xs text-white/30 font-outfit">
+            <p className="mt-4 text-xs text-white/50 font-outfit">
               Found on the doula&apos;s official ADA certification certificate
             </p>
           </form>

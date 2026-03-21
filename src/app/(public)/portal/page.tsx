@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShieldCheck, Award, FileText, GraduationCap, Download, LogOut, Phone, Mail, User } from 'lucide-react';
@@ -93,6 +93,12 @@ export default function PortalPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    document.title = data
+      ? `${data.doula.full_name} — Credential Portal | Asian Doula Alliance`
+      : 'Doula Portal | Asian Doula Alliance';
+  }, [data]);
+
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
     if (!idCode.trim() || !contactValue.trim()) return;
@@ -183,6 +189,7 @@ export default function PortalPage() {
                   <div className="flex gap-2 mb-2">
                     <button
                       type="button"
+                      aria-pressed={contactMethod === 'email'}
                       onClick={() => { setContactMethod('email'); setContactValue(''); }}
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-outfit font-medium transition-colors ${
                         contactMethod === 'email'
@@ -194,6 +201,7 @@ export default function PortalPage() {
                     </button>
                     <button
                       type="button"
+                      aria-pressed={contactMethod === 'phone'}
                       onClick={() => { setContactMethod('phone'); setContactValue(''); }}
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-outfit font-medium transition-colors ${
                         contactMethod === 'phone'
@@ -210,6 +218,7 @@ export default function PortalPage() {
                     onChange={(e) => setContactValue(e.target.value)}
                     placeholder={contactMethod === 'email' ? 'your@email.com' : '(626) 555-1234'}
                     required
+                    aria-label={contactMethod === 'email' ? 'Email address' : 'Phone number'}
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-ada-navy font-outfit text-sm focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple"
                   />
                 </div>
@@ -262,7 +271,7 @@ export default function PortalPage() {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <Image src="/images/ada-logo-white.svg" alt="ADA" width={18} height={18} className="opacity-40" />
-                  <span className="font-outfit text-[10px] font-semibold tracking-[0.2em] uppercase text-white/30">
+                  <span className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-white/30">
                     Credential Portal
                   </span>
                 </div>
@@ -368,7 +377,7 @@ export default function PortalPage() {
                           </div>
                           <div className="h-2 bg-ada-navy/5 rounded-full overflow-hidden">
                             <div
-                              className={`h-full rounded-full transition-all ${
+                              className={`h-full rounded-full transition-[width] duration-500 ${
                                 progress > 30 ? 'bg-emerald-400' : progress > 10 ? 'bg-amber-400' : 'bg-red-400'
                               }`}
                               style={{ width: `${progress}%` }}
