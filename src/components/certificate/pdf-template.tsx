@@ -3,121 +3,100 @@ import {
   Page,
   Text,
   View,
+  Image,
   StyleSheet,
+  Font,
 } from '@react-pdf/renderer';
+import path from 'path';
+
+// Register fonts for the certificate
+Font.register({
+  family: 'Helvetica',
+  fonts: [
+    { src: 'Helvetica' },
+    { src: 'Helvetica-Bold', fontWeight: 'bold' },
+  ],
+});
+
+const bgPath = path.join(process.cwd(), 'src/components/certificate/cert-background.png');
 
 const styles = StyleSheet.create({
   page: {
-    padding: 60,
-    backgroundColor: '#ffffff',
-    fontFamily: 'Helvetica',
-  },
-  border: {
-    border: '3pt solid #606090',
-    padding: 40,
+    position: 'relative',
+    width: '100%',
     height: '100%',
   },
-  header: {
+  background: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
+  // Name — centered, positioned where the blank space is
+  nameContainer: {
+    position: 'absolute',
+    top: 280,
+    left: 0,
+    right: 0,
     textAlign: 'center',
-    marginBottom: 20,
-  },
-  orgName: {
-    fontSize: 22,
-    color: '#606090',
-    fontWeight: 'bold',
-    letterSpacing: 2,
-  },
-  certTitle: {
-    fontSize: 16,
-    color: '#0c2231',
-    marginTop: 8,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-  },
-  divider: {
-    borderBottom: '1pt solid #606090',
-    marginVertical: 20,
-    width: '60%',
-    alignSelf: 'center',
-  },
-  body: {
-    textAlign: 'center',
-    marginVertical: 20,
-  },
-  certifyText: {
-    fontSize: 11,
-    color: '#666',
-    marginBottom: 12,
   },
   name: {
-    fontSize: 28,
-    color: '#0c2231',
+    fontSize: 32,
+    color: '#1a1a1a',
+    fontFamily: 'Helvetica',
     fontWeight: 'bold',
-    marginBottom: 4,
   },
   nameZh: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#606090',
-    marginBottom: 20,
+    marginTop: 4,
   },
-  description: {
-    fontSize: 11,
-    color: '#444',
-    lineHeight: 1.6,
-    maxWidth: 400,
-    alignSelf: 'center',
-  },
-  details: {
-    marginTop: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  detailColumn: {
-    textAlign: 'center',
-  },
-  detailLabel: {
-    fontSize: 8,
-    color: '#999',
-    textTransform: 'uppercase',
-    marginBottom: 4,
-  },
-  detailValue: {
-    fontSize: 11,
-    color: '#0c2231',
-  },
-  footer: {
+  // Certification ID — bottom left area
+  certIdContainer: {
     position: 'absolute',
-    bottom: 100,
-    left: 100,
-    right: 100,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    bottom: 62,
+    left: 82,
   },
-  signatureLine: {
-    borderTop: '1pt solid #ccc',
-    width: 150,
-    paddingTop: 4,
-    textAlign: 'center',
+  certId: {
+    fontSize: 9,
+    color: '#333',
+    fontFamily: 'Helvetica',
   },
-  signatureLabel: {
-    fontSize: 8,
-    color: '#999',
-  },
-  verification: {
+  // Validity period — next to cert ID
+  validityContainer: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 62,
+    left: 320,
+  },
+  validity: {
+    fontSize: 9,
+    color: '#333',
+    fontFamily: 'Helvetica',
+  },
+  // Program Director signature
+  signatureContainer: {
+    position: 'absolute',
+    bottom: 102,
+    left: 175,
+  },
+  signature: {
+    fontSize: 11,
+    color: '#333',
+    fontFamily: 'Helvetica',
+    fontStyle: 'italic',
+  },
+  // Verification URL — bottom center
+  verifyContainer: {
+    position: 'absolute',
+    bottom: 38,
     left: 0,
     right: 0,
     textAlign: 'center',
   },
   verifyText: {
-    fontSize: 8,
+    fontSize: 7,
     color: '#999',
-  },
-  verifyUrl: {
-    fontSize: 9,
-    color: '#606090',
   },
 });
 
@@ -136,7 +115,6 @@ interface CertificatePDFProps {
 export function CertificatePDF({
   fullName,
   fullNameZh,
-  certificateTypeLabel,
   certificateNumber,
   issuedDate,
   expirationDate,
@@ -145,56 +123,30 @@ export function CertificatePDF({
   return (
     <Document>
       <Page size="LETTER" orientation="landscape" style={styles.page}>
-        <View style={styles.border}>
-          <View style={styles.header}>
-            <Text style={styles.orgName}>ASIAN DOULA ALLIANCE</Text>
-            <Text style={styles.certTitle}>{certificateTypeLabel}</Text>
-          </View>
+        {/* Background template image */}
+        <Image src={bgPath} style={styles.background} />
 
-          <View style={styles.divider} />
+        {/* Name overlay */}
+        <View style={styles.nameContainer}>
+          <Text style={styles.name}>{fullName}</Text>
+          {fullNameZh && <Text style={styles.nameZh}>{fullNameZh}</Text>}
+        </View>
 
-          <View style={styles.body}>
-            <Text style={styles.certifyText}>
-              This is to certify that
-            </Text>
-            <Text style={styles.name}>{fullName}</Text>
-            {fullNameZh && <Text style={styles.nameZh}>{fullNameZh}</Text>}
-            <Text style={styles.description}>
-              has successfully completed all requirements and is hereby recognized
-              as a certified professional by the Asian Doula Alliance.
-            </Text>
-          </View>
+        {/* Certification ID */}
+        <View style={styles.certIdContainer}>
+          <Text style={styles.certId}>{certificateNumber}</Text>
+        </View>
 
-          <View style={styles.details}>
-            <View style={styles.detailColumn}>
-              <Text style={styles.detailLabel}>Certificate No.</Text>
-              <Text style={styles.detailValue}>{certificateNumber}</Text>
-            </View>
-            <View style={styles.detailColumn}>
-              <Text style={styles.detailLabel}>Date of Issue</Text>
-              <Text style={styles.detailValue}>{issuedDate}</Text>
-            </View>
-            <View style={styles.detailColumn}>
-              <Text style={styles.detailLabel}>Valid Through</Text>
-              <Text style={styles.detailValue}>{expirationDate}</Text>
-            </View>
-          </View>
+        {/* Validity dates */}
+        <View style={styles.validityContainer}>
+          <Text style={styles.validity}>{issuedDate} – {expirationDate}</Text>
+        </View>
 
-          <View style={styles.footer}>
-            <View style={styles.signatureLine}>
-              <Text style={styles.signatureLabel}>Authorized Signatory</Text>
-            </View>
-            <View style={styles.signatureLine}>
-              <Text style={styles.signatureLabel}>Date</Text>
-            </View>
-          </View>
-
-          <View style={styles.verification}>
-            <Text style={styles.verifyText}>
-              Verify this certificate at:
-            </Text>
-            <Text style={styles.verifyUrl}>{verificationUrl}</Text>
-          </View>
+        {/* Verification URL */}
+        <View style={styles.verifyContainer}>
+          <Text style={styles.verifyText}>
+            Verify at: {verificationUrl}
+          </Text>
         </View>
       </Page>
     </Document>
