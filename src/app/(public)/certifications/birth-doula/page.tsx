@@ -126,7 +126,7 @@ export default function BirthDoulaCertificationPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {certDetails.map((detail) => (
                       <div key={detail.label}>
-                        <p className="text-sm text-ada-navy/50 mb-1">{detail.label}</p>
+                        <p className="text-sm text-ada-navy/60 mb-1">{detail.label}</p>
                         <p className="font-outfit font-semibold text-ada-navy">
                           {detail.value}
                         </p>

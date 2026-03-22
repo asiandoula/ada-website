@@ -110,7 +110,7 @@ export default function ProgramsPage() {
                   {track.description}
                 </p>
                 {track.facts && (
-                  <p className="mt-4 text-sm text-ada-navy/50 font-outfit">
+                  <p className="mt-4 text-sm text-ada-navy/60 font-outfit">
                     {track.facts}
                   </p>
                 )}

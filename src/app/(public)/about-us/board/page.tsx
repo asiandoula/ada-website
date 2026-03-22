@@ -151,7 +151,7 @@ export default function BoardOfDirectorsPage() {
                         {position.responsibilities.map((resp) => (
                           <li
                             key={resp}
-                            className="text-sm text-ada-navy/50 flex items-start gap-2"
+                            className="text-sm text-ada-navy/60 flex items-start gap-2"
                           >
                             <span className="w-1 h-1 rounded-full bg-ada-purple/40 mt-2 shrink-0" />
                             {resp}

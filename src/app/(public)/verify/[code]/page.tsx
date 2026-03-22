@@ -83,12 +83,12 @@ export default async function VerifyResultPage({
           }} />
           <div className="relative max-w-[1000px] mx-auto px-6 text-center">
             <div className="w-16 h-16 rounded-full border-2 border-white/10 flex items-center justify-center mx-auto mb-6 bg-white/5">
-              <ShieldX className="w-8 h-8 text-white/40" />
+              <ShieldX className="w-8 h-8 text-white/60" />
             </div>
             <h1 className="font-dm-serif text-3xl md:text-4xl text-white">
               Certificate Not Found
             </h1>
-            <p className="mt-4 text-white/40 font-outfit max-w-md mx-auto leading-relaxed">
+            <p className="mt-4 text-white/60 font-outfit max-w-md mx-auto leading-relaxed">
               The query &ldquo;{decoded}&rdquo; does not match any
               certificate in the ADA registry.
             </p>
@@ -159,7 +159,7 @@ export default async function VerifyResultPage({
           <div className="flex items-center justify-center gap-3 mb-4">
             <Image src="/images/ada-logo-white.svg" alt="ADA" width={32} height={32} />
             <div className="h-5 w-px bg-white/20" />
-            <span className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-white/40">
+            <span className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-white/60">
               Official Verification Record
             </span>
           </div>
@@ -258,7 +258,7 @@ export default async function VerifyResultPage({
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <Link
               href="/verify"
-              className="inline-flex items-center gap-2 text-sm text-ada-navy/50 font-outfit hover:text-ada-navy transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-ada-navy/60 font-outfit hover:text-ada-navy transition-colors"
             >
               <ArrowLeft className="w-4 h-4" /> Verify Another Certificate
             </Link>

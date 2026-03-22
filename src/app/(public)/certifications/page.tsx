@@ -14,7 +14,7 @@ const tracks = [
     title: 'Postpartum Doula',
     description:
       'The gold standard in culturally integrated postpartum care certification. Exams in 5 languages, recognized by 6 insurance partners.',
-    facts: '$625 exam fee · 3-year validity · 164+ certified',
+    facts: '$625 exam fee · 3-year validity · 167+ certified',
     href: '/certifications/postpartum-doula',
     linkText: 'Learn More →',
     cardBorder: 'border-ada-purple/20',

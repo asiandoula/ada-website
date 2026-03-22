@@ -130,11 +130,12 @@ function ExamSection({ examResults }: { examResults: ExamResult[] }) {
                 <button
                   type="button"
                   onClick={() => setExpandedId(isExpanded ? null : exam.id)}
+                  aria-expanded={isExpanded}
                   className="w-full flex items-center justify-between px-6 py-4 hover:bg-ada-navy/[0.02] transition-colors text-left"
                 >
                   <div className="flex items-center gap-6">
                     <div>
-                      <p className="font-mono text-xs text-ada-navy/50">{exam.exam_session}</p>
+                      <p className="font-mono text-xs text-ada-navy/60">{exam.exam_session}</p>
                       <p className="text-sm font-outfit text-ada-navy/60 mt-0.5">
                         {credentialLabels[exam.exam_type] || exam.exam_type} — {formatDate(exam.exam_date)}
                       </p>
@@ -165,7 +166,7 @@ function ExamSection({ examResults }: { examResults: ExamResult[] }) {
                         const score = exam[key as keyof ExamResult] as number;
                         return (
                           <div key={key} className="flex items-center gap-4">
-                            <span className="w-24 text-xs text-ada-navy/50 font-outfit shrink-0">{label}</span>
+                            <span className="w-24 text-xs text-ada-navy/60 font-outfit shrink-0">{label}</span>
                             <div className="flex-1 h-2 bg-ada-navy/5 rounded-full overflow-hidden">
                               <div
                                 className={`h-full rounded-full ${
@@ -301,7 +302,7 @@ export default function PortalPage() {
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-outfit font-medium transition-colors ${
                         contactMethod === 'email'
                           ? 'bg-ada-navy text-white'
-                          : 'bg-ada-navy/5 text-ada-navy/50 hover:bg-ada-navy/10'
+                          : 'bg-ada-navy/5 text-ada-navy/60 hover:bg-ada-navy/10'
                       }`}
                     >
                       <Mail className="w-3.5 h-3.5" /> Email
@@ -313,7 +314,7 @@ export default function PortalPage() {
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-outfit font-medium transition-colors ${
                         contactMethod === 'phone'
                           ? 'bg-ada-navy text-white'
-                          : 'bg-ada-navy/5 text-ada-navy/50 hover:bg-ada-navy/10'
+                          : 'bg-ada-navy/5 text-ada-navy/60 hover:bg-ada-navy/10'
                       }`}
                     >
                       <Phone className="w-3.5 h-3.5" /> Phone
@@ -389,7 +390,7 @@ export default function PortalPage() {
                   )}
                 </h1>
                 <div className="mt-1 flex items-center gap-3">
-                  <span className="font-mono text-xs text-white/40">{doula.doula_id_code}</span>
+                  <span className="font-mono text-xs text-white/60">{doula.doula_id_code}</span>
                   <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold font-outfit ${
                     primaryStatus?.bg || 'bg-gray-50 text-gray-600'
                   }`}>

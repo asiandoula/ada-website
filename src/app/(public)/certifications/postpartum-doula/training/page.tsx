@@ -110,7 +110,7 @@ export default function FindADoulaTrainingPage() {
                           <h3 className="font-outfit text-lg font-semibold text-ada-navy">
                             {provider.name}
                           </h3>
-                          <p className="text-ada-navy/50 text-sm">{provider.location}</p>
+                          <p className="text-ada-navy/60 text-sm">{provider.location}</p>
                         </div>
                         <span className="inline-flex items-center text-ada-purple bg-ada-purple/10 text-xs px-2.5 py-0.5 rounded-full font-medium shrink-0">
                           ADA Approved
@@ -119,7 +119,7 @@ export default function FindADoulaTrainingPage() {
                       <p className="text-ada-navy/60 text-sm mb-4 leading-relaxed">
                         {provider.description}
                       </p>
-                      <div className="flex flex-wrap gap-4 text-sm text-ada-navy/50">
+                      <div className="flex flex-wrap gap-4 text-sm text-ada-navy/60">
                         <span>
                           <strong className="text-ada-navy">Duration:</strong> {provider.duration}
                         </span>
@@ -128,7 +128,7 @@ export default function FindADoulaTrainingPage() {
                           {provider.languages.join(', ')}
                         </span>
                       </div>
-                      <p className="text-sm text-ada-navy/50 mt-2">
+                      <p className="text-sm text-ada-navy/60 mt-2">
                         <strong className="text-ada-navy">Address:</strong> {provider.address}
                       </p>
                     </div>

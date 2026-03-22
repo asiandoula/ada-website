@@ -63,7 +63,7 @@ const milestones = [
     year: '2026',
     title: 'Continuing to Grow',
     description:
-      'With 164+ certified doulas, 6 insurance partners, and exams in 5 languages, ADA continues to set the gold standard for culturally integrated postpartum doula certification.',
+      'With 167+ certified doulas, 6 insurance partners, and exams in 5 languages, ADA continues to set the gold standard for culturally integrated postpartum doula certification.',
   },
 ];
 
@@ -222,7 +222,7 @@ export default function HistoryPage() {
                 Milestones
               </h2>
               <p className="mt-4 text-lg text-ada-navy/60 leading-relaxed">
-                From 0 to 164+ certified doulas in five years.
+                From 0 to 167+ certified doulas in five years.
               </p>
 
               {/* Timeline */}
@@ -236,7 +236,7 @@ export default function HistoryPage() {
                   Become Part of Our Story
                 </h3>
                 <p className="mt-3 text-ada-navy/60">
-                  Join 164+ certified doulas making a difference in families&apos; lives.
+                  Join 167+ certified doulas making a difference in families&apos; lives.
                 </p>
                 <Link
                   href="/certifications/postpartum-doula/steps"

@@ -139,7 +139,7 @@ export function Footer() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h3 className="font-outfit font-semibold text-sm">Stay connected with ADA</h3>
-              <p className="text-white/40 text-xs mt-1">Training updates, certification news, and community stories.</p>
+              <p className="text-white/60 text-xs mt-1">Training updates, certification news, and community stories.</p>
             </div>
             <NewsletterForm />
           </div>
@@ -149,7 +149,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <p className="text-white/40 text-xs text-center">
+          <p className="text-white/60 text-xs text-center">
             &copy; {new Date().getFullYear()} Asian Doula Alliance. All rights reserved.
           </p>
         </div>

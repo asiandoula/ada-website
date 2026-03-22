@@ -167,7 +167,7 @@ export default function HomePage() {
               {/* Inline stats — matching Framer */}
               <div className="mt-12 grid grid-cols-3 gap-4 max-sm:grid-cols-1 max-sm:gap-6">
                 <div>
-                  <Counter target={109} suffix="" label="Doulas Trained" numberClassName="text-ada-purple-muted" labelClassName="text-ada-navy/60" />
+                  <Counter target={167} suffix="" label="Doulas Trained" numberClassName="text-ada-purple-muted" labelClassName="text-ada-navy/60" />
                 </div>
                 <div>
                   <Counter target={50} suffix="+" label="Workshops & Seminars" numberClassName="text-ada-purple-muted" labelClassName="text-ada-navy/60" />
@@ -205,7 +205,7 @@ export default function HomePage() {
                   <h3 className="font-dm-serif text-2xl text-ada-navy">
                     {step.emoji} {step.title}
                   </h3>
-                  <p className="mt-2 text-base text-ada-navy/50 leading-relaxed">
+                  <p className="mt-2 text-base text-ada-navy/60 leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -254,7 +254,7 @@ export default function HomePage() {
                       <h3 className="font-dm-serif text-lg text-ada-navy">
                         {step.emoji} {step.title}
                       </h3>
-                      <p className="mt-2 text-sm text-ada-navy/50 leading-relaxed">
+                      <p className="mt-2 text-sm text-ada-navy/60 leading-relaxed">
                         {step.description}
                       </p>
                     </div>
@@ -282,7 +282,7 @@ export default function HomePage() {
             <h2 className="font-dm-serif text-4xl text-ada-navy">
               Our Values
             </h2>
-            <p className="mt-2 text-xl text-ada-navy/50 font-light">
+            <p className="mt-2 text-xl text-ada-navy/60 font-light">
               Compassion, professionalism, dedication, and cultural understanding define our care.
             </p>
           </div>
@@ -302,7 +302,7 @@ export default function HomePage() {
                   <h3 className="font-dm-serif text-xl text-ada-navy">
                     {value.title}
                   </h3>
-                  <p className="mt-2 text-ada-navy/50 text-base leading-relaxed">
+                  <p className="mt-2 text-ada-navy/60 text-base leading-relaxed">
                     {value.description}
                   </p>
                 </div>
@@ -328,7 +328,7 @@ export default function HomePage() {
             <h2 className="font-dm-serif text-4xl text-ada-navy">
               Our Work
             </h2>
-            <p className="mt-2 text-xl text-ada-navy/50 font-light">
+            <p className="mt-2 text-xl text-ada-navy/60 font-light">
               Elevating postpartum care with culturally rooted and evidence-based programs.
             </p>
           </div>
@@ -397,7 +397,7 @@ export default function HomePage() {
                     <h3 className="mt-8 font-dm-serif text-2xl text-ada-navy">
                       {service.title}
                     </h3>
-                    <p className="mt-4 text-sm text-ada-navy/50 leading-relaxed">
+                    <p className="mt-4 text-sm text-ada-navy/60 leading-relaxed">
                       {service.description}
                     </p>
                   </div>
@@ -418,7 +418,7 @@ export default function HomePage() {
             <h2 className="font-dm-serif text-4xl text-ada-navy">
               Our Partners
             </h2>
-            <p className="mt-2 text-xl text-ada-navy/50 font-light">
+            <p className="mt-2 text-xl text-ada-navy/60 font-light">
               Trusted collaborations with leading organizations in maternal care.
             </p>
           </div>
@@ -473,7 +473,7 @@ export default function HomePage() {
                 <h3 className="font-outfit font-semibold text-ada-navy text-base">
                   {partner.name}
                 </h3>
-                <p className="mt-2 text-ada-navy/50 text-sm leading-relaxed">
+                <p className="mt-2 text-ada-navy/60 text-sm leading-relaxed">
                   {partner.description}
                 </p>
               </div>
@@ -493,7 +493,7 @@ export default function HomePage() {
               <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
                 Verify a Doula&apos;s Certification
               </h2>
-              <p className="mt-3 text-ada-navy/50 font-outfit leading-relaxed max-w-xl">
+              <p className="mt-3 text-ada-navy/60 font-outfit leading-relaxed max-w-xl">
                 Insurance providers, healthcare facilities, and families can instantly verify
                 any ADA-credentialed doula by name, Doula ID, or certificate number.
               </p>
@@ -564,8 +564,8 @@ export default function HomePage() {
               <h2 className="font-dm-serif text-4xl text-ada-navy">
                 Where Our Doulas Serve
               </h2>
-              <p className="mt-4 text-ada-navy/50 leading-relaxed">
-                164+ certified doulas supporting families across California and nationwide.
+              <p className="mt-4 text-ada-navy/60 leading-relaxed">
+                167+ certified doulas supporting families across California and nationwide.
               </p>
               <div className="mt-8 space-y-4">
                 {[

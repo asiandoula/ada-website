@@ -96,13 +96,13 @@ export default function VerifyPage() {
               />
             </div>
           </div>
-          <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-white/50 mb-3">
+          <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-white/60 mb-3">
             Asian Doula Alliance
           </p>
           <h1 className="font-dm-serif text-4xl md:text-5xl text-white">
             Credential Verification
           </h1>
-          <p className="mt-5 text-base text-white/50 font-outfit max-w-lg mx-auto leading-relaxed">
+          <p className="mt-5 text-base text-white/60 font-outfit max-w-lg mx-auto leading-relaxed">
             Verify the certification status of any ADA-credentialed doula.
             This is an official verification service.
           </p>
@@ -127,10 +127,10 @@ export default function VerifyPage() {
                 disabled={loading}
                 className="shrink-0 px-6 py-3.5 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-sm hover:bg-ada-purple-hover transition-colors shadow-lg disabled:opacity-50"
               >
-                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify'}
+                {loading ? <><Loader2 className="w-4 h-4 animate-spin" /><span className="sr-only">Searching...</span></> : 'Verify'}
               </button>
             </div>
-            <p className="mt-4 text-xs text-white/50 font-outfit">
+            <p className="mt-4 text-xs text-white/60 font-outfit">
               Search by doula name, Doula ID (e.g. #25-311), or certificate number (e.g. ADA-PD-0001)
             </p>
           </form>
@@ -218,7 +218,7 @@ export default function VerifyPage() {
             <h2 className="font-dm-serif text-3xl text-ada-navy">
               About ADA Certification
             </h2>
-            <p className="mt-3 text-ada-navy/50 font-outfit max-w-2xl mx-auto">
+            <p className="mt-3 text-ada-navy/60 font-outfit max-w-2xl mx-auto">
               The Asian Doula Alliance maintains rigorous standards for postpartum doula certification,
               ensuring families receive culturally competent, evidence-based care.
             </p>
@@ -232,7 +232,7 @@ export default function VerifyPage() {
               <h3 className="font-outfit font-semibold text-ada-navy mb-2">
                 Why Verify
               </h3>
-              <p className="text-sm text-ada-navy/50 font-outfit leading-relaxed">
+              <p className="text-sm text-ada-navy/60 font-outfit leading-relaxed">
                 Confirms the doula has completed ADA&apos;s accredited training program
                 and passed both written and practical certification exams under supervised conditions.
               </p>
@@ -245,7 +245,7 @@ export default function VerifyPage() {
               <h3 className="font-outfit font-semibold text-ada-navy mb-2">
                 What You&apos;ll See
               </h3>
-              <p className="text-sm text-ada-navy/50 font-outfit leading-relaxed">
+              <p className="text-sm text-ada-navy/60 font-outfit leading-relaxed">
                 Full credential details including certification type, current status,
                 date issued, and validity period. All information is verified in real-time
                 against our registry.
@@ -259,7 +259,7 @@ export default function VerifyPage() {
               <h3 className="font-outfit font-semibold text-ada-navy mb-2">
                 Open to Everyone
               </h3>
-              <p className="text-sm text-ada-navy/50 font-outfit leading-relaxed">
+              <p className="text-sm text-ada-navy/60 font-outfit leading-relaxed">
                 This service is available to expectant parents, insurance providers,
                 healthcare facilities, and doula agencies. No registration required.
               </p>
@@ -290,7 +290,7 @@ export default function VerifyPage() {
                     </div>
                     <div className="pt-1">
                       <h3 className="font-outfit font-semibold text-ada-navy mb-1">{step.title}</h3>
-                      <p className="text-sm text-ada-navy/50 font-outfit leading-relaxed">{step.text}</p>
+                      <p className="text-sm text-ada-navy/60 font-outfit leading-relaxed">{step.text}</p>
                     </div>
                   </div>
                 ))}
@@ -311,7 +311,7 @@ export default function VerifyPage() {
               <h2 className="font-dm-serif text-3xl text-white mb-4">
                 ADA Certification Standards
               </h2>
-              <p className="text-white/50 font-outfit max-w-xl mx-auto leading-relaxed mb-8">
+              <p className="text-white/60 font-outfit max-w-xl mx-auto leading-relaxed mb-8">
                 Our doulas complete a comprehensive program including classroom training,
                 supervised practice, and dual examinations before earning their credential.
               </p>
@@ -324,7 +324,7 @@ export default function VerifyPage() {
                 ].map((stat) => (
                   <div key={stat.label}>
                     <p className="font-outfit text-2xl font-bold text-white">{stat.num}</p>
-                    <p className="text-xs text-white/40 font-outfit mt-1">{stat.label}</p>
+                    <p className="text-xs text-white/60 font-outfit mt-1">{stat.label}</p>
                   </div>
                 ))}
               </div>
@@ -339,7 +339,7 @@ export default function VerifyPage() {
           <h2 className="font-dm-serif text-2xl text-ada-navy mb-3">
             Are you a certified doula?
           </h2>
-          <p className="text-ada-navy/50 font-outfit mb-6">
+          <p className="text-ada-navy/60 font-outfit mb-6">
             Access your credential portal to view records, download certificates, and check exam history.
           </p>
           <Link

@@ -89,7 +89,7 @@ export default function AboutUsPage() {
                 &ldquo;The Chinese Doula Incident In Bay Area&rdquo; &mdash; a doula was
                 caught on camera allegedly abusing a 2-day-old infant.
               </p>
-              <p className="mt-4 text-sm text-ada-navy/50">
+              <p className="mt-4 text-sm text-ada-navy/60">
                 Source: Bay Area local news reports
               </p>
             </div>
@@ -176,7 +176,7 @@ export default function AboutUsPage() {
               {/* Stats row */}
               <div className="mt-10 flex flex-wrap gap-8">
                 <div>
-                  <p className="font-dm-serif text-2xl text-ada-navy">164+</p>
+                  <p className="font-dm-serif text-2xl text-ada-navy">167+</p>
                   <p className="text-sm text-ada-navy/60 mt-1">Doulas Trained</p>
                 </div>
                 <div>

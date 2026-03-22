@@ -112,7 +112,7 @@ export default function ExamDetailsPage() {
                       key={detail.label}
                       className="bg-[#fafafa] rounded-xl p-5"
                     >
-                      <p className="text-sm text-ada-navy/50 mb-1">{detail.label}</p>
+                      <p className="text-sm text-ada-navy/60 mb-1">{detail.label}</p>
                       <p className="font-outfit font-semibold text-ada-navy">
                         {detail.value}
                       </p>
