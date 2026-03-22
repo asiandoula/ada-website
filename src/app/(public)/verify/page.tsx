@@ -4,18 +4,76 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, ShieldCheck, BadgeCheck, BookOpen, Scale, GraduationCap } from 'lucide-react';
+import { Search, ShieldCheck, BadgeCheck, BookOpen, Scale, GraduationCap, Loader2 } from 'lucide-react';
+
+interface NameResult {
+  doula: {
+    full_name: string;
+    full_name_zh?: string;
+    doula_id_code: string;
+    status: string;
+  };
+  certificates: {
+    verification_code: string;
+    certificate_number: string;
+    certificate_type: string;
+  }[];
+}
 
 export default function VerifyPage() {
-  const [code, setCode] = useState('');
+  const [query, setQuery] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [nameResults, setNameResults] = useState<NameResult[] | null>(null);
+  const [noResults, setNoResults] = useState(false);
   const router = useRouter();
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const trimmed = code.trim();
+    const trimmed = query.trim();
     if (!trimmed) return;
-    router.push(`/verify/${encodeURIComponent(trimmed)}`);
+
+    setLoading(true);
+    setNameResults(null);
+    setNoResults(false);
+
+    try {
+      const res = await fetch(`/api/verify/search?q=${encodeURIComponent(trimmed)}`);
+      const data = await res.json();
+
+      if (data.type === 'name') {
+        // Name search — show results list or no results
+        if (data.results.length === 0) {
+          setNoResults(true);
+        } else if (data.results.length === 1 && data.results[0].certificates.length === 1) {
+          // Single match — go directly to result page
+          router.push(`/verify/${data.results[0].certificates[0].verification_code}`);
+          return;
+        } else {
+          setNameResults(data.results);
+        }
+      } else {
+        // ID/cert/verification code search — direct result or not found
+        if (data.results.length === 0) {
+          setNoResults(true);
+        } else if (data.results.length === 1) {
+          router.push(`/verify/${data.results[0].verification_code}`);
+          return;
+        }
+      }
+    } catch {
+      setNoResults(true);
+    }
+
+    setLoading(false);
   }
+
+  const statusLabel: Record<string, { text: string; color: string }> = {
+    certified_active: { text: 'Active', color: 'bg-emerald-50 text-emerald-700' },
+    expired: { text: 'Expired', color: 'bg-amber-50 text-amber-700' },
+    revoked: { text: 'Revoked', color: 'bg-red-50 text-red-700' },
+    under_investigation: { text: 'Under Review', color: 'bg-gray-100 text-gray-600' },
+    exam_failed: { text: 'Not Certified', color: 'bg-red-50 text-red-700' },
+  };
 
   return (
     <>
@@ -55,25 +113,83 @@ export default function VerifyPage() {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ada-navy/40" />
                 <input
                   type="text"
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  placeholder="Enter verification code"
+                  value={query}
+                  onChange={(e) => { setQuery(e.target.value); setNoResults(false); setNameResults(null); }}
+                  placeholder="Name, Doula ID, or Certificate Number"
                   required
-                  aria-label="Verification code"
+                  aria-label="Search by name, Doula ID, or certificate number"
                   className="w-full pl-11 pr-4 py-3.5 rounded-xl border-0 bg-white text-ada-navy font-outfit text-sm shadow-lg focus:outline-none focus:ring-2 focus:ring-ada-purple/50"
                 />
               </div>
               <button
                 type="submit"
-                className="shrink-0 px-6 py-3.5 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-sm hover:bg-ada-purple-hover transition-colors shadow-lg"
+                disabled={loading}
+                className="shrink-0 px-6 py-3.5 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-sm hover:bg-ada-purple-hover transition-colors shadow-lg disabled:opacity-50"
               >
-                Verify
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Verify'}
               </button>
             </div>
             <p className="mt-4 text-xs text-white/50 font-outfit">
-              Found on the doula&apos;s official ADA certification certificate
+              Search by doula name, Doula ID (e.g. #25-311), or certificate number (e.g. ADA-PD-0001)
             </p>
           </form>
+
+          {/* No results */}
+          {noResults && (
+            <div className="mt-6 max-w-md mx-auto bg-white/10 rounded-xl p-5">
+              <p className="text-white/70 font-outfit text-sm">
+                No matching records found for &ldquo;{query}&rdquo;.
+                Please check the spelling or try a different search term.
+              </p>
+            </div>
+          )}
+
+          {/* Name search results — multiple matches */}
+          {nameResults && nameResults.length > 0 && (
+            <div className="mt-6 max-w-md mx-auto">
+              <p className="text-white/60 font-outfit text-sm mb-3">
+                {nameResults.length} doula{nameResults.length > 1 ? 's' : ''} found — select to view details:
+              </p>
+              <div className="space-y-2">
+                {nameResults.map((r) => {
+                  const st = statusLabel[r.doula.status] || { text: r.doula.status, color: 'bg-gray-100 text-gray-600' };
+                  const cert = r.certificates[0];
+                  return (
+                    <button
+                      key={r.doula.doula_id_code}
+                      onClick={() => {
+                        if (cert) {
+                          router.push(`/verify/${cert.verification_code}`);
+                        }
+                      }}
+                      disabled={!cert}
+                      className="w-full bg-white rounded-xl p-4 flex items-center justify-between hover:bg-gray-50 transition-colors text-left disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <div>
+                        <p className="font-outfit font-semibold text-ada-navy text-sm">
+                          {r.doula.full_name}
+                          {r.doula.full_name_zh && (
+                            <span className="text-ada-navy/40 font-normal ml-1.5">({r.doula.full_name_zh})</span>
+                          )}
+                        </p>
+                        <p className="text-xs text-ada-navy/40 font-outfit mt-0.5">
+                          {r.doula.doula_id_code}
+                          {cert && <span className="ml-2">·  {cert.certificate_number}</span>}
+                        </p>
+                      </div>
+                      <span className={`shrink-0 ml-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-outfit font-semibold ${st.color}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${
+                          r.doula.status === 'certified_active' ? 'bg-emerald-500' :
+                          r.doula.status === 'expired' ? 'bg-amber-500' : 'bg-red-500'
+                        }`} />
+                        {st.text}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -162,9 +278,9 @@ export default function VerifyPage() {
               <div className="absolute left-5 top-2 bottom-2 w-px bg-ada-purple/15" />
               <div className="space-y-10">
                 {[
-                  { title: 'Obtain the Code', text: 'Request the verification code from the doula — it is printed on their official ADA certification certificate.', icon: BookOpen },
-                  { title: 'Enter & Search', text: 'Enter the code in the search field above. The system checks the code against the ADA certification registry.', icon: Search },
-                  { title: 'Review Results', text: 'View the official verification record showing the doula\'s credential type, certification status, and validity dates.', icon: GraduationCap },
+                  { title: 'Search', text: 'Enter the doula\'s name, Doula ID (e.g. #25-311), or certificate number in the search field above.', icon: Search },
+                  { title: 'Select', text: 'If multiple results are found, select the correct doula from the list to view their credential details.', icon: BookOpen },
+                  { title: 'Review', text: 'View the official verification record showing the doula\'s credential type, certification status, and validity dates.', icon: GraduationCap },
                 ].map((step, i) => (
                   <div key={i} className="flex gap-6">
                     <div className="relative z-10 w-10 h-10 rounded-full bg-ada-purple flex items-center justify-center text-white font-outfit font-bold text-sm shrink-0 shadow-md">
@@ -199,7 +315,7 @@ export default function VerifyPage() {
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[
-                  { num: '164+', label: 'Certified Doulas' },
+                  { num: '167+', label: 'Registered Doulas' },
                   { num: '4-5', label: 'Day Training' },
                   { num: '90', label: 'Min Exam Score' },
                   { num: '3yr', label: 'Validity Period' },

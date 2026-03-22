@@ -25,12 +25,53 @@ export default async function VerifyResultPage({
   params: Promise<{ code: string }>;
 }) {
   const { code } = await params;
+  const decoded = decodeURIComponent(code);
 
-  const { data: cert } = await supabase
+  // Try verification_code first, then certificate_number, then doula_id_code
+  let cert = null;
+
+  // 1. Verification code
+  const { data: byVerification } = await supabase
     .from('certificates')
-    .select('*, doulas(full_name, full_name_zh, status)')
-    .eq('verification_code', code)
+    .select('*, doulas(full_name, full_name_zh, doula_id_code, status)')
+    .eq('verification_code', decoded)
     .single();
+
+  if (byVerification) {
+    cert = byVerification;
+  } else {
+    // 2. Certificate number
+    const { data: byCertNum } = await supabase
+      .from('certificates')
+      .select('*, doulas(full_name, full_name_zh, doula_id_code, status)')
+      .eq('certificate_number', decoded.toUpperCase())
+      .single();
+
+    if (byCertNum) {
+      cert = byCertNum;
+    } else {
+      // 3. Doula ID code
+      const normalizedId = decoded.startsWith('#') ? decoded : `#${decoded}`;
+      const { data: doula } = await supabase
+        .from('doulas')
+        .select('id, full_name, full_name_zh, doula_id_code, status')
+        .eq('doula_id_code', normalizedId)
+        .single();
+
+      if (doula) {
+        const { data: byCert } = await supabase
+          .from('certificates')
+          .select('*')
+          .eq('doula_id', doula.id)
+          .limit(1)
+          .single();
+
+        if (byCert) {
+          cert = { ...byCert, doulas: doula };
+        }
+      }
+    }
+  }
 
   // ============ NOT FOUND ============
   if (!cert) {
@@ -48,7 +89,7 @@ export default async function VerifyResultPage({
               Certificate Not Found
             </h1>
             <p className="mt-4 text-white/40 font-outfit max-w-md mx-auto leading-relaxed">
-              The verification code &ldquo;{code}&rdquo; does not match any
+              The query &ldquo;{decoded}&rdquo; does not match any
               certificate in the ADA registry.
             </p>
             <Link
@@ -65,7 +106,7 @@ export default async function VerifyResultPage({
 
   // ============ FOUND ============
   const doula = cert.doulas as Record<string, string>;
-  const isRevoked = cert.status === 'revoked';
+  const isRevoked = cert.status === 'revoked' || doula.status === 'revoked';
   const isActive = !isRevoked && doula.status === 'certified_active';
   const isExpired = !isRevoked && doula.status === 'expired';
 
@@ -152,6 +193,10 @@ export default async function VerifyResultPage({
                     <span className="text-ada-navy/40 font-normal ml-2">({doula.full_name_zh})</span>
                   )}
                 </span>
+              </div>
+              <div className="flex justify-between items-center px-8 py-4">
+                <span className="text-sm text-ada-navy/40 font-outfit">Doula ID</span>
+                <span className="text-sm font-mono text-ada-navy">{doula.doula_id_code}</span>
               </div>
               <div className="flex justify-between items-center px-8 py-4">
                 <span className="text-sm text-ada-navy/40 font-outfit">Certificate Number</span>
