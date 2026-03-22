@@ -7,12 +7,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
-import { computeProficiencyLevel } from '@/lib/utils';
+import { computeProficiencyLevel, PASS_SCORE } from '@/lib/utils';
 
 interface ExamEntry {
   doula_id: string;
   doula_name: string;
-  overall_score: string;
   score_terminology: string;
   score_newborn: string;
   score_lactation: string;
@@ -21,10 +20,11 @@ interface ExamEntry {
   score_postpartum: string;
   score_knowledge: string;
   score_ethics: string;
+  override_passed: boolean | null; // null = auto, true/false = manual override
+  override_note: string;
 }
 
-const EMPTY_SCORES = {
-  overall_score: '',
+const EMPTY_ENTRY: Omit<ExamEntry, 'doula_id' | 'doula_name'> = {
   score_terminology: '',
   score_newborn: '',
   score_lactation: '',
@@ -33,19 +33,26 @@ const EMPTY_SCORES = {
   score_postpartum: '',
   score_knowledge: '',
   score_ethics: '',
+  override_passed: null,
+  override_note: '',
 };
 
-const SCORE_FIELDS = [
-  'overall_score',
-  'score_terminology',
-  'score_newborn',
-  'score_lactation',
-  'score_emergency',
-  'score_practical',
-  'score_postpartum',
-  'score_knowledge',
-  'score_ethics',
+const SUB_SCORE_FIELDS = [
+  { key: 'score_terminology', label: 'Term.' },
+  { key: 'score_newborn', label: 'Newborn' },
+  { key: 'score_lactation', label: 'Lact.' },
+  { key: 'score_emergency', label: 'Emerg.' },
+  { key: 'score_practical', label: 'Pract.' },
+  { key: 'score_postpartum', label: 'Postpart.' },
+  { key: 'score_knowledge', label: 'Know.' },
+  { key: 'score_ethics', label: 'Ethics' },
 ] as const;
+
+function calcOverall(entry: ExamEntry): number | null {
+  const scores = SUB_SCORE_FIELDS.map(f => entry[f.key as keyof ExamEntry] as string).filter(s => s !== '').map(Number);
+  if (scores.length === 0) return null;
+  return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+}
 
 export default function RecordExamPage() {
   const router = useRouter();
@@ -53,6 +60,7 @@ export default function RecordExamPage() {
   const [doulas, setDoulas] = useState<Record<string, string>[]>([]);
   const [examSession, setExamSession] = useState('');
   const [examDate, setExamDate] = useState('');
+  const [examType, setExamType] = useState('postpartum');
   const [entries, setEntries] = useState<ExamEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -74,13 +82,33 @@ export default function RecordExamPage() {
     if (!doula || entries.some((e) => e.doula_id === doulaId)) return;
     setEntries([
       ...entries,
-      { doula_id: doulaId, doula_name: doula.full_name, ...EMPTY_SCORES },
+      { doula_id: doulaId, doula_name: doula.full_name, ...EMPTY_ENTRY },
     ]);
   }
 
   function updateEntry(index: number, field: string, value: string) {
     const updated = [...entries];
     (updated[index] as unknown as Record<string, string>)[field] = value;
+    // Reset override when scores change
+    if (SUB_SCORE_FIELDS.some(f => f.key === field)) {
+      updated[index].override_passed = null;
+      updated[index].override_note = '';
+    }
+    setEntries(updated);
+  }
+
+  function toggleOverride(index: number) {
+    const updated = [...entries];
+    const overall = calcOverall(updated[index]);
+    const autoPassed = overall !== null && overall >= PASS_SCORE;
+    if (updated[index].override_passed === null) {
+      // Enable override — flip the auto result
+      updated[index].override_passed = !autoPassed;
+    } else {
+      // Disable override — go back to auto
+      updated[index].override_passed = null;
+      updated[index].override_note = '';
+    }
     setEntries(updated);
   }
 
@@ -94,15 +122,27 @@ export default function RecordExamPage() {
       return;
     }
 
+    // Validate override notes
+    for (const entry of entries) {
+      if (entry.override_passed !== null && !entry.override_note.trim()) {
+        setError(`Override for ${entry.doula_name} requires a note.`);
+        return;
+      }
+    }
+
     setLoading(true);
     setError('');
 
     const records = entries.map((entry) => {
-      const overall = entry.overall_score ? Number(entry.overall_score) : null;
+      const overall = calcOverall(entry);
+      const autoPassed = overall !== null ? overall >= PASS_SCORE : null;
+      const passed = entry.override_passed !== null ? entry.override_passed : autoPassed;
+
       return {
         doula_id: entry.doula_id,
         exam_session: examSession,
         exam_date: examDate,
+        exam_type: examType,
         overall_score: overall,
         score_terminology: entry.score_terminology ? Number(entry.score_terminology) : null,
         score_newborn: entry.score_newborn ? Number(entry.score_newborn) : null,
@@ -112,8 +152,11 @@ export default function RecordExamPage() {
         score_postpartum: entry.score_postpartum ? Number(entry.score_postpartum) : null,
         score_knowledge: entry.score_knowledge ? Number(entry.score_knowledge) : null,
         score_ethics: entry.score_ethics ? Number(entry.score_ethics) : null,
-        passed: overall !== null ? overall >= 85 : null,
+        passed,
         proficiency_level: computeProficiencyLevel(overall),
+        notes: entry.override_passed !== null
+          ? `[OVERRIDE] ${entry.override_passed ? 'Manually passed' : 'Manually failed'}: ${entry.override_note}`
+          : null,
       };
     });
 
@@ -125,21 +168,35 @@ export default function RecordExamPage() {
       return;
     }
 
+    // Auto-update doula status for passed/failed
+    for (const record of records) {
+      if (record.passed) {
+        await supabase.from('doulas').update({ status: 'exam_scheduled' }).eq('id', record.doula_id).eq('status', 'exam_scheduled');
+        // Don't auto-set to certified_active — admin needs to Grant Certification
+      } else if (record.passed === false) {
+        await supabase.from('doulas').update({ status: 'exam_failed' }).eq('id', record.doula_id);
+      }
+    }
+
     router.push('/admin/exams');
     router.refresh();
   }
 
   return (
     <div className="max-w-6xl">
-      <h1 className="text-2xl font-bold mb-6">Record Exam Results</h1>
+      <h1 className="text-2xl font-bold mb-2">Record Exam Results</h1>
+      <p className="text-sm text-muted-foreground mb-6">
+        Passing score: <strong>{PASS_SCORE}/100</strong>. Overall score is auto-calculated as the average of all sub-scores.
+        You can manually override pass/fail for individual doulas with a required note.
+      </p>
 
       <Card className="mb-6">
         <CardContent className="pt-6">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
               <Label>Exam Session *</Label>
               <Input
-                placeholder="e.g. 25-80301"
+                placeholder="e.g. IRV-20260321-001"
                 value={examSession}
                 onChange={(e) => setExamSession(e.target.value)}
               />
@@ -151,6 +208,17 @@ export default function RecordExamPage() {
                 value={examDate}
                 onChange={(e) => setExamDate(e.target.value)}
               />
+            </div>
+            <div>
+              <Label>Exam Type</Label>
+              <select
+                className="w-full border rounded-md px-3 py-2 text-sm"
+                value={examType}
+                onChange={(e) => setExamType(e.target.value)}
+              >
+                <option value="postpartum">Postpartum Doula</option>
+                <option value="birth">Birth Doula</option>
+              </select>
             </div>
             <div>
               <Label>Add Doula</Label>
@@ -177,52 +245,77 @@ export default function RecordExamPage() {
       </Card>
 
       {entries.length > 0 && (
-        <div className="bg-white rounded-lg border overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="border-b bg-zinc-50">
-              <tr>
-                <th className="text-left p-2 font-medium">Doula</th>
-                <th className="text-left p-2 font-medium">Overall</th>
-                <th className="text-left p-2 font-medium">Term.</th>
-                <th className="text-left p-2 font-medium">Newborn</th>
-                <th className="text-left p-2 font-medium">Lact.</th>
-                <th className="text-left p-2 font-medium">Emerg.</th>
-                <th className="text-left p-2 font-medium">Pract.</th>
-                <th className="text-left p-2 font-medium">Postpart.</th>
-                <th className="text-left p-2 font-medium">Know.</th>
-                <th className="text-left p-2 font-medium">Ethics</th>
-                <th className="p-2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {entries.map((entry, i) => (
-                <tr key={entry.doula_id} className="border-b">
-                  <td className="p-2 font-medium whitespace-nowrap">
-                    {entry.doula_name}
-                  </td>
-                  {SCORE_FIELDS.map((field) => (
-                    <td key={field} className="p-1">
-                      <Input
-                        type="number"
-                        className="w-16 text-center"
-                        value={entry[field]}
-                        onChange={(e) => updateEntry(i, field, e.target.value)}
-                      />
-                    </td>
-                  ))}
-                  <td className="p-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeEntry(i)}
-                    >
-                      ✕
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="space-y-3">
+          {entries.map((entry, i) => {
+            const overall = calcOverall(entry);
+            const autoPassed = overall !== null ? overall >= PASS_SCORE : null;
+            const finalPassed = entry.override_passed !== null ? entry.override_passed : autoPassed;
+            const isOverridden = entry.override_passed !== null;
+
+            return (
+              <Card key={entry.doula_id}>
+                <CardContent className="pt-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <span className="font-medium">{entry.doula_name}</span>
+                      {overall !== null && (
+                        <span className={`text-sm font-mono px-2 py-0.5 rounded ${
+                          finalPassed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                        }`}>
+                          {overall} — {finalPassed ? 'PASS' : 'FAIL'}
+                          {isOverridden && ' (Override)'}
+                        </span>
+                      )}
+                    </div>
+                    <Button variant="ghost" size="sm" onClick={() => removeEntry(i)}>✕</Button>
+                  </div>
+
+                  {/* Sub-scores */}
+                  <div className="grid grid-cols-4 md:grid-cols-8 gap-2 mb-3">
+                    {SUB_SCORE_FIELDS.map((field) => (
+                      <div key={field.key}>
+                        <label className="text-xs text-muted-foreground">{field.label}</label>
+                        <Input
+                          type="number"
+                          min="0"
+                          max="100"
+                          className="text-center text-sm"
+                          value={(entry as unknown as Record<string, string>)[field.key]}
+                          onChange={(e) => updateEntry(i, field.key, e.target.value)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Override */}
+                  {overall !== null && (
+                    <div className="flex items-center gap-3 pt-2 border-t">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className={`text-xs ${isOverridden ? 'border-amber-400 bg-amber-50 text-amber-800' : ''}`}
+                        onClick={() => toggleOverride(i)}
+                      >
+                        {isOverridden ? '✦ Override Active — Click to Remove' : `Override ${autoPassed ? 'Pass → Fail' : 'Fail → Pass'}`}
+                      </Button>
+                      {isOverridden && (
+                        <Input
+                          placeholder="Required: reason for override..."
+                          className="flex-1 text-sm"
+                          value={entry.override_note}
+                          onChange={(e) => {
+                            const updated = [...entries];
+                            updated[i].override_note = e.target.value;
+                            setEntries(updated);
+                          }}
+                        />
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       )}
 

@@ -55,8 +55,10 @@ export async function POST(request: NextRequest) {
     }
 
     const issuedDate = new Date().toISOString().split('T')[0];
-    const expirationDate = new Date(
-      new Date().setFullYear(new Date().getFullYear() + 3)
+    // Custom expiration from request body, or default +1 year
+    const customExpiration = body.expiration_date;
+    const expirationDate = customExpiration || new Date(
+      new Date().setFullYear(new Date().getFullYear() + 1)
     )
       .toISOString()
       .split('T')[0];

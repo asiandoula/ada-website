@@ -7,11 +7,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateDoulaIdCode(): string {
-  const year = new Date().getFullYear();
-  const seq = Math.floor(Math.random() * 99999)
+  const year = new Date().getFullYear().toString().slice(2);
+  const seq = Math.floor(Math.random() * 9999)
     .toString()
-    .padStart(5, '0');
-  return `ADA-${year}-${seq}`;
+    .padStart(4, '0');
+  return `#${year}-${seq}`;
 }
 
 export function generateVerificationCode(): string {
@@ -29,7 +29,9 @@ export function generateCertificateNumber(
 
 export function computeProficiencyLevel(score: number | null): string | null {
   if (score === null || score === undefined) return null;
-  if (score > 95) return 'Highly Proficient';
-  if (score > 85) return 'Proficient';
+  if (score >= 90) return 'Highly Proficient';
+  if (score >= 70) return 'Proficient';
   return 'Not Proficient';
 }
+
+export const PASS_SCORE = 70;

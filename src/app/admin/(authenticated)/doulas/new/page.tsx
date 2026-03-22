@@ -26,7 +26,7 @@ export default function NewDoulaPage() {
     const certDate = form.get('certification_date') as string;
     const expDate = certDate
       ? new Date(
-          new Date(certDate).setFullYear(new Date(certDate).getFullYear() + 3)
+          new Date(certDate).setFullYear(new Date(certDate).getFullYear() + 1)
         )
           .toISOString()
           .split('T')[0]

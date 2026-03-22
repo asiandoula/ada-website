@@ -12,6 +12,7 @@ import {
   DOULA_STATUSES,
   STATUS_LABELS,
   STATUS_COLORS,
+  CERTIFICATE_TYPES,
   CERT_TYPE_LABELS,
   CREDENTIAL_TYPES,
   CREDENTIAL_LABELS,
@@ -78,7 +79,7 @@ export default function EditDoulaPage() {
     const certDate = form.get('certification_date') as string;
     const expDate = certDate
       ? new Date(
-          new Date(certDate).setFullYear(new Date(certDate).getFullYear() + 3)
+          new Date(certDate).setFullYear(new Date(certDate).getFullYear() + 1)
         )
           .toISOString()
           .split('T')[0]
@@ -302,55 +303,27 @@ export default function EditDoulaPage() {
         </CardContent>
       </Card>
 
+      {/* Grant Certification */}
+      {doula.status !== 'certified_active' && certs.length === 0 && (
+        <GrantCertification
+          doulaId={params.id as string}
+          doulaName={doula.full_name}
+          loading={loading}
+          setLoading={setLoading}
+          onDone={reloadData}
+        />
+      )}
+
       {/* Renew Certification */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Certification Renewal</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between">
-            <div className="text-sm space-y-1">
-              <p>
-                <span className="text-muted-foreground">Current Expiration:</span>{' '}
-                <span className={`font-medium ${doula.expiration_date && new Date(doula.expiration_date) < new Date() ? 'text-red-600' : ''}`}>
-                  {doula.expiration_date ?? 'Not set'}
-                </span>
-              </p>
-              <p className="text-muted-foreground text-xs">
-                Generates a new certificate and extends expiration by 3 years from today.
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                className="bg-ada-purple/10 text-ada-purple border-ada-purple/20 hover:bg-ada-purple/20"
-                onClick={async () => {
-                  if (!confirm('Renew certification? This will generate a new Postpartum Doula certificate and extend expiration by 3 years.')) return;
-                  setLoading(true);
-                  const res = await fetch('/api/certificates/generate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      doula_id: params.id,
-                      certificate_type: 'postpartum',
-                    }),
-                  });
-                  if (res.ok) {
-                    reloadData();
-                  } else {
-                    const data = await res.json();
-                    alert(data.error || 'Renewal failed');
-                  }
-                  setLoading(false);
-                }}
-                disabled={loading}
-              >
-                {loading ? 'Processing...' : 'Renew (Postpartum)'}
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {doula.status === 'certified_active' && certs.length > 0 && (
+        <RenewCertification
+          doula={doula}
+          doulaId={params.id as string}
+          loading={loading}
+          setLoading={setLoading}
+          onDone={reloadData}
+        />
+      )}
 
       {/* Exam Results */}
       <Card>
@@ -498,5 +471,156 @@ export default function EditDoulaPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+/* ==================== Grant Certification ==================== */
+function GrantCertification({
+  doulaId, doulaName, loading, setLoading, onDone,
+}: {
+  doulaId: string;
+  doulaName: string;
+  loading: boolean;
+  setLoading: (v: boolean) => void;
+  onDone: () => void;
+}) {
+  const [certType, setCertType] = useState<string>('postpartum');
+  const defaultExp = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0];
+  const [expDate, setExpDate] = useState(defaultExp);
+  const [result, setResult] = useState<string | null>(null);
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Grant Certification</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label>Certificate Type</Label>
+              <select
+                className="w-full border rounded-md px-3 py-2 text-sm"
+                value={certType}
+                onChange={(e) => setCertType(e.target.value)}
+              >
+                {CERTIFICATE_TYPES.map((t) => (
+                  <option key={t} value={t}>{CERT_TYPE_LABELS[t]}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <Label>Expiration Date</Label>
+              <Input type="date" value={expDate} onChange={(e) => setExpDate(e.target.value)} />
+              <p className="text-xs text-muted-foreground mt-1">Default: 1 year from today</p>
+            </div>
+          </div>
+          {result && (
+            <div className="bg-green-50 border border-green-200 rounded-md p-3 text-sm text-green-800">
+              {result}
+            </div>
+          )}
+          <Button
+            className="bg-ada-purple hover:bg-ada-purple/90"
+            disabled={loading}
+            onClick={async () => {
+              if (!confirm(`Grant ${CERT_TYPE_LABELS[certType as CertificateType]} to ${doulaName}?`)) return;
+              setLoading(true);
+              setResult(null);
+              const res = await fetch('/api/certificates/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  doula_id: doulaId,
+                  certificate_type: certType,
+                  expiration_date: expDate,
+                }),
+              });
+              const data = await res.json();
+              if (res.ok) {
+                setResult(`Certificate ${data.certificate?.certificate_number} generated. PDF ready for download.`);
+                onDone();
+              } else {
+                alert(data.error || 'Generation failed');
+              }
+              setLoading(false);
+            }}
+          >
+            {loading ? 'Generating...' : 'Grant Certification & Generate PDF'}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+/* ==================== Renew Certification ==================== */
+function RenewCertification({
+  doula, doulaId, loading, setLoading, onDone,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  doula: Record<string, any>;
+  doulaId: string;
+  loading: boolean;
+  setLoading: (v: boolean) => void;
+  onDone: () => void;
+}) {
+  const currentExp = doula.expiration_date;
+  const baseDate = currentExp && new Date(currentExp) > new Date() ? new Date(currentExp) : new Date();
+  const defaultRenew = new Date(baseDate.setFullYear(baseDate.getFullYear() + 1)).toISOString().split('T')[0];
+  const [renewDate, setRenewDate] = useState(defaultRenew);
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Certification Renewal</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-3">
+          <div className="text-sm space-y-1">
+            <p>
+              <span className="text-muted-foreground">Current Expiration:</span>{' '}
+              <span className={`font-medium ${currentExp && new Date(currentExp) < new Date() ? 'text-red-600' : ''}`}>
+                {currentExp ?? 'Not set'}
+              </span>
+            </p>
+          </div>
+          <div className="flex items-end gap-4">
+            <div>
+              <Label>New Expiration Date</Label>
+              <Input type="date" value={renewDate} onChange={(e) => setRenewDate(e.target.value)} />
+              <p className="text-xs text-muted-foreground mt-1">Default: +1 year from current expiration</p>
+            </div>
+            <Button
+              variant="outline"
+              className="bg-ada-purple/10 text-ada-purple border-ada-purple/20 hover:bg-ada-purple/20"
+              onClick={async () => {
+                if (!confirm(`Renew certification until ${renewDate}? This will regenerate the PDF.`)) return;
+                setLoading(true);
+                const res = await fetch('/api/certificates/generate', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    doula_id: doulaId,
+                    certificate_type: 'postpartum',
+                    expiration_date: renewDate,
+                  }),
+                });
+                if (res.ok) {
+                  onDone();
+                } else {
+                  const data = await res.json();
+                  alert(data.error || 'Renewal failed');
+                }
+                setLoading(false);
+              }}
+              disabled={loading}
+            >
+              {loading ? 'Processing...' : 'Renew & Regenerate PDF'}
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

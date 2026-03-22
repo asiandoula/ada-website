@@ -107,17 +107,26 @@ export default async function VerifyResultPage({
   // ============ FOUND ============
   const doula = cert.doulas as Record<string, string>;
   const isRevoked = cert.status === 'revoked' || doula.status === 'revoked';
-  const isActive = !isRevoked && doula.status === 'certified_active';
-  const isExpired = !isRevoked && doula.status === 'expired';
+  const isSuspended = !isRevoked && doula.status === 'suspended';
+  const isUnderInvestigation = !isRevoked && !isSuspended && doula.status === 'under_investigation';
+  const isRetired = !isRevoked && doula.status === 'retired';
+  const isExpired = !isRevoked && !isSuspended && doula.status === 'expired';
+  const isActive = !isRevoked && !isSuspended && !isUnderInvestigation && !isRetired && !isExpired && doula.status === 'certified_active';
 
   const statusIcon = isActive
     ? <ShieldCheck className="w-10 h-10 text-emerald-400" />
-    : isExpired
+    : (isExpired || isUnderInvestigation || isRetired)
     ? <ShieldAlert className="w-10 h-10 text-amber-400" />
     : <ShieldX className="w-10 h-10 text-red-400" />;
 
   const statusLabel = isRevoked
-    ? 'CERTIFICATE REVOKED'
+    ? 'CREDENTIAL REVOKED'
+    : isSuspended
+    ? 'CREDENTIAL SUSPENDED'
+    : isUnderInvestigation
+    ? 'CREDENTIAL UNDER REVIEW'
+    : isRetired
+    ? 'RETIRED — IN GOOD STANDING'
     : isActive
     ? 'VERIFIED — ACTIVE'
     : isExpired
@@ -126,8 +135,10 @@ export default async function VerifyResultPage({
 
   const statusBannerColor = isActive
     ? 'bg-emerald-600'
-    : isExpired
+    : (isExpired || isUnderInvestigation)
     ? 'bg-amber-600'
+    : isRetired
+    ? 'bg-gray-500'
     : 'bg-red-600';
 
   return (
@@ -206,13 +217,14 @@ export default async function VerifyResultPage({
                 <span className="text-sm text-ada-navy/40 font-outfit">Credential Status</span>
                 <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-outfit font-semibold ${
                   isActive ? 'bg-emerald-50 text-emerald-700' :
-                  isExpired ? 'bg-amber-50 text-amber-700' :
+                  (isExpired || isUnderInvestigation) ? 'bg-amber-50 text-amber-700' :
+                  isRetired ? 'bg-gray-100 text-gray-600' :
                   'bg-red-50 text-red-700'
                 }`}>
                   <span className={`w-1.5 h-1.5 rounded-full ${
-                    isActive ? 'bg-emerald-500' : isExpired ? 'bg-amber-500' : 'bg-red-500'
+                    isActive ? 'bg-emerald-500' : (isExpired || isUnderInvestigation) ? 'bg-amber-500' : isRetired ? 'bg-gray-400' : 'bg-red-500'
                   }`} />
-                  {isActive ? 'Active' : isExpired ? 'Expired' : isRevoked ? 'Revoked' : doula.status}
+                  {isActive ? 'Active' : isExpired ? 'Expired' : isRevoked ? 'Revoked' : isSuspended ? 'Suspended' : isUnderInvestigation ? 'Under Review' : isRetired ? 'Retired' : doula.status}
                 </span>
               </div>
               <div className="flex justify-between items-center px-8 py-4">
