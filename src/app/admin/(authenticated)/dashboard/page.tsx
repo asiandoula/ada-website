@@ -12,58 +12,26 @@ export default async function DashboardPage() {
   const today = new Date().toISOString().split('T')[0];
   const in90Days = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-  // Stats
-  const { count: totalDoulas } = await supabase
-    .from('doulas')
-    .select('*', { count: 'exact', head: true });
-
-  const { count: activeDoulas } = await supabase
-    .from('doulas')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'active');
-
-  const { count: expiringDoulas } = await supabase
-    .from('doulas')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'active')
-    .lte('expiration_date', in90Days)
-    .gte('expiration_date', today);
-
-  const { count: totalCerts } = await supabase
-    .from('certificates')
-    .select('*', { count: 'exact', head: true });
-
-  // Expiring soon (30/60/90 days) — detailed list
-  const { data: expiringSoon } = await supabase
-    .from('doulas')
-    .select('id, doula_id_code, full_name, expiration_date, status')
-    .eq('status', 'active')
-    .lte('expiration_date', in90Days)
-    .gte('expiration_date', today)
-    .order('expiration_date', { ascending: true })
-    .limit(20);
-
-  // Overdue — active doulas with expired certification date
-  const { data: overdue } = await supabase
-    .from('doulas')
-    .select('id, doula_id_code, full_name, expiration_date, status')
-    .or(`and(status.eq.active,expiration_date.lt.${today})`)
-    .order('expiration_date', { ascending: true })
-    .limit(20);
-
-  // Recent activity — latest exams + certs
-  const { data: recentExams } = await supabase
-    .from('exam_results')
-    .select('id, exam_session, exam_date, overall_score, passed, created_at, doulas(full_name)')
-    .eq('voided', false)
-    .order('created_at', { ascending: false })
-    .limit(5);
-
-  const { data: recentCerts } = await supabase
-    .from('certificates')
-    .select('id, certificate_type, certificate_number, issued_date, created_at, status, doulas(full_name)')
-    .order('created_at', { ascending: false })
-    .limit(5);
+  // Parallel fetch — all queries are independent
+  const [
+    { count: totalDoulas },
+    { count: activeDoulas },
+    { count: expiringDoulas },
+    { count: totalCerts },
+    { data: expiringSoon },
+    { data: overdue },
+    { data: recentExams },
+    { data: recentCerts },
+  ] = await Promise.all([
+    supabase.from('doulas').select('*', { count: 'exact', head: true }),
+    supabase.from('doulas').select('*', { count: 'exact', head: true }).eq('status', 'active'),
+    supabase.from('doulas').select('*', { count: 'exact', head: true }).eq('status', 'active').lte('expiration_date', in90Days).gte('expiration_date', today),
+    supabase.from('certificates').select('*', { count: 'exact', head: true }),
+    supabase.from('doulas').select('id, doula_id_code, full_name, expiration_date, status').eq('status', 'active').lte('expiration_date', in90Days).gte('expiration_date', today).order('expiration_date', { ascending: true }).limit(20),
+    supabase.from('doulas').select('id, doula_id_code, full_name, expiration_date, status').or(`and(status.eq.active,expiration_date.lt.${today})`).order('expiration_date', { ascending: true }).limit(20),
+    supabase.from('exam_results').select('id, exam_session, exam_date, overall_score, passed, created_at, doulas(full_name)').eq('voided', false).order('created_at', { ascending: false }).limit(5),
+    supabase.from('certificates').select('id, certificate_type, certificate_number, issued_date, created_at, status, doulas(full_name)').order('created_at', { ascending: false }).limit(5),
+  ]);
 
   function daysUntil(date: string) {
     const diff = Math.ceil((new Date(date).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
