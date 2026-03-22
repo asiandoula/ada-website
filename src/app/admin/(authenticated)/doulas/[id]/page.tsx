@@ -26,6 +26,7 @@ import {
 } from '@/lib/constants';
 import type { DoulaStatus, ExamStatus, CertificateType, CredentialType, CredentialStatus } from '@/lib/constants';
 import { ExamEditDialog, type ExamRecord } from '@/components/admin/exam-edit-dialog';
+import { computeProficiencyLevel, PASS_SCORE } from '@/lib/utils';
 
 export default function EditDoulaPage() {
   const router = useRouter();
@@ -331,19 +332,20 @@ export default function EditDoulaPage() {
         </CardContent>
       </Card>
 
-      {/* Grant Certification */}
-      {doula.status !== 'active' && certs.length === 0 && (
+      {/* Grant Certification — available unless revoked/suspended */}
+      {!['revoked', 'suspended'].includes(doula.status) && (
         <GrantCertification
           doulaId={params.id as string}
           doulaName={doula.full_name}
+          existingCertTypes={certs.map((c: Record<string, string>) => c.certificate_type)}
           loading={loading}
           setLoading={setLoading}
           onDone={reloadData}
         />
       )}
 
-      {/* Renew Certification */}
-      {doula.status === 'active' && certs.length > 0 && (
+      {/* Renew Certification — when there are existing certs */}
+      {certs.length > 0 && !['revoked', 'suspended'].includes(doula.status) && (
         <RenewCertification
           doula={doula}
           doulaId={params.id as string}
@@ -356,7 +358,10 @@ export default function EditDoulaPage() {
       {/* Exam Results */}
       <Card>
         <CardHeader>
-          <CardTitle>Exam Results</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>Exam Results</CardTitle>
+            <InlineExamRecorder doulaId={params.id as string} doulaName={doula.full_name} onSaved={reloadData} />
+          </div>
         </CardHeader>
         <CardContent>
           {exams.length === 0 ? (
@@ -498,24 +503,72 @@ export default function EditDoulaPage() {
           )}
         </CardContent>
       </Card>
+
+      {/* Danger Zone */}
+      <Card className="border-red-200">
+        <CardHeader>
+          <CardTitle className="text-red-600 text-base">Danger Zone</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-between">
+            <div className="text-sm">
+              <p className="font-medium">Delete this doula</p>
+              <p className="text-muted-foreground text-xs">This will permanently delete the doula, all exam results, certificates, and credentials. This cannot be undone.</p>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-red-600 border-red-200 hover:bg-red-50 shrink-0"
+              onClick={async () => {
+                if (!confirm(`Delete ${doula.full_name} (${doula.doula_id_code}) and ALL related records? This cannot be undone.`)) return;
+                if (!confirm('Are you absolutely sure? Type DELETE in the next prompt.')) return;
+                setLoading(true);
+                // Delete related records first
+                await supabase.from('exam_results').delete().eq('doula_id', params.id);
+                await supabase.from('certificates').delete().eq('doula_id', params.id);
+                await supabase.from('doula_credentials').delete().eq('doula_id', params.id);
+                await supabase.from('doulas').delete().eq('id', params.id);
+                router.push('/admin/doulas');
+                router.refresh();
+              }}
+              disabled={loading}
+            >
+              Delete Doula
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
 
 /* ==================== Grant Certification ==================== */
 function GrantCertification({
-  doulaId, doulaName, loading, setLoading, onDone,
+  doulaId, doulaName, existingCertTypes, loading, setLoading, onDone,
 }: {
   doulaId: string;
   doulaName: string;
+  existingCertTypes: string[];
   loading: boolean;
   setLoading: (v: boolean) => void;
   onDone: () => void;
 }) {
-  const [certType, setCertType] = useState<string>('postpartum');
+  const availableTypes = CERTIFICATE_TYPES.filter(t => !existingCertTypes.includes(t));
+  const [certType, setCertType] = useState<string>(availableTypes[0] || 'postpartum');
   const defaultExp = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0];
   const [expDate, setExpDate] = useState(defaultExp);
   const [result, setResult] = useState<string | null>(null);
+
+  if (availableTypes.length === 0) {
+    return (
+      <Card>
+        <CardHeader><CardTitle>Grant Certification</CardTitle></CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground">All certificate types have been granted.</p>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -532,7 +585,7 @@ function GrantCertification({
                 value={certType}
                 onChange={(e) => setCertType(e.target.value)}
               >
-                {CERTIFICATE_TYPES.map((t) => (
+                {availableTypes.map((t) => (
                   <option key={t} value={t}>{CERT_TYPE_LABELS[t]}</option>
                 ))}
               </select>
@@ -650,5 +703,118 @@ function RenewCertification({
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+/* ==================== Inline Exam Recorder ==================== */
+function InlineExamRecorder({
+  doulaId, doulaName, onSaved,
+}: {
+  doulaId: string;
+  doulaName: string;
+  onSaved: () => void;
+}) {
+  const supabase = createClient();
+  const [open, setOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [examSession, setExamSession] = useState('');
+  const [examDate, setExamDate] = useState(new Date().toISOString().split('T')[0]);
+  const [examType, setExamType] = useState('postpartum');
+  const [scores, setScores] = useState({
+    score_terminology: '', score_newborn: '', score_lactation: '', score_emergency: '',
+    score_practical: '', score_postpartum: '', score_knowledge: '', score_ethics: '',
+  });
+
+  const scoreValues = Object.values(scores).filter(s => s !== '').map(Number);
+  const overall = scoreValues.length > 0 ? Math.round(scoreValues.reduce((a, b) => a + b, 0) / scoreValues.length) : null;
+  const passed = overall !== null ? overall >= PASS_SCORE : null;
+
+  async function handleSave() {
+    if (!examSession || !examDate) return;
+    setSaving(true);
+    const { error } = await supabase.from('exam_results').insert({
+      doula_id: doulaId,
+      exam_session: examSession,
+      exam_date: examDate,
+      exam_type: examType,
+      overall_score: overall,
+      score_terminology: scores.score_terminology ? Number(scores.score_terminology) : null,
+      score_newborn: scores.score_newborn ? Number(scores.score_newborn) : null,
+      score_lactation: scores.score_lactation ? Number(scores.score_lactation) : null,
+      score_emergency: scores.score_emergency ? Number(scores.score_emergency) : null,
+      score_practical: scores.score_practical ? Number(scores.score_practical) : null,
+      score_postpartum: scores.score_postpartum ? Number(scores.score_postpartum) : null,
+      score_knowledge: scores.score_knowledge ? Number(scores.score_knowledge) : null,
+      score_ethics: scores.score_ethics ? Number(scores.score_ethics) : null,
+      passed,
+      proficiency_level: computeProficiencyLevel(overall),
+    });
+    if (error) {
+      alert(error.message);
+    } else {
+      await supabase.from('doulas').update({ exam_status: passed ? 'passed' : 'failed' }).eq('id', doulaId);
+      setOpen(false);
+      setExamSession('');
+      setScores({ score_terminology: '', score_newborn: '', score_lactation: '', score_emergency: '', score_practical: '', score_postpartum: '', score_knowledge: '', score_ethics: '' });
+      onSaved();
+    }
+    setSaving(false);
+  }
+
+  if (!open) {
+    return <Button variant="outline" size="sm" className="text-xs" onClick={() => setOpen(true)}>+ Record Exam</Button>;
+  }
+
+  const fields = [
+    { key: 'score_terminology', label: 'Term.' }, { key: 'score_newborn', label: 'Newborn' },
+    { key: 'score_lactation', label: 'Lact.' }, { key: 'score_emergency', label: 'Emerg.' },
+    { key: 'score_practical', label: 'Pract.' }, { key: 'score_postpartum', label: 'Postpart.' },
+    { key: 'score_knowledge', label: 'Know.' }, { key: 'score_ethics', label: 'Ethics' },
+  ];
+
+  return (
+    <div className="border rounded-lg p-4 space-y-3 bg-zinc-50">
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-medium">Record Exam for {doulaName}</p>
+        <Button variant="ghost" size="sm" onClick={() => setOpen(false)}>✕</Button>
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        <div>
+          <Label className="text-xs">Session</Label>
+          <Input className="text-sm" placeholder="IRV-20260322-001" value={examSession} onChange={e => setExamSession(e.target.value)} />
+        </div>
+        <div>
+          <Label className="text-xs">Date</Label>
+          <Input type="date" className="text-sm" value={examDate} onChange={e => setExamDate(e.target.value)} />
+        </div>
+        <div>
+          <Label className="text-xs">Type</Label>
+          <select className="w-full border rounded-md px-2 py-1.5 text-sm" value={examType} onChange={e => setExamType(e.target.value)}>
+            <option value="postpartum">Postpartum</option>
+            <option value="birth">Birth</option>
+          </select>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
+        {fields.map(f => (
+          <div key={f.key}>
+            <label className="text-[10px] text-muted-foreground">{f.label}</label>
+            <Input type="number" min="0" max="100" className="text-center text-sm"
+              value={scores[f.key as keyof typeof scores]}
+              onChange={e => setScores({ ...scores, [f.key]: e.target.value })} />
+          </div>
+        ))}
+      </div>
+      <div className="flex items-center justify-between">
+        {overall !== null && (
+          <span className={`text-sm font-mono px-2 py-0.5 rounded ${passed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+            Overall: {overall} — {passed ? 'PASS' : 'FAIL'}
+          </span>
+        )}
+        <Button size="sm" className="bg-ada-purple hover:bg-ada-purple/90 text-xs" onClick={handleSave} disabled={saving || !examSession || overall === null}>
+          {saving ? 'Saving...' : 'Save Result'}
+        </Button>
+      </div>
+    </div>
   );
 }

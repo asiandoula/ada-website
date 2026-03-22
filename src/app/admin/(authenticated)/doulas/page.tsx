@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { STATUS_LABELS, STATUS_COLORS, EXAM_STATUS_LABELS, EXAM_STATUS_COLORS } from '@/lib/constants';
 import type { DoulaStatus, ExamStatus } from '@/lib/constants';
+import { ImportExcelButton } from '@/components/admin/import-excel-button';
 
 interface SearchParams {
   q?: string;
@@ -47,11 +48,14 @@ export default async function DoulasPage({
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Doulas</h1>
-        <Link href="/admin/doulas/new">
-          <Button className="bg-ada-purple hover:bg-ada-purple/90">
-            + New Doula
-          </Button>
-        </Link>
+        <div className="flex items-center gap-3">
+          <ImportExcelButton />
+          <Link href="/admin/doulas/new">
+            <Button className="bg-ada-purple hover:bg-ada-purple/90">
+              + New Doula
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* Search & Filter */}
