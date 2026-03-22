@@ -15,11 +15,17 @@ const familyLinks = [
   { label: 'Find a Doula', href: '/for-families/find-a-doula' },
 ];
 
+const institutionLinks = [
+  { label: 'Credential Verification', href: '/verify' },
+  { label: 'Contact Us', href: '/support/contact' },
+  { label: 'FAQ', href: '/support/faq' },
+];
+
 export function Footer() {
   return (
     <footer className="bg-ada-navy text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* About */}
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -66,6 +72,25 @@ export function Footer() {
             </h3>
             <ul className="space-y-2.5">
               {familyLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-white/60 hover:text-white text-sm transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* For Institutions */}
+          <div>
+            <h3 className="font-outfit font-semibold text-sm tracking-wider uppercase mb-4">
+              For Institutions
+            </h3>
+            <ul className="space-y-2.5">
+              {institutionLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

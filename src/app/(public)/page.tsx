@@ -482,6 +482,32 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Credential Verification CTA — for institutions & families */}
+      <section className="py-16 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="bg-ada-navy/[0.03] border border-ada-navy/10 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1">
+              <p className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-ada-purple mb-2">
+                For Families & Institutions
+              </p>
+              <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
+                Verify a Doula&apos;s Certification
+              </h2>
+              <p className="mt-3 text-ada-navy/50 font-outfit leading-relaxed max-w-xl">
+                Insurance providers, healthcare facilities, and families can instantly verify
+                any ADA-credentialed doula by name, Doula ID, or certificate number.
+              </p>
+            </div>
+            <Link
+              href="/verify"
+              className="shrink-0 inline-flex items-center gap-2 rounded-full bg-ada-purple px-6 py-3 text-white font-outfit font-medium text-sm hover:bg-ada-purple-hover transition-colors"
+            >
+              Verify Credentials <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Latest Articles — hidden until Supabase has published articles */}
 
       {/* Upcoming Training — full-bleed image + overlay */}
