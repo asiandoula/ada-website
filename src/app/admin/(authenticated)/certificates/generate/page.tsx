@@ -26,7 +26,7 @@ export default function GenerateCertificatePage() {
       const { data } = await supabase
         .from('doulas')
         .select('id, full_name, doula_id_code')
-        .in('status', ['certified_active'])
+        .in('status', ['active'])
         .order('full_name');
       setDoulas((data as Record<string, string>[]) ?? []);
     }

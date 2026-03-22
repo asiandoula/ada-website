@@ -57,13 +57,11 @@ interface PortalData {
 }
 
 const statusConfig: Record<string, { label: string; dot: string; bg: string }> = {
-  certified_active: { label: 'Active', dot: 'bg-emerald-500', bg: 'bg-emerald-50 text-emerald-700' },
-  expired: { label: 'Expired', dot: 'bg-red-500', bg: 'bg-red-50 text-red-700' },
+  registered: { label: 'Registered', dot: 'bg-blue-500', bg: 'bg-blue-50 text-blue-700' },
+  active: { label: 'Active', dot: 'bg-emerald-500', bg: 'bg-emerald-50 text-emerald-700' },
+  under_investigation: { label: 'Under Review', dot: 'bg-amber-500', bg: 'bg-amber-50 text-amber-700' },
   suspended: { label: 'Suspended', dot: 'bg-red-500', bg: 'bg-red-50 text-red-700' },
   revoked: { label: 'Revoked', dot: 'bg-red-500', bg: 'bg-red-50 text-red-700' },
-  under_investigation: { label: 'Under Review', dot: 'bg-amber-500', bg: 'bg-amber-50 text-amber-700' },
-  exam_scheduled: { label: 'Exam Scheduled', dot: 'bg-blue-500', bg: 'bg-blue-50 text-blue-700' },
-  exam_failed: { label: 'Failed', dot: 'bg-red-500', bg: 'bg-red-50 text-red-700' },
   retired: { label: 'Retired', dot: 'bg-gray-400', bg: 'bg-gray-50 text-gray-600' },
 };
 

@@ -3,8 +3,8 @@ import { createClient } from '@/lib/supabase/server';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { STATUS_LABELS, STATUS_COLORS } from '@/lib/constants';
-import type { DoulaStatus } from '@/lib/constants';
+import { STATUS_LABELS, STATUS_COLORS, EXAM_STATUS_LABELS, EXAM_STATUS_COLORS } from '@/lib/constants';
+import type { DoulaStatus, ExamStatus } from '@/lib/constants';
 
 interface SearchParams {
   q?: string;
@@ -87,8 +87,8 @@ export default async function DoulasPage({
               <th className="text-left p-3 font-medium">ID</th>
               <th className="text-left p-3 font-medium">Name</th>
               <th className="text-left p-3 font-medium">Status</th>
+              <th className="text-left p-3 font-medium">Exam</th>
               <th className="text-left p-3 font-medium">Certification Date</th>
-              <th className="text-left p-3 font-medium">Expiration</th>
               <th className="text-left p-3 font-medium">Training</th>
             </tr>
           </thead>
@@ -115,8 +115,18 @@ export default async function DoulasPage({
                       doula.status}
                   </Badge>
                 </td>
+                <td className="p-3">
+                  <Badge
+                    className={
+                      EXAM_STATUS_COLORS[doula.exam_status as ExamStatus] ?? 'bg-gray-100 text-gray-600'
+                    }
+                    variant="secondary"
+                  >
+                    {EXAM_STATUS_LABELS[doula.exam_status as ExamStatus] ??
+                      doula.exam_status ?? 'Not Started'}
+                  </Badge>
+                </td>
                 <td className="p-3">{doula.certification_date ?? '—'}</td>
-                <td className="p-3">{doula.expiration_date ?? '—'}</td>
                 <td className="p-3">{doula.training_provider ?? '—'}</td>
               </tr>
             ))}

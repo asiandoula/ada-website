@@ -106,12 +106,19 @@ export default async function VerifyResultPage({
 
   // ============ FOUND ============
   const doula = cert.doulas as Record<string, string>;
+
+  // Account-level status checks
   const isRevoked = cert.status === 'revoked' || doula.status === 'revoked';
   const isSuspended = !isRevoked && doula.status === 'suspended';
   const isUnderInvestigation = !isRevoked && !isSuspended && doula.status === 'under_investigation';
   const isRetired = !isRevoked && doula.status === 'retired';
-  const isExpired = !isRevoked && !isSuspended && doula.status === 'expired';
-  const isActive = !isRevoked && !isSuspended && !isUnderInvestigation && !isRetired && !isExpired && doula.status === 'certified_active';
+
+  // Certificate-level expiration check
+  const certExpired = cert.expiration_date && new Date(cert.expiration_date) < new Date();
+  const isExpired = !isRevoked && !isSuspended && !isUnderInvestigation && !isRetired && certExpired;
+
+  // Active = account is active and cert is not expired
+  const isActive = doula.status === 'active' && !isRevoked && !isSuspended && !isUnderInvestigation && !isRetired && !isExpired;
 
   const statusIcon = isActive
     ? <ShieldCheck className="w-10 h-10 text-emerald-400" />

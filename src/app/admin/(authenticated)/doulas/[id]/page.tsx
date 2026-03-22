@@ -12,13 +12,19 @@ import {
   DOULA_STATUSES,
   STATUS_LABELS,
   STATUS_COLORS,
+  EXAM_STATUSES,
+  EXAM_STATUS_LABELS,
+  EXAM_STATUS_COLORS,
   CERTIFICATE_TYPES,
   CERT_TYPE_LABELS,
   CREDENTIAL_TYPES,
   CREDENTIAL_LABELS,
   CREDENTIAL_COLORS,
+  CREDENTIAL_STATUSES,
+  CREDENTIAL_STATUS_LABELS,
+  CREDENTIAL_STATUS_COLORS,
 } from '@/lib/constants';
-import type { DoulaStatus, CertificateType, CredentialType } from '@/lib/constants';
+import type { DoulaStatus, ExamStatus, CertificateType, CredentialType, CredentialStatus } from '@/lib/constants';
 import { ExamEditDialog, type ExamRecord } from '@/components/admin/exam-edit-dialog';
 
 export default function EditDoulaPage() {
@@ -96,6 +102,7 @@ export default function EditDoulaPage() {
         certification_date: certDate || null,
         expiration_date: expDate,
         status: form.get('status'),
+        exam_status: form.get('exam_status'),
         training_provider: form.get('training_provider') || null,
         region: form.get('region') || null,
       })
@@ -122,9 +129,14 @@ export default function EditDoulaPage() {
             {doula.doula_id_code}
           </span>
         </h1>
-        <Badge className={STATUS_COLORS[doula.status as DoulaStatus]}>
-          {STATUS_LABELS[doula.status as DoulaStatus]}
-        </Badge>
+        <div className="flex gap-2">
+          <Badge className={STATUS_COLORS[doula.status as DoulaStatus]}>
+            {STATUS_LABELS[doula.status as DoulaStatus]}
+          </Badge>
+          <Badge className={EXAM_STATUS_COLORS[doula.exam_status as ExamStatus] ?? 'bg-gray-100 text-gray-600'}>
+            Exam: {EXAM_STATUS_LABELS[doula.exam_status as ExamStatus] ?? 'Not Started'}
+          </Badge>
+        </div>
       </div>
 
       {/* Credentials */}
@@ -147,7 +159,7 @@ export default function EditDoulaPage() {
                 await supabase.from('doula_credentials').insert({
                   doula_id: params.id,
                   credential_type: type,
-                  status: 'certified_active',
+                  status: 'active',
                   certification_date: new Date().toISOString().split('T')[0],
                   expiration_date: isIbclc ? null : new Date(
                     new Date().setFullYear(new Date().getFullYear() + 3)
@@ -176,8 +188,8 @@ export default function EditDoulaPage() {
                     <Badge className={CREDENTIAL_COLORS[cred.credential_type as CredentialType]}>
                       {CREDENTIAL_LABELS[cred.credential_type as CredentialType]}
                     </Badge>
-                    <Badge className={STATUS_COLORS[cred.status as DoulaStatus]}>
-                      {STATUS_LABELS[cred.status as DoulaStatus]}
+                    <Badge className={CREDENTIAL_STATUS_COLORS[cred.status as CredentialStatus] ?? 'bg-gray-100 text-gray-600'}>
+                      {CREDENTIAL_STATUS_LABELS[cred.status as CredentialStatus] ?? cred.status}
                     </Badge>
                   </div>
                   <div className="text-xs text-muted-foreground space-y-1">
@@ -196,8 +208,8 @@ export default function EditDoulaPage() {
                         reloadData();
                       }}
                     >
-                      {DOULA_STATUSES.map((s) => (
-                        <option key={s} value={s}>{STATUS_LABELS[s]}</option>
+                      {CREDENTIAL_STATUSES.map((s) => (
+                        <option key={s} value={s}>{CREDENTIAL_STATUS_LABELS[s]}</option>
                       ))}
                     </select>
                   </div>
@@ -266,7 +278,7 @@ export default function EditDoulaPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Status</Label>
+                <Label>Account Status</Label>
                 <select
                   name="status"
                   className="w-full border rounded-md px-3 py-2 text-sm"
@@ -280,16 +292,32 @@ export default function EditDoulaPage() {
                 </select>
               </div>
               <div>
+                <Label>Exam Status</Label>
+                <select
+                  name="exam_status"
+                  className="w-full border rounded-md px-3 py-2 text-sm"
+                  defaultValue={doula.exam_status ?? 'not_started'}
+                >
+                  {EXAM_STATUSES.map((s) => (
+                    <option key={s} value={s}>
+                      {EXAM_STATUS_LABELS[s]}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
                 <Label>Training Provider</Label>
                 <Input
                   name="training_provider"
                   defaultValue={doula.training_provider ?? ''}
                 />
               </div>
-            </div>
-            <div>
-              <Label>Region</Label>
-              <Input name="region" defaultValue={doula.region ?? ''} />
+              <div>
+                <Label>Region</Label>
+                <Input name="region" defaultValue={doula.region ?? ''} />
+              </div>
             </div>
             {error && <p className="text-sm text-red-600">{error}</p>}
             <Button
@@ -304,7 +332,7 @@ export default function EditDoulaPage() {
       </Card>
 
       {/* Grant Certification */}
-      {doula.status !== 'certified_active' && certs.length === 0 && (
+      {doula.status !== 'active' && certs.length === 0 && (
         <GrantCertification
           doulaId={params.id as string}
           doulaName={doula.full_name}
@@ -315,7 +343,7 @@ export default function EditDoulaPage() {
       )}
 
       {/* Renew Certification */}
-      {doula.status === 'certified_active' && certs.length > 0 && (
+      {doula.status === 'active' && certs.length > 0 && (
         <RenewCertification
           doula={doula}
           doulaId={params.id as string}

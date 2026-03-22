@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ import { computeProficiencyLevel, PASS_SCORE } from '@/lib/utils';
 interface ExamEntry {
   doula_id: string;
   doula_name: string;
+  doula_id_code: string;
   score_terminology: string;
   score_newborn: string;
   score_lactation: string;
@@ -24,7 +25,7 @@ interface ExamEntry {
   override_note: string;
 }
 
-const EMPTY_ENTRY: Omit<ExamEntry, 'doula_id' | 'doula_name'> = {
+const EMPTY_ENTRY: Omit<ExamEntry, 'doula_id' | 'doula_name' | 'doula_id_code'> = {
   score_terminology: '',
   score_newborn: '',
   score_lactation: '',
@@ -52,6 +53,78 @@ function calcOverall(entry: ExamEntry): number | null {
   const scores = SUB_SCORE_FIELDS.map(f => entry[f.key as keyof ExamEntry] as string).filter(s => s !== '').map(Number);
   if (scores.length === 0) return null;
   return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+}
+
+function SearchableDoulaSelect({
+  doulas,
+  entries,
+  onSelect,
+}: {
+  doulas: Record<string, string>[];
+  entries: ExamEntry[];
+  onSelect: (doulaId: string) => void;
+}) {
+  const [search, setSearch] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const filtered = doulas.filter((d) => {
+    if (entries.some((e) => e.doula_id === d.id)) return false;
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    return (
+      d.full_name.toLowerCase().includes(q) ||
+      d.doula_id_code.toLowerCase().includes(q)
+    );
+  });
+
+  return (
+    <div ref={ref} className="relative">
+      <Input
+        placeholder="Type to search by name or ID..."
+        value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          setIsOpen(true);
+        }}
+        onFocus={() => setIsOpen(true)}
+        className="text-sm"
+      />
+      {isOpen && search.trim() && (
+        <div className="absolute z-50 mt-1 w-full bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto">
+          {filtered.length === 0 ? (
+            <div className="px-3 py-2 text-sm text-muted-foreground">No matching doulas</div>
+          ) : (
+            filtered.slice(0, 20).map((d) => (
+              <button
+                key={d.id}
+                type="button"
+                className="w-full text-left px-3 py-2 text-sm hover:bg-zinc-50 flex items-center justify-between"
+                onClick={() => {
+                  onSelect(d.id);
+                  setSearch('');
+                  setIsOpen(false);
+                }}
+              >
+                <span>{d.full_name}</span>
+                <span className="text-xs font-mono text-muted-foreground">{d.doula_id_code}</span>
+              </button>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function RecordExamPage() {
@@ -82,7 +155,7 @@ export default function RecordExamPage() {
     if (!doula || entries.some((e) => e.doula_id === doulaId)) return;
     setEntries([
       ...entries,
-      { doula_id: doulaId, doula_name: doula.full_name, ...EMPTY_ENTRY },
+      { doula_id: doulaId, doula_name: doula.full_name, doula_id_code: doula.doula_id_code, ...EMPTY_ENTRY },
     ]);
   }
 
@@ -168,13 +241,12 @@ export default function RecordExamPage() {
       return;
     }
 
-    // Auto-update doula status for passed/failed
+    // Auto-update doula exam_status for passed/failed
     for (const record of records) {
       if (record.passed) {
-        await supabase.from('doulas').update({ status: 'exam_scheduled' }).eq('id', record.doula_id).eq('status', 'exam_scheduled');
-        // Don't auto-set to certified_active — admin needs to Grant Certification
+        await supabase.from('doulas').update({ exam_status: 'passed' }).eq('id', record.doula_id);
       } else if (record.passed === false) {
-        await supabase.from('doulas').update({ status: 'exam_failed' }).eq('id', record.doula_id);
+        await supabase.from('doulas').update({ exam_status: 'failed' }).eq('id', record.doula_id);
       }
     }
 
@@ -222,23 +294,11 @@ export default function RecordExamPage() {
             </div>
             <div>
               <Label>Add Doula</Label>
-              <select
-                className="w-full border rounded-md px-3 py-2 text-sm"
-                onChange={(e) => {
-                  addEntry(e.target.value);
-                  e.target.value = '';
-                }}
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Select doula...
-                </option>
-                {doulas.map((d) => (
-                  <option key={d.id} value={d.id}>
-                    {d.full_name} ({d.doula_id_code})
-                  </option>
-                ))}
-              </select>
+              <SearchableDoulaSelect
+                doulas={doulas}
+                entries={entries}
+                onSelect={addEntry}
+              />
             </div>
           </div>
         </CardContent>
@@ -258,6 +318,7 @@ export default function RecordExamPage() {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <span className="font-medium">{entry.doula_name}</span>
+                      <span className="text-xs font-mono text-muted-foreground">({entry.doula_id_code})</span>
                       {overall !== null && (
                         <span className={`text-sm font-mono px-2 py-0.5 rounded ${
                           finalPassed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'

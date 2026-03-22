@@ -68,11 +68,12 @@ export default function VerifyPage() {
   }
 
   const statusLabel: Record<string, { text: string; color: string }> = {
-    certified_active: { text: 'Active', color: 'bg-emerald-50 text-emerald-700' },
-    expired: { text: 'Expired', color: 'bg-amber-50 text-amber-700' },
+    active: { text: 'Active', color: 'bg-emerald-50 text-emerald-700' },
+    registered: { text: 'Registered', color: 'bg-blue-50 text-blue-700' },
     revoked: { text: 'Revoked', color: 'bg-red-50 text-red-700' },
-    under_investigation: { text: 'Under Review', color: 'bg-gray-100 text-gray-600' },
-    exam_failed: { text: 'Not Certified', color: 'bg-red-50 text-red-700' },
+    suspended: { text: 'Suspended', color: 'bg-red-50 text-red-700' },
+    under_investigation: { text: 'Under Review', color: 'bg-amber-50 text-amber-700' },
+    retired: { text: 'Retired', color: 'bg-gray-100 text-gray-600' },
   };
 
   return (
@@ -179,8 +180,9 @@ export default function VerifyPage() {
                       </div>
                       <span className={`shrink-0 ml-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-outfit font-semibold ${st.color}`}>
                         <span className={`w-1.5 h-1.5 rounded-full ${
-                          r.doula.status === 'certified_active' ? 'bg-emerald-500' :
-                          r.doula.status === 'expired' ? 'bg-amber-500' : 'bg-red-500'
+                          r.doula.status === 'active' ? 'bg-emerald-500' :
+                          r.doula.status === 'registered' ? 'bg-blue-500' :
+                          r.doula.status === 'retired' ? 'bg-gray-400' : 'bg-red-500'
                         }`} />
                         {st.text}
                       </span>

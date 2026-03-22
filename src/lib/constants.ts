@@ -1,8 +1,6 @@
 export const DOULA_STATUSES = [
-  'certified_active',
-  'exam_scheduled',
-  'exam_failed',
-  'expired',
+  'registered',
+  'active',
   'under_investigation',
   'suspended',
   'revoked',
@@ -12,10 +10,8 @@ export const DOULA_STATUSES = [
 export type DoulaStatus = (typeof DOULA_STATUSES)[number];
 
 export const STATUS_LABELS: Record<DoulaStatus, string> = {
-  certified_active: 'Certified (Active)',
-  exam_scheduled: 'Exam Scheduled',
-  exam_failed: 'Exam Failed',
-  expired: 'Expired',
+  registered: 'Registered',
+  active: 'Active',
   under_investigation: 'Under Investigation',
   suspended: 'Suspended',
   revoked: 'Revoked',
@@ -23,14 +19,58 @@ export const STATUS_LABELS: Record<DoulaStatus, string> = {
 };
 
 export const STATUS_COLORS: Record<DoulaStatus, string> = {
-  certified_active: 'bg-green-100 text-green-800',
-  exam_scheduled: 'bg-blue-100 text-blue-800',
-  exam_failed: 'bg-red-100 text-red-800',
-  expired: 'bg-yellow-100 text-yellow-800',
+  registered: 'bg-blue-100 text-blue-800',
+  active: 'bg-green-100 text-green-800',
   under_investigation: 'bg-orange-100 text-orange-800',
   suspended: 'bg-red-100 text-red-800',
   revoked: 'bg-gray-100 text-gray-800',
   retired: 'bg-gray-100 text-gray-600',
+};
+
+export const EXAM_STATUSES = [
+  'not_started',
+  'scheduled',
+  'passed',
+  'failed',
+] as const;
+
+export type ExamStatus = (typeof EXAM_STATUSES)[number];
+
+export const EXAM_STATUS_LABELS: Record<ExamStatus, string> = {
+  not_started: 'Not Started',
+  scheduled: 'Scheduled',
+  passed: 'Passed',
+  failed: 'Failed',
+};
+
+export const EXAM_STATUS_COLORS: Record<ExamStatus, string> = {
+  not_started: 'bg-gray-100 text-gray-600',
+  scheduled: 'bg-blue-100 text-blue-800',
+  passed: 'bg-green-100 text-green-800',
+  failed: 'bg-red-100 text-red-800',
+};
+
+export const CREDENTIAL_STATUSES = [
+  'active',
+  'expired',
+  'suspended',
+  'revoked',
+] as const;
+
+export type CredentialStatus = (typeof CREDENTIAL_STATUSES)[number];
+
+export const CREDENTIAL_STATUS_LABELS: Record<CredentialStatus, string> = {
+  active: 'Active',
+  expired: 'Expired',
+  suspended: 'Suspended',
+  revoked: 'Revoked',
+};
+
+export const CREDENTIAL_STATUS_COLORS: Record<CredentialStatus, string> = {
+  active: 'bg-green-100 text-green-800',
+  expired: 'bg-yellow-100 text-yellow-800',
+  suspended: 'bg-red-100 text-red-800',
+  revoked: 'bg-gray-100 text-gray-800',
 };
 
 export const CERTIFICATE_TYPES = ['postpartum', 'birth', 'cpr', 'ibclc_training'] as const;

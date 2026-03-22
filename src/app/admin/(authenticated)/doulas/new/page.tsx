@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
-import { DOULA_STATUSES, STATUS_LABELS } from '@/lib/constants';
+import { DOULA_STATUSES, STATUS_LABELS, EXAM_STATUSES, EXAM_STATUS_LABELS } from '@/lib/constants';
 import { generateDoulaIdCode } from '@/lib/utils';
 
 export default function NewDoulaPage() {
@@ -23,15 +23,6 @@ export default function NewDoulaPage() {
 
     const form = new FormData(e.currentTarget);
 
-    const certDate = form.get('certification_date') as string;
-    const expDate = certDate
-      ? new Date(
-          new Date(certDate).setFullYear(new Date(certDate).getFullYear() + 1)
-        )
-          .toISOString()
-          .split('T')[0]
-      : null;
-
     const { error } = await supabase.from('doulas').insert({
       doula_id_code: generateDoulaIdCode(),
       full_name: form.get('full_name'),
@@ -39,9 +30,8 @@ export default function NewDoulaPage() {
       email: form.get('email') || null,
       phone: form.get('phone') || null,
       date_of_birth: form.get('date_of_birth') || null,
-      certification_date: certDate || null,
-      expiration_date: expDate,
       status: form.get('status'),
+      exam_status: form.get('exam_status'),
       training_provider: form.get('training_provider') || null,
       region: form.get('region') || null,
     });
@@ -90,23 +80,23 @@ export default function NewDoulaPage() {
                 <Input id="date_of_birth" name="date_of_birth" type="date" />
               </div>
               <div>
-                <Label htmlFor="certification_date">Certification Date</Label>
+                <Label htmlFor="training_provider">Training Provider</Label>
                 <Input
-                  id="certification_date"
-                  name="certification_date"
-                  type="date"
+                  id="training_provider"
+                  name="training_provider"
+                  defaultValue="Cooings"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="status">Status</Label>
+                <Label htmlFor="status">Account Status</Label>
                 <select
                   id="status"
                   name="status"
                   className="w-full border rounded-md px-3 py-2 text-sm"
-                  defaultValue="exam_scheduled"
+                  defaultValue="registered"
                 >
                   {DOULA_STATUSES.map((s) => (
                     <option key={s} value={s}>
@@ -116,12 +106,19 @@ export default function NewDoulaPage() {
                 </select>
               </div>
               <div>
-                <Label htmlFor="training_provider">Training Provider</Label>
-                <Input
-                  id="training_provider"
-                  name="training_provider"
-                  defaultValue="Cooings"
-                />
+                <Label htmlFor="exam_status">Exam Status</Label>
+                <select
+                  id="exam_status"
+                  name="exam_status"
+                  className="w-full border rounded-md px-3 py-2 text-sm"
+                  defaultValue="not_started"
+                >
+                  {EXAM_STATUSES.map((s) => (
+                    <option key={s} value={s}>
+                      {EXAM_STATUS_LABELS[s]}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 

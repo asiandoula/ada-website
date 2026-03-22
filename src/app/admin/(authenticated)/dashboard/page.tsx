@@ -20,12 +20,12 @@ export default async function DashboardPage() {
   const { count: activeDoulas } = await supabase
     .from('doulas')
     .select('*', { count: 'exact', head: true })
-    .eq('status', 'certified_active');
+    .eq('status', 'active');
 
   const { count: expiringDoulas } = await supabase
     .from('doulas')
     .select('*', { count: 'exact', head: true })
-    .eq('status', 'certified_active')
+    .eq('status', 'active')
     .lte('expiration_date', in90Days)
     .gte('expiration_date', today);
 
@@ -37,17 +37,17 @@ export default async function DashboardPage() {
   const { data: expiringSoon } = await supabase
     .from('doulas')
     .select('id, doula_id_code, full_name, expiration_date, status')
-    .eq('status', 'certified_active')
+    .eq('status', 'active')
     .lte('expiration_date', in90Days)
     .gte('expiration_date', today)
     .order('expiration_date', { ascending: true })
     .limit(20);
 
-  // Overdue — expired but still marked certified_active, or status is expired
+  // Overdue — active doulas with expired certification date
   const { data: overdue } = await supabase
     .from('doulas')
     .select('id, doula_id_code, full_name, expiration_date, status')
-    .or(`status.eq.expired,and(status.eq.certified_active,expiration_date.lt.${today})`)
+    .or(`and(status.eq.active,expiration_date.lt.${today})`)
     .order('expiration_date', { ascending: true })
     .limit(20);
 

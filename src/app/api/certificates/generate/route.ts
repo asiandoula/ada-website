@@ -135,13 +135,24 @@ export async function POST(request: NextRequest) {
     }
 
     // Auto-sync doula's dates and status
+    // Set to 'active' if currently 'registered'; keep other statuses unchanged
+    const { data: currentDoula } = await supabase
+      .from('doulas')
+      .select('status')
+      .eq('id', doula_id)
+      .single();
+
+    const updateData: Record<string, string> = {
+      certification_date: issuedDate,
+      expiration_date: expirationDate,
+    };
+    if (currentDoula?.status === 'registered') {
+      updateData.status = 'active';
+    }
+
     await supabase
       .from('doulas')
-      .update({
-        certification_date: issuedDate,
-        expiration_date: expirationDate,
-        status: 'certified_active',
-      })
+      .update(updateData)
       .eq('id', doula_id);
 
     return NextResponse.json({ certificate: cert, pdf_url: publicUrl });
