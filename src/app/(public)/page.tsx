@@ -7,6 +7,7 @@ import { Counter } from '@/components/public/counter';
 import { TestimonialCarousel } from '@/components/public/testimonial-carousel';
 import { ContactForm } from '@/components/public/contact-form';
 import { ShapeHeart, ShapeFlower } from '@/components/public/decorative-shapes';
+import { HomepageArticles } from '@/components/public/homepage-articles';
 import { GraduationCap, Trophy, Users, Globe, Soup, Heart } from 'lucide-react';
 
 const CommunityMap = dynamic(
@@ -505,7 +506,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Latest Articles — hidden until Supabase has published articles */}
+      {/* Latest Articles */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="text-center mb-10">
+            <h2 className="font-dm-serif text-4xl text-ada-navy">
+              Latest Articles
+            </h2>
+            <p className="mt-2 text-xl text-ada-navy/60 font-light">
+              News, insights, and resources from ADA.
+            </p>
+          </div>
+          <HomepageArticles />
+          <div className="text-center mt-10">
+            <Link
+              href="/articles"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-ada-purple text-ada-purple px-6 py-3 text-sm font-medium hover:bg-ada-purple hover:text-white transition-colors"
+            >
+              View All Articles <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Upcoming Training — full-bleed image + overlay */}
       <section className="relative min-h-[500px] flex items-center overflow-hidden">
