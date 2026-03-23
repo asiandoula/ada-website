@@ -12,6 +12,7 @@ const navItems = [
   { href: '/admin/exams', label: 'Exams', icon: '📝' },
   { href: '/admin/certificates', label: 'Certificates', icon: '📜' },
   { href: '/admin/articles', label: 'Articles', icon: '📰' },
+  { href: '/admin/emails', label: 'Emails', icon: '✉️' },
 ];
 
 export function AdminSidebar() {
