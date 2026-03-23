@@ -111,21 +111,21 @@ export default function HomePage() {
                 <path d="M50 8C52 25 60 38 75 42C60 46 52 58 50 75C48 58 40 46 25 42C40 38 48 25 50 8Z" fill="#606090" rx="4" />
               </svg>
               <Image
-                src="/images/about-grid-1.png"
+                src="/images/about-grid-1.webp"
                 alt="ADA doula training session"
                 width={560}
                 height={180}
                 className="absolute top-[49px] left-0 w-[56%] h-[180px] object-cover rounded-3xl"
               />
               <Image
-                src="/images/about-grid-2.png"
+                src="/images/about-grid-2.webp"
                 alt="ADA certified doula with family"
                 width={400}
                 height={268}
                 className="absolute top-0 right-0 w-[40%] aspect-[0.623] object-cover rounded-3xl"
               />
               <Image
-                src="/images/about-grid-3.png"
+                src="/images/about-grid-3.webp"
                 alt="Postpartum care in action"
                 width={400}
                 height={181}
@@ -135,7 +135,7 @@ export default function HomePage() {
             {/* Mobile: simple single image */}
             <div className="lg:hidden">
               <Image
-                src="/images/about-grid-1.png"
+                src="/images/about-grid-1.webp"
                 alt="ADA doula training session"
                 width={600}
                 height={400}
