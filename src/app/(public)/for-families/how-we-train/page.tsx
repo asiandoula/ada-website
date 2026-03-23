@@ -123,14 +123,14 @@ export default function HowWeTrainPage() {
                 your home.
               </p>
             </div>
-            <div className="lg:w-[520px] shrink-0">
+            <div className="w-full lg:w-[500px] shrink-0">
               <Image
                 src="/images/families/training-hero.webp"
                 alt="Doula students during a professional training session"
                 width={1920}
                 height={1441}
-                sizes="(max-width: 1024px) 100vw, 520px"
-                className="rounded-2xl object-cover w-full"
+                sizes="(max-width: 1024px) 100vw, 500px"
+                className="rounded-2xl object-cover w-full aspect-[16/10]"
                 priority
               />
             </div>
@@ -172,7 +172,7 @@ export default function HowWeTrainPage() {
               width={1600}
               height={1201}
               sizes="(max-width: 800px) 100vw, 800px"
-              className="mt-8 rounded-2xl object-cover w-full max-w-[800px] mx-auto"
+              className="mt-8 rounded-2xl object-cover w-full max-w-[800px] mx-auto aspect-[16/9]"
               loading="lazy"
             />
           </div>
