@@ -58,10 +58,20 @@ export async function POST(request: NextRequest) {
           doulaIdCode: doula.doula_id_code,
         };
 
+        // Fetch exam_type for exam emails
+        if (email.type === 'exam_pass' || email.type === 'exam_fail') {
+          const { data: exam } = await supabaseAdmin
+            .from('exam_results')
+            .select('exam_type')
+            .eq('id', email.related_id)
+            .single();
+          sendParams.examType = exam?.exam_type || 'postpartum';
+        }
+
         if (email.type === 'certificate') {
           const { data: cert } = await supabaseAdmin
             .from('certificates')
-            .select('certificate_number, expiration_date, pdf_url')
+            .select('certificate_number, certificate_type, expiration_date, pdf_url')
             .eq('id', email.related_id)
             .single();
 
@@ -79,17 +89,19 @@ export async function POST(request: NextRequest) {
           }
           const pdfBuffer = Buffer.from(await pdfResponse.arrayBuffer());
 
+          sendParams.certType = cert.certificate_type;
           sendParams.certNumber = cert.certificate_number;
           sendParams.expirationDate = cert.expiration_date;
           sendParams.pdfBuffer = pdfBuffer;
-          sendParams.pdfFilename = `ADA_Postpartum_Doula_Certificate_${doula.full_name.replace(/\s+/g, '')}.pdf`;
+          sendParams.pdfFilename = `ADA_${cert.certificate_type === 'postpartum' ? 'Postpartum_Doula' : cert.certificate_type === 'birth' ? 'Birth_Doula' : cert.certificate_type}_Certificate_${doula.full_name.replace(/\s+/g, '')}.pdf`;
         }
 
         const { id: resendId } = await sendEmail(sendParams);
 
+        // Use the generated subject from template for logging
         const subjectMap: Record<EmailType, string> = {
-          exam_pass: 'Congratulations on Passing the ADA Postpartum Doula Exam',
-          exam_fail: 'ADA Postpartum Doula Exam Results',
+          exam_pass: `Congratulations on Passing the ADA Exam`,
+          exam_fail: `ADA Exam Results`,
           certificate: 'Your ADA Postpartum Doula Certificate',
         };
 
