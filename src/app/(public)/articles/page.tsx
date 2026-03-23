@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
 const ALL_CATEGORIES = ['all', 'news', 'education', 'community', 'certification'] as const;
