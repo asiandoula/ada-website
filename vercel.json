@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "admin.asiandoula.org"
+        }
+      ],
+      "destination": "https://www.asiandoula.org/admin/login",
+      "permanent": false
+    }
+  ]
+}
