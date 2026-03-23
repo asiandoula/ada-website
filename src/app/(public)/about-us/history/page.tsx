@@ -123,7 +123,7 @@ export default function HistoryPage() {
               </p>
 
               {/* Blockquote — founder voice, one punch */}
-              <blockquote className="mt-8 border-l-[5px] border-ada-purple bg-[#fafafa] p-6 pl-8 rounded-r-lg">
+              <blockquote className="mt-8 border-l-[5px] border-ada-purple bg-ada-off-white p-6 pl-8 rounded-r-lg">
                 <p className="text-ada-navy/80 leading-relaxed italic">
                   &ldquo;It started as a chat group. It became a mission.&rdquo;
                 </p>
@@ -231,7 +231,7 @@ export default function HistoryPage() {
               </div>
 
               {/* CTA section */}
-              <div className="mt-16 text-center bg-[#fafafa] rounded-2xl p-10">
+              <div className="mt-16 text-center bg-ada-off-white rounded-2xl p-10">
                 <h3 className="font-dm-serif text-2xl text-ada-navy">
                   Become Part of Our Story
                 </h3>

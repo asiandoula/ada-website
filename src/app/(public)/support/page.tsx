@@ -60,7 +60,7 @@ export default function SupportPage() {
               <Link
                 key={card.href}
                 href={card.href}
-                className="bg-[#fafafa] rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300 group"
+                className="bg-ada-off-white rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300 group"
               >
                 <h2 className="font-dm-serif text-xl text-ada-navy">
                   {card.title}
@@ -81,7 +81,7 @@ export default function SupportPage() {
       </section>
 
       {/* Quick Contact */}
-      <section className="bg-[#fafafa] py-16">
+      <section className="bg-ada-off-white py-16">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16">
             <div className="text-center">

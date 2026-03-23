@@ -104,7 +104,7 @@ export default function CertificationsPage() {
       </section>
 
       {/* Shared Resources */}
-      <section className="bg-[#fafafa] py-16">
+      <section className="bg-ada-off-white py-16">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy mb-8">
             For All Certified Doulas

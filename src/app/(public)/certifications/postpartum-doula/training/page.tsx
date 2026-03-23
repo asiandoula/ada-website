@@ -103,7 +103,7 @@ export default function FindADoulaTrainingPage() {
                   {trainingProviders.map((provider) => (
                     <div
                       key={provider.name}
-                      className="bg-[#fafafa] rounded-2xl p-8"
+                      className="bg-ada-off-white rounded-2xl p-8"
                     >
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                         <div>
@@ -137,7 +137,7 @@ export default function FindADoulaTrainingPage() {
               </div>
 
               {/* Become a Provider CTA */}
-              <div className="bg-[#fafafa] rounded-2xl p-10 text-center">
+              <div className="bg-ada-off-white rounded-2xl p-10 text-center">
                 <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
                   Interested in Becoming an Approved Training Provider?
                 </h2>

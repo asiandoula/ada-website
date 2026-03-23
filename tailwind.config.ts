@@ -46,6 +46,7 @@ const config: Config = {
         ada: {
           navy: '#0c2231',
           'navy-warm': '#1a3346',
+          'navy-dark': '#4a4a70',
           purple: '#6969C1',
           'purple-hover': '#7b7bd4',
           'purple-muted': '#606090',
@@ -56,6 +57,19 @@ const config: Config = {
           'sky': '#eef5fb',
           'rose': '#fdf2f8',
           'peach': '#fef7ed',
+          // Framer accent colors
+          blue: '#00aeef',
+          orange: '#f15a29',
+          green: '#8dc63f',
+          violet: '#662d91',
+          pink: '#ec008c',
+          // Accent backgrounds (Light Shade)
+          'blue-light': '#e6f7fe',
+          'orange-light': '#fdede7',
+          'green-light': '#f3f9eb',
+          'violet-light': '#f3ebf9',
+          'pink-light': '#ffe5f5',
+          'yellow-light': '#fffee5',
         },
       },
       fontFamily: {

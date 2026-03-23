@@ -110,7 +110,7 @@ export default function ExamDetailsPage() {
                   {examDetails.map((detail) => (
                     <div
                       key={detail.label}
-                      className="bg-[#fafafa] rounded-xl p-5"
+                      className="bg-ada-off-white rounded-xl p-5"
                     >
                       <p className="text-sm text-ada-navy/60 mb-1">{detail.label}</p>
                       <p className="font-outfit font-semibold text-ada-navy">
@@ -127,7 +127,7 @@ export default function ExamDetailsPage() {
                   What to Expect
                 </h2>
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="p-6 bg-[#fafafa] rounded-xl">
+                  <div className="p-6 bg-ada-off-white rounded-xl">
                     <h3 className="font-outfit font-semibold text-ada-navy mb-3">
                       Written Exam
                     </h3>
@@ -150,7 +150,7 @@ export default function ExamDetailsPage() {
                       </li>
                     </ul>
                   </div>
-                  <div className="p-6 bg-[#fafafa] rounded-xl">
+                  <div className="p-6 bg-ada-off-white rounded-xl">
                     <h3 className="font-outfit font-semibold text-ada-navy mb-3">
                       Practical Exam
                     </h3>
@@ -185,7 +185,7 @@ export default function ExamDetailsPage() {
               </div>
 
               {/* CTA */}
-              <div className="bg-[#fafafa] rounded-xl p-8 text-center">
+              <div className="bg-ada-off-white rounded-xl p-8 text-center">
                 <p className="font-outfit text-lg text-ada-navy mb-4">
                   Ready to take the exam? Start with Step 1.
                 </p>

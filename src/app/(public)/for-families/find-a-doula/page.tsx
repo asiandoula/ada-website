@@ -116,7 +116,7 @@ export default function FindADoulaPage() {
                   {languages.map((lang) => (
                     <span
                       key={lang}
-                      className="px-4 py-2 bg-[#fafafa] rounded-full text-ada-navy/70 text-sm"
+                      className="px-4 py-2 bg-ada-off-white rounded-full text-ada-navy/70 text-sm"
                     >
                       {lang}
                     </span>
@@ -143,7 +143,7 @@ export default function FindADoulaPage() {
               </div>
 
               {/* CTA Block */}
-              <div className="bg-[#fafafa] rounded-2xl p-10 text-center">
+              <div className="bg-ada-off-white rounded-2xl p-10 text-center">
                 <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
                   Ready to Find Your Doula?
                 </h2>

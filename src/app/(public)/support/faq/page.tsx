@@ -72,7 +72,7 @@ export default function FAQPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#fafafa] py-16">
+      <section className="bg-ada-off-white py-16">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
             Still have questions?

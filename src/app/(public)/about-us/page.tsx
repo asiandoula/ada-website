@@ -84,7 +84,7 @@ export default function AboutUsPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
             {/* Left - text card */}
-            <div className="bg-[#FAF9F7] rounded-2xl p-8 flex flex-col justify-center">
+            <div className="bg-ada-cream rounded-2xl p-8 flex flex-col justify-center">
               <p className="text-lg text-ada-navy/80 italic leading-relaxed">
                 &ldquo;The Chinese Doula Incident In Bay Area&rdquo; &mdash; a doula was
                 caught on camera allegedly abusing a 2-day-old infant.

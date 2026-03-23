@@ -68,13 +68,13 @@ export default function RenewRecertificationPage() {
             <div className="lg:w-4/5 space-y-16">
               {/* Key Info */}
               <div className="flex flex-col sm:flex-row gap-6">
-                <div className="flex-1 bg-[#fafafa] rounded-xl p-6">
+                <div className="flex-1 bg-ada-off-white rounded-xl p-6">
                   <h3 className="font-outfit font-semibold text-ada-navy mb-1">
                     Certificate Validity
                   </h3>
                   <p className="text-2xl font-outfit font-bold text-ada-purple">3 Years</p>
                 </div>
-                <div className="flex-1 bg-[#fafafa] rounded-xl p-6">
+                <div className="flex-1 bg-ada-off-white rounded-xl p-6">
                   <h3 className="font-outfit font-semibold text-ada-navy mb-1">
                     Insurance Partners
                   </h3>
@@ -102,7 +102,7 @@ export default function RenewRecertificationPage() {
               </div>
 
               {/* CTA */}
-              <div className="bg-[#fafafa] rounded-2xl p-10 text-center">
+              <div className="bg-ada-off-white rounded-2xl p-10 text-center">
                 <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
                   Ready to Renew?
                 </h2>

@@ -171,7 +171,7 @@ export default function CodeOfConductPage() {
               </div>
 
               {/* Enforcement */}
-              <blockquote className="border-l-[5px] border-ada-purple bg-[#fafafa] p-6 pl-8 rounded-r-lg">
+              <blockquote className="border-l-[5px] border-ada-purple bg-ada-off-white p-6 pl-8 rounded-r-lg">
                 <h3 className="font-outfit font-semibold text-ada-navy mb-2">Enforcement</h3>
                 <p className="text-ada-navy/60 leading-relaxed">
                   Violations of this Code of Conduct may result in disciplinary action, including

@@ -127,7 +127,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* Additional Programs */}
-      <section className="py-20 bg-[#fafafa]">
+      <section className="py-20 bg-ada-off-white">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">

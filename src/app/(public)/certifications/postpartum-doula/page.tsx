@@ -103,7 +103,7 @@ export default function PostpartumDoulaPage() {
               </div>
 
               {/* b. At a Glance */}
-              <div className="bg-[#fafafa] rounded-2xl p-6">
+              <div className="bg-ada-off-white rounded-2xl p-6">
                 <h3 className="font-dm-serif text-xl text-ada-navy mb-5">At a Glance</h3>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {glanceItems.map((item) => (
@@ -191,7 +191,7 @@ export default function PostpartumDoulaPage() {
               </div>
 
               {/* f. CTA */}
-              <div className="bg-[#fafafa] rounded-2xl p-10 text-center">
+              <div className="bg-ada-off-white rounded-2xl p-10 text-center">
                 <h3 className="font-dm-serif text-2xl text-ada-navy">Ready to Start?</h3>
                 <p className="mt-3 text-ada-navy/60 leading-relaxed">
                   Find an ADA-approved training program near you.

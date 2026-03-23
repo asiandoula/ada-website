@@ -122,7 +122,7 @@ export default function BirthDoulaCertificationPage() {
                 <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-8">
                   Planned Certification Details
                 </h2>
-                <div className="bg-[#fafafa] rounded-2xl p-6">
+                <div className="bg-ada-off-white rounded-2xl p-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {certDetails.map((detail) => (
                       <div key={detail.label}>
@@ -142,7 +142,7 @@ export default function BirthDoulaCertificationPage() {
                   How It Differs from Postpartum Doula
                 </h2>
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-[#fafafa] rounded-xl p-6">
+                  <div className="bg-ada-off-white rounded-xl p-6">
                     <h3 className="font-outfit font-semibold text-ada-navy mb-3">
                       Birth Doula
                     </h3>
@@ -161,7 +161,7 @@ export default function BirthDoulaCertificationPage() {
                       </li>
                     </ul>
                   </div>
-                  <div className="bg-[#fafafa] rounded-xl p-6">
+                  <div className="bg-ada-off-white rounded-xl p-6">
                     <h3 className="font-outfit font-semibold text-ada-navy mb-3">
                       Postpartum Doula
                     </h3>

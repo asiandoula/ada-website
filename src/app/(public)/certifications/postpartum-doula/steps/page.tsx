@@ -135,7 +135,7 @@ export default function StepsToCertificationPage() {
               </div>
 
               {/* c. At a Glance */}
-              <div className="bg-[#fafafa] rounded-2xl p-6">
+              <div className="bg-ada-off-white rounded-2xl p-6">
                 <h3 className="font-dm-serif text-xl text-ada-navy mb-5">
                   At a Glance
                 </h3>
@@ -180,7 +180,7 @@ export default function StepsToCertificationPage() {
               </div>
 
               {/* f. CTA block */}
-              <div className="bg-[#fafafa] rounded-2xl p-10 text-center">
+              <div className="bg-ada-off-white rounded-2xl p-10 text-center">
                 <h3 className="font-dm-serif text-2xl text-ada-navy">
                   Ready to Get Started?
                 </h3>

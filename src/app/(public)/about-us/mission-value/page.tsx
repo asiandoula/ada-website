@@ -110,7 +110,7 @@ export default function MissionValuePage() {
               </div>
 
               {/* Blockquote */}
-              <blockquote className="border-l-[5px] border-ada-purple bg-[#fafafa] p-6 pl-8 rounded-r-lg">
+              <blockquote className="border-l-[5px] border-ada-purple bg-ada-off-white p-6 pl-8 rounded-r-lg">
                 <p className="text-ada-navy/70 leading-relaxed">
                   ADA was founded to respond to urgent community needs by introducing
                   structured training, stringent certification, and a robust ethical
@@ -192,7 +192,7 @@ export default function MissionValuePage() {
                 {commitments.map((item) => (
                   <div
                     key={item.number}
-                    className="bg-[#fafafa] rounded-2xl overflow-hidden"
+                    className="bg-ada-off-white rounded-2xl overflow-hidden"
                   >
                     <div className="relative aspect-[3/2]">
                       <Image

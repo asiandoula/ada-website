@@ -336,48 +336,48 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[10px] p-[10px]">
             {[
               {
-                icon: <GraduationCap className="w-5 h-5 text-[#662d91]" />,
-                iconBg: 'bg-[#f3ebf9]',
+                icon: <GraduationCap className="w-5 h-5 text-ada-violet" />,
+                iconBg: 'bg-ada-violet-light',
                 title: 'Doula Certification',
                 description: 'We provide structured training and certification with a strong emphasis on Asian cultural practices, science-based knowledge, and hands-on support.',
                 link: '/certifications/postpartum-doula/steps',
                 linkText: 'Program Details',
               },
               {
-                icon: <Trophy className="w-5 h-5 text-[#f15a29]" />,
-                iconBg: 'bg-[#fdede7]',
+                icon: <Trophy className="w-5 h-5 text-ada-orange" />,
+                iconBg: 'bg-ada-orange-light',
                 title: 'Scholarship Program',
                 description: 'We offer need-based and merit-based scholarships to make doula training accessible for passionate caregivers in Asian communities.',
                 link: '/programs/scholarship',
                 linkText: 'Apply Now',
               },
               {
-                icon: <Users className="w-5 h-5 text-[#00aeef]" />,
-                iconBg: 'bg-[#e6f7fe]',
+                icon: <Users className="w-5 h-5 text-ada-blue" />,
+                iconBg: 'bg-ada-blue-light',
                 title: 'Family Matching',
                 description: 'We carefully match families with trained doulas who understand both your cultural background and modern recovery needs.',
                 link: '/for-families/find-a-doula',
                 linkText: 'Matching Process',
               },
               {
-                icon: <Globe className="w-5 h-5 text-[#ec008c]" />,
-                iconBg: 'bg-[#ffe5f5]',
+                icon: <Globe className="w-5 h-5 text-ada-pink" />,
+                iconBg: 'bg-ada-pink-light',
                 title: 'Multilingual Training',
                 description: 'We offer education and care services in Mandarin, Cantonese, Korean, Japanese, and more — because care starts with clear understanding.',
                 link: '/certifications/postpartum-doula/training',
                 linkText: 'Language Options',
               },
               {
-                icon: <Soup className="w-5 h-5 text-[#8dc63f]" />,
-                iconBg: 'bg-[#fffee5]',
+                icon: <Soup className="w-5 h-5 text-ada-green" />,
+                iconBg: 'bg-ada-yellow-light',
                 title: 'Cultural Postpartum Care',
                 description: 'From confinement meals to herbal remedies and body recovery practices, we guide doulas and families in integrating trusted Asian traditions.',
                 link: '/about-us/mission-value',
                 linkText: 'Learn More',
               },
               {
-                icon: <Heart className="w-5 h-5 text-[#8dc63f]" />,
-                iconBg: 'bg-[#f3f9eb]',
+                icon: <Heart className="w-5 h-5 text-ada-green" />,
+                iconBg: 'bg-ada-green-light',
                 title: 'Community & Advocacy',
                 description: 'We champion postpartum care rights, organize workshops, and empower Asian doulas and families to be seen, heard, and supported.',
                 link: '/articles',
@@ -455,7 +455,7 @@ export default function HomePage() {
                 key={partner.name}
                 className="bg-white rounded-2xl border border-gray-200 p-4 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300"
               >
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 overflow-hidden bg-[#fafafa]">
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 overflow-hidden bg-ada-off-white">
                   {partner.logo ? (
                     <Image
                       src={partner.logo}
