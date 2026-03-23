@@ -123,12 +123,13 @@ export default function HowWeTrainPage() {
                 your home.
               </p>
             </div>
-            <div className="lg:w-[480px] shrink-0">
+            <div className="lg:w-[520px] shrink-0">
               <Image
                 src="/images/families/training-hero.webp"
                 alt="Doula students during a professional training session"
-                width={480}
-                height={320}
+                width={1920}
+                height={1441}
+                sizes="(max-width: 1024px) 100vw, 520px"
                 className="rounded-2xl object-cover w-full"
                 priority
               />
@@ -155,7 +156,7 @@ export default function HowWeTrainPage() {
       </section>
 
       {/* Training Curriculum */}
-      <section className="py-20 bg-[#fafafa]">
+      <section className="py-20 bg-ada-off-white">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
@@ -168,8 +169,9 @@ export default function HowWeTrainPage() {
             <Image
               src="/images/families/training-class.webp"
               alt="Doula trainer demonstrating newborn care techniques to students"
-              width={800}
-              height={500}
+              width={1600}
+              height={1201}
+              sizes="(max-width: 800px) 100vw, 800px"
               className="mt-8 rounded-2xl object-cover w-full max-w-[800px] mx-auto"
               loading="lazy"
             />
@@ -255,7 +257,7 @@ export default function HowWeTrainPage() {
       </section>
 
       {/* Continuing Education */}
-      <section className="py-20 bg-[#fafafa]">
+      <section className="py-20 bg-ada-off-white">
         <div className="max-w-[800px] mx-auto px-6 text-center">
           <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
             Continuing Education
@@ -290,7 +292,7 @@ export default function HowWeTrainPage() {
             {insurancePartners.map((partner) => (
               <div
                 key={partner}
-                className="bg-[#fafafa] rounded-xl py-5 px-4 text-center"
+                className="bg-ada-off-white rounded-xl py-5 px-4 text-center"
               >
                 <span className="font-outfit font-medium text-ada-navy">
                   {partner}

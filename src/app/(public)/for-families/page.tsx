@@ -66,12 +66,13 @@ export default function ForFamiliesPage() {
                 &mdash; because no new parent should recover alone.
               </p>
             </div>
-            <div className="lg:w-[480px] shrink-0">
+            <div className="lg:w-[520px] shrink-0">
               <Image
                 src="/images/families/hero-recovery.webp"
                 alt="A doula gently holding a newborn while the mother rests peacefully in bed"
-                width={480}
-                height={320}
+                width={1920}
+                height={1080}
+                sizes="(max-width: 1024px) 100vw, 520px"
                 className="rounded-2xl object-cover w-full"
                 priority
               />
@@ -89,8 +90,9 @@ export default function ForFamiliesPage() {
           <Image
             src="/images/families/fourth-trimester.webp"
             alt="A caregiver gently holding a new mother's hands in comfort"
-            width={800}
-            height={450}
+            width={1600}
+            height={1200}
+            sizes="(max-width: 800px) 100vw, 800px"
             className="mt-8 rounded-2xl object-cover w-full"
             loading="lazy"
           />
@@ -145,8 +147,9 @@ export default function ForFamiliesPage() {
           <Image
             src="/images/families/zuoyuezi-food.webp"
             alt="Traditional Chinese postpartum recovery foods — red date ginger tea, herbal soups, goji berries"
-            width={800}
-            height={500}
+            width={1600}
+            height={1200}
+            sizes="(max-width: 800px) 100vw, 800px"
             className="mt-10 rounded-2xl object-cover w-full"
             loading="lazy"
           />
@@ -238,8 +241,9 @@ export default function ForFamiliesPage() {
           <Image
             src="/images/families/doula-newborn.webp"
             alt="A doula helping a father learn to care for his newborn"
-            width={800}
-            height={500}
+            width={1600}
+            height={1200}
+            sizes="(max-width: 800px) 100vw, 800px"
             className="mt-10 rounded-2xl object-cover w-full max-w-[800px]"
             loading="lazy"
           />
@@ -346,8 +350,9 @@ export default function ForFamiliesPage() {
           <Image
             src="/images/families/diverse-mothers.webp"
             alt="Diverse group of mothers with their newborns, laughing and connecting together"
-            width={800}
-            height={500}
+            width={1600}
+            height={1201}
+            sizes="(max-width: 800px) 100vw, 800px"
             className="mt-8 rounded-2xl object-cover w-full"
             loading="lazy"
           />
