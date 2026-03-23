@@ -26,6 +26,7 @@ import {
 } from '@/lib/constants';
 import type { DoulaStatus, ExamStatus, CertificateType, CredentialType, CredentialStatus } from '@/lib/constants';
 import { ExamEditDialog, type ExamRecord } from '@/components/admin/exam-edit-dialog';
+import { EmailSendDialog, type EmailRecipient } from '@/components/admin/email-send-dialog';
 import { computeProficiencyLevel, PASS_SCORE } from '@/lib/utils';
 
 export default function EditDoulaPage() {
@@ -41,6 +42,8 @@ export default function EditDoulaPage() {
   const [credentials, setCredentials] = useState<Record<string, any>[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [emailRecipients, setEmailRecipients] = useState<EmailRecipient[]>([]);
+  const [showEmailDialog, setShowEmailDialog] = useState(false);
 
   async function reloadData() {
     const { data: d } = await supabase
@@ -337,10 +340,16 @@ export default function EditDoulaPage() {
         <GrantCertification
           doulaId={params.id as string}
           doulaName={doula.full_name}
+          doulaEmail={doula.email}
+          doulaIdCode={doula.doula_id_code}
           existingCertTypes={certs.map((c: Record<string, string>) => c.certificate_type)}
           loading={loading}
           setLoading={setLoading}
           onDone={reloadData}
+          onEmailPrompt={(recipients) => {
+            setEmailRecipients(recipients);
+            setShowEmailDialog(true);
+          }}
         />
       )}
 
@@ -376,6 +385,7 @@ export default function EditDoulaPage() {
                   <th className="text-left p-2">Proficiency</th>
                   <th className="text-left p-2">Passed</th>
                   <th className="text-left p-2">Status</th>
+                  <th className="text-left p-2">Notified</th>
                   <th className="p-2"></th>
                 </tr>
               </thead>
@@ -394,6 +404,39 @@ export default function EditDoulaPage() {
                         <Badge className="bg-gray-100 text-gray-500">Voided</Badge>
                       ) : (
                         <Badge className="bg-green-100 text-green-800">Valid</Badge>
+                      )}
+                    </td>
+                    <td className="p-2">
+                      {exam.email_sent_at ? (
+                        <span className="text-green-600 text-xs" title={`Sent ${new Date(exam.email_sent_at).toLocaleString()}`}>
+                          ✉ Sent
+                        </span>
+                      ) : exam.passed !== null ? (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-xs h-6 text-muted-foreground"
+                          onClick={() => {
+                            if (!doula.email) {
+                              alert('This doula has no email address.');
+                              return;
+                            }
+                            setEmailRecipients([{
+                              doula_id: params.id as string,
+                              doula_name: doula.full_name,
+                              doula_id_code: doula.doula_id_code,
+                              email: doula.email,
+                              related_id: exam.id,
+                              type: exam.passed ? 'exam_pass' : 'exam_fail',
+                              passed: exam.passed,
+                            }]);
+                            setShowEmailDialog(true);
+                          }}
+                        >
+                          ✉ Send
+                        </Button>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">—</span>
                       )}
                     </td>
                     <td className="p-2">
@@ -425,6 +468,7 @@ export default function EditDoulaPage() {
                   <th className="text-left p-2">Expires</th>
                   <th className="text-left p-2">Status</th>
                   <th className="text-left p-2">Actions</th>
+                  <th className="text-left p-2">Notified</th>
                 </tr>
               </thead>
               <tbody>
@@ -496,6 +540,36 @@ export default function EditDoulaPage() {
                         </>
                       )}
                     </td>
+                    <td className="p-2">
+                      {cert.email_sent_at ? (
+                        <span className="text-green-600 text-xs" title={`Sent ${new Date(cert.email_sent_at).toLocaleString()}`}>
+                          ✉ Sent
+                        </span>
+                      ) : cert.status !== 'revoked' ? (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-xs h-6 text-muted-foreground"
+                          onClick={() => {
+                            if (!doula.email) {
+                              alert('This doula has no email address.');
+                              return;
+                            }
+                            setEmailRecipients([{
+                              doula_id: params.id as string,
+                              doula_name: doula.full_name,
+                              doula_id_code: doula.doula_id_code,
+                              email: doula.email,
+                              related_id: cert.id,
+                              type: 'certificate',
+                            }]);
+                            setShowEmailDialog(true);
+                          }}
+                        >
+                          ✉ Send
+                        </Button>
+                      ) : null}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -538,20 +612,38 @@ export default function EditDoulaPage() {
           </div>
         </CardContent>
       </Card>
+
+      <EmailSendDialog
+        open={showEmailDialog}
+        onClose={() => {
+          setShowEmailDialog(false);
+          setEmailRecipients([]);
+          reloadData();
+        }}
+        recipients={emailRecipients}
+        title={emailRecipients[0]?.type === 'certificate' ? 'Send Certificate Email?' : 'Send Exam Result Notification?'}
+        description={emailRecipients[0]?.type === 'certificate'
+          ? 'The doula will receive their certificate PDF as an email attachment.'
+          : 'The doula will receive a notification with a link to view their results in the Portal.'
+        }
+      />
     </div>
   );
 }
 
 /* ==================== Grant Certification ==================== */
 function GrantCertification({
-  doulaId, doulaName, existingCertTypes, loading, setLoading, onDone,
+  doulaId, doulaName, doulaEmail, doulaIdCode, existingCertTypes, loading, setLoading, onDone, onEmailPrompt,
 }: {
   doulaId: string;
   doulaName: string;
+  doulaEmail: string | null;
+  doulaIdCode: string;
   existingCertTypes: string[];
   loading: boolean;
   setLoading: (v: boolean) => void;
   onDone: () => void;
+  onEmailPrompt: (recipients: EmailRecipient[]) => void;
 }) {
   const availableTypes = CERTIFICATE_TYPES.filter(t => !existingCertTypes.includes(t));
   const [certType, setCertType] = useState<string>(availableTypes[0] || 'postpartum');
@@ -621,6 +713,16 @@ function GrantCertification({
               if (res.ok) {
                 setResult(`Certificate ${data.certificate?.certificate_number} generated. PDF ready for download.`);
                 onDone();
+                if (doulaEmail && data.certificate) {
+                  onEmailPrompt([{
+                    doula_id: doulaId,
+                    doula_name: doulaName,
+                    doula_id_code: doulaIdCode,
+                    email: doulaEmail,
+                    related_id: data.certificate.id,
+                    type: 'certificate',
+                  }]);
+                }
               } else {
                 alert(data.error || 'Generation failed');
               }

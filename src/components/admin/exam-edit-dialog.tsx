@@ -34,6 +34,7 @@ export interface ExamRecord {
   notes: string | null;
   voided: boolean;
   voided_at: string | null;
+  email_sent_at: string | null;
   created_at: string;
   updated_at: string | null;
 }
