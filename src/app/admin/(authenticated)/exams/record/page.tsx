@@ -286,8 +286,8 @@ export default function RecordExamPage() {
         You can manually override pass/fail for individual doulas with a required note.
       </p>
 
-      <Card className="mb-6">
-        <CardContent className="pt-6">
+      <Card className="mb-6 overflow-visible">
+        <CardContent className="pt-6 overflow-visible">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
               <Label>Exam Session *</Label>

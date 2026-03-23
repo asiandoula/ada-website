@@ -1,6 +1,12 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let _resend: Resend | null = null;
+function getResend() {
+  if (!_resend) {
+    _resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return _resend;
+}
 
 const FROM_EMAIL = 'certification@asiandoula.org';
 const FROM_NAME = 'Asian Doula Alliance';
@@ -98,6 +104,7 @@ export async function sendEmail(params: SendEmailParams): Promise<{ id: string }
       break;
   }
 
+  const resend = getResend();
   const emailPayload: Parameters<typeof resend.emails.send>[0] = {
     from: `${FROM_NAME} <${FROM_EMAIL}>`,
     to: params.recipientEmail,
