@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { computeProficiencyLevel, PASS_SCORE } from '@/lib/utils';
+import { EmailSendDialog, type EmailRecipient } from '@/components/admin/email-send-dialog';
 
 interface ExamEntry {
   doula_id: string;
@@ -137,12 +138,14 @@ export default function RecordExamPage() {
   const [entries, setEntries] = useState<ExamEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [emailRecipients, setEmailRecipients] = useState<EmailRecipient[]>([]);
+  const [showEmailDialog, setShowEmailDialog] = useState(false);
 
   useEffect(() => {
     async function loadDoulas() {
       const { data } = await supabase
         .from('doulas')
-        .select('id, full_name, doula_id_code')
+        .select('id, full_name, doula_id_code, email')
         .order('full_name');
       setDoulas((data as Record<string, string>[]) ?? []);
     }
@@ -233,7 +236,7 @@ export default function RecordExamPage() {
       };
     });
 
-    const { error } = await supabase.from('exam_results').insert(records);
+    const { data: insertedResults, error } = await supabase.from('exam_results').insert(records).select('id, doula_id, passed');
 
     if (error) {
       setError(error.message);
@@ -250,8 +253,29 @@ export default function RecordExamPage() {
       }
     }
 
-    router.push('/admin/exams');
-    router.refresh();
+    setLoading(false);
+
+    // Build email recipients from saved results
+    if (insertedResults && insertedResults.length > 0) {
+      const recipients: EmailRecipient[] = insertedResults.map((result) => {
+        const entry = entries.find((e) => e.doula_id === result.doula_id);
+        const doula = doulas.find((d) => d.id === result.doula_id);
+        return {
+          doula_id: result.doula_id,
+          doula_name: entry?.doula_name ?? '',
+          doula_id_code: entry?.doula_id_code ?? '',
+          email: (doula as Record<string, string>)?.email ?? null,
+          related_id: result.id,
+          type: (result.passed ? 'exam_pass' : 'exam_fail') as EmailRecipient['type'],
+          passed: result.passed,
+        };
+      });
+      setEmailRecipients(recipients);
+      setShowEmailDialog(true);
+    } else {
+      router.push('/admin/exams');
+      router.refresh();
+    }
   }
 
   return (
@@ -394,6 +418,17 @@ export default function RecordExamPage() {
           Cancel
         </Button>
       </div>
+      <EmailSendDialog
+        open={showEmailDialog}
+        onClose={() => {
+          setShowEmailDialog(false);
+          router.push('/admin/exams');
+          router.refresh();
+        }}
+        recipients={emailRecipients}
+        title="Results Saved — Send Notifications?"
+        description="Select doulas to notify about their exam results. They will receive an email with a link to view their scores in the Portal."
+      />
     </div>
   );
 }
