@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Outfit } from "next/font/google";
+import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -39,6 +40,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="google-site-verification" content="PTujhWjQmd56vwAnC1mRv23EweQBPEpnsIuyRl2zlHY" />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-P7D4D4SEHL"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-P7D4D4SEHL');`}
+        </Script>
+      </head>
       <body className={`${dmSerif.variable} ${outfit.variable} antialiased`}>
         {children}
         <Toaster position="top-right" richColors />
