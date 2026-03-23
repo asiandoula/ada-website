@@ -459,6 +459,7 @@ export default function EditDoulaPage() {
           {certs.length === 0 ? (
             <p className="text-muted-foreground text-sm">No certificates issued.</p>
           ) : (
+            <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="border-b">
                 <tr>
@@ -467,7 +468,7 @@ export default function EditDoulaPage() {
                   <th className="text-left p-2">Issued</th>
                   <th className="text-left p-2">Expires</th>
                   <th className="text-left p-2">Status</th>
-                  <th className="text-left p-2">Actions</th>
+                  <th className="text-left p-2 whitespace-nowrap">Actions</th>
                   <th className="text-left p-2">Notified</th>
                 </tr>
               </thead>
@@ -487,7 +488,7 @@ export default function EditDoulaPage() {
                         <Badge className="bg-green-100 text-green-800">Active</Badge>
                       )}
                     </td>
-                    <td className="p-2 space-x-2">
+                    <td className="p-2 whitespace-nowrap space-x-1">
                       {cert.pdf_url && (
                         <a
                           href={cert.pdf_url}
@@ -574,6 +575,7 @@ export default function EditDoulaPage() {
                 ))}
               </tbody>
             </table>
+            </div>
           )}
         </CardContent>
       </Card>
