@@ -24,7 +24,8 @@ export function CookieBanner() {
     localStorage.setItem('ada-cookie-consent', 'declined');
     // Disable GA if declined
     if (typeof window !== 'undefined') {
-      (window as Record<string, unknown>)['ga-disable-G-P7D4D4SEHL'] = true;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any)['ga-disable-G-P7D4D4SEHL'] = true;
     }
     setVisible(false);
   }
