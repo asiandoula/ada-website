@@ -101,45 +101,64 @@ export default function HomePage() {
       <section className="py-20 bg-white relative overflow-hidden">
         <div className="relative max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[454px_1fr] gap-12 items-center">
-            {/* Left — image grid: overlapping on desktop, stacked on mobile */}
-            {/* Desktop: 3-image overlapping grid with floating shapes */}
-            <div className="hidden lg:block relative w-full h-[430px]">
-              <svg className="absolute -top-[25px] left-[27px] w-[100px] h-[50px] rotate-[121deg] animate-float" viewBox="0 0 100 50" fill="none">
-                <path d="M50 0C22.4 0 0 22.4 0 50h100C100 22.4 77.6 0 50 0Z" fill="#606090" />
+            {/* Left — Framer-style overlapping image collage */}
+            {/* Desktop: 3 images with depth, shadows, floating shapes */}
+            <div className="hidden lg:block relative w-full h-[480px]">
+              {/* Floating half-circle — top left */}
+              <svg className="absolute -top-6 -left-4 w-20 h-10 animate-float" viewBox="0 0 100 50" fill="none">
+                <path d="M50 0C22.4 0 0 22.4 0 50h100C100 22.4 77.6 0 50 0Z" fill="#606090" opacity="0.8" />
               </svg>
-              <svg className="absolute -bottom-[10px] -right-[17px] w-[100px] h-[100px] rotate-[121deg] animate-float-delayed" viewBox="0 0 100 100" fill="none">
-                <path d="M50 8C52 25 60 38 75 42C60 46 52 58 50 75C48 58 40 46 25 42C40 38 48 25 50 8Z" fill="#606090" rx="4" />
+              {/* Floating star — bottom right */}
+              <svg className="absolute -bottom-4 -right-6 w-16 h-16 animate-float-delayed" viewBox="0 0 100 100" fill="none">
+                <path d="M50 8C52 25 60 38 75 42C60 46 52 58 50 75C48 58 40 46 25 42C40 38 48 25 50 8Z" fill="#606090" opacity="0.6" />
               </svg>
-              <Image
-                src="/images/about-grid-1.webp"
-                alt="ADA doula training session"
-                width={560}
-                height={180}
-                className="absolute top-[49px] left-0 w-[56%] h-[180px] object-cover rounded-3xl"
-              />
-              <Image
-                src="/images/about-grid-2.webp"
-                alt="ADA certified doula with family"
-                width={400}
-                height={268}
-                className="absolute top-0 right-0 w-[40%] aspect-[0.623] object-cover rounded-3xl"
-              />
-              <Image
-                src="/images/about-grid-3.webp"
-                alt="Postpartum care in action"
-                width={400}
-                height={181}
-                className="absolute bottom-0 left-[81px] w-[40%] h-[181px] object-cover rounded-3xl"
-              />
+
+              {/* Image 1: Training — large, left-aligned, slightly down */}
+              <div className="absolute top-8 left-0 w-[60%] z-10 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
+                <Image
+                  src="/images/about-grid-1.webp"
+                  alt="ADA doula training session — instructor with students"
+                  width={1200}
+                  height={400}
+                  sizes="280px"
+                  className="w-full h-[200px] object-cover"
+                />
+              </div>
+
+              {/* Image 2: Doula portrait — tall, right side, overlapping image 1 */}
+              <div className="absolute -top-2 right-0 w-[44%] z-20 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
+                <Image
+                  src="/images/about-grid-2.webp"
+                  alt="ADA certified doula holding a newborn"
+                  width={800}
+                  height={1280}
+                  sizes="200px"
+                  className="w-full h-[280px] object-cover object-top"
+                />
+              </div>
+
+              {/* Image 3: Kitchen/meal — bottom center, overlapping both */}
+              <div className="absolute bottom-0 left-[15%] w-[55%] z-30 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
+                <Image
+                  src="/images/about-grid-3.webp"
+                  alt="Doula preparing traditional postpartum recovery meal"
+                  width={1200}
+                  height={550}
+                  sizes="250px"
+                  className="w-full h-[190px] object-cover object-center"
+                />
+              </div>
             </div>
-            {/* Mobile: simple single image */}
+
+            {/* Mobile: single featured image */}
             <div className="lg:hidden">
               <Image
-                src="/images/about-grid-1.webp"
-                alt="ADA doula training session"
-                width={600}
-                height={400}
-                className="w-full rounded-3xl object-cover"
+                src="/images/about-grid-2.webp"
+                alt="ADA certified doula holding a newborn"
+                width={800}
+                height={1280}
+                sizes="100vw"
+                className="w-full max-h-[400px] rounded-2xl object-cover object-top"
               />
             </div>
 
