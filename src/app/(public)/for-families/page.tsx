@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ContactForm } from '@/components/public/contact-form';
+import { PronounceButton } from '@/components/public/pronounce-button';
 
 export const metadata: Metadata = {
   title: 'For Families | Asian Doula Alliance',
@@ -164,6 +165,7 @@ export default function ForFamiliesPage() {
               <h3 className="font-dm-serif text-xl text-ada-navy">
                 Zuo Yuezi (坐月子)
               </h3>
+              <PronounceButton text="坐月子" lang="zh-CN" label="zuò yuè zi" />
               <p className="mt-3 text-ada-navy/70 leading-relaxed">
                 &ldquo;Sitting the month&rdquo; &mdash; over 2,000 years old.
                 For 30 days, the mother rests completely, eats warming foods,
@@ -178,6 +180,7 @@ export default function ForFamiliesPage() {
               <h3 className="font-dm-serif text-xl text-ada-navy">
                 Sanhujori (산후조리)
               </h3>
+              <PronounceButton text="산후조리" lang="ko-KR" label="san-hu-jo-ri" />
               <p className="mt-3 text-ada-navy/70 leading-relaxed">
                 Korea built dedicated postpartum recovery centers where mothers
                 spend 2&ndash;4 weeks with professional support. The practice is
@@ -191,6 +194,7 @@ export default function ForFamiliesPage() {
               <h3 className="font-dm-serif text-xl text-ada-navy">
                 Satogaeri (里帰り)
               </h3>
+              <PronounceButton text="里帰り" lang="ja-JP" label="sa-to-ga-e-ri" />
               <p className="mt-3 text-ada-navy/70 leading-relaxed">
                 New mothers return to their own mother&apos;s home for the first
                 month. Recovery requires a village &mdash; and in Japan, that
