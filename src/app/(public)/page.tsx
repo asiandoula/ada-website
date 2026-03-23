@@ -98,68 +98,46 @@ export default function HomePage() {
       <Hero />
 
       {/* Section 1: Who We Are — Framer-style image grid + inline stats */}
-      <section className="py-20 bg-white relative overflow-hidden">
+      <section className="py-20 bg-white relative">
         <div className="relative max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[454px_1fr] gap-12 items-center">
-            {/* Left — Framer-style overlapping image collage */}
-            {/* Desktop: 3 images with depth, shadows, floating shapes */}
-            <div className="hidden lg:block relative w-full h-[480px]">
-              {/* Floating half-circle — top left */}
-              <svg className="absolute -top-6 -left-4 w-20 h-10 animate-float" viewBox="0 0 100 50" fill="none">
-                <path d="M50 0C22.4 0 0 22.4 0 50h100C100 22.4 77.6 0 50 0Z" fill="#606090" opacity="0.8" />
-              </svg>
-              {/* Floating star — bottom right */}
-              <svg className="absolute -bottom-4 -right-6 w-16 h-16 animate-float-delayed" viewBox="0 0 100 100" fill="none">
-                <path d="M50 8C52 25 60 38 75 42C60 46 52 58 50 75C48 58 40 46 25 42C40 38 48 25 50 8Z" fill="#606090" opacity="0.6" />
-              </svg>
+            {/* Left — Real photo with color block accents */}
+            <div className="hidden lg:block relative w-full">
+              {/* Decorative shapes — peeking out behind photo */}
+              <div className="absolute -top-6 -left-6 w-24 h-24 rounded-[20px] bg-ada-lavender rotate-12 animate-float" />
+              <div className="absolute -top-4 right-8 w-16 h-16 rounded-full bg-ada-purple/20 animate-float-delayed" />
+              <div className="absolute top-[45%] -right-6 w-20 h-20 rounded-[18px] bg-ada-peach rotate-[-8deg] animate-float" />
+              <div className="absolute -bottom-6 -right-4 w-24 h-24 rounded-full bg-ada-sage animate-float-delayed" />
+              <div className="absolute -bottom-4 left-[20%] w-16 h-16 rounded-[16px] bg-ada-purple/10 rotate-[15deg] animate-float" />
+              <div className="absolute top-[20%] -left-5 w-14 h-14 rounded-full bg-ada-rose animate-float-delayed" />
 
-              {/* Image 1: Training — large, left-aligned, slightly down */}
-              <div className="absolute top-8 left-0 w-[60%] z-10 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
+              {/* Single photo — natural aspect ratio, warm filter */}
+              <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/images/about-grid-1.webp"
-                  alt="ADA doula training session — instructor with students"
-                  width={1200}
-                  height={400}
-                  sizes="280px"
-                  className="w-full h-[200px] object-cover"
-                />
-              </div>
-
-              {/* Image 2: Doula portrait — tall, right side, overlapping image 1 */}
-              <div className="absolute -top-2 right-0 w-[44%] z-20 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
-                <Image
-                  src="/images/about-grid-2.webp"
-                  alt="ADA certified doula holding a newborn"
+                  src="/images/gallery/training-practice-1.jpg"
+                  alt="ADA doula trainees practicing with newborn care dolls during certification training"
                   width={800}
-                  height={1280}
-                  sizes="200px"
-                  className="w-full h-[280px] object-cover object-top"
-                />
-              </div>
-
-              {/* Image 3: Kitchen/meal — bottom center, overlapping both */}
-              <div className="absolute bottom-0 left-[15%] w-[55%] z-30 rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
-                <Image
-                  src="/images/about-grid-3.webp"
-                  alt="Doula preparing traditional postpartum recovery meal"
-                  width={1200}
-                  height={550}
-                  sizes="250px"
-                  className="w-full h-[190px] object-cover object-center"
+                  height={530}
+                  sizes="454px"
+                  className="w-full object-cover brightness-105 contrast-[1.03] saturate-[1.15] sepia-[0.08]"
                 />
               </div>
             </div>
 
-            {/* Mobile: single featured image */}
-            <div className="lg:hidden">
-              <Image
-                src="/images/about-grid-2.webp"
-                alt="ADA certified doula holding a newborn"
-                width={800}
-                height={1280}
-                sizes="100vw"
-                className="w-full max-h-[400px] rounded-2xl object-cover object-top"
-              />
+            {/* Mobile */}
+            <div className="lg:hidden relative">
+              <div className="absolute -top-3 -left-3 w-16 h-16 rounded-2xl bg-ada-lavender -z-10" />
+              <div className="absolute -bottom-3 -right-3 w-12 h-12 rounded-full bg-ada-sage -z-10" />
+              <div className="rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src="/images/gallery/training-practice-1.jpg"
+                  alt="ADA doula trainees practicing with newborn care dolls"
+                  width={800}
+                  height={530}
+                  sizes="100vw"
+                  className="w-full object-cover brightness-105 saturate-[1.15] sepia-[0.08]"
+                />
+              </div>
             </div>
 
             {/* Right — text + inline stats */}
