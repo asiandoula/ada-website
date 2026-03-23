@@ -4,9 +4,10 @@ import { updateSession } from '@/lib/supabase/middleware';
 export async function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
 
-  // admin.asiandoula.org → redirect to /admin
-  if (hostname.startsWith('admin.') && !request.nextUrl.pathname.startsWith('/admin')) {
-    return NextResponse.redirect(new URL('/admin' + request.nextUrl.pathname, request.url));
+  // admin.asiandoula.org → redirect to main domain /admin
+  if (hostname.startsWith('admin.')) {
+    const mainDomain = hostname.replace('admin.', 'www.');
+    return NextResponse.redirect(new URL('/admin/login', `https://${mainDomain}`));
   }
 
   return await updateSession(request);
