@@ -1,6 +1,7 @@
 import { Header } from '@/components/public/header';
 import { Footer } from '@/components/public/footer';
 import { CookieBanner } from '@/components/public/cookie-banner';
+import { WelcomePopup } from '@/components/public/welcome-popup';
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,6 +16,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       <main id="main-content" className="flex-1">{children}</main>
       <Footer />
       <CookieBanner />
+      <WelcomePopup />
     </div>
   );
 }
