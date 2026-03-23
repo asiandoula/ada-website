@@ -37,16 +37,16 @@ export default function CertificatesPage() {
       );
     }
     return (
-      <table className="w-full text-sm">
+      <table className="w-full text-sm min-w-[700px]">
         <thead className="border-b bg-zinc-50">
           <tr>
-            <th className="text-left p-3 font-medium">Doula</th>
-            <th className="text-left p-3 font-medium">Number</th>
-            <th className="text-left p-3 font-medium">Issued</th>
-            <th className="text-left p-3 font-medium">Expires</th>
-            <th className="text-left p-3 font-medium">Status</th>
-            <th className="text-left p-3 font-medium">Verify Code</th>
-            <th className="text-left p-3 font-medium">PDF</th>
+            <th className="text-left p-2 pl-3 font-medium">Doula</th>
+            <th className="text-left p-2 font-medium">Number</th>
+            <th className="text-left p-2 font-medium whitespace-nowrap">Issued</th>
+            <th className="text-left p-2 font-medium whitespace-nowrap">Expires</th>
+            <th className="text-left p-2 font-medium">Status</th>
+            <th className="text-left p-2 font-medium">Verify</th>
+            <th className="text-left p-2 pr-3 font-medium">PDF</th>
           </tr>
         </thead>
         <tbody>
@@ -54,30 +54,32 @@ export default function CertificatesPage() {
             const doula = cert.doulas as Record<string, string> | null;
             return (
               <tr key={cert.id} className={`border-b hover:bg-zinc-50 ${cert.status === 'revoked' ? 'opacity-50' : ''}`}>
-                <td className="p-3">
-                  <Link href={`/admin/doulas/${cert.doula_id}`} className="text-ada-purple hover:underline">
+                <td className="p-2 pl-3">
+                  <Link href={`/admin/doulas/${cert.doula_id}`} className="text-ada-purple hover:underline text-sm">
                     {doula?.full_name}
                   </Link>
-                  <span className="text-xs text-muted-foreground ml-2 font-mono">
+                  <span className="text-xs text-muted-foreground ml-1 font-mono">
                     {doula?.doula_id_code}
                   </span>
                 </td>
-                <td className="p-3 font-mono">{cert.certificate_number}</td>
-                <td className="p-3">{cert.issued_date}</td>
-                <td className="p-3">{cert.expiration_date ?? 'Permanent'}</td>
-                <td className="p-3">
+                <td className="p-2 font-mono text-xs">{cert.certificate_number}</td>
+                <td className="p-2 whitespace-nowrap">{cert.issued_date}</td>
+                <td className="p-2 whitespace-nowrap">{cert.expiration_date ?? 'Permanent'}</td>
+                <td className="p-2">
                   {cert.status === 'revoked' ? (
-                    <Badge className="bg-red-100 text-red-800">Revoked</Badge>
+                    <Badge className="bg-red-100 text-red-800 text-xs">Revoked</Badge>
                   ) : (
-                    <Badge className="bg-green-100 text-green-800">Active</Badge>
+                    <Badge className="bg-green-100 text-green-800 text-xs">Active</Badge>
                   )}
                 </td>
-                <td className="p-3 font-mono text-xs">{cert.verification_code}</td>
-                <td className="p-3">
-                  {cert.pdf_url && (
-                    <a href={cert.pdf_url} target="_blank" className="text-cyan-500 hover:underline">
-                      Download
+                <td className="p-2 font-mono text-xs">{cert.verification_code}</td>
+                <td className="p-2 pr-3">
+                  {cert.pdf_url ? (
+                    <a href={cert.pdf_url} target="_blank" className="text-cyan-500 hover:underline text-xs">
+                      PDF
                     </a>
+                  ) : (
+                    <span className="text-muted-foreground text-xs">—</span>
                   )}
                 </td>
               </tr>
@@ -99,29 +101,31 @@ export default function CertificatesPage() {
         </Link>
       </div>
 
-      <Tabs defaultValue="all" className="bg-white rounded-lg border">
-        <TabsList className="border-b w-full justify-start rounded-none bg-zinc-50 p-0 h-auto">
-          <TabsTrigger value="all" className="rounded-none border-b-2 border-transparent data-[state=active]:border-ada-purple px-4 py-2">
+      <Tabs defaultValue="all" className="bg-white rounded-lg border overflow-hidden">
+        <TabsList className="border-b w-full justify-start rounded-none bg-zinc-50 p-0 h-auto flex flex-row flex-wrap gap-0">
+          <TabsTrigger value="all" className="rounded-none border-b-2 border-transparent data-[state=active]:border-ada-purple px-4 py-2 text-sm">
             All ({certs.length})
           </TabsTrigger>
           {CERTIFICATE_TYPES.map((type) => {
             const count = certs.filter((c) => c.certificate_type === type).length;
             if (count === 0) return null;
             return (
-              <TabsTrigger key={type} value={type} className="rounded-none border-b-2 border-transparent data-[state=active]:border-ada-purple px-4 py-2">
+              <TabsTrigger key={type} value={type} className="rounded-none border-b-2 border-transparent data-[state=active]:border-ada-purple px-4 py-2 text-sm">
                 {CERT_TYPE_LABELS[type].replace('ADA ', '').replace(' Certificate', '').replace('American Red Cross ', '')} ({count})
               </TabsTrigger>
             );
           })}
         </TabsList>
-        <TabsContent value="all">
-          <CertTable items={certs} />
-        </TabsContent>
-        {CERTIFICATE_TYPES.map((type) => (
-          <TabsContent key={type} value={type}>
-            <CertTable items={certs.filter((c) => c.certificate_type === type)} />
+        <div className="overflow-x-auto">
+          <TabsContent value="all" className="mt-0">
+            <CertTable items={certs} />
           </TabsContent>
-        ))}
+          {CERTIFICATE_TYPES.map((type) => (
+            <TabsContent key={type} value={type} className="mt-0">
+              <CertTable items={certs.filter((c) => c.certificate_type === type)} />
+            </TabsContent>
+          ))}
+        </div>
       </Tabs>
     </div>
   );
