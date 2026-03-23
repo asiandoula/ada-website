@@ -268,15 +268,28 @@ export default function PortalPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-white">
-          <div className="max-w-[400px] mx-auto px-6">
-            <div className="border-2 border-ada-navy/10 rounded-2xl p-8">
-              <h2 className="font-outfit font-semibold text-ada-navy text-lg mb-6">
-                Verify Your Identity
-              </h2>
-              <form onSubmit={handleVerify} className="space-y-4">
+        <section className="py-20 bg-gray-50/50">
+          <div className="max-w-[440px] mx-auto px-6">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-200/80 overflow-hidden">
+              {/* Form header */}
+              <div className="px-8 pt-8 pb-6 border-b border-gray-100">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-ada-purple/10 flex items-center justify-center">
+                    <ShieldCheck className="w-4 h-4 text-ada-purple" />
+                  </div>
+                  <h2 className="font-outfit font-semibold text-ada-navy text-lg">
+                    Sign In
+                  </h2>
+                </div>
+                <p className="text-sm text-ada-navy/50 font-outfit">
+                  Enter your Doula ID and contact information to access your portal.
+                </p>
+              </div>
+
+              {/* Form body */}
+              <form onSubmit={handleVerify} className="px-8 py-6 space-y-5">
                 <div>
-                  <label htmlFor="idCode" className="block text-xs font-outfit font-semibold text-ada-navy/40 uppercase tracking-wider mb-2">
+                  <label htmlFor="idCode" className="block text-sm font-outfit font-medium text-ada-navy mb-1.5">
                     Doula ID Code
                   </label>
                   <input
@@ -284,25 +297,25 @@ export default function PortalPage() {
                     type="text"
                     value={idCode}
                     onChange={(e) => setIdCode(e.target.value)}
-                    placeholder="e.g., #25-311"
+                    placeholder="#25-0001"
                     required
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-ada-navy font-outfit text-sm focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-ada-navy font-outfit text-sm focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple placeholder:text-gray-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-outfit font-semibold text-ada-navy/40 uppercase tracking-wider mb-2">
-                    Contact Information
+                  <label className="block text-sm font-outfit font-medium text-ada-navy mb-1.5">
+                    Verify with
                   </label>
-                  <div className="flex gap-2 mb-2">
+                  <div className="flex border border-gray-300 rounded-lg overflow-hidden mb-3">
                     <button
                       type="button"
                       aria-pressed={contactMethod === 'email'}
                       onClick={() => { setContactMethod('email'); setContactValue(''); }}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-outfit font-medium transition-colors ${
+                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 text-sm font-outfit font-medium transition-colors ${
                         contactMethod === 'email'
                           ? 'bg-ada-navy text-white'
-                          : 'bg-ada-navy/5 text-ada-navy/60 hover:bg-ada-navy/10'
+                          : 'bg-white text-ada-navy/50 hover:bg-gray-50'
                       }`}
                     >
                       <Mail className="w-3.5 h-3.5" /> Email
@@ -311,10 +324,10 @@ export default function PortalPage() {
                       type="button"
                       aria-pressed={contactMethod === 'phone'}
                       onClick={() => { setContactMethod('phone'); setContactValue(''); }}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-outfit font-medium transition-colors ${
+                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 text-sm font-outfit font-medium transition-colors border-l border-gray-300 ${
                         contactMethod === 'phone'
                           ? 'bg-ada-navy text-white'
-                          : 'bg-ada-navy/5 text-ada-navy/60 hover:bg-ada-navy/10'
+                          : 'bg-white text-ada-navy/50 hover:bg-gray-50'
                       }`}
                     >
                       <Phone className="w-3.5 h-3.5" /> Phone
@@ -327,31 +340,37 @@ export default function PortalPage() {
                     placeholder={contactMethod === 'email' ? 'your@email.com' : '(626) 555-1234'}
                     required
                     aria-label={contactMethod === 'email' ? 'Email address' : 'Phone number'}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-ada-navy font-outfit text-sm focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple"
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-ada-navy font-outfit text-sm focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple placeholder:text-gray-400"
                   />
                 </div>
 
-                {error && <p className="text-sm text-red-600 font-outfit">{error}</p>}
+                {error && (
+                  <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-100 rounded-lg">
+                    <p className="text-sm text-red-700 font-outfit">{error}</p>
+                  </div>
+                )}
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-sm hover:bg-ada-purple-hover transition-colors disabled:opacity-50"
+                  className="w-full py-2.5 rounded-lg bg-ada-purple text-white font-outfit font-semibold text-sm hover:bg-ada-purple-hover transition-colors disabled:opacity-50"
                 >
                   {loading ? 'Verifying...' : 'Access Portal'}
                 </button>
               </form>
             </div>
 
-            <p className="mt-6 text-center text-xs text-ada-navy/30 font-outfit">
-              Your ID code is on your ADA certification certificate.
-            </p>
-            <p className="mt-2 text-center text-xs text-ada-navy/30 font-outfit">
-              Need to verify a doula?{' '}
-              <Link href="/verify" className="text-ada-purple hover:underline">
-                Public Verification &rarr;
-              </Link>
-            </p>
+            <div className="mt-6 text-center space-y-1.5">
+              <p className="text-xs text-ada-navy/35 font-outfit">
+                Your ID code can be found on your ADA certification certificate or in the email from ADA.
+              </p>
+              <p className="text-xs text-ada-navy/35 font-outfit">
+                Need to verify a doula?{' '}
+                <Link href="/verify" className="text-ada-purple hover:underline font-medium">
+                  Public Verification &rarr;
+                </Link>
+              </p>
+            </div>
           </div>
         </section>
       </>

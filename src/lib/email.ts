@@ -27,37 +27,45 @@ function baseTemplate(content: string): string {
   `;
 }
 
-export function examPassTemplate(doulaName: string): { subject: string; html: string } {
+function portalInstructions(doulaIdCode: string): string {
+  return `
+    <div style="background: #f8f7ff; border: 1px solid #e5e1f5; border-radius: 8px; padding: 16px; margin: 20px 0;">
+      <p style="margin: 0 0 8px 0; font-size: 13px; color: #6b7280;">To access your results, log in to the Doula Portal with your ID code:</p>
+      <p style="margin: 0; font-size: 18px; font-weight: 700; color: #1a1a1a; letter-spacing: 0.5px;">${doulaIdCode}</p>
+    </div>
+    <p style="margin: 20px 0;">
+      <a href="${PORTAL_URL}" style="background-color: #7c3aed; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600;">Access Doula Portal</a>
+    </p>
+  `;
+}
+
+export function examPassTemplate(doulaName: string, doulaIdCode: string): { subject: string; html: string } {
   return {
     subject: 'Congratulations on Passing the ADA Postpartum Doula Exam',
     html: baseTemplate(`
       <p>Dear ${doulaName},</p>
       <p>On behalf of our certification team, <strong>congratulations on successfully passing the ADA Postpartum Doula Exam</strong>. This result reflects your knowledge, practical readiness, and commitment to excellence in postpartum care.</p>
       <p>You can view your detailed exam results by logging into your Doula Portal:</p>
-      <p style="margin: 20px 0;">
-        <a href="${PORTAL_URL}" style="background-color: #7c3aed; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600;">View Your Results</a>
-      </p>
+      ${portalInstructions(doulaIdCode)}
       <p>Your official ADA certification will be issued separately. If you have any questions, feel free to contact us.</p>
     `),
   };
 }
 
-export function examFailTemplate(doulaName: string): { subject: string; html: string } {
+export function examFailTemplate(doulaName: string, doulaIdCode: string): { subject: string; html: string } {
   return {
     subject: 'ADA Postpartum Doula Exam Results',
     html: baseTemplate(`
       <p>Dear ${doulaName},</p>
       <p>Thank you for taking the ADA Postpartum Doula Exam. We appreciate your dedication and commitment to advancing your knowledge of postpartum care.</p>
       <p>After careful evaluation, the required passing score was not achieved at this time. However, we commend your efforts and encourage you to review your detailed results, which outline your scores across key assessment areas.</p>
-      <p style="margin: 20px 0;">
-        <a href="${PORTAL_URL}" style="background-color: #7c3aed; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600;">View Your Results</a>
-      </p>
+      ${portalInstructions(doulaIdCode)}
       <p>This report is intended to help you identify strengths and areas for improvement as you continue preparing for future success. If you have any questions or would like guidance on next steps, please don't hesitate to reach out.</p>
     `),
   };
 }
 
-export function certificateTemplate(doulaName: string, certNumber: string, expirationDate: string): { subject: string; html: string } {
+export function certificateTemplate(doulaName: string, doulaIdCode: string, certNumber: string, expirationDate: string): { subject: string; html: string } {
   return {
     subject: 'Your ADA Postpartum Doula Certificate',
     html: baseTemplate(`
@@ -69,9 +77,7 @@ export function certificateTemplate(doulaName: string, certNumber: string, expir
       </div>
       <p>Please find your certificate attached to this email as a PDF. This certification is recognized by the ADA and may be used to demonstrate your professional qualifications.</p>
       <p>You can also view your credentials anytime through the Doula Portal:</p>
-      <p style="margin: 20px 0;">
-        <a href="${PORTAL_URL}" style="background-color: #7c3aed; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600;">View Your Portal</a>
-      </p>
+      ${portalInstructions(doulaIdCode)}
       <p>If you have any questions, feel free to contact us.</p>
     `),
   };
@@ -83,6 +89,7 @@ export interface SendEmailParams {
   type: EmailType;
   recipientEmail: string;
   doulaName: string;
+  doulaIdCode: string;
   certNumber?: string;
   expirationDate?: string;
   pdfBuffer?: Buffer;
@@ -94,13 +101,13 @@ export async function sendEmail(params: SendEmailParams): Promise<{ id: string }
 
   switch (params.type) {
     case 'exam_pass':
-      template = examPassTemplate(params.doulaName);
+      template = examPassTemplate(params.doulaName, params.doulaIdCode);
       break;
     case 'exam_fail':
-      template = examFailTemplate(params.doulaName);
+      template = examFailTemplate(params.doulaName, params.doulaIdCode);
       break;
     case 'certificate':
-      template = certificateTemplate(params.doulaName, params.certNumber!, params.expirationDate!);
+      template = certificateTemplate(params.doulaName, params.doulaIdCode, params.certNumber!, params.expirationDate!);
       break;
   }
 

@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       try {
         const { data: doula } = await supabaseAdmin
           .from('doulas')
-          .select('full_name')
+          .select('full_name, doula_id_code')
           .eq('id', email.doula_id)
           .single();
 
@@ -55,6 +55,7 @@ export async function POST(request: NextRequest) {
           type: email.type,
           recipientEmail: email.recipient_email,
           doulaName: doula.full_name,
+          doulaIdCode: doula.doula_id_code,
         };
 
         if (email.type === 'certificate') {
