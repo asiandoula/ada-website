@@ -432,7 +432,7 @@ export default function HomePage() {
               },
               {
                 name: 'DONA International',
-                logo: '/images/partners/dona.jpg',
+                logo: '/images/partners/dona.webp',
                 description: 'As one of the largest and most established doula organizations, DONA International partners with ADA to ensure high standards of training, certification, and professional support for doulas.',
               },
               {
