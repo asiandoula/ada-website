@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ContactForm } from '@/components/public/contact-form';
+import { ShieldCheck, ExternalLink, MessageCircle, Search } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Find a Doula | Asian Doula Alliance',
@@ -13,33 +14,6 @@ export const metadata: Metadata = {
   },
 };
 
-const sidebarLinks = [
-  { label: 'How We Train', href: '/for-families/how-we-train' },
-  { label: 'Verify a Doula', href: '/verify' },
-  { label: 'FAQ', href: '/support/faq' },
-];
-
-const matchSteps = [
-  {
-    number: '01',
-    title: 'Tell us about your needs',
-    description:
-      'Contact ADA with your due date, location, language preference, and any specific cultural practices you\u2019d like supported.',
-  },
-  {
-    number: '02',
-    title: 'We match you with a doula',
-    description:
-      'Based on your needs, we recommend certified doulas in your area who speak your language and understand your traditions.',
-  },
-  {
-    number: '03',
-    title: 'Meet and choose',
-    description:
-      'Interview your matched doulas to find the right fit for your family.',
-  },
-];
-
 const languages = ['English', 'Mandarin', 'Cantonese', 'Japanese', 'Korean'];
 
 const serviceAreas = [
@@ -49,146 +23,237 @@ const serviceAreas = [
   'Seattle',
   'New York City',
   'Chicago',
-  'and growing',
 ];
 
 export default function FindADoulaPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
+      <section className="bg-ada-navy pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: 'repeating-linear-gradient(45deg, white 0, white 1px, transparent 1px, transparent 12px)',
+        }} />
+        <div className="relative max-w-[900px] mx-auto px-6 text-center">
+          <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-white/50 mb-4">
             For Families
-          </span>
-          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Find a Doula
+          </p>
+          <h1 className="font-dm-serif text-4xl md:text-5xl lg:text-6xl text-white">
+            Find an ADA-Certified Doula
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            Connect with a certified postpartum doula who speaks your language.
+          <p className="mt-6 text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+            ADA certifies doulas to the highest standards of culturally integrated postpartum care. We can help connect you with a certified professional.
           </p>
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* Three Pathways */}
       <section className="py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
-            {/* Main Column */}
-            <div className="lg:w-4/5 space-y-16">
-              {/* Intro */}
-              <p className="text-lg text-ada-navy/70 leading-relaxed">
-                ADA-certified doulas serve families across the United States,
-                with the largest communities in California, the Pacific
-                Northwest, and the New York metro area. All our doulas are
-                trained in culturally integrated care and can support you in your
-                preferred language.
+        <div className="max-w-[1100px] mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
+              Three Ways to Connect
+            </h2>
+            <p className="mt-4 text-lg text-ada-navy/50 max-w-2xl mx-auto">
+              Whether you already have a doula in mind or need help finding the right match, we have a path for you.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Pathway 1: Cooings Partner */}
+            <div className="relative border-2 border-ada-purple/20 rounded-2xl p-8 bg-gradient-to-b from-ada-purple/[0.03] to-transparent">
+              <div className="absolute -top-3 left-8">
+                <span className="bg-ada-purple text-white text-xs font-outfit font-semibold px-3 py-1 rounded-full">
+                  Recommended
+                </span>
+              </div>
+              <div className="w-12 h-12 rounded-xl bg-ada-purple/10 flex items-center justify-center mb-6">
+                <ExternalLink className="w-6 h-6 text-ada-purple" />
+              </div>
+              <h3 className="font-dm-serif text-xl text-ada-navy mb-3">
+                Through Our Partner
+              </h3>
+              <p className="text-sm text-ada-navy/60 leading-relaxed mb-6">
+                <strong className="text-ada-navy">Cooings</strong> specializes in culturally integrated postpartum doula care. Their entire roster consists of ADA-certified doulas who speak Mandarin, Cantonese, Japanese, Korean, and English.
               </p>
-
-              {/* How to Get Matched */}
-              <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                  How to Get Matched
-                </h2>
-                <div className="mt-8 space-y-8">
-                  {matchSteps.map((step) => (
-                    <div key={step.number}>
-                      <span className="font-dm-serif text-3xl text-ada-purple/40">
-                        {step.number}
-                      </span>
-                      <h3 className="mt-2 font-dm-serif text-xl text-ada-navy">
-                        {step.title}
-                      </h3>
-                      <p className="mt-2 text-ada-navy/70 leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Languages Supported */}
-              <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                  Languages Supported
-                </h2>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  {languages.map((lang) => (
-                    <span
-                      key={lang}
-                      className="px-4 py-2 bg-ada-off-white rounded-full text-ada-navy/70 text-sm"
-                    >
-                      {lang}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Service Areas */}
-              <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                  Service Areas
-                </h2>
-                <ul className="mt-6 space-y-3">
-                  {serviceAreas.map((area) => (
-                    <li
-                      key={area}
-                      className="flex items-start gap-3 text-ada-navy/70 leading-relaxed"
-                    >
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-ada-purple shrink-0" />
-                      {area}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* CTA Block */}
-              <div className="bg-ada-off-white rounded-2xl p-10 text-center">
-                <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
-                  Ready to Find Your Doula?
-                </h2>
-                <div className="mt-6 flex flex-wrap justify-center gap-4">
-                  <Link
-                    href="/support/contact"
-                    className="inline-flex items-center px-4 py-2.5 text-sm bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
-                  >
-                    Contact Us
-                  </Link>
-                  <Link
-                    href="/verify"
-                    className="inline-flex items-center px-4 py-2.5 text-sm border-2 border-ada-purple text-ada-purple font-medium rounded-full hover:bg-ada-purple hover:text-white transition-colors"
-                  >
-                    Verify a Doula
-                  </Link>
-                </div>
-              </div>
+              <ul className="text-sm text-ada-navy/50 space-y-2 mb-8">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 rounded-full bg-ada-purple shrink-0" />
+                  Insurance billing support (Kaiser, Medi-Cal, Cigna)
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 rounded-full bg-ada-purple shrink-0" />
+                  Serving LA, Bay Area, Seattle, NYC, Chicago
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 rounded-full bg-ada-purple shrink-0" />
+                  Personalized matching based on your needs
+                </li>
+              </ul>
+              <a
+                href="https://www.cooings.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 w-full justify-center px-5 py-3 bg-ada-purple text-white font-outfit font-semibold text-sm rounded-xl hover:bg-ada-purple-hover transition-colors"
+              >
+                Visit Cooings <ExternalLink className="w-4 h-4" />
+              </a>
             </div>
 
-            {/* Sidebar */}
-            <aside className="lg:w-1/5">
-              <div className="lg:sticky lg:top-32">
-                <p className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-                  For Families
-                </p>
-                <nav className="mt-4 space-y-3">
-                  {sidebarLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="block text-ada-navy/60 hover:text-ada-purple transition-colors text-sm"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
+            {/* Pathway 2: Contact ADA */}
+            <div className="border border-gray-200 rounded-2xl p-8">
+              <div className="w-12 h-12 rounded-xl bg-ada-navy/5 flex items-center justify-center mb-6">
+                <MessageCircle className="w-6 h-6 text-ada-navy/60" />
               </div>
-            </aside>
+              <h3 className="font-dm-serif text-xl text-ada-navy mb-3">
+                Ask ADA Directly
+              </h3>
+              <p className="text-sm text-ada-navy/60 leading-relaxed mb-6">
+                Not sure where to start? Reach out to us directly. We maintain relationships with certified doulas across the country and can personally recommend someone based on your location, language, and care preferences.
+              </p>
+              <ul className="text-sm text-ada-navy/50 space-y-2 mb-8">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 rounded-full bg-ada-navy/30 shrink-0" />
+                  Personalized recommendation
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 rounded-full bg-ada-navy/30 shrink-0" />
+                  Independent doulas & partner agencies
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 rounded-full bg-ada-navy/30 shrink-0" />
+                  No obligation, no cost
+                </li>
+              </ul>
+              <Link
+                href="#contact"
+                className="inline-flex items-center gap-2 w-full justify-center px-5 py-3 border-2 border-ada-navy/15 text-ada-navy font-outfit font-semibold text-sm rounded-xl hover:bg-ada-navy/5 transition-colors"
+              >
+                Contact Us Below
+              </Link>
+            </div>
+
+            {/* Pathway 3: Verify */}
+            <div className="border border-gray-200 rounded-2xl p-8">
+              <div className="w-12 h-12 rounded-xl bg-ada-navy/5 flex items-center justify-center mb-6">
+                <Search className="w-6 h-6 text-ada-navy/60" />
+              </div>
+              <h3 className="font-dm-serif text-xl text-ada-navy mb-3">
+                Verify a Doula
+              </h3>
+              <p className="text-sm text-ada-navy/60 leading-relaxed mb-6">
+                Already found a doula and want to confirm their ADA certification? Use our public verification tool to check their credentials, certification status, and expiration date.
+              </p>
+              <ul className="text-sm text-ada-navy/50 space-y-2 mb-8">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 rounded-full bg-ada-navy/30 shrink-0" />
+                  Search by name, ID, or certificate number
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 rounded-full bg-ada-navy/30 shrink-0" />
+                  Real-time certification status
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1 w-1 rounded-full bg-ada-navy/30 shrink-0" />
+                  Instant results
+                </li>
+              </ul>
+              <Link
+                href="/verify"
+                className="inline-flex items-center gap-2 w-full justify-center px-5 py-3 border-2 border-ada-navy/15 text-ada-navy font-outfit font-semibold text-sm rounded-xl hover:bg-ada-navy/5 transition-colors"
+              >
+                Verify Credentials
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why ADA Certification Matters */}
+      <section className="py-20 bg-ada-off-white">
+        <div className="max-w-[900px] mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
+              Why ADA Certification Matters
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                title: 'Rigorous Training',
+                desc: '7-module curriculum covering postpartum care, newborn care, lactation support, emergency response, and cultural competency.',
+              },
+              {
+                title: 'Examination & Assessment',
+                desc: 'Certified doulas pass a comprehensive exam testing knowledge across all domains of postpartum care.',
+              },
+              {
+                title: 'Cultural Competency',
+                desc: 'Specialized training in Asian postpartum traditions including 坐月子, 산후조리, and 里帰り, alongside evidence-based practices.',
+              },
+              {
+                title: 'Ongoing Standards',
+                desc: 'Annual renewal requirements ensure doulas maintain current knowledge and adhere to our Code of Conduct.',
+              },
+            ].map((item) => (
+              <div key={item.title} className="flex gap-4">
+                <div className="mt-1 shrink-0">
+                  <ShieldCheck className="w-5 h-5 text-ada-purple" />
+                </div>
+                <div>
+                  <h3 className="font-outfit font-semibold text-ada-navy mb-1">{item.title}</h3>
+                  <p className="text-sm text-ada-navy/60 leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Languages & Service Areas */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[900px] mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div>
+              <h2 className="font-dm-serif text-2xl text-ada-navy mb-6">
+                Languages Supported
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {languages.map((lang) => (
+                  <span
+                    key={lang}
+                    className="px-4 py-2 bg-ada-off-white rounded-full text-ada-navy/70 text-sm font-outfit"
+                  >
+                    {lang}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h2 className="font-dm-serif text-2xl text-ada-navy mb-6">
+                Service Areas
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {serviceAreas.map((area) => (
+                  <span
+                    key={area}
+                    className="px-4 py-2 bg-ada-off-white rounded-full text-ada-navy/70 text-sm font-outfit"
+                  >
+                    {area}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-4 text-xs text-ada-navy/40 font-outfit">
+                Our network of certified doulas is growing. Contact us if you need support in an area not listed.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Contact */}
-      <ContactForm />
+      <div id="contact">
+        <ContactForm />
+      </div>
     </>
   );
 }
