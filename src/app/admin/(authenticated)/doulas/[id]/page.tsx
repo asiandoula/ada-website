@@ -407,15 +407,12 @@ export default function EditDoulaPage() {
                       )}
                     </td>
                     <td className="p-2">
-                      {exam.email_sent_at ? (
-                        <span className="text-green-600 text-xs" title={`Sent ${new Date(exam.email_sent_at).toLocaleString()}`}>
-                          ✉ Sent
-                        </span>
-                      ) : exam.passed !== null ? (
+                      {exam.passed !== null ? (
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-xs h-6 text-muted-foreground"
+                          className={`text-xs h-6 ${exam.email_sent_at ? 'text-green-600' : 'text-muted-foreground'}`}
+                          title={exam.email_sent_at ? `Sent ${new Date(exam.email_sent_at).toLocaleString()}` : undefined}
                           onClick={() => {
                             if (!doula.email) {
                               alert('This doula has no email address.');
@@ -433,7 +430,7 @@ export default function EditDoulaPage() {
                             setShowEmailDialog(true);
                           }}
                         >
-                          ✉ Send
+                          {exam.email_sent_at ? '✉ Resend' : '✉ Send'}
                         </Button>
                       ) : (
                         <span className="text-xs text-muted-foreground">—</span>
@@ -542,15 +539,12 @@ export default function EditDoulaPage() {
                       )}
                     </td>
                     <td className="p-2">
-                      {cert.email_sent_at ? (
-                        <span className="text-green-600 text-xs" title={`Sent ${new Date(cert.email_sent_at).toLocaleString()}`}>
-                          ✉ Sent
-                        </span>
-                      ) : cert.status !== 'revoked' ? (
+                      {cert.status !== 'revoked' ? (
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-xs h-6 text-muted-foreground"
+                          className={`text-xs h-6 ${cert.email_sent_at ? 'text-green-600' : 'text-muted-foreground'}`}
+                          title={cert.email_sent_at ? `Sent ${new Date(cert.email_sent_at).toLocaleString()}` : undefined}
                           onClick={() => {
                             if (!doula.email) {
                               alert('This doula has no email address.');
@@ -567,7 +561,7 @@ export default function EditDoulaPage() {
                             setShowEmailDialog(true);
                           }}
                         >
-                          ✉ Send
+                          {cert.email_sent_at ? '✉ Resend' : '✉ Send'}
                         </Button>
                       ) : null}
                     </td>
