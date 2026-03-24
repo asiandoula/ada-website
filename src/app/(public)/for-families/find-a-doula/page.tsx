@@ -76,11 +76,11 @@ export default function FindADoulaPage() {
                   <div className="flex flex-col md:flex-row">
                     <div className="md:w-2/5 relative">
                       <Image
-                        src="/images/families/training-hero.webp"
-                        alt="ADA-certified doula caring for a newborn"
-                        width={800}
-                        height={600}
-                        className="w-full h-full object-cover min-h-[240px]"
+                        src="/images/families/cooings-partner.webp"
+                        alt="Cooings doula providing postpartum care to a new mother"
+                        width={1200}
+                        height={857}
+                        className="w-full h-full object-cover object-center min-h-[240px]"
                       />
                     </div>
                     <div className="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
