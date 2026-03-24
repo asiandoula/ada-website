@@ -72,21 +72,21 @@ export default function EditArticlePage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const supabase = createClient();
-    const ext = file.name.split('.').pop();
-    const path = `covers/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const formData = new FormData();
+    formData.append('file', file);
 
-    const { error } = await supabase.storage
-      .from('articles')
-      .upload(path, file, { contentType: file.type });
+    const res = await fetch('/api/articles/upload-cover', {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await res.json();
 
-    if (error) {
-      toast.error(`Upload failed: ${error.message}`);
+    if (!res.ok) {
+      toast.error(`Upload failed: ${data.error}`);
       return;
     }
 
-    const { data } = supabase.storage.from('articles').getPublicUrl(path);
-    setCoverImage(data.publicUrl);
+    setCoverImage(data.url);
     toast.success('Cover image uploaded');
   };
 
