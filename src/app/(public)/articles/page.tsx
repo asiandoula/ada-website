@@ -15,10 +15,12 @@ export const metadata: Metadata = {
   },
 };
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 const ALL_CATEGORIES = ['all', 'news', 'education', 'community', 'certification'] as const;
 
@@ -31,6 +33,7 @@ export default async function ArticlesPage({
 }: {
   searchParams: Promise<SearchParams>;
 }) {
+  const supabase = getSupabase();
   const params = await searchParams;
   const activeCategory = params.category || 'all';
 

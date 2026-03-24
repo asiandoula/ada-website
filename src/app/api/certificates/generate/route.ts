@@ -3,10 +3,12 @@ import { createClient } from '@supabase/supabase-js';
 import { generateCertificatePDF } from '@/components/certificate/pdf-template';
 import { generateVerificationCode, generateCertificateNumber } from '@/lib/utils';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,6 +16,7 @@ export async function POST(request: NextRequest) {
     const { doula_id, certificate_type } = body;
 
     // Fetch doula
+    const supabase = getSupabase();
     const { data: doula, error: doulaError } = await supabase
       .from('doulas')
       .select('*')

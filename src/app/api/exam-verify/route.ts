@@ -26,10 +26,12 @@ function checkRateLimit(key: string): boolean {
   return true;
 }
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 export async function POST(request: NextRequest) {
   let body: Record<string, unknown>;
@@ -64,6 +66,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Look up doula by doula_id_code
+  const supabase = getSupabase();
   const { data: doula, error } = await supabase
     .from('doulas')
     .select('id, doula_id_code, full_name')

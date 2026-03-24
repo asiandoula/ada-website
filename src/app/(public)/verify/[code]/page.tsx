@@ -5,10 +5,12 @@ import { CERT_TYPE_LABELS } from '@/lib/constants';
 import type { CertificateType } from '@/lib/constants';
 import { ShieldCheck, ShieldAlert, ShieldX, Search, ArrowLeft } from 'lucide-react';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 function formatDate(dateStr: string | null): string {
   if (!dateStr) return '—';
@@ -24,6 +26,7 @@ export default async function VerifyResultPage({
 }: {
   params: Promise<{ code: string }>;
 }) {
+  const supabase = getSupabase();
   const { code } = await params;
   const decoded = decodeURIComponent(code);
 

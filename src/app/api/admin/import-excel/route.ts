@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import * as XLSX from 'xlsx';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 function excelDate(serial: number | string | null): string | null {
   if (!serial || typeof serial === 'string') return null;
@@ -41,6 +43,7 @@ function mapExamStatus(s: string): string {
 }
 
 export async function POST(request: NextRequest) {
+  const supabase = getSupabase();
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;

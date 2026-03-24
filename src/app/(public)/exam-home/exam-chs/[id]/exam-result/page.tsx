@@ -13,10 +13,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Award, FileCheck, ExternalLink } from 'lucide-react';
 import { ScoreBreakdown } from './score-breakdown';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 const SUBCATEGORIES = [
   { key: 'score_terminology', label: 'Terminology' },
@@ -34,6 +36,7 @@ export default async function ExamResultPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const supabase = getSupabase();
   const { id } = await params;
   const cookieStore = await cookies();
   const examToken = cookieStore.get('exam_token')?.value;

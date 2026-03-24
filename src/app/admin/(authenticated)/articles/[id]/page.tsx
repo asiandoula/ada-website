@@ -5,7 +5,6 @@ import { useRouter, useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { RichTextEditor } from '@/components/admin/rich-text-editor';
-import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
 
 const CATEGORIES = [

@@ -2,10 +2,12 @@ import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 const TYPE_LABELS: Record<string, string> = {
   exam_pass: 'Exam — Pass',
@@ -24,6 +26,7 @@ export default async function EmailsPage({
 }: {
   searchParams: Promise<{ type?: string; page?: string }>;
 }) {
+  const supabase = getSupabase();
   const params = await searchParams;
   const typeFilter = params.type || '';
   const page = parseInt(params.page || '1', 10);

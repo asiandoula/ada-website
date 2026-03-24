@@ -5,16 +5,19 @@ import { ArticleCard } from '@/components/public/article-card';
 import { TableOfContents } from './table-of-contents';
 import type { Metadata } from 'next';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const supabase = getSupabase();
   const { slug } = await params;
   const { data: article } = await supabase
     .from('articles')
@@ -37,6 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ArticleDetailPage({ params }: PageProps) {
+  const supabase = getSupabase();
   const { slug } = await params;
 
   const { data: article } = await supabase
