@@ -80,7 +80,7 @@ export default function FindADoulaPage() {
                         alt="Cooings doula providing postpartum care to a new mother"
                         width={1200}
                         height={857}
-                        className="w-full h-full object-cover object-center min-h-[240px]"
+                        className="w-full h-full object-cover object-[35%_center] min-h-[240px]"
                       />
                     </div>
                     <div className="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
