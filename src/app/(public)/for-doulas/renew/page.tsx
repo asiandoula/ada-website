@@ -49,6 +49,12 @@ export default function RenewRecertificationPage() {
                 </div>
                 <div className="flex-1 bg-ada-off-white rounded-xl p-6">
                   <h3 className="font-outfit font-semibold text-ada-navy mb-1">
+                    Renewal Fee
+                  </h3>
+                  <p className="text-2xl font-outfit font-bold text-ada-purple">$100</p>
+                </div>
+                <div className="flex-1 bg-ada-off-white rounded-xl p-6">
+                  <h3 className="font-outfit font-semibold text-ada-navy mb-1">
                     Renewal Pathways
                   </h3>
                   <p className="text-2xl font-outfit font-bold text-ada-purple">2 Options</p>

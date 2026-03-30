@@ -34,7 +34,7 @@ const faqData = [
       },
       {
         q: 'How long is the certification valid?',
-        a: 'ADA certification is valid for 3 years. Renewal requires continuing education and a renewal fee.',
+        a: 'ADA certification is valid for 1 year. Renewal costs $100 and requires either 3 professional reference letters or passing a recertification exam.',
       },
       {
         q: 'How much does certification cost?',

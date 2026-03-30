@@ -28,7 +28,7 @@ const certSteps = [
     number: '3',
     title: 'Pass the Certification Examination',
     description:
-      'Register for and pass the ADA Certification Examination. The exam consists of a 60-minute written test and a 30-minute practical evaluation conducted one-on-one with an examiner. The exam fee is $625 and is available in English, Chinese, Japanese, and Korean. Upon passing, you will receive your ADA certification, valid for 3 years.',
+      'Register for and pass the ADA Certification Examination. The exam consists of a 60-minute written test and a 30-minute practical evaluation conducted one-on-one with an examiner. The exam fee is $625 and is available in English, Chinese, Japanese, and Korean. Upon passing, you will receive your ADA certification, valid for 1 year.',
   },
 ];
 
@@ -56,7 +56,7 @@ const faqItems = [
   {
     question: 'What happens after I pass?',
     answer:
-      "You'll receive your ADA certification (valid for 3 years), a unique exam ID, and immediate listing in our verified doula registry. Insurance providers can verify your certification through our system.",
+      "You'll receive your ADA certification (valid for 1 year), a unique exam ID, and immediate listing in our verified doula registry. Insurance providers can verify your certification through our system.",
   },
 ];
 
@@ -71,7 +71,7 @@ const glanceItems = [
   { label: 'Exam Fee', value: '$625' },
   { label: 'Exam Format', value: 'Written (60 min) + Practical (30 min)' },
   { label: 'Languages', value: 'English, Chinese, Japanese, Korean' },
-  { label: 'Certificate Validity', value: '3 years' },
+  { label: 'Certificate Validity', value: '1 year' },
 ];
 
 const certBenefits = [

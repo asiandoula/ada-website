@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const certDetails = [
   { label: 'Format', value: 'Written + Practical exam (details TBD)' },
   { label: 'Languages', value: 'English, Chinese, Japanese, Korean' },
-  { label: 'Validity', value: '3 years (anticipated)' },
+  { label: 'Validity', value: '1 year (anticipated)' },
   { label: 'Prerequisites', value: 'No prior experience required' },
 ];
 

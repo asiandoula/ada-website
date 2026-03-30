@@ -14,7 +14,8 @@ const examDetails = [
   { label: 'Practical Exam', value: '30 minutes (one-on-one)' },
   { label: 'Exam Fee', value: '$625' },
   { label: 'Languages', value: 'English, Chinese, Japanese, Korean' },
-  { label: 'Certificate Validity', value: '3 years' },
+  { label: 'Certificate Validity', value: '1 year' },
+  { label: 'Retake Fee', value: '$325' },
   { label: 'Exam ID Format', value: 'YY-NNNNN (e.g., 25-80301)' },
 ];
 
@@ -37,7 +38,7 @@ const faqItems = [
   {
     question: 'What if I fail the exam?',
     answer:
-      'If you do not pass on your first attempt, you may retake the exam. A retake fee applies. We recommend reviewing the areas identified for improvement and consulting with your training program before reattempting the exam.',
+      'If you do not pass on your first attempt, you may retake the exam for a fee of $325. You must wait at least 30 days before retaking the exam. We recommend reviewing the areas identified for improvement and consulting with your training program before reattempting.',
   },
   {
     question: 'How do I register for the exam?',
@@ -97,7 +98,7 @@ export default function ExamDetailsPage() {
                   professional postpartum doula care. The exam consists of a written portion
                   and a practical evaluation, both designed to assess your knowledge of
                   evidence-based practices and hands-on competency. Candidates who pass
-                  receive an ADA certification valid for three years.
+                  receive an ADA certification valid for one year.
                 </p>
               </div>
 

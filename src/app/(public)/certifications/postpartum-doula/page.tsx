@@ -24,7 +24,9 @@ const glanceItems = [
   { label: 'Exam Fee', value: '$625' },
   { label: 'Exam Format', value: 'Written (60 min) + Practical (30 min)' },
   { label: 'Languages', value: 'English, Chinese, Japanese, Korean' },
-  { label: 'Certificate', value: 'Valid for 3 years' },
+  { label: 'Certificate', value: 'Valid for 1 year' },
+  { label: 'Retake Fee', value: '$325' },
+  { label: 'Renewal Fee', value: '$100' },
 ];
 
 const learningItems = [
