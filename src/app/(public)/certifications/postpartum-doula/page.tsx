@@ -97,30 +97,30 @@ export default function PostpartumDoulaPage() {
               </div>
 
               {/* b. At a Glance */}
-              <div>
-                <h3 className="font-dm-serif text-2xl text-ada-navy mb-6">At a Glance</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div className="bg-[#e6f7fe] rounded-2xl p-5">
+              <div className="bg-ada-off-white rounded-2xl p-8">
+                <h3 className="font-dm-serif text-xl text-ada-navy mb-6">At a Glance</h3>
+                <div className="grid grid-cols-3 gap-y-8 gap-x-6">
+                  <div className="border-l-2 border-ada-purple/20 pl-4">
                     <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">Exam Fee</span>
-                    <span className="font-outfit font-bold text-xl text-ada-navy">$625</span>
+                    <span className="font-outfit font-semibold text-ada-navy">$625</span>
                   </div>
-                  <div className="bg-[#f3ebf9] rounded-2xl p-5">
+                  <div className="border-l-2 border-ada-purple/20 pl-4">
                     <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">Retake Fee</span>
-                    <span className="font-outfit font-bold text-xl text-ada-navy">$325</span>
+                    <span className="font-outfit font-semibold text-ada-navy">$325</span>
                   </div>
-                  <div className="bg-[#f3f9eb] rounded-2xl p-5">
+                  <div className="border-l-2 border-ada-purple/20 pl-4">
                     <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">Renewal Fee</span>
-                    <span className="font-outfit font-bold text-xl text-ada-navy">$100</span>
+                    <span className="font-outfit font-semibold text-ada-navy">$100</span>
                   </div>
-                  <div className="bg-[#fdede7] rounded-2xl p-5">
+                  <div className="border-l-2 border-ada-purple/20 pl-4">
                     <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">Exam Format</span>
                     <span className="font-outfit font-semibold text-ada-navy">Written (60 min) + Practical (30 min)</span>
                   </div>
-                  <div className="bg-[#ffe5f5] rounded-2xl p-5">
+                  <div className="border-l-2 border-ada-purple/20 pl-4">
                     <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">Languages</span>
                     <span className="font-outfit font-semibold text-ada-navy">English, Chinese, Japanese, Korean</span>
                   </div>
-                  <div className="bg-[#fffee5] rounded-2xl p-5">
+                  <div className="border-l-2 border-ada-purple/20 pl-4">
                     <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">Certificate</span>
                     <span className="font-outfit font-semibold text-ada-navy">Valid for 1 year</span>
                   </div>
