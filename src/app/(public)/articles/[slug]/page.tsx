@@ -5,6 +5,8 @@ import { ArticleCard } from '@/components/public/article-card';
 import { TableOfContents } from './table-of-contents';
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 function getSupabase() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

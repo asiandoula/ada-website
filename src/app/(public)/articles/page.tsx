@@ -3,6 +3,8 @@ import { createClient } from '@supabase/supabase-js';
 import { ArticleCard } from '@/components/public/article-card';
 import { CategoryTabs } from './category-tabs';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Articles',
   description:
