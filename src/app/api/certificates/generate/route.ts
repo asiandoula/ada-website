@@ -195,7 +195,14 @@ export async function POST(request: NextRequest) {
         .eq('credential_type', certificate_type)
         .single();
 
-      if (!existingCred) {
+      if (existingCred) {
+        // Renew: sync credential dates with certificate
+        await supabase.from('doula_credentials').update({
+          status: 'active',
+          expiration_date: expirationDate,
+          updated_at: new Date().toISOString(),
+        }).eq('id', existingCred.id);
+      } else {
         await supabase.from('doula_credentials').insert({
           doula_id,
           credential_type: certificate_type,
