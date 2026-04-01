@@ -45,14 +45,41 @@ export async function POST(request: NextRequest) {
       verificationCode = existingCert.verification_code;
       certId = existingCert.id;
     } else {
-      // Create new certificate record
-      const { count } = await supabase
-        .from('certificates')
-        .select('*', { count: 'exact', head: true })
-        .eq('certificate_type', certificate_type);
+      // Create new certificate record — find max sequence to avoid duplicates
+      const year = new Date().getFullYear();
+      const prefix = certificate_type === 'postpartum' ? 'PD' : certificate_type === 'birth' ? 'BD' : 'CPR';
+      const numberPrefix = `ADA-${prefix}-${year}-`;
 
-      const sequence = (count ?? 0) + 1;
+      const { data: latest } = await supabase
+        .from('certificates')
+        .select('certificate_number')
+        .like('certificate_number', `${numberPrefix}%`)
+        .order('certificate_number', { ascending: false })
+        .limit(1)
+        .single();
+
+      let sequence = 1;
+      if (latest) {
+        const lastSeq = parseInt(latest.certificate_number.replace(numberPrefix, ''), 10);
+        if (!isNaN(lastSeq)) sequence = lastSeq + 1;
+      }
+
       certificateNumber = generateCertificateNumber(certificate_type, sequence);
+
+      // Double-check uniqueness
+      const { data: duplicate } = await supabase
+        .from('certificates')
+        .select('id')
+        .eq('certificate_number', certificateNumber)
+        .single();
+
+      if (duplicate) {
+        return NextResponse.json(
+          { error: `Certificate number ${certificateNumber} already exists. Please try again.` },
+          { status: 409 }
+        );
+      }
+
       verificationCode = generateVerificationCode();
       certId = '';
     }
