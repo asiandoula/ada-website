@@ -855,7 +855,7 @@ function InlineExamRecorder({
   async function handleSave() {
     if (!examSession || !examDate) return;
     setSaving(true);
-    const { error } = await supabase.from('exam_results').insert({
+    const { data: inserted, error } = await supabase.from('exam_results').insert({
       doula_id: doulaId,
       exam_session: examSession,
       exam_date: examDate,
@@ -871,19 +871,11 @@ function InlineExamRecorder({
       score_ethics: scores.score_ethics ? Number(scores.score_ethics) : null,
       passed,
       proficiency_level: computeProficiencyLevel(overall),
-    });
+    }).select('id').single();
     if (error) {
       alert(error.message);
     } else {
       await supabase.from('doulas').update({ exam_status: passed ? 'passed' : 'failed' }).eq('id', doulaId);
-      // Get the inserted exam record id for email tracking
-      const { data: inserted } = await supabase
-        .from('exam_results')
-        .select('id')
-        .eq('doula_id', doulaId)
-        .eq('exam_session', examSession)
-        .eq('exam_date', examDate)
-        .single();
       setOpen(false);
       setExamSession('');
       setScores({ score_terminology: '', score_newborn: '', score_lactation: '', score_emergency: '', score_practical: '', score_postpartum: '', score_knowledge: '', score_ethics: '' });

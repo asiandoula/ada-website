@@ -49,7 +49,7 @@ export default function NewDoulaPage() {
     // Create selected credentials
     if (selectedCredentials.length > 0 && newDoula) {
       const today = new Date().toISOString().split('T')[0];
-      await supabase.from('doula_credentials').insert(
+      const { error: credError } = await supabase.from('doula_credentials').insert(
         selectedCredentials.map((type) => ({
           doula_id: newDoula.id,
           credential_type: type,
@@ -60,6 +60,9 @@ export default function NewDoulaPage() {
           ).toISOString().split('T')[0],
         }))
       );
+      if (credError) {
+        alert(`Doula created but credentials failed: ${credError.message}`);
+      }
     }
 
     router.push('/admin/doulas');
