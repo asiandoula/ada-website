@@ -166,7 +166,7 @@ export default function EditDoulaPage() {
                   status: 'active',
                   certification_date: new Date().toISOString().split('T')[0],
                   expiration_date: isIbclc ? null : new Date(
-                    new Date().setFullYear(new Date().getFullYear() + 3)
+                    new Date().setFullYear(new Date().getFullYear() + 1)
                   ).toISOString().split('T')[0],
                 });
                 reloadData();
@@ -216,6 +216,18 @@ export default function EditDoulaPage() {
                         <option key={s} value={s}>{CREDENTIAL_STATUS_LABELS[s]}</option>
                       ))}
                     </select>
+                    <button
+                      className="text-red-400 hover:text-red-600 text-xs px-1"
+                      title="Delete credential"
+                      onClick={async () => {
+                        if (!confirm(`Delete ${CREDENTIAL_LABELS[cred.credential_type as CredentialType]}?`)) return;
+                        const { error } = await supabase.from('doula_credentials').delete().eq('id', cred.id);
+                        if (error) { alert(`Failed to delete: ${error.message}`); return; }
+                        reloadData();
+                      }}
+                    >
+                      ✕
+                    </button>
                   </div>
                 </div>
               ))}
