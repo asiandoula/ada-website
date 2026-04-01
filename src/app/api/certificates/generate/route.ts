@@ -185,6 +185,27 @@ export async function POST(request: NextRequest) {
       .update(updateData)
       .eq('id', doula_id);
 
+    // Auto-create credential if it doesn't exist for this certificate type
+    // Only for postpartum and birth (not cpr or other non-credential types)
+    if (['postpartum', 'birth'].includes(certificate_type)) {
+      const { data: existingCred } = await supabase
+        .from('doula_credentials')
+        .select('id')
+        .eq('doula_id', doula_id)
+        .eq('credential_type', certificate_type)
+        .single();
+
+      if (!existingCred) {
+        await supabase.from('doula_credentials').insert({
+          doula_id,
+          credential_type: certificate_type,
+          status: 'active',
+          certification_date: issuedDate,
+          expiration_date: expirationDate,
+        });
+      }
+    }
+
     return NextResponse.json({ certificate: cert, pdf_url: publicUrl });
   } catch (err: unknown) {
     console.error('Certificate generation error:', err);

@@ -7,7 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
-import { DOULA_STATUSES, STATUS_LABELS, EXAM_STATUSES, EXAM_STATUS_LABELS } from '@/lib/constants';
+import {
+  DOULA_STATUSES, STATUS_LABELS, EXAM_STATUSES, EXAM_STATUS_LABELS,
+  CREDENTIAL_TYPES, CREDENTIAL_LABELS,
+} from '@/lib/constants';
 import { generateDoulaIdCode } from '@/lib/utils';
 
 export default function NewDoulaPage() {
@@ -15,6 +18,7 @@ export default function NewDoulaPage() {
   const supabase = createClient();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [selectedCredentials, setSelectedCredentials] = useState<string[]>([]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -23,7 +27,7 @@ export default function NewDoulaPage() {
 
     const form = new FormData(e.currentTarget);
 
-    const { error } = await supabase.from('doulas').insert({
+    const { data: newDoula, error } = await supabase.from('doulas').insert({
       doula_id_code: generateDoulaIdCode(),
       full_name: form.get('full_name'),
       full_name_zh: form.get('full_name_zh') || null,
@@ -34,12 +38,28 @@ export default function NewDoulaPage() {
       exam_status: form.get('exam_status'),
       training_provider: form.get('training_provider') || null,
       region: form.get('region') || null,
-    });
+    }).select('id').single();
 
     if (error) {
       setError(error.message);
       setLoading(false);
       return;
+    }
+
+    // Create selected credentials
+    if (selectedCredentials.length > 0 && newDoula) {
+      const today = new Date().toISOString().split('T')[0];
+      await supabase.from('doula_credentials').insert(
+        selectedCredentials.map((type) => ({
+          doula_id: newDoula.id,
+          credential_type: type,
+          status: 'active',
+          certification_date: today,
+          expiration_date: type === 'ibclc_training' ? null : new Date(
+            new Date().setFullYear(new Date().getFullYear() + 1)
+          ).toISOString().split('T')[0],
+        }))
+      );
     }
 
     router.push('/admin/doulas');
@@ -119,6 +139,29 @@ export default function NewDoulaPage() {
                     </option>
                   ))}
                 </select>
+              </div>
+            </div>
+
+            <div>
+              <Label>Credentials (optional)</Label>
+              <div className="flex gap-4 mt-1">
+                {CREDENTIAL_TYPES.map((type) => (
+                  <label key={type} className="flex items-center gap-1.5 text-sm cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="rounded border-gray-300"
+                      checked={selectedCredentials.includes(type)}
+                      onChange={(e) => {
+                        setSelectedCredentials(
+                          e.target.checked
+                            ? [...selectedCredentials, type]
+                            : selectedCredentials.filter((t) => t !== type)
+                        );
+                      }}
+                    />
+                    {CREDENTIAL_LABELS[type]}
+                  </label>
+                ))}
               </div>
             </div>
 
