@@ -238,10 +238,6 @@ export default async function VerifyResultPage({
                 </span>
               </div>
               <div className="flex justify-between items-center px-8 py-4">
-                <span className="text-sm text-ada-navy/40 font-outfit">Date Issued</span>
-                <span className="text-sm font-outfit text-ada-navy">{formatDate(cert.issued_date)}</span>
-              </div>
-              <div className="flex justify-between items-center px-8 py-4">
                 <span className="text-sm text-ada-navy/40 font-outfit">Valid Through</span>
                 <span className="text-sm font-outfit text-ada-navy">{formatDate(cert.expiration_date)}</span>
               </div>
