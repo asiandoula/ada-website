@@ -215,8 +215,10 @@ function StatusBadge({ status, lang }: { status: string; lang: Lang }) {
 
 function formatDate(dateStr: string | null, lang: Lang): string {
   if (!dateStr) return '—';
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return '—';
   const locale = lang === 'zh' ? 'zh-CN' : 'en-US';
-  return new Date(dateStr).toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
+  return d.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
 function expiryText(dateStr: string | null, lang: Lang): { text: string; color: string } | null {
@@ -301,7 +303,7 @@ function ExamSection({ examResults, lang }: { examResults: ExamResult[]; lang: L
                                 className={`h-full rounded-full ${
                                   score >= 90 ? 'bg-emerald-400' : score >= 80 ? 'bg-blue-400' : 'bg-red-400'
                                 }`}
-                                style={{ width: `${score}%` }}
+                                style={{ width: `${Math.max(0, Math.min(100, score))}%` }}
                               />
                             </div>
                             <span className={`w-8 text-right text-xs font-outfit font-semibold ${
