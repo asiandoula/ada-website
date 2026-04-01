@@ -381,7 +381,17 @@ export default function EditDoulaPage() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle>Exam Results</CardTitle>
-            <InlineExamRecorder doulaId={params.id as string} doulaName={doula.full_name} onSaved={reloadData} />
+            <InlineExamRecorder
+              doulaId={params.id as string}
+              doulaName={doula.full_name}
+              doulaEmail={doula.email}
+              doulaIdCode={doula.doula_id_code}
+              onSaved={reloadData}
+              onEmailPrompt={(recipients) => {
+                setEmailRecipients(recipients);
+                setShowEmailDialog(true);
+              }}
+            />
           </div>
         </CardHeader>
         <CardContent>
@@ -818,11 +828,14 @@ function RenewCertification({
 
 /* ==================== Inline Exam Recorder ==================== */
 function InlineExamRecorder({
-  doulaId, doulaName, onSaved,
+  doulaId, doulaName, doulaEmail, doulaIdCode, onSaved, onEmailPrompt,
 }: {
   doulaId: string;
   doulaName: string;
+  doulaEmail: string | null;
+  doulaIdCode: string;
   onSaved: () => void;
+  onEmailPrompt: (recipients: EmailRecipient[]) => void;
 }) {
   const supabase = createClient();
   const [open, setOpen] = useState(false);
@@ -863,10 +876,30 @@ function InlineExamRecorder({
       alert(error.message);
     } else {
       await supabase.from('doulas').update({ exam_status: passed ? 'passed' : 'failed' }).eq('id', doulaId);
+      // Get the inserted exam record id for email tracking
+      const { data: inserted } = await supabase
+        .from('exam_results')
+        .select('id')
+        .eq('doula_id', doulaId)
+        .eq('exam_session', examSession)
+        .eq('exam_date', examDate)
+        .single();
       setOpen(false);
       setExamSession('');
       setScores({ score_terminology: '', score_newborn: '', score_lactation: '', score_emergency: '', score_practical: '', score_postpartum: '', score_knowledge: '', score_ethics: '' });
       onSaved();
+      // Auto-prompt email notification if doula has email
+      if (doulaEmail && passed !== null && inserted) {
+        onEmailPrompt([{
+          doula_id: doulaId,
+          doula_name: doulaName,
+          doula_id_code: doulaIdCode,
+          email: doulaEmail,
+          related_id: inserted.id,
+          type: passed ? 'exam_pass' : 'exam_fail',
+          passed,
+        }]);
+      }
     }
     setSaving(false);
   }
