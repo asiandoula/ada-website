@@ -228,6 +228,45 @@ export default function EditDoulaPage() {
                     >
                       ✕
                     </button>
+                    {(cred.status === 'active' || cred.status === 'expired') && cred.credential_type !== 'ibclc_training' && (
+                      <button
+                        className="text-ada-purple hover:text-ada-purple/80 text-xs px-1 font-medium"
+                        title="Renew credential"
+                        onClick={async () => {
+                          const currentExp = cred.expiration_date;
+                          const baseDate = currentExp && new Date(currentExp) > new Date() ? new Date(currentExp) : new Date();
+                          const newExp = new Date(new Date(baseDate).setFullYear(new Date(baseDate).getFullYear() + 1)).toISOString().split('T')[0];
+                          const renewDate = prompt(`Renew ${CREDENTIAL_LABELS[cred.credential_type as CredentialType]}?\n\nCurrent expiry: ${currentExp ?? 'Not set'}\nNew expiry (edit if needed):`, newExp);
+                          if (!renewDate) return;
+
+                          // Step 1: Update credential (source of truth)
+                          const { error: credErr } = await supabase.from('doula_credentials').update({
+                            expiration_date: renewDate,
+                            status: 'active',
+                            updated_at: new Date().toISOString(),
+                          }).eq('id', cred.id);
+                          if (credErr) { alert(`Failed to renew: ${credErr.message}`); return; }
+
+                          // Step 2: Regenerate certificate PDF (reads new date from credential)
+                          const res = await fetch('/api/certificates/generate', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                              doula_id: params.id,
+                              certificate_type: cred.credential_type,
+                            }),
+                          });
+                          if (!res.ok) {
+                            const data = await res.json();
+                            alert(data.error || 'PDF regeneration failed');
+                          }
+
+                          reloadData();
+                        }}
+                      >
+                        Renew
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -362,17 +401,6 @@ export default function EditDoulaPage() {
             setEmailRecipients(recipients);
             setShowEmailDialog(true);
           }}
-        />
-      )}
-
-      {/* Renew Certification — when there are existing certs */}
-      {certs.length > 0 && !['revoked', 'suspended'].includes(doula.status) && (
-        <RenewCertification
-          doula={doula}
-          doulaId={params.id as string}
-          loading={loading}
-          setLoading={setLoading}
-          onDone={reloadData}
         />
       )}
 
@@ -663,6 +691,7 @@ function GrantCertification({
   onDone: () => void;
   onEmailPrompt: (recipients: EmailRecipient[]) => void;
 }) {
+  const supabase = createClient();
   const availableTypes = CERTIFICATE_TYPES.filter(t => !existingCertTypes.includes(t));
   const [certType, setCertType] = useState<string>(availableTypes[0] || 'postpartum');
   const defaultExp = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0];
@@ -718,13 +747,30 @@ function GrantCertification({
               if (!confirm(`Grant ${CERT_TYPE_LABELS[certType as CertificateType]} to ${doulaName}?`)) return;
               setLoading(true);
               setResult(null);
+
+              // Step 1: Create credential first (source of truth)
+              if (['postpartum', 'birth'].includes(certType)) {
+                const { error: credError } = await supabase.from('doula_credentials').insert({
+                  doula_id: doulaId,
+                  credential_type: certType,
+                  status: 'active',
+                  certification_date: new Date().toISOString().split('T')[0],
+                  expiration_date: expDate,
+                });
+                if (credError) {
+                  alert(`Failed to create credential: ${credError.message}`);
+                  setLoading(false);
+                  return;
+                }
+              }
+
+              // Step 2: Generate certificate PDF (reads dates from credential)
               const res = await fetch('/api/certificates/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                   doula_id: doulaId,
                   certificate_type: certType,
-                  expiration_date: expDate,
                 }),
               });
               const data = await res.json();
@@ -749,77 +795,6 @@ function GrantCertification({
           >
             {loading ? 'Generating...' : 'Grant Certification & Generate PDF'}
           </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-/* ==================== Renew Certification ==================== */
-function RenewCertification({
-  doula, doulaId, loading, setLoading, onDone,
-}: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  doula: Record<string, any>;
-  doulaId: string;
-  loading: boolean;
-  setLoading: (v: boolean) => void;
-  onDone: () => void;
-}) {
-  const currentExp = doula.expiration_date;
-  const baseDate = currentExp && new Date(currentExp) > new Date() ? new Date(currentExp) : new Date();
-  const defaultRenew = new Date(baseDate.setFullYear(baseDate.getFullYear() + 1)).toISOString().split('T')[0];
-  const [renewDate, setRenewDate] = useState(defaultRenew);
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Certification Renewal</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-3">
-          <div className="text-sm space-y-1">
-            <p>
-              <span className="text-muted-foreground">Current Expiration:</span>{' '}
-              <span className={`font-medium ${currentExp && new Date(currentExp) < new Date() ? 'text-red-600' : ''}`}>
-                {currentExp ?? 'Not set'}
-              </span>
-            </p>
-          </div>
-          <div className="flex items-end gap-4">
-            <div>
-              <Label>New Expiration Date</Label>
-              <Input type="date" value={renewDate} onChange={(e) => setRenewDate(e.target.value)} />
-              <p className="text-xs text-muted-foreground mt-1">Default: +1 year from current expiration</p>
-            </div>
-            <Button
-              variant="outline"
-              className="bg-ada-purple/10 text-ada-purple border-ada-purple/20 hover:bg-ada-purple/20"
-              onClick={async () => {
-                if (!confirm(`Renew certification until ${renewDate}? This will regenerate the PDF.`)) return;
-                setLoading(true);
-                const res = await fetch('/api/certificates/generate', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    doula_id: doulaId,
-                    certificate_type: 'postpartum',
-                    expiration_date: renewDate,
-                  }),
-                });
-                if (res.ok) {
-                  onDone();
-                } else {
-                  const data = await res.json();
-                  alert(data.error || 'Renewal failed');
-                }
-                setLoading(false);
-              }}
-              disabled={loading}
-            >
-              {loading ? 'Processing...' : 'Renew & Regenerate PDF'}
-            </Button>
-          </div>
         </div>
       </CardContent>
     </Card>
