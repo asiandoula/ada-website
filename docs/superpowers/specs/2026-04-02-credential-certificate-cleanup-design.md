@@ -151,6 +151,39 @@ ALTER TABLE certificates ADD CONSTRAINT certificates_status_check
 | `src/app/(public)/portal/page.tsx` | Group certificates, show superseded with badge. |
 | `supabase/migrations/012_add_superseded_status.sql` | Add 'superseded' to certificate status constraint. |
 
+## Data Migration
+
+### Migration 012: Add superseded status
+```sql
+ALTER TABLE certificates DROP CONSTRAINT IF EXISTS certificates_status_check;
+ALTER TABLE certificates ADD CONSTRAINT certificates_status_check 
+  CHECK (status IN ('active', 'superseded', 'revoked'));
+```
+
+### Migration 013: Backfill missing credentials from doulas table
+For doulas that have `certification_date`/`expiration_date` in the doulas table but no `doula_credentials` record, create one:
+```sql
+INSERT INTO doula_credentials (doula_id, credential_type, status, certification_date, expiration_date)
+SELECT d.id, 'postpartum', 'active', d.certification_date, d.expiration_date
+FROM doulas d
+LEFT JOIN doula_credentials dc ON dc.doula_id = d.id AND dc.credential_type = 'postpartum'
+WHERE dc.id IS NULL
+  AND d.certification_date IS NOT NULL;
+```
+
+### Migration 014: Supersede duplicate certificates
+If any doula has multiple active certificates of the same type, keep only the latest and supersede the rest:
+```sql
+WITH ranked AS (
+  SELECT id, doula_id, certificate_type,
+    ROW_NUMBER() OVER (PARTITION BY doula_id, certificate_type ORDER BY issued_date DESC, created_at DESC) as rn
+  FROM certificates
+  WHERE status = 'active'
+)
+UPDATE certificates SET status = 'superseded'
+WHERE id IN (SELECT id FROM ranked WHERE rn > 1);
+```
+
 ## What Does NOT Change
 
 - Credential table schema (no changes)
