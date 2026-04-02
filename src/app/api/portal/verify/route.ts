@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
   // Fetch certificates
   const { data: certificates } = await supabase
     .from('certificates')
-    .select('id, certificate_number, issued_date, pdf_url, created_at')
+    .select('id, certificate_number, certificate_type, issued_date, pdf_url, status, created_at')
     .eq('doula_id', doula.id)
     .order('issued_date', { ascending: false });
 

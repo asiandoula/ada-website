@@ -30,8 +30,10 @@ interface Credential {
 interface Certificate {
   id: string;
   certificate_number: string;
+  certificate_type: string;
   issued_date: string;
   pdf_url: string | null;
+  status: string;
 }
 
 interface ExamResult {
@@ -101,6 +103,7 @@ const t = {
     profileUpdateNote: 'To update your information, contact ADA at contact@asiandoula.org or (714) 202-6501.',
     region: 'Region',
     languages: 'Languages',
+    superseded: 'Superseded',
     networkError: 'Network error. Please try again.',
     // Status labels
     status_registered: 'Registered',
@@ -161,6 +164,7 @@ const t = {
     profileUpdateNote: '如需更新信息，请联系 ADA：contact@asiandoula.org 或 (714) 202-6501。',
     region: '地区',
     languages: '语言',
+    superseded: '已替代',
     networkError: '网络错误，请重试。',
     // Status labels
     status_registered: '已注册',
@@ -609,13 +613,20 @@ export default function PortalPage() {
             ) : (
               <div className="space-y-3">
                 {certificates.map((cert) => (
-                  <div key={cert.id} className="flex items-center justify-between border border-gray-200 rounded-xl px-6 py-4">
+                  <div key={cert.id} className={`flex items-center justify-between border border-gray-200 rounded-xl px-6 py-4 ${cert.status === 'superseded' ? 'opacity-50' : ''}`}>
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-lg bg-ada-purple/10 flex items-center justify-center shrink-0">
                         <FileText className="w-5 h-5 text-ada-purple/60" />
                       </div>
                       <div>
-                        <p className="font-outfit font-semibold text-ada-navy text-sm">{cert.certificate_number}</p>
+                        <div className="flex items-center gap-2">
+                          <p className="font-outfit font-semibold text-ada-navy text-sm">{cert.certificate_number}</p>
+                          {cert.status === 'superseded' && (
+                            <span className="text-[10px] font-outfit font-semibold px-1.5 py-0.5 rounded bg-gray-100 text-gray-400">
+                              {labels.superseded}
+                            </span>
+                          )}
+                        </div>
                         <p className="text-xs text-ada-navy/40 font-outfit">{labels.issued} {formatDate(cert.issued_date, lang)}</p>
                       </div>
                     </div>
