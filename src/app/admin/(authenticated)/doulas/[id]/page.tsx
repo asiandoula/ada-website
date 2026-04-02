@@ -86,15 +86,6 @@ export default function EditDoulaPage() {
     setError('');
 
     const form = new FormData(e.currentTarget);
-    const certDate = form.get('certification_date') as string;
-    const expDate = certDate
-      ? new Date(
-          new Date(certDate).setFullYear(new Date(certDate).getFullYear() + 1)
-        )
-          .toISOString()
-          .split('T')[0]
-      : null;
-
     const { error } = await supabase
       .from('doulas')
       .update({
@@ -103,8 +94,6 @@ export default function EditDoulaPage() {
         email: form.get('email') || null,
         phone: form.get('phone') || null,
         date_of_birth: form.get('date_of_birth') || null,
-        certification_date: certDate || null,
-        expiration_date: expDate,
         status: form.get('status'),
         exam_status: form.get('exam_status'),
         training_provider: form.get('training_provider') || null,
@@ -358,14 +347,7 @@ export default function EditDoulaPage() {
                   defaultValue={doula.date_of_birth ?? ''}
                 />
               </div>
-              <div>
-                <Label>Certification Date</Label>
-                <Input
-                  name="certification_date"
-                  type="date"
-                  defaultValue={doula.certification_date ?? ''}
-                />
-              </div>
+              <div />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -557,7 +539,7 @@ export default function EditDoulaPage() {
               </thead>
               <tbody>
                 {certs.map((cert) => (
-                  <tr key={cert.id} className={`border-b ${cert.status === 'revoked' ? 'opacity-50' : ''}`}>
+                  <tr key={cert.id} className={`border-b ${cert.status === 'revoked' || cert.status === 'superseded' ? 'opacity-50' : ''}`}>
                     <td className="p-2">
                       {CERT_TYPE_LABELS[cert.certificate_type as CertificateType] ?? cert.certificate_type}
                     </td>
@@ -567,6 +549,8 @@ export default function EditDoulaPage() {
                     <td className="p-2">
                       {cert.status === 'revoked' ? (
                         <Badge className="bg-red-100 text-red-800">Revoked</Badge>
+                      ) : cert.status === 'superseded' ? (
+                        <Badge className="bg-gray-100 text-gray-500">Superseded</Badge>
                       ) : (
                         <Badge className="bg-green-100 text-green-800">Active</Badge>
                       )}
@@ -581,7 +565,7 @@ export default function EditDoulaPage() {
                           PDF
                         </a>
                       )}
-                      {cert.status !== 'revoked' && (
+                      {cert.status === 'active' && (
                         <>
                           <Button
                             variant="outline"
