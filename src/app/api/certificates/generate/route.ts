@@ -15,8 +15,9 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { doula_id, certificate_type } = body;
 
-    // Fetch doula
     const supabase = getSupabase();
+
+    // Fetch doula
     const { data: doula, error: doulaError } = await supabase
       .from('doulas')
       .select('*')
@@ -26,6 +27,25 @@ export async function POST(request: NextRequest) {
     if (doulaError || !doula) {
       return NextResponse.json({ error: 'Doula not found' }, { status: 404 });
     }
+
+    // Credential must exist — it is the source of truth
+    const { data: credential } = await supabase
+      .from('doula_credentials')
+      .select('id, certification_date, expiration_date')
+      .eq('doula_id', doula_id)
+      .eq('credential_type', certificate_type)
+      .single();
+
+    if (!credential) {
+      return NextResponse.json(
+        { error: 'Credential must exist before generating a certificate. Add the credential first.' },
+        { status: 400 }
+      );
+    }
+
+    // Read dates from credential (source of truth)
+    const issuedDate = new Date().toISOString().split('T')[0];
+    const expirationDate = credential.expiration_date;
 
     // Check if this doula already has a certificate of this type
     const { data: existingCert } = await supabase
@@ -40,7 +60,6 @@ export async function POST(request: NextRequest) {
     let certId: string;
 
     if (existingCert) {
-      // Update existing certificate with new PDF
       certificateNumber = existingCert.certificate_number;
       verificationCode = existingCert.verification_code;
       certId = existingCert.id;
@@ -66,7 +85,6 @@ export async function POST(request: NextRequest) {
 
       certificateNumber = generateCertificateNumber(certificate_type, sequence);
 
-      // Double-check uniqueness
       const { data: duplicate } = await supabase
         .from('certificates')
         .select('id')
@@ -83,15 +101,6 @@ export async function POST(request: NextRequest) {
       verificationCode = generateVerificationCode();
       certId = '';
     }
-
-    const issuedDate = new Date().toISOString().split('T')[0];
-    // Custom expiration from request body, or default +1 year
-    const customExpiration = body.expiration_date;
-    const expirationDate = customExpiration || new Date(
-      new Date().setFullYear(new Date().getFullYear() + 1)
-    )
-      .toISOString()
-      .split('T')[0];
 
     // Generate PDF
     console.log('Generating PDF for', doula.full_name, '...');
@@ -119,14 +128,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get public URL
     const {
       data: { publicUrl },
     } = supabase.storage.from('certificates').getPublicUrl(storagePath);
 
     let cert;
     if (existingCert) {
-      // Update existing record with PDF URL and new dates
       const { data, error } = await supabase
         .from('certificates')
         .update({
@@ -143,7 +150,6 @@ export async function POST(request: NextRequest) {
       }
       cert = data;
     } else {
-      // Insert new record
       const { data, error } = await supabase
         .from('certificates')
         .insert({
@@ -164,8 +170,7 @@ export async function POST(request: NextRequest) {
       cert = data;
     }
 
-    // Auto-sync doula's dates and status
-    // Set to 'active' if currently 'registered'; keep other statuses unchanged
+    // Sync doula's dates from credential (denormalized copy)
     const { data: currentDoula } = await supabase
       .from('doulas')
       .select('status')
@@ -173,7 +178,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     const updateData: Record<string, string> = {
-      certification_date: issuedDate,
+      certification_date: credential.certification_date || issuedDate,
       expiration_date: expirationDate,
     };
     if (currentDoula?.status === 'registered') {
@@ -184,34 +189,6 @@ export async function POST(request: NextRequest) {
       .from('doulas')
       .update(updateData)
       .eq('id', doula_id);
-
-    // Auto-create credential if it doesn't exist for this certificate type
-    // Only for postpartum and birth (not cpr or other non-credential types)
-    if (['postpartum', 'birth'].includes(certificate_type)) {
-      const { data: existingCred } = await supabase
-        .from('doula_credentials')
-        .select('id')
-        .eq('doula_id', doula_id)
-        .eq('credential_type', certificate_type)
-        .single();
-
-      if (existingCred) {
-        // Renew: sync credential dates with certificate
-        await supabase.from('doula_credentials').update({
-          status: 'active',
-          expiration_date: expirationDate,
-          updated_at: new Date().toISOString(),
-        }).eq('id', existingCred.id);
-      } else {
-        await supabase.from('doula_credentials').insert({
-          doula_id,
-          credential_type: certificate_type,
-          status: 'active',
-          certification_date: issuedDate,
-          expiration_date: expirationDate,
-        });
-      }
-    }
 
     return NextResponse.json({ certificate: cert, pdf_url: publicUrl });
   } catch (err: unknown) {
