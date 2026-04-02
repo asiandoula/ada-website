@@ -14,7 +14,7 @@ function getSupabase() {
 
 function formatDate(dateStr: string | null): string {
   if (!dateStr) return '—';
-  const d = new Date(dateStr);
+  const d = new Date(dateStr.includes('T') ? dateStr : `${dateStr}T12:00:00`);
   if (isNaN(d.getTime())) return '—';
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }

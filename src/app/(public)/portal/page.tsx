@@ -219,7 +219,8 @@ function StatusBadge({ status, lang }: { status: string; lang: Lang }) {
 
 function formatDate(dateStr: string | null, lang: Lang): string {
   if (!dateStr) return '—';
-  const d = new Date(dateStr);
+  // Append T12:00 to avoid timezone shifting (date-only strings parse as UTC midnight)
+  const d = new Date(dateStr.includes('T') ? dateStr : `${dateStr}T12:00:00`);
   if (isNaN(d.getTime())) return '—';
   const locale = lang === 'zh' ? 'zh-CN' : 'en-US';
   return d.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
