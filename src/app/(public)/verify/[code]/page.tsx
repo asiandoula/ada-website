@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 import Image from 'next/image';
-import { CERT_TYPE_LABELS } from '@/lib/constants';
-import type { CertificateType } from '@/lib/constants';
+import { CREDENTIAL_LABELS } from '@/lib/constants';
+import type { CredentialType } from '@/lib/constants';
 import { ShieldCheck, ShieldAlert, ShieldX, Search, ArrowLeft } from 'lucide-react';
 
 function getSupabase() {
@@ -14,11 +14,21 @@ function getSupabase() {
 
 function formatDate(dateStr: string | null): string {
   if (!dateStr) return '—';
-  return new Date(dateStr).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return '—';
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+interface CredentialRow {
+  credential_type: string;
+  status: string;
+  expiration_date: string | null;
+}
+
+interface CertificateRow {
+  certificate_number: string;
+  certificate_type: string;
+  status: string;
 }
 
 export default async function VerifyResultPage({
@@ -30,54 +40,55 @@ export default async function VerifyResultPage({
   const { code } = await params;
   const decoded = decodeURIComponent(code);
 
-  // Try verification_code first, then certificate_number, then doula_id_code
-  let cert = null;
+  // Find the doula — try verification_code, certificate_number, doula_id_code
+  let doulaId: string | null = null;
+  let doulaInfo: Record<string, string> | null = null;
 
-  // 1. Verification code
+  // 1. Verification code → find certificate → get doula
   const { data: byVerification } = await supabase
     .from('certificates')
-    .select('*, doulas(full_name, full_name_zh, doula_id_code, status)')
+    .select('doula_id, doulas(id, full_name, full_name_zh, doula_id_code, status)')
     .eq('verification_code', decoded)
+    .limit(1)
     .single();
 
   if (byVerification) {
-    cert = byVerification;
-  } else {
-    // 2. Certificate number
+    doulaId = byVerification.doula_id;
+    doulaInfo = byVerification.doulas as unknown as Record<string, string>;
+  }
+
+  // 2. Certificate number
+  if (!doulaId) {
     const { data: byCertNum } = await supabase
       .from('certificates')
-      .select('*, doulas(full_name, full_name_zh, doula_id_code, status)')
+      .select('doula_id, doulas(id, full_name, full_name_zh, doula_id_code, status)')
       .eq('certificate_number', decoded.toUpperCase())
+      .limit(1)
       .single();
 
     if (byCertNum) {
-      cert = byCertNum;
-    } else {
-      // 3. Doula ID code
-      const normalizedId = decoded.startsWith('#') ? decoded : `#${decoded}`;
-      const { data: doula } = await supabase
-        .from('doulas')
-        .select('id, full_name, full_name_zh, doula_id_code, status')
-        .eq('doula_id_code', normalizedId)
-        .single();
+      doulaId = byCertNum.doula_id;
+      doulaInfo = byCertNum.doulas as unknown as Record<string, string>;
+    }
+  }
 
-      if (doula) {
-        const { data: byCert } = await supabase
-          .from('certificates')
-          .select('*')
-          .eq('doula_id', doula.id)
-          .limit(1)
-          .single();
+  // 3. Doula ID code
+  if (!doulaId) {
+    const normalizedId = decoded.startsWith('#') ? decoded : `#${decoded}`;
+    const { data: byDoulaId } = await supabase
+      .from('doulas')
+      .select('id, full_name, full_name_zh, doula_id_code, status')
+      .eq('doula_id_code', normalizedId)
+      .single();
 
-        if (byCert) {
-          cert = { ...byCert, doulas: doula };
-        }
-      }
+    if (byDoulaId) {
+      doulaId = byDoulaId.id;
+      doulaInfo = byDoulaId as unknown as Record<string, string>;
     }
   }
 
   // ============ NOT FOUND ============
-  if (!cert) {
+  if (!doulaId || !doulaInfo) {
     return (
       <>
         <section className="bg-ada-navy pt-32 pb-20 md:pt-40 md:pb-24 relative overflow-hidden">
@@ -89,11 +100,10 @@ export default async function VerifyResultPage({
               <ShieldX className="w-8 h-8 text-white/60" />
             </div>
             <h1 className="font-dm-serif text-3xl md:text-4xl text-white">
-              Certificate Not Found
+              Record Not Found
             </h1>
             <p className="mt-4 text-white/60 font-outfit max-w-md mx-auto leading-relaxed">
-              The query &ldquo;{decoded}&rdquo; does not match any
-              certificate in the ADA registry.
+              The query &ldquo;{decoded}&rdquo; does not match any record in the ADA registry.
             </p>
             <Link
               href="/verify"
@@ -107,53 +117,76 @@ export default async function VerifyResultPage({
     );
   }
 
-  // ============ FOUND ============
-  const doula = cert.doulas as Record<string, string>;
+  // ============ FOUND — fetch all credentials + latest active cert per type ============
+  const { data: credentials } = await supabase
+    .from('doula_credentials')
+    .select('credential_type, status, expiration_date')
+    .eq('doula_id', doulaId)
+    .order('credential_type');
 
-  // Account-level status checks
-  const isRevoked = cert.status === 'revoked' || doula.status === 'revoked';
-  const isSuspended = !isRevoked && doula.status === 'suspended';
-  const isUnderInvestigation = !isRevoked && !isSuspended && doula.status === 'under_investigation';
-  const isRetired = !isRevoked && doula.status === 'retired';
+  const { data: activeCerts } = await supabase
+    .from('certificates')
+    .select('certificate_number, certificate_type, status')
+    .eq('doula_id', doulaId)
+    .eq('status', 'active')
+    .order('issued_date', { ascending: false });
 
-  // Certificate-level expiration check
-  const certExpired = cert.expiration_date && new Date(cert.expiration_date) < new Date();
-  const isExpired = !isRevoked && !isSuspended && !isUnderInvestigation && !isRetired && certExpired;
+  const creds: CredentialRow[] = credentials ?? [];
+  const certs: CertificateRow[] = activeCerts ?? [];
 
-  // Active = account is active and cert is not expired
-  const isActive = doula.status === 'active' && !isRevoked && !isSuspended && !isUnderInvestigation && !isRetired && !isExpired;
+  // Doula-level overrides
+  const doulaStatus = doulaInfo.status;
+  const isDoulaRevoked = doulaStatus === 'revoked';
+  const isDoulaSuspended = doulaStatus === 'suspended';
+  const isDoulaUnderInvestigation = doulaStatus === 'under_investigation';
+  const isDoulaRetired = doulaStatus === 'retired';
 
-  const statusIcon = isActive
-    ? <ShieldCheck className="w-10 h-10 text-emerald-400" />
-    : (isExpired || isUnderInvestigation || isRetired)
-    ? <ShieldAlert className="w-10 h-10 text-amber-400" />
-    : <ShieldX className="w-10 h-10 text-red-400" />;
+  // Determine overall status banner
+  let overallStatus: string;
+  let bannerColor: string;
+  let bannerIcon: React.ReactNode;
 
-  const statusLabel = isRevoked
-    ? 'CREDENTIAL REVOKED'
-    : isSuspended
-    ? 'CREDENTIAL SUSPENDED'
-    : isUnderInvestigation
-    ? 'CREDENTIAL UNDER REVIEW'
-    : isRetired
-    ? 'RETIRED — IN GOOD STANDING'
-    : isActive
-    ? 'VERIFIED — ACTIVE'
-    : isExpired
-    ? 'VERIFIED — EXPIRED'
-    : doula.status.replace(/_/g, ' ').toUpperCase();
-
-  const statusBannerColor = isActive
-    ? 'bg-emerald-600'
-    : (isExpired || isUnderInvestigation)
-    ? 'bg-amber-600'
-    : isRetired
-    ? 'bg-gray-500'
-    : 'bg-red-600';
+  if (isDoulaRevoked) {
+    overallStatus = 'CREDENTIAL REVOKED';
+    bannerColor = 'bg-red-600';
+    bannerIcon = <ShieldX className="w-10 h-10 text-red-200" />;
+  } else if (isDoulaSuspended) {
+    overallStatus = 'CREDENTIAL SUSPENDED';
+    bannerColor = 'bg-red-600';
+    bannerIcon = <ShieldX className="w-10 h-10 text-red-200" />;
+  } else if (isDoulaUnderInvestigation) {
+    overallStatus = 'CREDENTIAL UNDER REVIEW';
+    bannerColor = 'bg-amber-600';
+    bannerIcon = <ShieldAlert className="w-10 h-10 text-amber-200" />;
+  } else if (isDoulaRetired) {
+    overallStatus = 'RETIRED — IN GOOD STANDING';
+    bannerColor = 'bg-gray-500';
+    bannerIcon = <ShieldAlert className="w-10 h-10 text-gray-200" />;
+  } else if (creds.length === 0) {
+    overallStatus = 'NO CREDENTIALS ON FILE';
+    bannerColor = 'bg-gray-500';
+    bannerIcon = <ShieldAlert className="w-10 h-10 text-gray-200" />;
+  } else {
+    const allExpired = creds.every(c => c.expiration_date && new Date(c.expiration_date) < new Date());
+    const anyRevoked = creds.some(c => c.status === 'revoked');
+    if (anyRevoked) {
+      overallStatus = 'CREDENTIAL ISSUE — SEE DETAILS';
+      bannerColor = 'bg-amber-600';
+      bannerIcon = <ShieldAlert className="w-10 h-10 text-amber-200" />;
+    } else if (allExpired) {
+      overallStatus = 'EXPIRED';
+      bannerColor = 'bg-amber-600';
+      bannerIcon = <ShieldAlert className="w-10 h-10 text-amber-200" />;
+    } else {
+      overallStatus = 'VERIFIED — ACTIVE';
+      bannerColor = 'bg-emerald-600';
+      bannerIcon = <ShieldCheck className="w-10 h-10 text-emerald-200" />;
+    }
+  }
 
   return (
     <>
-      {/* Dark banner header */}
+      {/* Header */}
       <section className="bg-ada-navy pt-32 pb-16 md:pt-40 md:pb-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: 'repeating-linear-gradient(45deg, white 0, white 1px, transparent 1px, transparent 12px)',
@@ -167,27 +200,26 @@ export default async function VerifyResultPage({
             </span>
           </div>
           <h1 className="font-dm-serif text-3xl md:text-4xl text-white">
-            Certificate Verification
+            Credential Verification
           </h1>
         </div>
       </section>
 
       {/* Status banner */}
-      <div className={`${statusBannerColor} py-4`}>
+      <div className={`${bannerColor} py-4`}>
         <div className="max-w-[1000px] mx-auto px-6 flex items-center justify-center gap-3">
-          {statusIcon}
+          {bannerIcon}
           <span className="font-outfit font-bold text-white tracking-wide text-sm md:text-base">
-            {statusLabel}
+            {overallStatus}
           </span>
         </div>
       </div>
 
-      {/* Credential details */}
+      {/* Doula info + all credentials */}
       <section className="py-16 bg-white">
         <div className="max-w-[640px] mx-auto px-6">
-          {/* Certificate card */}
-          <div className="border-2 border-ada-navy/10 rounded-2xl overflow-hidden">
-            {/* Card header */}
+          {/* Doula identity card */}
+          <div className="border-2 border-ada-navy/10 rounded-2xl overflow-hidden mb-6">
             <div className="bg-ada-navy/[0.03] px-8 py-5 border-b border-ada-navy/10">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-ada-purple/10 flex items-center justify-center">
@@ -198,68 +230,95 @@ export default async function VerifyResultPage({
                     Asian Doula Alliance
                   </p>
                   <p className="font-outfit text-sm text-ada-navy font-semibold">
-                    {CERT_TYPE_LABELS[cert.certificate_type as CertificateType]} Certification
+                    Credential Verification
                   </p>
                 </div>
               </div>
             </div>
-
-            {/* Data rows */}
             <div className="divide-y divide-ada-navy/5">
               <div className="flex justify-between items-center px-8 py-4">
                 <span className="text-sm text-ada-navy/40 font-outfit">Holder</span>
                 <span className="text-sm font-outfit font-semibold text-ada-navy">
-                  {doula.full_name}
-                  {doula.full_name_zh && (
-                    <span className="text-ada-navy/40 font-normal ml-2">({doula.full_name_zh})</span>
+                  {doulaInfo.full_name}
+                  {doulaInfo.full_name_zh && (
+                    <span className="text-ada-navy/40 font-normal ml-2">({doulaInfo.full_name_zh})</span>
                   )}
                 </span>
               </div>
               <div className="flex justify-between items-center px-8 py-4">
                 <span className="text-sm text-ada-navy/40 font-outfit">Doula ID</span>
-                <span className="text-sm font-mono text-ada-navy">{doula.doula_id_code}</span>
+                <span className="text-sm font-mono text-ada-navy">{doulaInfo.doula_id_code}</span>
               </div>
-              <div className="flex justify-between items-center px-8 py-4">
-                <span className="text-sm text-ada-navy/40 font-outfit">Certificate Number</span>
-                <span className="text-sm font-mono text-ada-navy">{cert.certificate_number}</span>
-              </div>
-              <div className="flex justify-between items-center px-8 py-4">
-                <span className="text-sm text-ada-navy/40 font-outfit">Credential Status</span>
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-outfit font-semibold ${
-                  isActive ? 'bg-emerald-50 text-emerald-700' :
-                  (isExpired || isUnderInvestigation) ? 'bg-amber-50 text-amber-700' :
-                  isRetired ? 'bg-gray-100 text-gray-600' :
-                  'bg-red-50 text-red-700'
-                }`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${
-                    isActive ? 'bg-emerald-500' : (isExpired || isUnderInvestigation) ? 'bg-amber-500' : isRetired ? 'bg-gray-400' : 'bg-red-500'
-                  }`} />
-                  {isActive ? 'Active' : isExpired ? 'Expired' : isRevoked ? 'Revoked' : isSuspended ? 'Suspended' : isUnderInvestigation ? 'Under Review' : isRetired ? 'Retired' : doula.status}
-                </span>
-              </div>
-              <div className="flex justify-between items-center px-8 py-4">
-                <span className="text-sm text-ada-navy/40 font-outfit">Valid Through</span>
-                <span className="text-sm font-outfit text-ada-navy">{formatDate(cert.expiration_date)}</span>
-              </div>
-            </div>
-
-            {/* Card footer */}
-            <div className="bg-ada-navy/[0.03] px-8 py-4 border-t border-ada-navy/10">
-              <p className="text-xs text-ada-navy/30 font-outfit text-center">
-                This record was retrieved from the Asian Doula Alliance official certification registry.
-                <br />
-                Verification records are retrieved in real-time from the ADA registry.
-              </p>
             </div>
           </div>
 
+          {/* Credentials list */}
+          {creds.length === 0 ? (
+            <p className="text-sm text-ada-navy/40 font-outfit text-center">No credentials on file for this doula.</p>
+          ) : (
+            <div className="space-y-4">
+              {creds.map((cred) => {
+                const isExpired = cred.expiration_date && new Date(cred.expiration_date) < new Date();
+                const isCredRevoked = cred.status === 'revoked';
+                const isCredSuspended = cred.status === 'suspended';
+                const isCredActive = !isDoulaRevoked && !isDoulaSuspended && !isCredRevoked && !isCredSuspended && !isExpired;
+                const latestCert = certs.find(c => c.certificate_type === cred.credential_type);
+
+                const credStatusLabel = isDoulaRevoked ? 'Revoked' : isDoulaSuspended ? 'Suspended' : isCredRevoked ? 'Revoked' : isCredSuspended ? 'Suspended' : isExpired ? 'Expired' : 'Active';
+                const credStatusColor = isCredActive ? 'bg-emerald-50 text-emerald-700' : (isExpired ? 'bg-amber-50 text-amber-700' : 'bg-red-50 text-red-700');
+                const credDotColor = isCredActive ? 'bg-emerald-500' : (isExpired ? 'bg-amber-500' : 'bg-red-500');
+
+                return (
+                  <div key={cred.credential_type} className="border-2 border-ada-navy/10 rounded-2xl overflow-hidden">
+                    <div className="divide-y divide-ada-navy/5">
+                      <div className="flex justify-between items-center px-8 py-4">
+                        <span className="text-sm text-ada-navy/40 font-outfit">Credential</span>
+                        <span className="text-sm font-outfit font-semibold text-ada-navy">
+                          {CREDENTIAL_LABELS[cred.credential_type as CredentialType] || cred.credential_type}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center px-8 py-4">
+                        <span className="text-sm text-ada-navy/40 font-outfit">Status</span>
+                        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-outfit font-semibold ${credStatusColor}`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${credDotColor}`} />
+                          {credStatusLabel}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center px-8 py-4">
+                        <span className="text-sm text-ada-navy/40 font-outfit">Valid Through</span>
+                        <span className="text-sm font-outfit text-ada-navy">
+                          {cred.expiration_date ? formatDate(cred.expiration_date) : 'Permanent'}
+                        </span>
+                      </div>
+                      {latestCert && (
+                        <div className="flex justify-between items-center px-8 py-4">
+                          <span className="text-sm text-ada-navy/40 font-outfit">Certificate</span>
+                          <span className="text-sm font-mono text-ada-navy">{latestCert.certificate_number}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="mt-8 bg-ada-navy/[0.03] rounded-xl px-6 py-4 border border-ada-navy/10">
+            <p className="text-xs text-ada-navy/30 font-outfit text-center">
+              This record was retrieved from the Asian Doula Alliance official certification registry.
+              <br />
+              Verification records are retrieved in real-time from the ADA registry.
+            </p>
+          </div>
+
           {/* Actions */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <Link
               href="/verify"
               className="inline-flex items-center gap-2 text-sm text-ada-navy/60 font-outfit hover:text-ada-navy transition-colors"
             >
-              <ArrowLeft className="w-4 h-4" /> Verify Another Certificate
+              <ArrowLeft className="w-4 h-4" /> Verify Another Credential
             </Link>
             <Link
               href="/support/contact"
