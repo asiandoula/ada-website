@@ -28,8 +28,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Doula not found' }, { status: 404 });
     }
 
-    // For credential-backed types (postpartum, birth), credential must exist as source of truth
-    // For other types (cpr), use body.expiration_date or default +1 year
+    // For credential-backed types, credential must exist as source of truth
     const credentialTypes = ['postpartum', 'birth', 'ibclc_training'];
     const issuedDate = new Date().toISOString().split('T')[0];
     let expirationDate: string;
@@ -52,66 +51,55 @@ export async function POST(request: NextRequest) {
       credential = cred;
       expirationDate = cred.expiration_date;
     } else {
-      // Non-credential types (e.g. cpr): accept body param or default +1 year
       expirationDate = body.expiration_date || new Date(
         new Date().setFullYear(new Date().getFullYear() + 1)
       ).toISOString().split('T')[0];
     }
 
-    // Check if this doula already has a certificate of this type
-    const { data: existingCert } = await supabase
+    // Supersede all existing active certificates of this type for this doula
+    await supabase
       .from('certificates')
-      .select('id, certificate_number, verification_code, pdf_url')
+      .update({ status: 'superseded', updated_at: new Date().toISOString() })
       .eq('doula_id', doula_id)
       .eq('certificate_type', certificate_type)
+      .eq('status', 'active');
+
+    // Generate new certificate number
+    const year = new Date().getFullYear();
+    const prefix = certificate_type === 'postpartum' ? 'PD' : certificate_type === 'birth' ? 'BD' : 'CPR';
+    const numberPrefix = `ADA-${prefix}-${year}-`;
+
+    const { data: latest } = await supabase
+      .from('certificates')
+      .select('certificate_number')
+      .like('certificate_number', `${numberPrefix}%`)
+      .order('certificate_number', { ascending: false })
+      .limit(1)
       .single();
 
-    let certificateNumber: string;
-    let verificationCode: string;
-    let certId: string;
-
-    if (existingCert) {
-      certificateNumber = existingCert.certificate_number;
-      verificationCode = existingCert.verification_code;
-      certId = existingCert.id;
-    } else {
-      // Create new certificate record — find max sequence to avoid duplicates
-      const year = new Date().getFullYear();
-      const prefix = certificate_type === 'postpartum' ? 'PD' : certificate_type === 'birth' ? 'BD' : 'CPR';
-      const numberPrefix = `ADA-${prefix}-${year}-`;
-
-      const { data: latest } = await supabase
-        .from('certificates')
-        .select('certificate_number')
-        .like('certificate_number', `${numberPrefix}%`)
-        .order('certificate_number', { ascending: false })
-        .limit(1)
-        .single();
-
-      let sequence = 1;
-      if (latest) {
-        const lastSeq = parseInt(latest.certificate_number.replace(numberPrefix, ''), 10);
-        if (!isNaN(lastSeq)) sequence = lastSeq + 1;
-      }
-
-      certificateNumber = generateCertificateNumber(certificate_type, sequence);
-
-      const { data: duplicate } = await supabase
-        .from('certificates')
-        .select('id')
-        .eq('certificate_number', certificateNumber)
-        .single();
-
-      if (duplicate) {
-        return NextResponse.json(
-          { error: `Certificate number ${certificateNumber} already exists. Please try again.` },
-          { status: 409 }
-        );
-      }
-
-      verificationCode = generateVerificationCode();
-      certId = '';
+    let sequence = 1;
+    if (latest) {
+      const lastSeq = parseInt(latest.certificate_number.replace(numberPrefix, ''), 10);
+      if (!isNaN(lastSeq)) sequence = lastSeq + 1;
     }
+
+    const certificateNumber = generateCertificateNumber(certificate_type, sequence);
+
+    // Double-check uniqueness
+    const { data: duplicate } = await supabase
+      .from('certificates')
+      .select('id')
+      .eq('certificate_number', certificateNumber)
+      .single();
+
+    if (duplicate) {
+      return NextResponse.json(
+        { error: `Certificate number ${certificateNumber} already exists. Please try again.` },
+        { status: 409 }
+      );
+    }
+
+    const verificationCode = generateVerificationCode();
 
     // Generate PDF
     console.log('Generating PDF for', doula.full_name, '...');
@@ -143,42 +131,24 @@ export async function POST(request: NextRequest) {
       data: { publicUrl },
     } = supabase.storage.from('certificates').getPublicUrl(storagePath);
 
-    let cert;
-    if (existingCert) {
-      const { data, error } = await supabase
-        .from('certificates')
-        .update({
-          issued_date: issuedDate,
-          expiration_date: expirationDate,
-          pdf_url: publicUrl,
-        })
-        .eq('id', certId)
-        .select()
-        .single();
+    // Always insert new certificate
+    const { data: cert, error: insertError } = await supabase
+      .from('certificates')
+      .insert({
+        doula_id,
+        certificate_type,
+        certificate_number: certificateNumber,
+        issued_date: issuedDate,
+        expiration_date: expirationDate,
+        pdf_url: publicUrl,
+        verification_code: verificationCode,
+        status: 'active',
+      })
+      .select()
+      .single();
 
-      if (error) {
-        return NextResponse.json({ error: `Update failed: ${error.message}` }, { status: 500 });
-      }
-      cert = data;
-    } else {
-      const { data, error } = await supabase
-        .from('certificates')
-        .insert({
-          doula_id,
-          certificate_type,
-          certificate_number: certificateNumber,
-          issued_date: issuedDate,
-          expiration_date: expirationDate,
-          pdf_url: publicUrl,
-          verification_code: verificationCode,
-        })
-        .select()
-        .single();
-
-      if (error) {
-        return NextResponse.json({ error: `Save failed: ${error.message}` }, { status: 500 });
-      }
-      cert = data;
+    if (insertError) {
+      return NextResponse.json({ error: `Save failed: ${insertError.message}` }, { status: 500 });
     }
 
     // Sync doula's dates from credential (denormalized copy)
