@@ -197,8 +197,44 @@ export default function EditDoulaPage() {
                     </Badge>
                   </div>
                   <div className="text-xs text-muted-foreground space-y-1">
-                    <p>Certified: {cred.certification_date ?? '—'}</p>
-                    <p>Expires: {cred.expiration_date ?? 'Permanent'}</p>
+                    <div className="flex items-center gap-1">
+                      <span className="w-16">Certified:</span>
+                      <input
+                        type="date"
+                        className="border rounded px-1 py-0.5 text-xs flex-1"
+                        defaultValue={cred.certification_date ?? ''}
+                        onBlur={async (e) => {
+                          const val = e.target.value || null;
+                          if (val === cred.certification_date) return;
+                          await supabase.from('doula_credentials').update({
+                            certification_date: val,
+                            updated_at: new Date().toISOString(),
+                          }).eq('id', cred.id);
+                          reloadData();
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="w-16">Expires:</span>
+                      {cred.credential_type === 'ibclc_training' ? (
+                        <span>Permanent</span>
+                      ) : (
+                        <input
+                          type="date"
+                          className="border rounded px-1 py-0.5 text-xs flex-1"
+                          defaultValue={cred.expiration_date ?? ''}
+                          onBlur={async (e) => {
+                            const val = e.target.value || null;
+                            if (val === cred.expiration_date) return;
+                            await supabase.from('doula_credentials').update({
+                              expiration_date: val,
+                              updated_at: new Date().toISOString(),
+                            }).eq('id', cred.id);
+                            reloadData();
+                          }}
+                        />
+                      )}
+                    </div>
                   </div>
                   <div className="flex gap-1">
                     <select
