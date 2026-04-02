@@ -281,9 +281,19 @@ export default function EditDoulaPage() {
                               certificate_type: cred.credential_type,
                             }),
                           });
+                          const data = await res.json();
                           if (!res.ok) {
-                            const data = await res.json();
                             alert(data.error || 'PDF regeneration failed');
+                          } else if (doula.email && data.certificate) {
+                            setEmailRecipients([{
+                              doula_id: params.id as string,
+                              doula_name: doula.full_name,
+                              doula_id_code: doula.doula_id_code,
+                              email: doula.email,
+                              related_id: data.certificate.id,
+                              type: 'certificate',
+                            }]);
+                            setShowEmailDialog(true);
                           }
 
                           reloadData();
@@ -411,7 +421,7 @@ export default function EditDoulaPage() {
           doulaName={doula.full_name}
           doulaEmail={doula.email}
           doulaIdCode={doula.doula_id_code}
-          existingCertTypes={certs.map((c: Record<string, string>) => c.certificate_type)}
+          existingCertTypes={credentials.map((c: Record<string, string>) => c.credential_type)}
           loading={loading}
           setLoading={setLoading}
           onDone={reloadData}
@@ -583,14 +593,15 @@ export default function EditDoulaPage() {
                               if (res.ok) reloadData();
                             }}
                           >
-                            Regen PDF
+                            New PDF
                           </Button>
                           <Button
                             variant="outline"
                             size="sm"
                             className="text-xs h-7 text-red-600 border-red-200 hover:bg-red-50"
                             onClick={async () => {
-                              if (!confirm('Revoke this certificate? This cannot be undone.')) return;
+                              if (!confirm('Revoke this certificate and its credential? This cannot be undone.')) return;
+                              // Revoke the certificate
                               await supabase
                                 .from('certificates')
                                 .update({
@@ -599,6 +610,15 @@ export default function EditDoulaPage() {
                                   updated_at: new Date().toISOString(),
                                 })
                                 .eq('id', cert.id);
+                              // Also revoke the credential
+                              await supabase
+                                .from('doula_credentials')
+                                .update({
+                                  status: 'revoked',
+                                  updated_at: new Date().toISOString(),
+                                })
+                                .eq('doula_id', params.id)
+                                .eq('credential_type', cert.certificate_type);
                               reloadData();
                             }}
                           >
@@ -768,13 +788,14 @@ function GrantCertification({
               setResult(null);
 
               // Step 1: Create credential first (source of truth)
-              if (['postpartum', 'birth'].includes(certType)) {
+              if (['postpartum', 'birth', 'ibclc_training'].includes(certType)) {
+                const isIbclc = certType === 'ibclc_training';
                 const { error: credError } = await supabase.from('doula_credentials').insert({
                   doula_id: doulaId,
                   credential_type: certType,
                   status: 'active',
                   certification_date: new Date().toISOString().split('T')[0],
-                  expiration_date: expDate,
+                  expiration_date: isIbclc ? null : expDate,
                 });
                 if (credError) {
                   alert(`Failed to create credential: ${credError.message}`);

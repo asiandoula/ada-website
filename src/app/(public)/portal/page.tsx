@@ -613,7 +613,7 @@ export default function PortalPage() {
             ) : (
               <div className="space-y-3">
                 {certificates.map((cert) => (
-                  <div key={cert.id} className={`flex items-center justify-between border border-gray-200 rounded-xl px-6 py-4 ${cert.status === 'superseded' ? 'opacity-50' : ''}`}>
+                  <div key={cert.id} className={`flex items-center justify-between border border-gray-200 rounded-xl px-6 py-4 ${cert.status !== 'active' ? 'opacity-50' : ''}`}>
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-lg bg-ada-purple/10 flex items-center justify-center shrink-0">
                         <FileText className="w-5 h-5 text-ada-purple/60" />
@@ -624,6 +624,11 @@ export default function PortalPage() {
                           {cert.status === 'superseded' && (
                             <span className="text-[10px] font-outfit font-semibold px-1.5 py-0.5 rounded bg-gray-100 text-gray-400">
                               {labels.superseded}
+                            </span>
+                          )}
+                          {cert.status === 'revoked' && (
+                            <span className="text-[10px] font-outfit font-semibold px-1.5 py-0.5 rounded bg-red-100 text-red-500">
+                              {lang === 'zh' ? '已撤销' : 'Revoked'}
                             </span>
                           )}
                         </div>

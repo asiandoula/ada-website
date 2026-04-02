@@ -178,9 +178,16 @@ export default async function VerifyResultPage({
       bannerColor = 'bg-amber-600';
       bannerIcon = <ShieldAlert className="w-10 h-10 text-amber-200" />;
     } else {
-      overallStatus = 'VERIFIED — ACTIVE';
-      bannerColor = 'bg-emerald-600';
-      bannerIcon = <ShieldCheck className="w-10 h-10 text-emerald-200" />;
+      const anyExpired = creds.some(c => c.expiration_date && new Date(c.expiration_date) < new Date());
+      if (anyExpired) {
+        overallStatus = 'PARTIALLY EXPIRED — SEE DETAILS';
+        bannerColor = 'bg-amber-600';
+        bannerIcon = <ShieldAlert className="w-10 h-10 text-amber-200" />;
+      } else {
+        overallStatus = 'VERIFIED — ACTIVE';
+        bannerColor = 'bg-emerald-600';
+        bannerIcon = <ShieldCheck className="w-10 h-10 text-emerald-200" />;
+      }
     }
   }
 
