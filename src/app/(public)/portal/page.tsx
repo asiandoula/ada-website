@@ -609,11 +609,11 @@ export default function PortalPage() {
               <FileText className="w-5 h-5 inline-block mr-2 text-ada-purple" />
               {labels.certificates}
             </h2>
-            {certificates.length === 0 ? (
+            {certificates.filter(c => c.status === 'active').length === 0 ? (
               <p className="text-sm text-ada-navy/40 font-outfit">{labels.certificatesEmpty}</p>
             ) : (
               <div className="space-y-3">
-                {certificates.map((cert) => (
+                {certificates.filter(c => c.status === 'active').map((cert) => (
                   <div key={cert.id} className={`flex items-center justify-between border border-gray-200 rounded-xl px-6 py-4 ${cert.status !== 'active' ? 'opacity-50' : ''}`}>
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-lg bg-ada-purple/10 flex items-center justify-center shrink-0">
