@@ -558,7 +558,6 @@ export default function EditDoulaPage() {
                                 body: JSON.stringify({
                                   doula_id: params.id,
                                   certificate_type: cert.certificate_type,
-                                  regenerate_id: cert.id,
                                 }),
                               });
                               if (res.ok) reloadData();
