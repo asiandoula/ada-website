@@ -105,7 +105,6 @@ export async function POST(request: NextRequest) {
     console.log('Generating PDF for', doula.full_name, '...');
     const pdfBuffer = await generateCertificatePDF({
       fullName: doula.full_name,
-      fullNameZh: doula.full_name_zh || undefined,
       certificateNumber,
       expirationDate,
     });
