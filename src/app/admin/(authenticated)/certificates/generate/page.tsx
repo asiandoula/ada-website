@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { CERTIFICATE_TYPES, CERT_TYPE_LABELS } from '@/lib/constants';
+import { EmailSendDialog, type EmailRecipient } from '@/components/admin/email-send-dialog';
 
 export default function GenerateCertificatePage() {
   const router = useRouter();
@@ -20,12 +21,14 @@ export default function GenerateCertificatePage() {
   const [result, setResult] = useState<Record<string, any> | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [existingCert, setExistingCert] = useState<Record<string, any> | null>(null);
+  const [emailRecipients, setEmailRecipients] = useState<EmailRecipient[]>([]);
+  const [showEmailDialog, setShowEmailDialog] = useState(false);
 
   useEffect(() => {
     async function load() {
       const { data } = await supabase
         .from('doulas')
-        .select('id, full_name, doula_id_code')
+        .select('id, full_name, doula_id_code, email')
         .in('status', ['active'])
         .order('full_name');
       setDoulas((data as Record<string, string>[]) ?? []);
@@ -90,6 +93,20 @@ export default function GenerateCertificatePage() {
 
       setResult(data);
       setExistingCert(null); // refresh
+
+      // Auto-prompt email notification
+      const doula = doulas.find((d) => d.id === selectedDoula);
+      if (doula?.email && data.certificate) {
+        setEmailRecipients([{
+          doula_id: selectedDoula,
+          doula_name: doula.full_name,
+          doula_id_code: doula.doula_id_code,
+          email: doula.email,
+          related_id: data.certificate.id,
+          type: 'certificate',
+        }]);
+        setShowEmailDialog(true);
+      }
     } catch {
       setError('Network error — please check your connection.');
     }
@@ -186,6 +203,17 @@ export default function GenerateCertificatePage() {
           </div>
         </CardContent>
       </Card>
+
+      <EmailSendDialog
+        open={showEmailDialog}
+        onClose={() => {
+          setShowEmailDialog(false);
+          setEmailRecipients([]);
+        }}
+        recipients={emailRecipients}
+        title="Certificate Generated — Send Notification?"
+        description="The doula will receive their certificate PDF as an email attachment."
+      />
     </div>
   );
 }
