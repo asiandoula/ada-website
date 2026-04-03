@@ -81,7 +81,7 @@ export default function NewDoulaPage() {
                 <Input id="full_name" name="full_name" required />
               </div>
               <div>
-                <Label htmlFor="full_name_zh">Chinese Name</Label>
+                <Label htmlFor="full_name_zh">Native Name</Label>
                 <Input id="full_name_zh" name="full_name_zh" />
               </div>
             </div>

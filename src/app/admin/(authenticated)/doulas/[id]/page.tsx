@@ -327,7 +327,7 @@ export default function EditDoulaPage() {
                 />
               </div>
               <div>
-                <Label>Chinese Name</Label>
+                <Label>Native Name</Label>
                 <Input
                   name="full_name_zh"
                   defaultValue={doula.full_name_zh ?? ''}
