@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArticleCard } from '@/components/public/article-card';
 import { TableOfContents } from './table-of-contents';
+import { articleJsonLd } from '@/lib/json-ld';
 import type { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
@@ -66,6 +67,21 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
   return (
     <article className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 py-24 md:py-32">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            articleJsonLd({
+              title: article.title,
+              excerpt: article.excerpt,
+              author: article.author,
+              cover_image: article.cover_image,
+              published_at: article.published_at,
+              updated_at: article.updated_at,
+            })
+          ),
+        }}
+      />
       {/* Breadcrumb */}
       <nav className="mb-8 text-sm text-gray-500">
         <Link href="/articles" className="hover:text-ada-purple">
