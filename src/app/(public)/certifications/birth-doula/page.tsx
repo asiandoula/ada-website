@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { Accordion } from '@/components/public/accordion';
 import { ContactForm } from '@/components/public/contact-form';
-import { courseJsonLd } from '@/lib/json-ld';
+import { courseJsonLd, breadcrumbJsonLd } from '@/lib/json-ld';
 
 export const metadata: Metadata = {
   title: 'Birth Doula Certification (Coming Soon) | Asian Doula Alliance',
@@ -59,6 +59,17 @@ const sidebarLinks = [
 export default function BirthDoulaCertificationPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'Certifications', path: '/certifications' },
+              { name: 'Birth Doula', path: '/certifications/birth-doula' },
+            ])
+          ),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
 
 export const metadata: Metadata = {
@@ -16,6 +17,17 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'Support', path: '/support' },
+              { name: 'Contact', path: '/support/contact' },
+            ])
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
 
 export const metadata: Metadata = {
@@ -34,6 +35,17 @@ const serviceAreas = [
 export default function FindADoulaPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'For Families', path: '/for-families' },
+              { name: 'Find a Doula', path: '/for-families/find-a-doula' },
+            ])
+          ),
+        }}
+      />
       {/* Hero — light, per inner page pattern */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20 relative overflow-hidden">
         {/* Decorative shapes */}

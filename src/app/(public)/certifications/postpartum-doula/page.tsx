@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ContactForm } from '@/components/public/contact-form';
 import { SidebarNav } from '@/components/public/sidebar-nav';
-import { courseJsonLd } from '@/lib/json-ld';
+import { courseJsonLd, breadcrumbJsonLd } from '@/lib/json-ld';
 
 export const metadata: Metadata = {
   title: 'Postpartum Doula Certification | Asian Doula Alliance',
@@ -43,6 +43,17 @@ const insurancePartners = [
 export default function PostpartumDoulaPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'Certifications', path: '/certifications' },
+              { name: 'Postpartum Doula', path: '/certifications/postpartum-doula' },
+            ])
+          ),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

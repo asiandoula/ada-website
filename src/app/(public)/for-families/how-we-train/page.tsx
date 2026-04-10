@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
 
 export const metadata: Metadata = {
@@ -106,6 +107,17 @@ const insurancePartners = [
 export default function HowWeTrainPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'For Families', path: '/for-families' },
+              { name: 'How We Train', path: '/for-families/how-we-train' },
+            ])
+          ),
+        }}
+      />
       {/* Hero with image */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6">

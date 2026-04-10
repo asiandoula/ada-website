@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { Steps } from '@/components/public/steps';
 import { Accordion } from '@/components/public/accordion';
 import { ContactForm } from '@/components/public/contact-form';
@@ -86,6 +87,18 @@ const certBenefits = [
 export default function StepsToCertificationPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'Certifications', path: '/certifications' },
+              { name: 'Postpartum Doula', path: '/certifications/postpartum-doula' },
+              { name: 'Steps to Certification', path: '/certifications/postpartum-doula/steps' },
+            ])
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">

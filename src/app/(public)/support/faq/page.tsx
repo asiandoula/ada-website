@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { FAQContent } from './faq-content';
-import { faqJsonLd } from '@/lib/json-ld';
+import { faqJsonLd, breadcrumbJsonLd } from '@/lib/json-ld';
 import { faqData } from './faq-data';
 
 export const metadata: Metadata = {
@@ -25,6 +25,17 @@ const sidebarLinks = [
 export default function FAQPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'Support', path: '/support' },
+              { name: 'FAQ', path: '/support/faq' },
+            ])
+          ),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

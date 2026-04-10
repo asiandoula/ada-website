@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
 
 export const metadata: Metadata = {
@@ -58,6 +59,18 @@ const sidebarLinks = [
 export default function FindADoulaTrainingPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'Certifications', path: '/certifications' },
+              { name: 'Postpartum Doula', path: '/certifications/postpartum-doula' },
+              { name: 'Find a Training', path: '/certifications/postpartum-doula/training' },
+            ])
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
