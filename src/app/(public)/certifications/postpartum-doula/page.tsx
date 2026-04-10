@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ContactForm } from '@/components/public/contact-form';
 import { SidebarNav } from '@/components/public/sidebar-nav';
+import { courseJsonLd } from '@/lib/json-ld';
 
 export const metadata: Metadata = {
   title: 'Postpartum Doula Certification | Asian Doula Alliance',
@@ -42,6 +43,17 @@ const insurancePartners = [
 export default function PostpartumDoulaPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            courseJsonLd({
+              name: 'ADA Postpartum Doula Certification',
+              description: 'The gold standard in culturally integrated postpartum care — recognized by 6 major insurance providers.',
+            })
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">

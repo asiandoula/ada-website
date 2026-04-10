@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { Accordion } from '@/components/public/accordion';
 import { ContactForm } from '@/components/public/contact-form';
+import { courseJsonLd } from '@/lib/json-ld';
 
 export const metadata: Metadata = {
   title: 'Birth Doula Certification (Coming Soon) | Asian Doula Alliance',
@@ -58,6 +59,17 @@ const sidebarLinks = [
 export default function BirthDoulaCertificationPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            courseJsonLd({
+              name: 'ADA Birth Doula Certification',
+              description: 'Culturally integrated training and certification for labor and delivery support.',
+            })
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">

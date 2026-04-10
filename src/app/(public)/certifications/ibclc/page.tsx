@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { Accordion } from '@/components/public/accordion';
 import { ContactForm } from '@/components/public/contact-form';
+import { courseJsonLd } from '@/lib/json-ld';
 
 export const metadata: Metadata = {
   title: 'IBCLC Exam Prep (Coming Soon) | Asian Doula Alliance',
@@ -79,6 +80,17 @@ const sidebarLinks = [
 export default function IBCLCExamPrepPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            courseJsonLd({
+              name: 'ADA IBCLC Exam Prep',
+              description: 'Multilingual IBCLC exam preparation with culturally integrated lactation education.',
+            })
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
