@@ -9,32 +9,42 @@ export default async function ExamHomePage({ searchParams }: PageProps) {
   const { session } = await searchParams;
 
   return (
-    <div className="max-w-md mx-auto px-4 py-16 text-center flex flex-col items-center gap-6">
-      {/* Branding */}
-      <div className="flex flex-col items-center gap-1">
-        <h1 className="font-outfit font-medium text-3xl tracking-[0.08em] text-ada-purple">
-          ASIANDOULA
-        </h1>
-        <p className="font-outfit font-medium text-sm tracking-[0.19em] text-ada-purple">
-          Examination Committee
-        </p>
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-[80vh] px-6">
+      {/* Card container */}
+      <div className="w-full max-w-lg">
+        {/* Header section */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-ada-purple/5 mb-8">
+            <span className="w-2 h-2 rounded-full bg-ada-purple" />
+            <span className="font-outfit text-xs font-semibold tracking-[0.15em] uppercase text-ada-purple">
+              Examination Committee
+            </span>
+          </div>
 
-      {/* Main heading */}
-      <div className="flex flex-col items-center gap-1">
-        <h2 className="text-2xl font-medium text-zinc-800">
-          Certified Postpartum Doula Examination
-        </h2>
-        <p className="text-lg text-zinc-500">产后导乐国际认证考试</p>
-        <p className="text-sm text-zinc-400">
-          Organized by the Asian Doula Alliance Certification Board
-        </p>
-      </div>
+          <h1 className="font-dm-serif text-4xl text-ada-navy leading-tight">
+            Certified Postpartum
+            <br />
+            Doula Examination
+          </h1>
+          <p className="font-outfit text-xl text-ada-purple/60 mt-3">
+            产后导乐国际认证考试
+          </p>
+          <p className="font-outfit text-sm text-zinc-400 mt-2">
+            Organized by the Asian Doula Alliance Certification Board
+          </p>
+        </div>
 
-      {/* Language selector */}
-      <div className="flex flex-col items-center gap-4 w-full">
-        <p className="text-lg text-ada-purple">🌐 Please Select Exam Language:</p>
-        <div className="flex flex-col gap-3 w-full">
+        {/* Divider */}
+        <div className="flex items-center gap-4 mb-8">
+          <div className="flex-1 h-px bg-zinc-200" />
+          <span className="font-outfit text-xs font-semibold tracking-[0.1em] uppercase text-zinc-400">
+            Select Language
+          </span>
+          <div className="flex-1 h-px bg-zinc-200" />
+        </div>
+
+        {/* Language buttons */}
+        <div className="grid grid-cols-1 gap-2.5">
           {EXAM_LANGS.map((lang) => {
             const href = session
               ? `/exam-home/${lang.code}?session=${session}`
@@ -43,9 +53,14 @@ export default async function ExamHomePage({ searchParams }: PageProps) {
               <Link
                 key={lang.code}
                 href={href}
-                className="rounded-lg border border-gray-200 px-6 py-3 text-center hover:bg-zinc-50 hover:border-ada-purple transition"
+                className="group flex items-center justify-between rounded-xl border border-zinc-200 px-6 py-4 hover:border-ada-purple hover:bg-ada-purple/[0.03] transition-all"
               >
-                {lang.nativeLabel}
+                <span className="font-outfit font-medium text-lg text-zinc-700 group-hover:text-ada-purple transition-colors">
+                  {lang.nativeLabel}
+                </span>
+                <span className="font-outfit text-sm text-zinc-400 group-hover:text-ada-purple/60 transition-colors">
+                  {lang.label}
+                </span>
               </Link>
             );
           })}
