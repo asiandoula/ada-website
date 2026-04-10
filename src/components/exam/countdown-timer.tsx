@@ -9,6 +9,7 @@ interface CountdownTimerProps {
   onTimeUp?: () => void;
   warningAtSeconds?: number;
   size?: 'sm' | 'lg';
+  paused?: boolean;
 }
 
 function computeInitialRemaining(durationSeconds: number, startedAt?: string): number {
@@ -17,7 +18,7 @@ function computeInitialRemaining(durationSeconds: number, startedAt?: string): n
   return Math.max(0, durationSeconds - elapsed);
 }
 
-function formatTime(seconds: number): string {
+export function formatTime(seconds: number): string {
   if (seconds >= 3600) {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
@@ -35,6 +36,7 @@ export function CountdownTimer({
   onTimeUp,
   warningAtSeconds = 900,
   size = 'lg',
+  paused = false,
 }: CountdownTimerProps) {
   const [remaining, setRemaining] = useState<number>(() =>
     computeInitialRemaining(durationSeconds, startedAt)
@@ -42,7 +44,6 @@ export function CountdownTimer({
   const [timeUpFired, setTimeUpFired] = useState(false);
 
   useEffect(() => {
-    // Re-initialise if props change
     const initial = computeInitialRemaining(durationSeconds, startedAt);
     setRemaining(initial);
     setTimeUpFired(false);
@@ -50,8 +51,8 @@ export function CountdownTimer({
   }, [durationSeconds, startedAt]);
 
   useEffect(() => {
-    if (remaining <= 0) {
-      if (!timeUpFired) {
+    if (paused || remaining <= 0) {
+      if (remaining <= 0 && !timeUpFired) {
         setTimeUpFired(true);
         onTimeUp?.();
       }
@@ -70,9 +71,8 @@ export function CountdownTimer({
     }, 1000);
 
     return () => clearInterval(id);
-  // onTimeUp intentionally excluded — callers should memoize if needed
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [remaining, timeUpFired]);
+  }, [remaining, timeUpFired, paused]);
 
   const isTimeUp = remaining <= 0;
   const isWarning = !isTimeUp && remaining <= warningAtSeconds;
@@ -95,10 +95,9 @@ export function CountdownTimer({
     <span
       className={cn(
         'tabular-nums',
-        // base colour — navy unless warning
         !isWarning && 'text-ada-navy',
         isWarning && 'text-red-500 animate-pulse',
-        // size variants
+        paused && 'opacity-50',
         size === 'lg' && 'block text-center text-6xl font-dm-serif',
         size === 'sm' && 'inline text-5xl font-outfit font-semibold'
       )}
