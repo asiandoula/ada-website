@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { FAQContent } from './faq-content';
+import { faqJsonLd } from '@/lib/json-ld';
+import { faqData } from './faq-data';
 
 export const metadata: Metadata = {
   title: 'FAQ',
@@ -23,6 +25,14 @@ const sidebarLinks = [
 export default function FAQPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            faqJsonLd(faqData.flatMap((cat) => cat.items))
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
