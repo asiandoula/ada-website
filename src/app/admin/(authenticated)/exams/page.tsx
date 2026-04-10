@@ -30,11 +30,16 @@ export default function ExamsPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Exam Results</h1>
-        <Link href="/admin/exams/record">
-          <Button className="bg-ada-purple hover:bg-ada-purple/90">
-            + Record Exam
-          </Button>
-        </Link>
+        <div className="flex gap-2">
+          <Link href="/admin/exams/sessions">
+            <Button variant="outline">Exam Sessions</Button>
+          </Link>
+          <Link href="/admin/exams/record">
+            <Button className="bg-ada-purple hover:bg-ada-purple/90">
+              + Record Exam
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <div className="bg-white rounded-lg border">
