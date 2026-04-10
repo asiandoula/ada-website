@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { DM_Serif_Display, Outfit } from "next/font/google";
 import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const dmSerif = DM_Serif_Display({
@@ -62,6 +64,8 @@ gtag('config', 'G-P7D4D4SEHL');`}
       <body className={`${dmSerif.variable} ${outfit.variable} antialiased`}>
         {children}
         <Toaster position="top-right" richColors />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
