@@ -9,6 +9,7 @@ import { ContactForm } from '@/components/public/contact-form';
 import { ShapeHeart, ShapeFlower } from '@/components/public/decorative-shapes';
 import { HomepageArticles } from '@/components/public/homepage-articles';
 import { GraduationCap, Trophy, Users, Globe, Soup, Heart } from 'lucide-react';
+import { organizationJsonLd } from '@/lib/json-ld';
 
 const CommunityMap = dynamic(
   () => import('@/components/public/california-map').then((m) => m.CommunityMap),
@@ -73,26 +74,12 @@ const testimonials = [
   },
 ];
 
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Asian Doula Alliance',
-  url: 'https://asiandoula.org',
-  logo: 'https://asiandoula.org/ada-logo.svg',
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: '+1-714-202-6501',
-    email: 'contact@asiandoula.org',
-  },
-};
-
 export default function HomePage() {
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
       />
 
       {/* Hero — full viewport */}
