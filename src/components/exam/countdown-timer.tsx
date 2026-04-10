@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface CountdownTimerProps {
@@ -10,6 +10,7 @@ interface CountdownTimerProps {
   warningAtSeconds?: number;
   size?: 'sm' | 'lg';
   paused?: boolean;
+  playSound?: boolean; // play alert sound when time's up (default: true)
 }
 
 function computeInitialRemaining(durationSeconds: number, startedAt?: string): number {
@@ -37,11 +38,25 @@ export function CountdownTimer({
   warningAtSeconds = 900,
   size = 'lg',
   paused = false,
+  playSound = true,
 }: CountdownTimerProps) {
   const [remaining, setRemaining] = useState<number>(() =>
     computeInitialRemaining(durationSeconds, startedAt)
   );
   const [timeUpFired, setTimeUpFired] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Pre-load alert sound
+  useEffect(() => {
+    if (playSound) {
+      audioRef.current = new Audio('/audio/exam/time-up-alert.mp3');
+      audioRef.current.preload = 'auto';
+    }
+    return () => {
+      audioRef.current?.pause();
+      audioRef.current = null;
+    };
+  }, [playSound]);
 
   useEffect(() => {
     const initial = computeInitialRemaining(durationSeconds, startedAt);
@@ -54,6 +69,11 @@ export function CountdownTimer({
     if (paused || remaining <= 0) {
       if (remaining <= 0 && !timeUpFired) {
         setTimeUpFired(true);
+        // Play alert sound
+        if (playSound && audioRef.current) {
+          audioRef.current.currentTime = 0;
+          audioRef.current.play().catch(() => {});
+        }
         onTimeUp?.();
       }
       return;
@@ -81,7 +101,7 @@ export function CountdownTimer({
     return (
       <span
         className={cn(
-          'text-red-500 font-semibold',
+          'text-red-500 font-semibold animate-pulse',
           size === 'lg' && 'block text-center text-4xl font-dm-serif',
           size === 'sm' && 'inline text-5xl font-outfit font-semibold'
         )}
