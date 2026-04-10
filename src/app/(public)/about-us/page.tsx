@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'About Us | Asian Doula Alliance',
     description:
       'Learn about the Asian Doula Alliance — a 501(c)(3) non-profit setting the standard in culturally integrated postpartum doula care and certification.',
-    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
   },
 };
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'Contact Us | Asian Doula Alliance',
     description:
       'Get in touch with the Asian Doula Alliance. We\'d love to hear from you.',
-    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
   },
 };
 

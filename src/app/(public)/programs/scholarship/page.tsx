@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'Scholarship Program | Asian Doula Alliance',
     description:
       'ADA Scholarship Program — making doula certification accessible to aspiring caregivers from all backgrounds through financial assistance.',
-    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
   },
 };
 

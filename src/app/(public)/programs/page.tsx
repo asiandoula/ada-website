@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Programs | Asian Doula Alliance',
     description:
       'Certification tracks, training programs, and scholarships for aspiring doulas and lactation professionals.',
-    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
   },
 };
 

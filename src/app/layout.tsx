@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Asian Doula Alliance",
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
   },
 };
 

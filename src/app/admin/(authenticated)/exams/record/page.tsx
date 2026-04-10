@@ -233,7 +233,7 @@ export default function RecordExamPage() {
       };
     });
 
-    const { data: insertedResults, error } = await supabase.from('exam_results').insert(records).select('id, doula_id, passed');
+    const { error } = await supabase.from('exam_results').insert(records).select('id, doula_id, passed');
 
     if (error) {
       setError(error.message);

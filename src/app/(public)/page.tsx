@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description:
       'Setting standards in postpartum care through culturally integrated training, certification, and multilingual support for Asian doulas.',
     url: 'https://asiandoula.org',
-    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
   },
 };
 

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'FAQ | Asian Doula Alliance',
     description:
       'Frequently asked questions about ADA certification, training, and doula services.',
-    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
   },
 };
 

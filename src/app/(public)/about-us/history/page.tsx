@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: 'Our History | Asian Doula Alliance',
     description:
       'From a small initiative in Irvine to a nationally recognized certification body — tracing the journey of the Asian Doula Alliance.',
-    images: [{ url: '/images/hero.jpg', width: 1200, height: 630 }],
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
   },
 };
 
