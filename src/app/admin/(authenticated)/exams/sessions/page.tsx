@@ -123,7 +123,7 @@ export default function ExamSessionsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Exam Sessions</h1>
+        <h1 className="text-2xl font-bold">Offline Exam</h1>
         <Button
           className="bg-ada-purple hover:bg-ada-purple/90"
           onClick={() => setShowForm((v) => !v)}
