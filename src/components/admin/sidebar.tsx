@@ -16,6 +16,15 @@ const navItems = [
   { href: '/admin/exams/sessions', label: 'Offline Exam', icon: '🎓' },
 ];
 
+function isActive(pathname: string, href: string): boolean {
+  if (!pathname.startsWith(href)) return false;
+  // Check if a more specific nav item matches
+  const moreSpecific = navItems.some(
+    (other) => other.href !== href && other.href.startsWith(href) && pathname.startsWith(other.href)
+  );
+  return !moreSpecific;
+}
+
 export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -40,7 +49,7 @@ export function AdminSidebar() {
             href={item.href}
             className={cn(
               'flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors',
-              pathname.startsWith(item.href)
+              isActive(pathname, item.href)
                 ? 'bg-ada-purple text-white'
                 : 'text-gray-300 hover:bg-white/10'
             )}
