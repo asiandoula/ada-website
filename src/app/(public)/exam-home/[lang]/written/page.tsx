@@ -38,7 +38,6 @@ export default function WrittenExamPage() {
       }
     };
 
-    // Poll immediately, then every 5 seconds
     poll();
     const interval = setInterval(poll, 5000);
     return () => clearInterval(interval);
@@ -49,7 +48,7 @@ export default function WrittenExamPage() {
 
   if (!isValidLang) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-12 text-center text-zinc-500">
+      <div className="max-w-4xl mx-auto px-8 py-12 text-center text-zinc-500 text-xl">
         Invalid language.
       </div>
     );
@@ -60,19 +59,19 @@ export default function WrittenExamPage() {
 
   if (state === 'instructions') {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-12">
-        <h1 className="font-dm-serif text-2xl text-ada-navy text-center mb-8">
+      <div className="max-w-4xl mx-auto px-8 py-12">
+        <h1 className="font-dm-serif text-5xl text-ada-navy text-center mb-10">
           {title}
         </h1>
 
-        <div className="mb-8">
+        <div className="mb-10">
           <AudioPlayer src="/audio/exam/written-instructions.mp3" />
         </div>
 
-        <ol className="space-y-3 text-sm text-zinc-600 mb-8">
+        <ol className="space-y-5 text-xl text-zinc-600 mb-10">
           {content.writtenRules.map((rule, index) => (
-            <li key={index} className="flex gap-3">
-              <span className="shrink-0 font-semibold text-ada-navy">
+            <li key={index} className="flex gap-4">
+              <span className="shrink-0 font-semibold text-ada-navy text-xl">
                 {index + 1}.
               </span>
               <span>{rule}</span>
@@ -82,7 +81,7 @@ export default function WrittenExamPage() {
 
         <button
           onClick={() => setState('active')}
-          className="w-full py-4 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-lg hover:bg-ada-purple/90 transition"
+          className="w-full py-5 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-2xl hover:bg-ada-purple/90 transition"
         >
           {content.ui.beginExam}
         </button>
@@ -92,8 +91,8 @@ export default function WrittenExamPage() {
 
   // Active state
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12">
-      <h1 className="font-dm-serif text-2xl text-ada-navy text-center mb-8">
+    <div className="max-w-4xl mx-auto px-8 py-12">
+      <h1 className="font-dm-serif text-4xl text-ada-navy text-center mb-12">
         {title}
       </h1>
 

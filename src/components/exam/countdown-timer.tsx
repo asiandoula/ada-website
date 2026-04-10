@@ -83,7 +83,7 @@ export function CountdownTimer({
         className={cn(
           'text-red-500 font-semibold',
           size === 'lg' && 'block text-center text-4xl font-dm-serif',
-          size === 'sm' && 'inline text-2xl font-outfit font-semibold'
+          size === 'sm' && 'inline text-5xl font-outfit font-semibold'
         )}
       >
         Time&apos;s up! 时间到！
@@ -100,7 +100,7 @@ export function CountdownTimer({
         isWarning && 'text-red-500 animate-pulse',
         // size variants
         size === 'lg' && 'block text-center text-6xl font-dm-serif',
-        size === 'sm' && 'inline text-2xl font-outfit font-semibold'
+        size === 'sm' && 'inline text-5xl font-outfit font-semibold'
       )}
     >
       {formatTime(remaining)}

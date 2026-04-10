@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { getExamContent, type ExamLang } from '@/lib/exam-content';
 import { CountdownTimer } from '@/components/exam/countdown-timer';
@@ -13,6 +13,7 @@ export default function PracticalExamPage() {
   const [phase, setPhase] = useState<'instructions' | 'active' | 'complete'>('instructions');
   const [currentStep, setCurrentStep] = useState(0);
   const [timerKey, setTimerKey] = useState(0);
+  const [timerActive, setTimerActive] = useState(false); // timer waits for audio
 
   const flatSteps = useMemo(() => {
     return content.modules.flatMap((mod) =>
@@ -30,32 +31,38 @@ export default function PracticalExamPage() {
     } else {
       setCurrentStep((prev) => prev + 1);
       setTimerKey((prev) => prev + 1);
+      setTimerActive(false); // reset — wait for next audio to finish
     }
   }
 
-  function handleTimeUp() {
+  const handleTimeUp = useCallback(() => {
     setTimeout(() => advanceStep(), 3000);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentStep, flatSteps.length]);
+
+  function handleAudioEnded() {
+    setTimerActive(true); // audio finished → start countdown
   }
 
   // --- Instructions phase ---
   if (phase === 'instructions') {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-8">
-        <h1 className="font-dm-serif text-3xl text-ada-navy">
+      <div className="max-w-4xl mx-auto px-8 py-12">
+        <h1 className="font-dm-serif text-5xl text-ada-navy text-center">
           {content.ui.part2} {content.ui.practicalExam}
         </h1>
-        <p className="text-sm text-zinc-400 font-outfit mt-2">
+        <p className="text-xl text-zinc-400 font-outfit mt-4 text-center">
           实操考试流程说明
         </p>
-        <p className="text-sm text-zinc-700 leading-relaxed mt-4">
+        <p className="text-xl text-zinc-700 leading-relaxed mt-8 text-center">
           考试共9项考核模块。每项考核模块有具体的考核内容和时间限制。请按照提示依次完成。
         </p>
-        <div className="mt-6">
+        <div className="mt-8">
           <AudioPlayer src="/audio/exam/practical-instructions.mp3" />
         </div>
         <button
           onClick={() => setPhase('active')}
-          className="w-full mt-8 py-3 rounded-xl bg-ada-purple text-white font-outfit font-semibold hover:bg-ada-purple/90 transition"
+          className="w-full mt-10 py-5 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-2xl hover:bg-ada-purple/90 transition"
         >
           {content.ui.beginExam}
         </button>
@@ -66,8 +73,8 @@ export default function PracticalExamPage() {
   // --- Complete phase ---
   if (phase === 'complete') {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-8 flex items-center justify-center min-h-[60vh]">
-        <h1 className="font-dm-serif text-3xl text-ada-navy text-center">
+      <div className="max-w-4xl mx-auto px-8 py-12 flex items-center justify-center min-h-[60vh]">
+        <h1 className="font-dm-serif text-5xl text-ada-navy text-center">
           考试结束 / {content.ui.examComplete}
         </h1>
       </div>
@@ -78,19 +85,19 @@ export default function PracticalExamPage() {
   const step = flatSteps[currentStep];
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="max-w-4xl mx-auto px-8 py-10">
       {/* Progress */}
-      <p className="text-sm text-zinc-400 font-outfit mb-6">
+      <p className="text-lg text-zinc-400 font-outfit mb-8">
         {content.ui.step} {currentStep + 1} {content.ui.of} {flatSteps.length}
       </p>
 
       {/* Module title */}
-      <h1 className="font-dm-serif text-2xl text-ada-navy">{step.moduleTitle}</h1>
-      <p className="text-sm text-zinc-400 font-outfit mt-1">{step.moduleEnglishTitle}</p>
+      <h1 className="font-dm-serif text-4xl text-ada-navy">{step.moduleTitle}</h1>
+      <p className="text-lg text-zinc-400 font-outfit mt-2">{step.moduleEnglishTitle}</p>
 
       {/* Subtitle */}
       {step.subtitle && (
-        <p className="text-lg font-outfit font-semibold text-ada-purple mt-4">
+        <p className="text-2xl font-outfit font-semibold text-ada-purple mt-6">
           【{step.subtitle}】
         </p>
       )}
@@ -98,45 +105,53 @@ export default function PracticalExamPage() {
       {/* Scenario */}
       {step.scenario && (
         <>
-          <p className="text-sm font-semibold text-zinc-500 mt-6">
+          <p className="text-lg font-semibold text-zinc-500 mt-8">
             {content.ui.scenarioLabel}
           </p>
-          <p className="text-sm text-zinc-700 leading-relaxed mt-1">
+          <p className="text-xl text-zinc-700 leading-relaxed mt-2">
             {step.scenario}
           </p>
         </>
       )}
 
       {/* Requirement */}
-      <p className="text-sm font-semibold text-zinc-500 mt-4">
+      <p className="text-lg font-semibold text-zinc-500 mt-6">
         {content.ui.requirementLabel}
       </p>
-      <p className="text-sm text-zinc-700 leading-relaxed mt-1">
+      <p className="text-xl text-zinc-700 leading-relaxed mt-2">
         {step.requirement}
       </p>
 
       {/* Duration label */}
-      <p className="text-sm text-zinc-400 mt-2">{step.durationLabel}</p>
+      <p className="text-lg text-zinc-400 mt-4">{step.durationLabel}</p>
 
-      {/* Audio */}
-      <div className="mt-6">
-        <AudioPlayer src={step.audio} autoPlay />
+      {/* Audio — autoPlay, timer starts when audio ends */}
+      <div className="mt-8">
+        <AudioPlayer src={step.audio} autoPlay onEnded={handleAudioEnded} />
       </div>
 
-      {/* Countdown timer */}
-      <div className="mt-6 flex justify-center">
-        <CountdownTimer
-          key={timerKey}
-          durationSeconds={step.durationSeconds}
-          onTimeUp={handleTimeUp}
-          size="sm"
-        />
+      {/* Countdown timer — only shows after audio finishes */}
+      <div className="mt-8 flex justify-center">
+        {timerActive ? (
+          <CountdownTimer
+            key={timerKey}
+            durationSeconds={step.durationSeconds}
+            onTimeUp={handleTimeUp}
+            size="sm"
+            warningAtSeconds={10}
+          />
+        ) : (
+          <span className="text-3xl font-outfit font-semibold text-zinc-300 tabular-nums">
+            {String(Math.floor(step.durationSeconds / 60)).padStart(2, '0')}:
+            {String(step.durationSeconds % 60).padStart(2, '0')}
+          </span>
+        )}
       </div>
 
       {/* Next button */}
       <button
         onClick={advanceStep}
-        className="w-full mt-8 py-3 rounded-xl bg-ada-purple text-white font-outfit font-semibold hover:bg-ada-purple/90 transition"
+        className="w-full mt-10 py-4 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-xl hover:bg-ada-purple/90 transition"
       >
         {content.ui.nextStep}
       </button>
