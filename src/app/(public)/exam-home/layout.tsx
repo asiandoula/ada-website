@@ -14,7 +14,7 @@ export default function ExamLayout({ children }: { children: React.ReactNode }) 
       </header>
       <main className="flex-1">{children}</main>
       <footer className="py-4 text-center text-xs text-zinc-400">
-        © 2025 Asian Doula Alliance | All rights reserved.
+        © 2026 Asian Doula Alliance | All rights reserved.
       </footer>
     </div>
   );
