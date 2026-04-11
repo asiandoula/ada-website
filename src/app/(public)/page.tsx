@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/public/hero';
 import { Counter } from '@/components/public/counter';
 import { TestimonialCarousel } from '@/components/public/testimonial-carousel';
@@ -74,7 +75,9 @@ const testimonials = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const t = await getTranslations('home');
+
   return (
     <>
       <script
@@ -132,19 +135,16 @@ export default function HomePage() {
             <div>
               <div className="max-w-[93%]">
                 <h2 className="font-dm-serif text-4xl text-ada-navy">
-                  Leading in Professional Asian Postpartum Doula Care Since 2017!
+                  {t('whoWeAreTitle')}
                 </h2>
                 <p className="mt-6 text-base text-ada-navy/60 leading-relaxed">
-                  Empowering families with specialized and reliable Asian Style Postpartum
-                  Care, we are the only U.S. doula organization offering multilingual support
-                  and certified training by uniquely blend traditional Asian confinement
-                  practices with modern, professional postpartum and newborn care.
+                  {t('whoWeAreText')}
                 </p>
                 <Link
                   href="/about-us"
                   className="inline-flex items-center gap-2 mt-6 rounded-full bg-ada-purple px-4 py-2.5 text-white font-medium text-sm transition-colors hover:bg-ada-purple-hover"
                 >
-                  About Us
+                  {t('aboutUsButton')}
                   <span aria-hidden="true">&rarr;</span>
                 </Link>
               </div>
@@ -152,13 +152,13 @@ export default function HomePage() {
               {/* Inline stats — matching Framer */}
               <div className="mt-12 grid grid-cols-3 gap-4 max-sm:grid-cols-1 max-sm:gap-6">
                 <div>
-                  <Counter target={167} suffix="" label="Doulas Trained" numberClassName="text-ada-purple-muted" labelClassName="text-ada-navy/60" />
+                  <Counter target={167} suffix="" label={t('doulasTrained')} numberClassName="text-ada-purple-muted" labelClassName="text-ada-navy/60" />
                 </div>
                 <div>
-                  <Counter target={50} suffix="+" label="Workshops & Seminars" numberClassName="text-ada-purple-muted" labelClassName="text-ada-navy/60" />
+                  <Counter target={50} suffix="+" label={t('workshopsSeminars')} numberClassName="text-ada-purple-muted" labelClassName="text-ada-navy/60" />
                 </div>
                 <div>
-                  <Counter target={2} suffix="M+" label="Scholarships Secured" numberClassName="text-ada-purple-muted" labelClassName="text-ada-navy/60" />
+                  <Counter target={2} suffix="M+" label={t('scholarshipsSecured')} numberClassName="text-ada-purple-muted" labelClassName="text-ada-navy/60" />
                 </div>
               </div>
             </div>
@@ -171,19 +171,19 @@ export default function HomePage() {
         <div className="relative max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-10">
             <h2 className="font-dm-serif text-4xl text-ada-navy">
-              How to Get Certified?
+              {t('howToGetCertifiedTitle')}
             </h2>
             <p className="mt-2 text-xl text-ada-navy/40 font-light">
-              Guiding you through every step with care, clarity, and cultural understanding.
+              {t('howToGetCertifiedSubtitle')}
             </p>
           </div>
 
           <div className="space-y-4">
             {[
-              { num: '1', emoji: '🔍', title: 'Enrollment', description: 'Visit our Enrollment Page to provide your name, email, and a brief description of your experience and interests. After submitting your application, an ADA specialist will contact you to discuss the program details and guide you through the next steps.', color: '#00aeef', cardSide: 'right' as const },
-              { num: '2', emoji: '📚', title: 'Training Program', description: 'Engage in training that integrates traditional Asian postpartum practices with modern, evidence-based care. Choose from in-person workshops or online modules to suit your schedule and learning preferences.', color: '#f15a29', cardSide: 'left' as const },
-              { num: '3', emoji: '📝', title: 'Certification Exam', description: "The certification exam includes both a written assessment and a practical evaluation to test your knowledge and skills. Utilize ADA's study guides and practice materials to prepare effectively for the exam.", color: '#8dc63f', cardSide: 'right' as const },
-              { num: '4', emoji: '🎓', title: 'Certification and Beyond', description: "Upon passing the exam, you will be awarded the ADA Postpartum Doula Certification. Benefit from ADA's continuous education opportunities, professional resources, and a supportive community to help you thrive in your doula career.", color: '#662d91', cardSide: 'left' as const },
+              { num: '1', emoji: '🔍', title: t('step1Title'), description: t('step1Desc'), color: '#00aeef', cardSide: 'right' as const },
+              { num: '2', emoji: '📚', title: t('step2Title'), description: t('step2Desc'), color: '#f15a29', cardSide: 'left' as const },
+              { num: '3', emoji: '📝', title: t('step3Title'), description: t('step3Desc'), color: '#8dc63f', cardSide: 'right' as const },
+              { num: '4', emoji: '🎓', title: t('step4Title'), description: t('step4Desc'), color: '#662d91', cardSide: 'left' as const },
             ].map((step, i) => {
               const card = (
                 <div className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300">
@@ -254,7 +254,7 @@ export default function HomePage() {
               href="/certifications/postpartum-doula/steps"
               className="inline-flex items-center gap-2 rounded-full bg-ada-purple px-4 py-2.5 text-white font-medium text-sm transition-colors hover:bg-ada-purple-hover"
             >
-              Start Your Journey <span aria-hidden="true">&rarr;</span>
+              {t('startYourJourney')} <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
         </div>
@@ -265,19 +265,19 @@ export default function HomePage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-10">
             <h2 className="font-dm-serif text-4xl text-ada-navy">
-              Our Values
+              {t('ourValuesTitle')}
             </h2>
             <p className="mt-2 text-xl text-ada-navy/60 font-light">
-              Compassion, professionalism, dedication, and cultural understanding define our care.
+              {t('ourValuesSubtitle')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { image: '/images/value-cultural.avif', title: 'Trust', description: 'Providing honest and empathetic care to every family, fostering a foundation of respect and reliability.' },
-              { image: '/images/value-commitment.avif', title: 'Excellence', description: 'Committed to the highest standards through comprehensive training and culturally attuned support.' },
-              { image: '/images/value-excellence.avif', title: 'Commitment', description: "Supporting mothers' recovery and newborn care with unwavering dedication at every stage." },
-              { image: '/images/value-trust.avif', title: 'Cultural Integration', description: 'Harmonizing traditional Asian practices with modern care to serve families globally.' },
+              { image: '/images/value-cultural.avif', title: t('valueTrust'), description: t('valueTrustDesc') },
+              { image: '/images/value-commitment.avif', title: t('valueExcellence'), description: t('valueExcellenceDesc') },
+              { image: '/images/value-excellence.avif', title: t('valueCommitment'), description: t('valueCommitmentDesc') },
+              { image: '/images/value-trust.avif', title: t('valueCultural'), description: t('valueCulturalDesc') },
             ].map((value) => (
               <div
                 key={value.title}
@@ -311,10 +311,10 @@ export default function HomePage() {
         <div className="relative max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-10">
             <h2 className="font-dm-serif text-4xl text-ada-navy">
-              Our Work
+              {t('ourWorkTitle')}
             </h2>
             <p className="mt-2 text-xl text-ada-navy/60 font-light">
-              Elevating postpartum care with culturally rooted and evidence-based programs.
+              {t('ourWorkSubtitle')}
             </p>
           </div>
 
@@ -323,50 +323,50 @@ export default function HomePage() {
               {
                 icon: <GraduationCap className="w-5 h-5 text-ada-violet" />,
                 iconBg: 'bg-ada-violet-light',
-                title: 'Doula Certification',
-                description: 'We provide structured training and certification with a strong emphasis on Asian cultural practices, science-based knowledge, and hands-on support.',
+                title: t('doulaCertification'),
+                description: t('doulaCertificationDesc'),
                 link: '/certifications/postpartum-doula/steps',
-                linkText: 'Program Details',
+                linkText: t('programDetails'),
               },
               {
                 icon: <Trophy className="w-5 h-5 text-ada-orange" />,
                 iconBg: 'bg-ada-orange-light',
-                title: 'Scholarship Program',
-                description: 'We offer need-based and merit-based scholarships to make doula training accessible for passionate caregivers in Asian communities.',
+                title: t('scholarshipProgram'),
+                description: t('scholarshipProgramDesc'),
                 link: '/programs/scholarship',
-                linkText: 'Apply Now',
+                linkText: t('applyNow'),
               },
               {
                 icon: <Users className="w-5 h-5 text-ada-blue" />,
                 iconBg: 'bg-ada-blue-light',
-                title: 'Family Matching',
-                description: 'We carefully match families with trained doulas who understand both your cultural background and modern recovery needs.',
+                title: t('familyMatching'),
+                description: t('familyMatchingDesc'),
                 link: '/for-families/find-a-doula',
-                linkText: 'Matching Process',
+                linkText: t('matchingProcess'),
               },
               {
                 icon: <Globe className="w-5 h-5 text-ada-pink" />,
                 iconBg: 'bg-ada-pink-light',
-                title: 'Multilingual Training',
-                description: 'We offer education and care services in Mandarin, Cantonese, Korean, Japanese, and more — because care starts with clear understanding.',
+                title: t('multilingualTraining'),
+                description: t('multilingualTrainingDesc'),
                 link: '/certifications/postpartum-doula/training',
-                linkText: 'Language Options',
+                linkText: t('languageOptions'),
               },
               {
                 icon: <Soup className="w-5 h-5 text-ada-green" />,
                 iconBg: 'bg-ada-yellow-light',
-                title: 'Cultural Postpartum Care',
-                description: 'From confinement meals to herbal remedies and body recovery practices, we guide doulas and families in integrating trusted Asian traditions.',
+                title: t('culturalPostpartumCare'),
+                description: t('culturalPostpartumCareDesc'),
                 link: '/about-us/mission-value',
-                linkText: 'Learn More',
+                linkText: t('learnMore'),
               },
               {
                 icon: <Heart className="w-5 h-5 text-ada-green" />,
                 iconBg: 'bg-ada-green-light',
-                title: 'Community & Advocacy',
-                description: 'We champion postpartum care rights, organize workshops, and empower Asian doulas and families to be seen, heard, and supported.',
+                title: t('communityAdvocacy'),
+                description: t('communityAdvocacyDesc'),
                 link: '/articles',
-                linkText: 'Join the Movement',
+                linkText: t('joinTheMovement'),
               },
             ].map((service) => (
               <Link
@@ -401,10 +401,10 @@ export default function HomePage() {
         <div className="relative max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-10">
             <h2 className="font-dm-serif text-4xl text-ada-navy">
-              Our Partners
+              {t('ourPartnersTitle')}
             </h2>
             <p className="mt-2 text-xl text-ada-navy/60 font-light">
-              Trusted collaborations with leading organizations in maternal care.
+              {t('ourPartnersSubtitle')}
             </p>
           </div>
 
@@ -413,27 +413,27 @@ export default function HomePage() {
               {
                 name: 'ICEA',
                 logo: '/images/partners/icea.png',
-                description: 'A globally respected organization offering evidence-based training for childbirth educators and doulas. ADA collaborates with ICEA to promote excellence in maternal and infant health worldwide.',
+                description: t('iceaDesc'),
               },
               {
                 name: 'DONA International',
                 logo: '/images/partners/dona.webp',
-                description: 'As one of the largest and most established doula organizations, DONA International partners with ADA to ensure high standards of training, certification, and professional support for doulas.',
+                description: t('donaDesc'),
               },
               {
                 name: 'The Educated Birth',
                 logo: '/images/partners/teb.png',
-                description: 'ADA proudly partners with The Educated Birth to promote birthwork that is informed, equitable, and rooted in justice. Together, we support doulas of all backgrounds with inclusive tools and resources.',
+                description: t('tebDesc'),
               },
               {
                 name: 'Cooings Doula Care',
                 logo: '/images/partners/cooings.svg',
-                description: 'A partner in innovation, Cooings provides professional postpartum services while pioneering modern doula training for Asian caregivers through digital tools and data-driven solutions.',
+                description: t('cooingsDesc'),
               },
               {
                 name: 'IBLCE',
                 logo: '/images/partners/iblce.webp',
-                description: 'ADA aligns with IBLCE in promoting breastfeeding education and certification. We support doulas who wish to expand their knowledge in lactation support and pursue IBCLC credentials.',
+                description: t('iblceDesc'),
               },
             ].map((partner) => (
               <div
@@ -473,21 +473,20 @@ export default function HomePage() {
           <div className="bg-ada-navy/[0.03] border border-ada-navy/10 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
               <p className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-ada-purple mb-2">
-                For Families & Institutions
+                {t('verifyCtaLabel')}
               </p>
               <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
-                Verify a Doula&apos;s Certification
+                {t('verifyCtaTitle')}
               </h2>
               <p className="mt-3 text-ada-navy/60 font-outfit leading-relaxed max-w-xl">
-                Insurance providers, healthcare facilities, and families can instantly verify
-                any ADA-credentialed doula by name, Doula ID, or certificate number.
+                {t('verifyCtaDesc')}
               </p>
             </div>
             <Link
               href="/verify"
               className="shrink-0 inline-flex items-center gap-2 rounded-full bg-ada-purple px-6 py-3 text-white font-outfit font-medium text-sm hover:bg-ada-purple-hover transition-colors"
             >
-              Verify Credentials <span aria-hidden="true">&rarr;</span>
+              {t('verifyCredentials')} <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
         </div>
@@ -498,10 +497,10 @@ export default function HomePage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-10">
             <h2 className="font-dm-serif text-4xl text-ada-navy">
-              Latest Articles
+              {t('latestArticlesTitle')}
             </h2>
             <p className="mt-2 text-xl text-ada-navy/60 font-light">
-              News, insights, and resources from ADA.
+              {t('latestArticlesSubtitle')}
             </p>
           </div>
           <HomepageArticles />
@@ -510,7 +509,7 @@ export default function HomePage() {
               href="/articles"
               className="inline-flex items-center gap-2 rounded-full border-2 border-ada-purple text-ada-purple px-6 py-3 text-sm font-medium hover:bg-ada-purple hover:text-white transition-colors"
             >
-              View All Articles <span aria-hidden="true">&rarr;</span>
+              {t('viewAllArticles')} <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
         </div>
@@ -530,29 +529,27 @@ export default function HomePage() {
         <div className="relative z-10 max-w-[1200px] mx-auto px-6 py-20 w-full">
           <div className="max-w-xl">
             <h2 className="font-dm-serif text-4xl text-white">
-              Begin Your Doula Journey
+              {t('beginDoulaJourneyTitle')}
             </h2>
             <p className="mt-6 text-white/60 leading-relaxed">
-              Our ADA-approved training programs combine traditional Asian postpartum
-              practices with modern evidence-based care. Programs available in
-              English, Chinese, Japanese, and Korean.
+              {t('beginDoulaJourneyDesc')}
             </p>
             <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/50">
-              <span>Irvine, CA — 7515 Irvine Center Dr</span>
-              <span>4-5 day intensive program</span>
+              <span>{t('irvineAddress')}</span>
+              <span>{t('intensiveProgram')}</span>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/certifications/postpartum-doula/training"
                 className="inline-flex items-center gap-2 rounded-full bg-ada-purple px-4 py-2.5 text-white font-medium text-sm transition-colors hover:bg-ada-purple-hover"
               >
-                Find a Training <span aria-hidden="true">&rarr;</span>
+                {t('findATraining')} <span aria-hidden="true">&rarr;</span>
               </Link>
               <Link
                 href="/certifications/postpartum-doula/steps"
                 className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-white/30 px-4 py-2.5 text-white font-medium text-sm transition-colors hover:bg-white/10"
               >
-                Learn More
+                {t('learnMore')}
               </Link>
             </div>
           </div>
@@ -568,10 +565,10 @@ export default function HomePage() {
             {/* Left — text + progress bars */}
             <div>
               <h2 className="font-dm-serif text-4xl text-ada-navy">
-                Where Our Doulas Serve
+                {t('whereDoulasServeTitle')}
               </h2>
               <p className="mt-4 text-ada-navy/60 leading-relaxed">
-                167+ certified doulas supporting families across California and nationwide.
+                {t('whereDoulasServeDesc')}
               </p>
               <div className="mt-8 space-y-4">
                 {[
@@ -593,7 +590,7 @@ export default function HomePage() {
                 ))}
               </div>
               <p className="mt-6 text-xs text-ada-navy/30">
-                Also serving families in Chicago, Houston, and other cities nationwide
+                {t('alsoServingCities')}
               </p>
             </div>
 
@@ -618,10 +615,10 @@ export default function HomePage() {
         <div className="relative max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-10">
             <h2 className="font-dm-serif text-4xl text-white">
-              Testimonials
+              {t('testimonialsTitle')}
             </h2>
             <p className="mt-2 text-xl text-white/60 font-light">
-              Real voices. True impact.
+              {t('testimonialsSubtitle')}
             </p>
           </div>
           <div className="max-w-[60%] mx-auto max-lg:max-w-full">
