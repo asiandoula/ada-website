@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Serif_Display, Outfit } from "next/font/google";
 import Script from "next/script";
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -41,13 +43,16 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <meta name="google-site-verification" content="PTujhWjQmd56vwAnC1mRv23EweQBPEpnsIuyRl2zlHY" />
         <Script
@@ -62,7 +67,9 @@ gtag('config', 'G-P7D4D4SEHL');`}
         </Script>
       </head>
       <body className={`${dmSerif.variable} ${outfit.variable} antialiased`}>
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
         <Toaster position="top-right" richColors />
         <Analytics />
         <SpeedInsights />

@@ -1,3 +1,7 @@
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -17,7 +21,6 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // Old become-a-doula paths → new certifications structure
       {
         source: '/become-a-doula/steps-to-certification',
         destination: '/certifications/postpartum-doula/steps',
@@ -65,4 +68,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
