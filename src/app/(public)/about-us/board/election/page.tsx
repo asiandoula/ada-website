@@ -2,31 +2,32 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: '2026 Board Election',
   description:
-    'Nominations are open for the Asian Doula Alliance 2026\u20132028 Board of Directors election.',
+    'Nominations are open for the Asian Doula Alliance 2026–2028 Board of Directors election.',
 };
 
 const timelineSteps = [
   {
     title: 'Nominations Open',
-    date: 'March 15 \u2013 April 30, 2026',
+    date: 'March 15 – April 30, 2026',
     description:
       'Any ADA-certified doula in good standing may nominate themselves or a colleague. Nominees must have held active certification for at least one year.',
     isActive: true,
   },
   {
     title: 'Candidate Review',
-    date: 'May 1\u201315, 2026',
+    date: 'May 1–15, 2026',
     description:
       'The current board reviews all nominations to verify eligibility. Candidates are notified and asked to submit a brief candidate statement.',
     isActive: false,
   },
   {
     title: 'Voting Period',
-    date: 'June 1\u201314, 2026',
+    date: 'June 1–14, 2026',
     description:
       'All ADA-certified doulas with active status may vote electronically. Each member casts one vote per position. Results are tallied independently.',
     isActive: false,
@@ -67,7 +68,7 @@ const faqs = [
   {
     question: 'How long is a term?',
     answer:
-      'Board members serve two-year terms. There are no term limits \u2014 members may be re-elected.',
+      'Board members serve two-year terms. There are no term limits — members may be re-elected.',
   },
 ];
 
@@ -77,17 +78,18 @@ const sidebarLinks = [
   { label: 'Mission & Values', href: '/about-us/mission-value' },
 ];
 
-export default function BoardElectionPage() {
+export default async function BoardElectionPage() {
+  const t = await getTranslations('aboutBoardElection');
   return (
-    <>
+    <>  
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: 'About Us', path: '/about-us' },
-              { name: 'Board', path: '/about-us/board' },
-              { name: 'Election', path: '/about-us/board/election' },
+              { name: t('aboutUs'), path: '/about-us' },
+              { name: t('board'), path: '/about-us/board' },
+              { name: t('election'), path: '/about-us/board/election' },
             ])
           ),
         }}
@@ -96,13 +98,13 @@ export default function BoardElectionPage() {
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            About
+            {t('about')}
           </span>
           <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            2026 Board Election
+            {t('heroTitle')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            Nominations are open for the 2026&ndash;2028 term
+            {t('nominationsOpen')}
           </p>
         </div>
       </section>
@@ -118,24 +120,22 @@ export default function BoardElectionPage() {
                 <span className="w-2.5 h-2.5 rounded-full bg-green-500 shrink-0" />
                 <div>
                   <p className="font-semibold text-ada-navy">
-                    Nominations are currently open
+                    {t('nominationsOpen')}
                   </p>
                   <p className="text-sm text-ada-navy/60 mt-0.5">
-                    Deadline: April 30, 2026
+                    {t('deadline')}
                   </p>
                 </div>
               </div>
 
               {/* Intro */}
               <p className="mt-8 text-ada-navy/70 leading-relaxed">
-                Every two years, ADA&apos;s certified doula community elects the Board of
-                Directors who will guide the organization&apos;s strategic direction. The 2026
-                election covers all five board positions for the 2026&ndash;2028 term.
+                {t('introText')}
               </p>
 
               {/* Election Timeline */}
               <h2 className="font-dm-serif text-3xl text-ada-navy mt-12 mb-8">
-                Election Timeline
+                {t('electionTimeline')}
               </h2>
               <div>
                 {timelineSteps.map((step, index) => (
@@ -167,7 +167,7 @@ export default function BoardElectionPage() {
 
               {/* Eligibility */}
               <h2 className="font-dm-serif text-3xl text-ada-navy mt-12 mb-6">
-                Who Can Run?
+                {t('whoCanRun')}
               </h2>
               <ul className="space-y-3">
                 {eligibilityRequirements.map((req) => (
@@ -183,32 +183,30 @@ export default function BoardElectionPage() {
 
               {/* How to Nominate */}
               <h2 className="font-dm-serif text-3xl text-ada-navy mt-12 mb-4">
-                How to Nominate
+                {t('howToNominate')}
               </h2>
               <p className="text-ada-navy/70 leading-relaxed">
-                To nominate yourself or a fellow certified doula, email{' '}
+                {t('howToNominateText')}
                 <a
                   href="mailto:contact@asiandoula.org?subject=2026%20Board%20Nomination"
                   className="text-ada-purple hover:underline"
                 >
                   contact@asiandoula.org
                 </a>{' '}
-                with the subject line &ldquo;2026 Board Nomination&rdquo;. Include the
-                nominee&apos;s full name, certification number, and the position they&apos;re
-                being nominated for. Self-nominations are welcome and encouraged.
+                {t('howToNominateText2')}
               </p>
               <div className="mt-6">
                 <a
                   href="mailto:contact@asiandoula.org?subject=2026%20Board%20Nomination"
                   className="inline-flex items-center rounded-full bg-ada-purple text-white px-4 py-2.5 text-sm font-medium hover:bg-ada-purple-hover transition-colors"
                 >
-                  Submit a Nomination &rarr;
+                  {t('submitNomination')} &rarr;
                 </a>
               </div>
 
               {/* FAQ */}
               <h2 className="font-dm-serif text-3xl text-ada-navy mt-16 mb-8">
-                Frequently Asked Questions
+                {t('faqTitle')}
               </h2>
               <div className="space-y-8">
                 {faqs.map((faq) => (
@@ -228,7 +226,7 @@ export default function BoardElectionPage() {
             <aside className="lg:w-1/5 order-1 lg:order-2">
               <div className="lg:sticky lg:top-32">
                 <h4 className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-navy/40 mb-4">
-                  Related Topics
+                  {t('relatedTopics')}
                 </h4>
                 <nav className="space-y-2">
                   {sidebarLinks.map((link) => (

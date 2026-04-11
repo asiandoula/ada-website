@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
+import { useTranslations } from 'next-intl';
 
 export const metadata: Metadata = {
   title: 'Board of Directors',
@@ -36,7 +37,7 @@ const boardPositions = [
     number: '03',
     title: 'Director of Education',
     description:
-      "Oversees all aspects of ADA's certification curriculum, training standards, and examination system. The Director of Education ensures that ADA's programs remain rigorous, culturally relevant, and aligned with current evidence-based practices. Manages the development of multilingual exam content and continuing education requirements.",
+      "Oversees all aspects of ADA\'s certification curriculum, training standards, and examination system. The Director of Education ensures that ADA\'s programs remain rigorous, culturally relevant, and aligned with current evidence-based practices. Manages the development of multilingual exam content and continuing education requirements.",
     responsibilities: [
       'Designs and updates certification curriculum',
       'Manages exam development in five languages',
@@ -47,7 +48,7 @@ const boardPositions = [
     number: '04',
     title: 'Treasurer',
     description:
-      "Manages ADA's financial health, including budgeting, financial reporting, and compliance with 501(c)(3) requirements. The Treasurer oversees grant applications, scholarship fund allocation, and ensures transparent use of organizational resources. Presents financial reports to the board and membership.",
+      "Manages ADA\'s financial health, including budgeting, financial reporting, and compliance with 501(c)(3) requirements. The Treasurer oversees grant applications, scholarship fund allocation, and ensures transparent use of organizational resources. Presents financial reports to the board and membership.",
     responsibilities: [
       'Prepares annual budget and financial statements',
       'Manages scholarship and grant funds',
@@ -75,15 +76,17 @@ const sidebarLinks = [
 ];
 
 export default function BoardOfDirectorsPage() {
+  const t = useTranslations('aboutBoard');
+
   return (
-    <>
+    <>  
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: 'About Us', path: '/about-us' },
-              { name: 'Board', path: '/about-us/board' },
+              { name: t('sidebarLinkAboutUs'), path: '/about-us' },
+              { name: t('sidebarLinkBoard'), path: '/about-us/board' },
             ])
           ),
         }}
@@ -92,13 +95,13 @@ export default function BoardOfDirectorsPage() {
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            About
+            {t('heroTitle')}
           </span>
           <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Board of Directors
+            {t('heroTitle')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            The volunteers who guide ADA&apos;s mission and hold us accountable.
+            {t('heroDescription')}
           </p>
         </div>
       </section>
@@ -112,10 +115,10 @@ export default function BoardOfDirectorsPage() {
                 <span className="w-2.5 h-2.5 rounded-full bg-ada-purple shrink-0 mt-1.5" />
                 <div>
                   <p className="font-outfit font-semibold text-ada-navy">
-                    2026 Board Election
+                    {t('electionBannerTitle')}
                   </p>
                   <p className="text-ada-navy/60 text-sm mt-0.5">
-                    Nominations are now open for the 2026&ndash;2028 term.
+                    {t('electionBannerDescription')}
                   </p>
                 </div>
               </div>
@@ -123,7 +126,7 @@ export default function BoardOfDirectorsPage() {
                 href="/about-us/board/election"
                 className="inline-flex items-center rounded-full bg-ada-purple text-white px-4 py-2.5 text-sm font-medium hover:bg-ada-purple-hover transition-colors shrink-0"
               >
-                Learn More &amp; Nominate &rarr;
+                {t('learnMoreAndNominate')}
               </Link>
             </div>
           </div>
@@ -137,12 +140,9 @@ export default function BoardOfDirectorsPage() {
             {/* Main */}
             <div className="lg:w-4/5 order-2 lg:order-1">
               {/* Intro */}
-              <h2 className="font-dm-serif text-3xl text-ada-navy">Our Board</h2>
+              <h2 className="font-dm-serif text-3xl text-ada-navy">{t('ourBoardTitle')}</h2>
               <p className="mt-4 text-ada-navy/70 leading-relaxed">
-                ADA is governed by a volunteer Board of Directors responsible for setting
-                strategic direction, ensuring financial accountability, and upholding the
-                organization&apos;s mission. Board members serve two-year terms and are elected
-                by ADA&apos;s certified doula community.
+                {t('ourBoardDescription')}
               </p>
 
               {/* Board Positions */}
@@ -177,8 +177,7 @@ export default function BoardOfDirectorsPage() {
 
               {/* Bottom Note */}
               <p className="text-sm text-ada-navy/40 italic mt-12">
-                Board members serve on a volunteer basis and receive no compensation.
-                ADA&apos;s Form 990 is available upon request.
+                {t('bottomNote')}
               </p>
             </div>
 
@@ -186,7 +185,7 @@ export default function BoardOfDirectorsPage() {
             <aside className="lg:w-1/5 order-1 lg:order-2">
               <div className="lg:sticky lg:top-32">
                 <h4 className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-navy/40 mb-4">
-                  Related Topics
+                  {t('relatedTopicsTitle')}
                 </h4>
                 <nav className="space-y-2">
                   {sidebarLinks.map((link) => (

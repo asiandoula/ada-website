@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Mission & Values',
@@ -57,7 +58,8 @@ const sidebarLinks = [
   { label: 'Steps to Certification', href: '/certifications/postpartum-doula/steps' },
 ];
 
-export default function MissionValuePage() {
+export default async function MissionValuePage() {
+  const t = await getTranslations('aboutMission');
   return (
     <>
       <script
@@ -65,8 +67,8 @@ export default function MissionValuePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: 'About Us', path: '/about-us' },
-              { name: 'Mission & Values', path: '/about-us/mission-value' },
+              { name: t('aboutHeroTitle'), path: '/about-us' },
+              { name: t('aboutHeroHeading'), path: '/about-us/mission-value' },
             ])
           ),
         }}
@@ -75,13 +77,13 @@ export default function MissionValuePage() {
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            About
+            {t('aboutHeroTitle')}
           </span>
           <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Mission &amp; Values
+            {t('aboutHeroHeading')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            Setting the standard for culturally integrated postpartum care
+            {t('aboutHeroDescription')}
           </p>
         </div>
       </section>
@@ -100,15 +102,14 @@ export default function MissionValuePage() {
                       &#9670;
                     </span>
                     <span className="font-outfit font-medium text-sm uppercase tracking-wider">
-                      Our Why
+                      {t('aboutOurWhy')}
                     </span>
                   </div>
-                  <h3 className="mt-4 font-dm-serif text-3xl text-ada-navy">Mission</h3>
+                  <h3 className="mt-4 font-dm-serif text-3xl text-ada-navy">
+                    {t('aboutMissionTitle')}
+                  </h3>
                   <p className="mt-4 text-ada-navy/70 leading-relaxed">
-                    Empowering Asian families, we are the only U.S. doula organization
-                    blending traditional practices with modern care, offering multilingual
-                    support and certified training for a culturally rich postpartum
-                    experience.
+                    {t('aboutMissionDescription')}
                   </p>
                 </div>
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
@@ -124,25 +125,18 @@ export default function MissionValuePage() {
               {/* Blockquote */}
               <blockquote className="border-l-[5px] border-ada-purple bg-ada-off-white p-6 pl-8 rounded-r-lg">
                 <p className="text-ada-navy/70 leading-relaxed">
-                  ADA was founded to respond to urgent community needs by introducing
-                  structured training, stringent certification, and a robust ethical
-                  framework. Through these efforts, we rebuild and fortify trust, ensuring
-                  every family receives reliable, safe, and culturally respectful postpartum
-                  support.
+                  {t('aboutBlockquote')}
                 </p>
               </blockquote>
 
               {/* Quote Card 1 */}
               <div className="bg-ada-off-white rounded-2xl p-8">
                 <p className="italic text-ada-navy/70 leading-relaxed">
-                  &ldquo;Our rigorous certification and ongoing training ensure doulas
-                  uphold the highest ethics, responsibility, and care for Asian families. We
-                  are committed to restoring trust through strict professional
-                  standards.&rdquo;
+                  &ldquo;{t('aboutQuoteCard1')}&rdquo;
                 </p>
                 <div className="mt-6">
                   <p className="font-semibold text-ada-navy/70 text-sm">
-                    &mdash; Director of Education, ADA Certification &amp; Training
+                    &mdash; {t('aboutQuoteCard1Author')}
                   </p>
                 </div>
               </div>
@@ -163,15 +157,14 @@ export default function MissionValuePage() {
                       &#9734;
                     </span>
                     <span className="font-outfit font-medium text-sm uppercase tracking-wider">
-                      Our Dream
+                      {t('aboutOurDream')}
                     </span>
                   </div>
-                  <h3 className="mt-4 font-dm-serif text-3xl text-ada-navy">Vision</h3>
+                  <h3 className="mt-4 font-dm-serif text-3xl text-ada-navy">
+                    {t('aboutVisionTitle')}
+                  </h3>
                   <p className="mt-4 text-ada-navy/70 leading-relaxed">
-                    Our vision is to be the leading authority in postpartum care, setting the
-                    standard for culturally integrated support that honors Asian traditions
-                    while embracing modern care practices, ensuring every family receives
-                    compassionate, comprehensive, and culturally resonant support.
+                    {t('aboutVisionDescription')}
                   </p>
                 </div>
               </div>
@@ -179,23 +172,22 @@ export default function MissionValuePage() {
               {/* Quote Card 2 */}
               <div className="bg-ada-off-white rounded-2xl p-8">
                 <p className="italic text-ada-navy/70 leading-relaxed">
-                  &ldquo;We strive to rebuild and sustain community trust through meticulous
-                  training, clear ethical guidelines, and strong support networks, ensuring
-                  that doulas are held accountable and families receive reliable, safe, and
-                  culturally respectful postpartum support.&rdquo;
+                  &ldquo;{t('aboutQuoteCard2')}&rdquo;
                 </p>
                 <div className="mt-6">
                   <p className="font-semibold text-ada-navy/70 text-sm">
-                    &mdash; President Elected, Asian Doula Alliance
+                    &mdash; {t('aboutQuoteCard2Author')}
                   </p>
                 </div>
               </div>
 
               {/* Our Commitment */}
               <div>
-                <h2 className="font-dm-serif text-3xl text-ada-navy">Our Commitment</h2>
+                <h2 className="font-dm-serif text-3xl text-ada-navy">
+                  {t('aboutOurCommitment')}
+                </h2>
                 <p className="mt-4 text-lg text-ada-navy/70 leading-relaxed">
-                  The standards we hold ourselves to, every single day.
+                  {t('aboutCommitmentDescription')}
                 </p>
               </div>
 
@@ -234,7 +226,7 @@ export default function MissionValuePage() {
             <aside className="lg:w-1/5">
               <div className="lg:sticky lg:top-32">
                 <span className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-navy/40">
-                  Related Topics
+                  {t('aboutRelatedTopics')}
                 </span>
                 <nav className="mt-4 flex flex-col">
                   {sidebarLinks.map((link) => (

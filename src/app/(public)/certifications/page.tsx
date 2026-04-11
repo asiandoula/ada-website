@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export const metadata: Metadata = {
   title: 'Certifications | Asian Doula Alliance',
@@ -53,19 +54,21 @@ const sharedLinks = [
 ];
 
 export default function CertificationsPage() {
+  const t = useTranslations('certifications');
+
   return (
     <>
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            Certifications
+            {t('certificationsTitle')}
           </span>
           <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Choose Your Path
+            {t('heroChooseYourPath')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            Three certification tracks to advance your career in maternal and newborn care.
+            {t('heroDescription')}
           </p>
         </div>
       </section>
@@ -84,18 +87,20 @@ export default function CertificationsPage() {
                 >
                   {track.badge}
                 </span>
-                <h2 className="font-dm-serif text-2xl text-ada-navy">{track.title}</h2>
+                <h2 className="font-dm-serif text-2xl text-ada-navy">{t(`track${track.title.replace(/ /g, '')}Title`)}</h2>
                 <p className="mt-3 text-ada-navy/60 text-sm leading-relaxed">
-                  {track.description}
+                  {t(`track${track.title.replace(/ /g, '')}Description`)}
                 </p>
                 {track.facts && (
-                  <p className="mt-4 text-xs text-ada-navy/40 font-outfit">{track.facts}</p>
+                  <p className="mt-4 text-xs text-ada-navy/40 font-outfit">
+                    {t(`track${track.title.replace(/ /g, '')}Facts`)}
+                  </p>
                 )}
                 <Link
                   href={track.href}
                   className="mt-6 inline-flex items-center rounded-full bg-ada-purple text-white px-4 py-2.5 text-sm font-medium hover:bg-ada-purple-hover transition-colors"
                 >
-                  {track.linkText}
+                  {t(`track${track.title.replace(/ /g, '')}LinkText`)}
                 </Link>
               </div>
             ))}
@@ -107,7 +112,7 @@ export default function CertificationsPage() {
       <section className="bg-ada-off-white py-16">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy mb-8">
-            For All Certified Doulas
+            {t('sharedResourcesTitle')}
           </h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
             {sharedLinks.map((link) => (
@@ -116,7 +121,7 @@ export default function CertificationsPage() {
                 href={link.href}
                 className="text-ada-navy/70 hover:text-ada-purple text-sm font-outfit transition-colors"
               >
-                {link.label} &rarr;
+                {t(`sharedLink${link.label.replace(/ /g, '')}`)} &rarr;
               </Link>
             ))}
           </div>

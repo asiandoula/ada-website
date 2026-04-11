@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Find a Doula Training | Asian Doula Alliance',
@@ -9,54 +10,56 @@ export const metadata: Metadata = {
     'Find ADA-approved doula training programs. Learn what to look for in a quality training program.',
 };
 
-const lookForItems = [
-  {
-    title: 'ADA-Approved Curriculum',
-    description:
-      'Ensure the program is approved by the Asian Doula Alliance and covers all required competencies for ADA certification.',
-  },
-  {
-    title: 'Multilingual Support',
-    description:
-      'Look for programs that offer instruction in your preferred language. ADA supports training in English, Chinese, Japanese, and Korean.',
-  },
-  {
-    title: 'Hands-On Practice',
-    description:
-      'Quality programs include supervised hands-on practice sessions where you can develop practical skills in newborn care, swaddling, and postpartum support.',
-  },
-  {
-    title: 'Cultural Competency Training',
-    description:
-      'The best programs include dedicated training on providing culturally sensitive care to families from diverse Asian backgrounds.',
-  },
-  {
-    title: 'Experienced Instructors',
-    description:
-      'Look for programs led by certified, experienced doulas who can share real-world knowledge and mentorship.',
-  },
-];
+export default async function FindADoulaTrainingPage() {
+  const t = await getTranslations('certTraining');
 
-const trainingProviders = [
-  {
-    name: 'Cooings Doula Training Program',
-    location: 'Irvine, CA',
-    languages: ['English', 'Chinese'],
-    duration: '4-5 days intensive',
-    description:
-      'Comprehensive ADA-approved training program covering postpartum care, newborn care, breastfeeding support, and cultural competency. Includes hands-on practice and exam preparation.',
-    address: '7515 Irvine Center Drive, #110, Irvine, CA 92618',
-  },
-];
+  const lookForItems = [
+    {
+      title: t('adaApprovedCurriculum'),
+      description:
+        t('adaApprovedCurriculumDescription'),
+    },
+    {
+      title: t('multilingualSupport'),
+      description:
+        t('multilingualSupportDescription'),
+    },
+    {
+      title: t('handsOnPractice'),
+      description:
+        t('handsOnPracticeDescription'),
+    },
+    {
+      title: t('culturalCompetencyTraining'),
+      description:
+        t('culturalCompetencyTrainingDescription'),
+    },
+    {
+      title: t('experiencedInstructors'),
+      description:
+        t('experiencedInstructorsDescription'),
+    },
+  ];
 
-const sidebarLinks = [
-  { label: 'Steps to Certification', href: '/certifications/postpartum-doula/steps' },
-  { label: 'Exam Details', href: '/certifications/postpartum-doula/exam' },
-  { label: 'Renew & Recertification', href: '/for-doulas/renew' },
-  { label: 'Code of Conduct', href: '/for-doulas/code-of-conduct' },
-];
+  const trainingProviders = [
+    {
+      name: 'Cooings Doula Training Program',
+      location: 'Irvine, CA',
+      languages: ['English', 'Chinese'],
+      duration: '4-5 days intensive',
+      description:
+        t('trainingProviderDescription'),
+      address: '7515 Irvine Center Drive, #110, Irvine, CA 92618',
+    },
+  ];
 
-export default function FindADoulaTrainingPage() {
+  const sidebarLinks = [
+    { label: t('stepsToCertification'), href: '/certifications/postpartum-doula/steps' },
+    { label: t('examDetails'), href: '/certifications/postpartum-doula/exam' },
+    { label: t('renewRecertification'), href: '/for-doulas/renew' },
+    { label: t('codeOfConduct'), href: '/for-doulas/code-of-conduct' },
+  ];
+
   return (
     <>
       <script
@@ -64,9 +67,9 @@ export default function FindADoulaTrainingPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: 'Certifications', path: '/certifications' },
-              { name: 'Postpartum Doula', path: '/certifications/postpartum-doula' },
-              { name: 'Find a Training', path: '/certifications/postpartum-doula/training' },
+              { name: t('certifications'), path: '/certifications' },
+              { name: t('postpartumDoula'), path: '/certifications/postpartum-doula' },
+              { name: t('findATraining'), path: '/certifications/postpartum-doula/training' },
             ])
           ),
         }}
@@ -75,13 +78,13 @@ export default function FindADoulaTrainingPage() {
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            Postpartum Doula Certification
+            {t('heroTitle')}
           </span>
           <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Find a Training Program
+            {t('heroHeading')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            ADA-approved programs that prepare you for certification.
+            {t('heroDescription')}
           </p>
         </div>
       </section>
@@ -95,7 +98,7 @@ export default function FindADoulaTrainingPage() {
               {/* What to Look For */}
               <div>
                 <h2 className="font-dm-serif text-3xl text-ada-navy mb-8">
-                  What to Look For
+                  {t('whatToLookFor')}
                 </h2>
                 <div className="space-y-6">
                   {lookForItems.map((item) => (
@@ -110,7 +113,7 @@ export default function FindADoulaTrainingPage() {
               {/* ADA-Approved Providers */}
               <div>
                 <h2 className="font-dm-serif text-3xl text-ada-navy mb-8">
-                  ADA-Approved Providers
+                  {t('adaApprovedProviders')}
                 </h2>
                 <div className="space-y-6">
                   {trainingProviders.map((provider) => (
@@ -126,7 +129,7 @@ export default function FindADoulaTrainingPage() {
                           <p className="text-ada-navy/60 text-sm">{provider.location}</p>
                         </div>
                         <span className="inline-flex items-center text-ada-purple bg-ada-purple/10 text-xs px-2.5 py-0.5 rounded-full font-medium shrink-0">
-                          ADA Approved
+                          {t('adaApproved')}
                         </span>
                       </div>
                       <p className="text-ada-navy/60 text-sm mb-4 leading-relaxed">
@@ -134,15 +137,15 @@ export default function FindADoulaTrainingPage() {
                       </p>
                       <div className="flex flex-wrap gap-4 text-sm text-ada-navy/60">
                         <span>
-                          <strong className="text-ada-navy">Duration:</strong> {provider.duration}
+                          <strong className="text-ada-navy">{t('duration')}</strong> {provider.duration}
                         </span>
                         <span>
-                          <strong className="text-ada-navy">Languages:</strong>{' '}
+                          <strong className="text-ada-navy">{t('languages')}</strong>{' '}
                           {provider.languages.join(', ')}
                         </span>
                       </div>
                       <p className="text-sm text-ada-navy/60 mt-2">
-                        <strong className="text-ada-navy">Address:</strong> {provider.address}
+                        <strong className="text-ada-navy">{t('address')}</strong> {provider.address}
                       </p>
                     </div>
                   ))}
@@ -152,17 +155,16 @@ export default function FindADoulaTrainingPage() {
               {/* Become a Provider CTA */}
               <div className="bg-ada-off-white rounded-2xl p-10 text-center">
                 <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
-                  Interested in Becoming an Approved Training Provider?
+                  {t('becomeProviderCta')}
                 </h2>
                 <p className="mt-3 text-ada-navy/60 leading-relaxed max-w-xl mx-auto">
-                  If you operate a doula training program and would like to apply for ADA approval,
-                  please contact us for more information on our approval process.
+                  {t('becomeProviderDescription')}
                 </p>
                 <a
                   href="mailto:contact@asiandoula.org"
                   className="mt-6 inline-flex items-center rounded-full bg-ada-purple text-white px-4 py-2.5 text-sm font-medium hover:bg-ada-purple-hover transition-colors"
                 >
-                  Contact ADA
+                  {t('contactAda')}
                 </a>
               </div>
             </div>
@@ -171,7 +173,7 @@ export default function FindADoulaTrainingPage() {
             <aside className="lg:w-1/5">
               <div className="lg:sticky lg:top-32">
                 <span className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-navy/40">
-                  Postpartum Doula Certification
+                  {t('heroTitle')}
                 </span>
                 <nav className="mt-4 flex flex-col">
                   {sidebarLinks.map((link) => (

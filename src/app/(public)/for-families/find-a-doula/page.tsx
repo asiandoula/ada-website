@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Find a Doula | Asian Doula Alliance',
@@ -15,24 +16,32 @@ export const metadata: Metadata = {
   },
 };
 
-const sidebarLinks = [
-  { label: 'How We Train', href: '/for-families/how-we-train' },
-  { label: 'Verify a Doula', href: '/verify' },
-  { label: 'FAQ', href: '/support/faq' },
-];
+export default async function FindADoulaPage() {
+  const t = await getTranslations('findDoula');
 
-const languages = ['English', 'Mandarin', 'Cantonese', 'Japanese', 'Korean'];
+  const sidebarLinks = [
+    { label: t('howWeTrain'), href: '/for-families/how-we-train' },
+    { label: t('verifyADoula'), href: '/verify' },
+    { label: t('faq'), href: '/support/faq' },
+  ];
 
-const serviceAreas = [
-  'Los Angeles',
-  'Bay Area',
-  'San Diego',
-  'Seattle',
-  'New York City',
-  'Chicago',
-];
+  const languages = [
+    'English',
+    'Mandarin',
+    'Cantonese',
+    'Japanese',
+    'Korean',
+  ];
 
-export default function FindADoulaPage() {
+  const serviceAreas = [
+    'Los Angeles',
+    'Bay Area',
+    'San Diego',
+    'Seattle',
+    'New York City',
+    'Chicago',
+  ];
+
   return (
     <>
       <script
@@ -40,8 +49,8 @@ export default function FindADoulaPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: 'For Families', path: '/for-families' },
-              { name: 'Find a Doula', path: '/for-families/find-a-doula' },
+              { name: t('forFamilies'), path: '/for-families' },
+              { name: t('findADoula'), path: '/for-families/find-a-doula' },
             ])
           ),
         }}
@@ -55,14 +64,13 @@ export default function FindADoulaPage() {
 
         <div className="relative max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            For Families
+            {t('forFamilies')}
           </span>
           <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Find an ADA-Certified Doula
+            {t('heroTitle')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            ADA certifies doulas to the highest standards of culturally integrated postpartum care.
-            We can help connect you with a certified professional who speaks your language.
+            {t('heroDescription')}
           </p>
         </div>
       </section>
@@ -77,11 +85,10 @@ export default function FindADoulaPage() {
               {/* Pathway 1: Partner — warm editorial card */}
               <div>
                 <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                  Work With a Trusted Partner
+                  {t('trustedPartnerTitle')}
                 </h2>
                 <p className="mt-4 text-ada-navy/60 leading-relaxed max-w-2xl">
-                  ADA works with select organizations whose doula teams are fully ADA-certified.
-                  Our primary partner serves families across the country with culturally integrated postpartum care.
+                  {t('trustedPartnerDescription')}
                 </p>
 
                 <div className="mt-10 bg-ada-lavender rounded-3xl overflow-hidden">
@@ -97,26 +104,26 @@ export default function FindADoulaPage() {
                     </div>
                     <div className="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
                       <p className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-purple/60 mb-2">
-                        Featured Partner
+                        {t('featuredPartnerLabel')}
                       </p>
                       <h3 className="font-dm-serif text-2xl text-ada-navy">
-                        Cooings
+                        {t('partnerName')}
                       </h3>
                       <p className="mt-3 text-sm text-ada-navy/60 leading-relaxed">
-                        Cooings specializes in culturally integrated postpartum doula care. Their entire roster consists of ADA-certified doulas serving families in Mandarin, Cantonese, Japanese, Korean, and English.
+                        {t('partnerDescription')}
                       </p>
                       <ul className="mt-4 space-y-1.5 text-sm text-ada-navy/50">
                         <li className="flex items-center gap-2">
                           <span className="h-1 w-1 rounded-full bg-ada-purple shrink-0" />
-                          Insurance support — Kaiser, Medi-Cal, Cigna, FSA/HSA
+                          {t('insuranceSupport')}
                         </li>
                         <li className="flex items-center gap-2">
                           <span className="h-1 w-1 rounded-full bg-ada-purple shrink-0" />
-                          LA, Bay Area, Seattle, NYC, Chicago
+                          {t('serviceAreas')}
                         </li>
                         <li className="flex items-center gap-2">
                           <span className="h-1 w-1 rounded-full bg-ada-purple shrink-0" />
-                          Personalized matching based on your needs
+                          {t('personalizedMatching')}
                         </li>
                       </ul>
                       <div className="mt-6">
@@ -126,7 +133,7 @@ export default function FindADoulaPage() {
                           rel="noopener noreferrer"
                           className="inline-flex items-center px-5 py-2.5 text-sm bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
                         >
-                          Visit Cooings &rarr;
+                          {t('visitPartner')}
                         </a>
                       </div>
                     </div>
@@ -137,17 +144,17 @@ export default function FindADoulaPage() {
               {/* Pathway 2: Contact ADA directly */}
               <div>
                 <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                  Ask Us for a Recommendation
+                  {t('recommendationTitle')}
                 </h2>
                 <p className="mt-4 text-ada-navy/60 leading-relaxed max-w-2xl">
-                  Not sure where to start? We maintain relationships with certified doulas and partner agencies across the country. Tell us your location, language preference, and care needs — we&apos;ll personally recommend someone.
+                  {t('recommendationDescription')}
                 </p>
 
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {[
-                    { step: '01', title: 'Tell us your needs', desc: 'Due date, location, language, cultural preferences.' },
-                    { step: '02', title: 'We recommend', desc: 'We match you with certified doulas or partner agencies in your area.' },
-                    { step: '03', title: 'You choose', desc: 'Meet your recommended doula and decide if it\'s the right fit.' },
+                    { step: '01', title: t('steps[0].title'), desc: t('steps[0].desc') },
+                    { step: '02', title: t('steps[1].title'), desc: t('steps[1].desc') },
+                    { step: '03', title: t('steps[2].title'), desc: t('steps[2].desc') },
                   ].map((s) => (
                     <div key={s.step} className="bg-ada-off-white rounded-2xl p-6">
                       <span className="font-dm-serif text-2xl text-ada-purple/30">{s.step}</span>
@@ -162,26 +169,26 @@ export default function FindADoulaPage() {
                     href="#contact"
                     className="inline-flex items-center px-5 py-2.5 text-sm border-2 border-ada-purple text-ada-purple font-medium rounded-full hover:bg-ada-purple hover:text-white transition-colors"
                   >
-                    Contact Us Below &darr;
+                    {t('contactUs')}
                   </Link>
-                  <span className="ml-4 text-sm text-ada-navy/40">No obligation, no cost.</span>
+                  <span className="ml-4 text-sm text-ada-navy/40">{t('noObligation')}</span>
                 </div>
               </div>
 
               {/* Pathway 3: Already have a doula? */}
               <div className="bg-ada-off-white rounded-2xl p-10">
                 <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
-                  Already Have a Doula?
+                  {t('alreadyHaveDoulaTitle')}
                 </h2>
                 <p className="mt-3 text-ada-navy/60 leading-relaxed max-w-2xl">
-                  If you&apos;ve already found a doula through another channel, you can verify their ADA certification status using our public verification tool. Search by name, ID code, or certificate number.
+                  {t('alreadyHaveDoulaDescription')}
                 </p>
                 <div className="mt-6">
                   <Link
                     href="/verify"
                     className="inline-flex items-center px-5 py-2.5 text-sm border-2 border-ada-navy/20 text-ada-navy font-medium rounded-full hover:bg-ada-navy/5 transition-colors"
                   >
-                    Verify a Doula &rarr;
+                    {t('verifyDoula')}
                   </Link>
                 </div>
               </div>
@@ -189,28 +196,28 @@ export default function FindADoulaPage() {
               {/* Why Certification Matters */}
               <div>
                 <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                  Why ADA Certification Matters
+                  {t('whyCertificationTitle')}
                 </h2>
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                   {[
                     {
-                      title: 'Rigorous Training',
-                      desc: '7-module curriculum covering postpartum care, newborn care, lactation support, emergency response, and cultural competency.',
+                      title: t('certificationDetails[0].title'),
+                      desc: t('certificationDetails[0].desc'),
                       color: 'bg-ada-green-light',
                     },
                     {
-                      title: 'Comprehensive Examination',
-                      desc: 'Certified doulas pass a multi-domain exam testing knowledge, practical skills, and ethical reasoning.',
+                      title: t('certificationDetails[1].title'),
+                      desc: t('certificationDetails[1].desc'),
                       color: 'bg-ada-blue-light',
                     },
                     {
-                      title: 'Cultural Competency',
-                      desc: 'Specialized training in Asian postpartum traditions — 坐月子, 산후조리, 里帰り — alongside evidence-based practices.',
+                      title: t('certificationDetails[2].title'),
+                      desc: t('certificationDetails[2].desc'),
                       color: 'bg-ada-pink-light',
                     },
                     {
-                      title: 'Ongoing Standards',
-                      desc: 'Annual renewal ensures doulas maintain current knowledge and adhere to our Code of Conduct.',
+                      title: t('certificationDetails[3].title'),
+                      desc: t('certificationDetails[3].desc'),
                       color: 'bg-ada-violet-light',
                     },
                   ].map((item) => (
@@ -228,7 +235,7 @@ export default function FindADoulaPage() {
               {/* Languages & Areas */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <div>
-                  <h3 className="font-dm-serif text-2xl text-ada-navy mb-4">Languages</h3>
+                  <h3 className="font-dm-serif text-2xl text-ada-navy mb-4">{t('languagesTitle')}</h3>
                   <div className="flex flex-wrap gap-2">
                     {languages.map((lang) => (
                       <span key={lang} className="px-4 py-2 bg-ada-off-white rounded-full text-ada-navy/70 text-sm font-outfit">
@@ -238,7 +245,7 @@ export default function FindADoulaPage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-dm-serif text-2xl text-ada-navy mb-4">Service Areas</h3>
+                  <h3 className="font-dm-serif text-2xl text-ada-navy mb-4">{t('serviceAreasTitle')}</h3>
                   <div className="flex flex-wrap gap-2">
                     {serviceAreas.map((area) => (
                       <span key={area} className="px-4 py-2 bg-ada-off-white rounded-full text-ada-navy/70 text-sm font-outfit">
@@ -247,7 +254,7 @@ export default function FindADoulaPage() {
                     ))}
                   </div>
                   <p className="mt-3 text-xs text-ada-navy/40 font-outfit">
-                    Our network is growing. Contact us if your area is not listed.
+                    {t('growingNetwork')}
                   </p>
                 </div>
               </div>
@@ -257,7 +264,7 @@ export default function FindADoulaPage() {
             <aside className="lg:w-1/5">
               <div className="lg:sticky lg:top-32">
                 <p className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-                  For Families
+                  {t('forFamilies')}
                 </p>
                 <nav className="mt-4 space-y-3">
                   {sidebarLinks.map((link) => (

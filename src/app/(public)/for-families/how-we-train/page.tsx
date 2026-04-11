@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'What Your Doula Knows | Asian Doula Alliance',
@@ -104,9 +105,11 @@ const insurancePartners = [
   'Progyny',
 ];
 
-export default function HowWeTrainPage() {
+export default async function HowWeTrainPage() {
+  const t = await getTranslations('howWeTrain');
+
   return (
-    <>
+    <>  
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -124,15 +127,13 @@ export default function HowWeTrainPage() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
               <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-                For Families
+                {t('forFamilies')}
               </span>
               <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-                What Your Doula Knows
+                {t('heroTitle')}
               </h1>
               <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-xl leading-relaxed">
-                Every ADA-certified doula completes rigorous training that blends
-                evidence-based care with cultural wisdom — before she ever enters
-                your home.
+                {t('heroDescription')}
               </p>
             </div>
             <div className="w-full lg:w-[500px] shrink-0">
@@ -154,15 +155,10 @@ export default function HowWeTrainPage() {
       <section className="py-20 bg-white">
         <div className="max-w-[800px] mx-auto px-6">
           <p className="text-lg md:text-xl text-ada-navy/70 leading-relaxed">
-            Your doula didn&apos;t just show up. She completed days of intensive
-            training, passed both a written and practical exam, and earned a
-            credential recognized by 6 insurance partners. She studied your
-            culture&apos;s postpartum traditions alongside evidence-based
-            newborn care. She practiced emergency protocols until they became
-            second nature.
+            {t('openingNarrative')}
           </p>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/70 leading-relaxed">
-            Here is what happened before she walked through your door.
+            {t('hereIsWhatHappened')}
           </p>
         </div>
       </section>
@@ -172,11 +168,10 @@ export default function HowWeTrainPage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              Training Curriculum
+              {t('trainingCurriculumTitle')}
             </h2>
             <p className="mt-4 text-lg text-ada-navy/60 max-w-2xl mx-auto">
-              7 modules. Every one designed so your doula is ready for whatever
-              your postpartum journey brings.
+              {t('trainingCurriculumDescription')}
             </p>
             <Image
               src="/images/families/training-class.webp"
@@ -211,7 +206,7 @@ export default function HowWeTrainPage() {
                   </div>
                   <p className="text-ada-navy/60 leading-relaxed">
                     <span className="font-outfit font-semibold text-sm tracking-wide uppercase text-ada-purple block mb-2">
-                      What your doula learned
+                      {t('whatYourDoulaLearned')}
                     </span>
                     {mod.learned}
                   </p>
@@ -221,7 +216,7 @@ export default function HowWeTrainPage() {
                 <div className="md:w-1/2 mt-6 md:mt-0">
                   <div className="bg-ada-cream/60 rounded-xl p-6 h-full">
                     <span className="font-outfit font-semibold text-sm tracking-wide uppercase text-ada-purple block mb-2">
-                      What this means for you
+                      {t('whatThisMeansForYou')}
                     </span>
                     <p className="text-ada-navy/70 leading-relaxed text-lg">
                       {mod.benefit}
@@ -239,10 +234,10 @@ export default function HowWeTrainPage() {
         <div className="max-w-[800px] mx-auto px-6">
           <div className="text-center mb-14">
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              Certification Process
+              {t('certificationProcessTitle')}
             </h2>
             <p className="mt-4 text-lg text-ada-navy/60">
-              Three steps stand between your doula and her ADA credential.
+              {t('certificationProcessDescription')}
             </p>
           </div>
 
@@ -272,17 +267,13 @@ export default function HowWeTrainPage() {
       <section className="py-20 bg-ada-off-white">
         <div className="max-w-[800px] mx-auto px-6 text-center">
           <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-            Continuing Education
+            {t('continuingEducationTitle')}
           </h2>
           <p className="mt-6 text-lg text-ada-navy/70 leading-relaxed max-w-2xl mx-auto">
-            Certification is not a one-time event. ADA doulas must maintain
-            their credential through ongoing learning — attending workshops,
-            completing updated coursework, and staying current with the latest
-            in postpartum care and safety protocols.
+            {t('continuingEducationDescription1')}
           </p>
           <p className="mt-4 text-lg text-ada-navy/70 leading-relaxed max-w-2xl mx-auto">
-            When your doula arrives, she is not working from knowledge that is
-            years old. She is current.
+            {t('continuingEducationDescription2')}
           </p>
         </div>
       </section>
@@ -292,11 +283,10 @@ export default function HowWeTrainPage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              Insurance Recognition
+              {t('insuranceRecognitionTitle')}
             </h2>
             <p className="mt-4 text-lg text-ada-navy/60 max-w-2xl mx-auto">
-              ADA certification is recognized by major insurance partners,
-              which means your doula services may be covered.
+              {t('insuranceRecognitionDescription')}
             </p>
           </div>
 
@@ -324,24 +314,23 @@ export default function HowWeTrainPage() {
       <section className="py-20 bg-ada-cream">
         <div className="max-w-[800px] mx-auto px-6 text-center">
           <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-            Ready to find your doula?
+            {t('ctaTitle')}
           </h2>
           <p className="mt-4 text-lg text-ada-navy/60">
-            Every ADA-certified doula has earned the training described above.
-            Find one who speaks your language and understands your traditions.
+            {t('ctaDescription')}
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/for-families/find-a-doula"
               className="inline-flex items-center justify-center px-6 py-3 bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
             >
-              Find a Doula
+              {t('findADoula')}
             </Link>
             <Link
               href="/verify"
               className="inline-flex items-center justify-center px-6 py-3 border-2 border-ada-purple text-ada-purple font-medium rounded-full hover:bg-ada-purple hover:text-white transition-colors"
             >
-              Verify a Doula
+              {t('verifyADoula')}
             </Link>
           </div>
         </div>

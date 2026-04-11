@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Support',
@@ -13,41 +14,40 @@ export const metadata: Metadata = {
   },
 };
 
-const cards = [
-  {
-    title: 'Frequently Asked Questions',
-    description:
-      'Find answers to common questions about certification, training, exams, and doula services.',
-    href: '/support/faq',
-  },
-  {
-    title: 'Contact Us',
-    description:
-      'Reach out to our team. We respond within 1-2 business days.',
-    href: '/support/contact',
-  },
-  {
-    title: 'Articles',
-    description:
-      'Read the latest news, guides, and stories from the ADA community.',
-    href: '/articles',
-  },
-];
+export default async function SupportPage() {
+  const t = await getTranslations('support');
 
-export default function SupportPage() {
+  const cards = [
+    {
+      title: t('faqCardTitle'),
+      description: t('faqCardDescription'),
+      href: '/support/faq',
+    },
+    {
+      title: t('contactCardTitle'),
+      description: t('contactCardDescription'),
+      href: '/support/contact',
+    },
+    {
+      title: t('articlesCardTitle'),
+      description: t('articlesCardDescription'),
+      href: '/articles',
+    },
+  ];
+
   return (
-    <>
+    <> 
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            Support
+            {t('supportTitle')}
           </span>
           <h1 className="mt-3 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            How Can We Help?
+            {t('supportHeroHeading')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            Find answers, get in touch, or explore our resources.
+            {t('supportHeroDescription')}
           </p>
         </div>
       </section>
@@ -69,7 +69,7 @@ export default function SupportPage() {
                   {card.description}
                 </p>
                 <span className="mt-4 inline-flex items-center gap-1 font-outfit text-sm font-medium text-ada-purple">
-                  Learn more{' '}
+                  {t('learnMore')}{' '}
                   <span className="group-hover:translate-x-1 transition-transform">
                     &rarr;
                   </span>

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { ContactForm } from '@/components/public/contact-form';
 
@@ -14,16 +15,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const t = await getTranslations('supportContact');
+
   return (
-    <>
+    <>  
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: 'Support', path: '/support' },
-              { name: 'Contact', path: '/support/contact' },
+              { name: t('supportSection'), path: '/support' },
+              { name: t('contactPageTitle'), path: '/support/contact' },
             ])
           ),
         }}
@@ -32,14 +35,13 @@ export default function ContactPage() {
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            Support
+            {t('supportSection')}
           </span>
           <h1 className="mt-3 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Contact Us
+            {t('contactPageTitle')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            We&apos;d love to hear from you. We respond within 1-2 business
-            days.
+            {t('contactPageDescription')}
           </p>
         </div>
       </section>

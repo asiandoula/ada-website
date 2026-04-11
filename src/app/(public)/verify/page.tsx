@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search, ShieldCheck, BadgeCheck, BookOpen, Scale, GraduationCap, Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface NameResult {
   doula: {
@@ -26,6 +27,7 @@ export default function VerifyPage() {
   const [nameResults, setNameResults] = useState<NameResult[] | null>(null);
   const [noResults, setNoResults] = useState(false);
   const router = useRouter();
+  const t = useTranslations('verify');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -68,16 +70,16 @@ export default function VerifyPage() {
   }
 
   const statusLabel: Record<string, { text: string; color: string }> = {
-    active: { text: 'Active', color: 'bg-emerald-50 text-emerald-700' },
-    registered: { text: 'Registered', color: 'bg-blue-50 text-blue-700' },
-    revoked: { text: 'Revoked', color: 'bg-red-50 text-red-700' },
-    suspended: { text: 'Suspended', color: 'bg-red-50 text-red-700' },
-    under_investigation: { text: 'Under Review', color: 'bg-amber-50 text-amber-700' },
-    retired: { text: 'Retired', color: 'bg-gray-100 text-gray-600' },
+    active: { text: t('activeStatus'), color: 'bg-emerald-50 text-emerald-700' },
+    registered: { text: t('registeredStatus'), color: 'bg-blue-50 text-blue-700' },
+    revoked: { text: t('revokedStatus'), color: 'bg-red-50 text-red-700' },
+    suspended: { text: t('suspendedStatus'), color: 'bg-red-50 text-red-700' },
+    under_investigation: { text: t('underInvestigationStatus'), color: 'bg-amber-50 text-amber-700' },
+    retired: { text: t('retiredStatus'), color: 'bg-gray-100 text-gray-600' },
   };
 
   return (
-    <>
+    <> 
       {/* Dark navy banner — institutional header */}
       <section className="bg-ada-navy pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
         {/* Subtle pattern overlay */}
@@ -97,14 +99,13 @@ export default function VerifyPage() {
             </div>
           </div>
           <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-white/60 mb-3">
-            Asian Doula Alliance
+            {t('asianDoulaAlliance')}
           </p>
           <h1 className="font-dm-serif text-4xl md:text-5xl text-white">
-            Credential Verification
+            {t('credentialVerification')}
           </h1>
           <p className="mt-5 text-base text-white/60 font-outfit max-w-lg mx-auto leading-relaxed">
-            Verify the certification status of any ADA-credentialed doula.
-            This is an official verification service.
+            {t('verifyCertificationStatus')}
           </p>
 
           {/* Search */}
@@ -116,9 +117,9 @@ export default function VerifyPage() {
                   type="text"
                   value={query}
                   onChange={(e) => { setQuery(e.target.value); setNoResults(false); setNameResults(null); }}
-                  placeholder="Name, Doula ID, or Certificate Number"
+                  placeholder={t('searchPlaceholder')}
                   required
-                  aria-label="Search by name, Doula ID, or certificate number"
+                  aria-label={t('searchBy')}
                   className="w-full pl-11 pr-4 py-3.5 rounded-xl border-0 bg-white text-ada-navy font-outfit text-sm shadow-lg focus:outline-none focus:ring-2 focus:ring-ada-purple/50"
                 />
               </div>
@@ -127,11 +128,11 @@ export default function VerifyPage() {
                 disabled={loading}
                 className="shrink-0 px-6 py-3.5 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-sm hover:bg-ada-purple-hover transition-colors shadow-lg disabled:opacity-50"
               >
-                {loading ? <><Loader2 className="w-4 h-4 animate-spin" /><span className="sr-only">Searching...</span></> : 'Verify'}
+                {loading ? <><Loader2 className="w-4 h-4 animate-spin" /><span className="sr-only">{t('searching')}</span></> : t('verify')}
               </button>
             </div>
             <p className="mt-4 text-xs text-white/60 font-outfit">
-              Search by doula name, Doula ID (e.g. #25-311), or certificate number (e.g. ADA-PD-0001)
+              {t('searchBy')}
             </p>
           </form>
 
@@ -139,8 +140,7 @@ export default function VerifyPage() {
           {noResults && (
             <div className="mt-6 max-w-md mx-auto bg-white/10 rounded-xl p-5">
               <p className="text-white/70 font-outfit text-sm">
-                No matching records found for &ldquo;{query}&rdquo;.
-                Please check the spelling or try a different search term.
+                {t('noMatchingRecords')}
               </p>
             </div>
           )}
@@ -149,7 +149,7 @@ export default function VerifyPage() {
           {nameResults && nameResults.length > 0 && (
             <div className="mt-6 max-w-md mx-auto">
               <p className="text-white/60 font-outfit text-sm mb-3">
-                {nameResults.length} doula{nameResults.length > 1 ? 's' : ''} found — select to view details:
+                {t('doulaFound', { count: nameResults.length })}
               </p>
               <div className="space-y-2">
                 {nameResults.map((r) => {
@@ -178,7 +178,7 @@ export default function VerifyPage() {
                           {cert && <span className="ml-2">·  {cert.certificate_number}</span>}
                         </p>
                       </div>
-                      <span className={`shrink-0 ml-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-outfit font-semibold ${st.color}`}>
+                      <span className={`shrink-0 ml-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-outfit font-semibold ${st.color}`}> 
                         <span className={`w-1.5 h-1.5 rounded-full ${
                           r.doula.status === 'active' ? 'bg-emerald-500' :
                           r.doula.status === 'registered' ? 'bg-blue-500' :
@@ -200,7 +200,7 @@ export default function VerifyPage() {
         <div className="max-w-[1000px] mx-auto px-6">
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
             <span className="text-xs text-gray-400 font-outfit uppercase tracking-wider shrink-0">
-              Recognized by
+              {t('recognizedBy')}
             </span>
             {['Medi-Cal', 'Kaiser', 'Cigna', 'Carrot Fertility', 'Progyny', 'IEHP'].map((name) => (
               <span key={name} className="text-sm font-outfit text-gray-500 font-medium">
@@ -216,11 +216,10 @@ export default function VerifyPage() {
         <div className="max-w-[1000px] mx-auto px-6">
           <div className="text-center mb-14">
             <h2 className="font-dm-serif text-3xl text-ada-navy">
-              About ADA Certification
+              {t('aboutADACertification')}
             </h2>
             <p className="mt-3 text-ada-navy/60 font-outfit max-w-2xl mx-auto">
-              The Asian Doula Alliance maintains rigorous standards for postpartum doula certification,
-              ensuring families receive culturally competent, evidence-based care.
+              {t('adaCertificationDescription')}
             </p>
           </div>
 
@@ -230,11 +229,10 @@ export default function VerifyPage() {
                 <ShieldCheck className="w-7 h-7 text-ada-navy/60" />
               </div>
               <h3 className="font-outfit font-semibold text-ada-navy mb-2">
-                Why Verify
+                {t('whyVerify')}
               </h3>
               <p className="text-sm text-ada-navy/60 font-outfit leading-relaxed">
-                Confirms the doula has completed ADA&apos;s accredited training program
-                and passed both written and practical certification exams under supervised conditions.
+                {t('whyVerifyDescription')}
               </p>
             </div>
 
@@ -243,12 +241,10 @@ export default function VerifyPage() {
                 <BadgeCheck className="w-7 h-7 text-ada-navy/60" />
               </div>
               <h3 className="font-outfit font-semibold text-ada-navy mb-2">
-                What You&apos;ll See
+                {t('whatYoullSee')}
               </h3>
               <p className="text-sm text-ada-navy/60 font-outfit leading-relaxed">
-                Full credential details including certification type, current status,
-                date issued, and validity period. All information is verified in real-time
-                against our registry.
+                {t('whatYoullSeeDescription')}
               </p>
             </div>
 
@@ -257,11 +253,10 @@ export default function VerifyPage() {
                 <Scale className="w-7 h-7 text-ada-navy/60" />
               </div>
               <h3 className="font-outfit font-semibold text-ada-navy mb-2">
-                Open to Everyone
+                {t('openToEveryone')}
               </h3>
               <p className="text-sm text-ada-navy/60 font-outfit leading-relaxed">
-                This service is available to expectant parents, insurance providers,
-                healthcare facilities, and doula agencies. No registration required.
+                {t('openToEveryoneDescription')}
               </p>
             </div>
           </div>
@@ -272,7 +267,7 @@ export default function VerifyPage() {
       <section className="py-20 bg-ada-cream">
         <div className="max-w-[1000px] mx-auto px-6">
           <h2 className="font-dm-serif text-3xl text-ada-navy text-center mb-14">
-            Verification Process
+            {t('verificationProcess')}
           </h2>
           <div className="max-w-2xl mx-auto">
             <div className="relative">
@@ -280,9 +275,9 @@ export default function VerifyPage() {
               <div className="absolute left-5 top-2 bottom-2 w-px bg-ada-purple/15" />
               <div className="space-y-10">
                 {[
-                  { title: 'Search', text: 'Enter the doula\'s name, Doula ID (e.g. #25-311), or certificate number in the search field above.', icon: Search },
-                  { title: 'Select', text: 'If multiple results are found, select the correct doula from the list to view their credential details.', icon: BookOpen },
-                  { title: 'Review', text: 'View the official verification record showing the doula\'s credential type, certification status, and validity dates.', icon: GraduationCap },
+                  { title: t('searchStep'), text: t('searchStepDescription'), icon: Search },
+                  { title: t('selectStep'), text: t('selectStepDescription'), icon: BookOpen },
+                  { title: t('reviewStep'), text: t('reviewStepDescription'), icon: GraduationCap },
                 ].map((step, i) => (
                   <div key={i} className="flex gap-6">
                     <div className="relative z-10 w-10 h-10 rounded-full bg-ada-purple flex items-center justify-center text-white font-outfit font-bold text-sm shrink-0 shadow-md">
@@ -309,18 +304,17 @@ export default function VerifyPage() {
             }} />
             <div className="relative">
               <h2 className="font-dm-serif text-3xl text-white mb-4">
-                ADA Certification Standards
+                {t('adaCertificationStandards')}
               </h2>
               <p className="text-white/60 font-outfit max-w-xl mx-auto leading-relaxed mb-8">
-                Our doulas complete a comprehensive program including classroom training,
-                supervised practice, and dual examinations before earning their credential.
+                {t('adaCertificationStandardsDescription')}
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[
-                  { num: '167+', label: 'Registered Doulas' },
-                  { num: '4-5', label: 'Day Training' },
-                  { num: '90', label: 'Min Exam Score' },
-                  { num: '3yr', label: 'Validity Period' },
+                  { num: '167+', label: t('registeredDoulas') },
+                  { num: '4-5', label: t('dayTraining') },
+                  { num: '90', label: t('minExamScore') },
+                  { num: '3yr', label: t('validityPeriod') },
                 ].map((stat) => (
                   <div key={stat.label}>
                     <p className="font-outfit text-2xl font-bold text-white">{stat.num}</p>
@@ -337,16 +331,16 @@ export default function VerifyPage() {
       <section className="py-16 bg-ada-cream">
         <div className="max-w-[1000px] mx-auto px-6 text-center">
           <h2 className="font-dm-serif text-2xl text-ada-navy mb-3">
-            Are you a certified doula?
+            {t('areYouCertifiedDoula')}
           </h2>
           <p className="text-ada-navy/60 font-outfit mb-6">
-            Access your credential portal to view records, download certificates, and check exam history.
+            {t('accessYourCredentialPortal')}
           </p>
           <Link
             href="/portal"
             className="inline-flex items-center rounded-full bg-ada-purple text-white px-6 py-3 text-sm font-outfit font-medium hover:bg-ada-purple-hover transition-colors"
           >
-            Access Doula Portal &rarr;
+            {t('accessDoulaPortal')}
           </Link>
         </div>
       </section>

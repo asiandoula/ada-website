@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { breadcrumbJsonLd } from '@/lib/json-ld';
 import { Timeline } from '@/components/public/timeline';
 import { ContactForm } from '@/components/public/contact-form';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Our History',
@@ -74,17 +75,17 @@ const sidebarLinks = [
   { label: 'Steps to Certification', href: '/certifications/postpartum-doula/steps' },
 ];
 
-
-export default function HistoryPage() {
+export default async function HistoryPage() {
+  const t = await getTranslations('aboutHistory');
   return (
-    <>
+    <>  
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: 'About Us', path: '/about-us' },
-              { name: 'History', path: '/about-us/history' },
+              { name: t('relatedTopics'), path: '/about-us' },
+              { name: t('milestonesHeading'), path: '/about-us/history' },
             ])
           ),
         }}
@@ -93,13 +94,13 @@ export default function HistoryPage() {
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            About
+            {t('relatedTopics')}
           </span>
           <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Our History
+            {t('heroTitle')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            From a WeChat group to the only Asian doula certification body in the U.S.
+            {t('heroDescription')}
           </p>
         </div>
       </section>
@@ -112,10 +113,10 @@ export default function HistoryPage() {
             <div className="lg:w-4/5 order-2 lg:order-1">
               {/* Heading section */}
               <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                History of ADA
+                {t('historyHeading')}
               </h2>
               <p className="mt-4 text-lg text-ada-navy/60 leading-relaxed">
-                From a WeChat group to the only Asian doula certification body in the U.S.
+                {t('historyDescription')}
               </p>
 
               {/* Story */}
@@ -137,15 +138,12 @@ export default function HistoryPage() {
               {/* Blockquote — founder voice, one punch */}
               <blockquote className="mt-8 border-l-[5px] border-ada-purple bg-ada-off-white p-6 pl-8 rounded-r-lg">
                 <p className="text-ada-navy/80 leading-relaxed italic">
-                  &ldquo;It started as a chat group. It became a mission.&rdquo;
+                  {t('founderQuote')}
                 </p>
               </blockquote>
 
               <p className="mt-8 text-ada-navy/80 leading-relaxed">
-                In 2022, that mission became official. ADA was incorporated as a
-                501(c)(3) non-profit in Irvine, California — the first and only U.S.
-                organization offering culturally integrated postpartum doula
-                certification with exams in five languages.
+                {t('missionOfficial')}
               </p>
 
               {/* Photo Gallery — magazine grid */}
@@ -226,15 +224,15 @@ export default function HistoryPage() {
                 </div>
               </div>
               <p className="mt-4 text-sm text-center text-ada-navy/40 italic">
-                Scenes from ADA training workshops in Irvine, California
+                {t('trainingScenes')}
               </p>
 
               {/* Milestones heading */}
               <h2 className="mt-16 font-dm-serif text-3xl text-ada-navy">
-                Milestones
+                {t('milestonesHeading')}
               </h2>
               <p className="mt-4 text-lg text-ada-navy/60 leading-relaxed">
-                From 0 to 167+ certified doulas in five years.
+                {t('milestonesDescription')}
               </p>
 
               {/* Timeline */}
@@ -245,16 +243,16 @@ export default function HistoryPage() {
               {/* CTA section */}
               <div className="mt-16 text-center bg-ada-off-white rounded-2xl p-10">
                 <h3 className="font-dm-serif text-2xl text-ada-navy">
-                  Become Part of Our Story
+                  {t('ctaTitle')}
                 </h3>
                 <p className="mt-3 text-ada-navy/60">
-                  Join 167+ certified doulas making a difference in families&apos; lives.
+                  {t('ctaDescription')}
                 </p>
                 <Link
                   href="/certifications/postpartum-doula/steps"
                   className="inline-flex mt-6 rounded-full bg-ada-purple text-white px-5 py-2.5 text-sm font-medium hover:bg-ada-purple-hover transition-colors"
                 >
-                  Start Your Certification Journey
+                  {t('ctaButton')}
                 </Link>
               </div>
             </div>
@@ -263,7 +261,7 @@ export default function HistoryPage() {
             <aside className="lg:w-1/5 order-1 lg:order-2">
               <div className="lg:sticky lg:top-32">
                 <span className="font-outfit text-sm font-semibold text-ada-navy/40 uppercase tracking-wider">
-                  Related Topics
+                  {t('relatedTopics')}
                 </span>
                 <nav className="mt-4 flex flex-col">
                   {sidebarLinks.map((link) => (

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ContactForm } from '@/components/public/contact-form';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -42,29 +43,28 @@ const values = [
   },
 ];
 
-export default function AboutUsPage() {
+export default async function AboutUsPage() {
+  const t = await getTranslations('aboutUs');
   return (
     <>
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            About
+            {t('heroTitle')}
           </span>
           <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            What is ADA?
+            {t('heroTitle')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            The Asian Doula Alliance (ADA) (亚洲月嫂联盟) is a 501(c)(3) non-profit
-            organization dedicated to supporting and advancing the education of Asian
-            doulas.
+            {t('heroDescription')}
           </p>
           <div className="mt-8">
             <Link
               href="/certifications/postpartum-doula/steps"
               className="inline-flex items-center px-4 py-2.5 text-sm bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
             >
-              Get Certified
+              {t('getCertified')}
             </Link>
           </div>
         </div>
@@ -75,10 +75,10 @@ export default function AboutUsPage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="flex flex-col items-start gap-4 mb-10">
             <span className="text-sm font-medium text-ada-purple bg-ada-purple/10 rounded-full px-3 py-1">
-              Why ADA
+              {t('whyADATitle')}
             </span>
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              Why ADA Matters
+              {t('whyADATitle')}
             </h2>
           </div>
 
@@ -90,7 +90,7 @@ export default function AboutUsPage() {
                 caught on camera allegedly abusing a 2-day-old infant.
               </p>
               <p className="mt-4 text-sm text-ada-navy/60">
-                Source: Bay Area local news reports
+                {t('source')}: Bay Area local news reports
               </p>
             </div>
 
@@ -122,12 +122,7 @@ export default function AboutUsPage() {
           </div>
 
           <p className="text-lg text-ada-navy/70 leading-relaxed max-w-4xl">
-            The Asian postpartum community has faced troubling challenges, including
-            severe breaches of trust such as &ldquo;The Chinese Doula Incident In Bay
-            Area&rdquo;, where a doula was caught on camera allegedly abusing a 2-day-old
-            infant, underscores the critical need for rigorous standards and professional
-            oversight in postpartum care. These events have left families vulnerable and
-            distrustful.
+            {t('whyADADescription')}
           </p>
         </div>
       </section>
@@ -152,24 +147,20 @@ export default function AboutUsPage() {
             {/* Right - content */}
             <div className="flex flex-col justify-center">
               <span className="text-sm font-medium text-ada-purple bg-ada-purple/10 rounded-full px-3 py-1 w-fit">
-                How ADA
+                {t('howADATitle')}
               </span>
               <h2 className="mt-4 font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                How ADA Can Help
+                {t('howADATitle')}
               </h2>
               <p className="mt-6 text-lg text-ada-navy/70 leading-relaxed">
-                ADA was founded to respond to such urgent needs by introducing structured
-                training, stringent certification, and a robust ethical framework. Our
-                certification process involves rigorous screening, continuous education,
-                and clear accountability standards, ensuring doulas uphold the highest
-                professional and ethical conduct.
+                {t('howADAHelpDescription')}
               </p>
               <div className="mt-8">
                 <Link
                   href="/about-us/mission-value"
                   className="inline-flex items-center px-4 py-2.5 text-sm bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
                 >
-                  Learn More
+                  {t('learnMore')}
                 </Link>
               </div>
 
@@ -177,15 +168,15 @@ export default function AboutUsPage() {
               <div className="mt-10 flex flex-wrap gap-8">
                 <div>
                   <p className="font-dm-serif text-2xl text-ada-navy">167+</p>
-                  <p className="text-sm text-ada-navy/60 mt-1">Doulas Trained</p>
+                  <p className="text-sm text-ada-navy/60 mt-1">{t('doulasTrained')}</p>
                 </div>
                 <div>
                   <p className="font-dm-serif text-2xl text-ada-navy">50+</p>
-                  <p className="text-sm text-ada-navy/60 mt-1">Workshops &amp; Seminars</p>
+                  <p className="text-sm text-ada-navy/60 mt-1">{t('workshopsAndSeminars')}</p>
                 </div>
                 <div>
                   <p className="font-dm-serif text-2xl text-ada-navy">$2M+</p>
-                  <p className="text-sm text-ada-navy/60 mt-1">Scholarships Secured</p>
+                  <p className="text-sm text-ada-navy/60 mt-1">{t('scholarshipsSecured')}</p>
                 </div>
               </div>
             </div>
@@ -198,11 +189,10 @@ export default function AboutUsPage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-14">
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              Our Values
+              {t('ourValuesTitle')}
             </h2>
             <p className="mt-4 text-lg text-ada-navy/70 max-w-2xl mx-auto">
-              Compassion, professionalism, dedication, and cultural understanding define
-              our care.
+              {t('ourValuesDescription')}
             </p>
           </div>
 
@@ -223,7 +213,7 @@ export default function AboutUsPage() {
                   </div>
                   {value.href && (
                     <span className="text-sm font-medium text-ada-purple mt-6 inline-flex items-center gap-1">
-                      Learn more
+                      {t('learnMoreLink')}
                       <svg
                         className="w-4 h-4"
                         fill="none"

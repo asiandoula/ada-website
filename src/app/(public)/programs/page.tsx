@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ContactForm } from '@/components/public/contact-form';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Programs',
@@ -14,69 +15,65 @@ export const metadata: Metadata = {
   },
 };
 
-const certificationTracks = [
-  {
-    badge: 'Now Enrolling',
-    badgeStyle: 'bg-green-50 text-green-700',
-    title: 'Postpartum Doula Certification',
-    description:
-      'The gold standard in culturally integrated postpartum care. Exams in 5 languages, recognized by 6 insurance partners.',
-    facts: '$625 exam fee \u00b7 3-year validity',
-    link: { label: 'Learn More \u2192', href: '/certifications/postpartum-doula' },
-    cardBorder: 'border-2 border-ada-purple/20',
-  },
-  {
-    badge: 'Coming Soon',
-    badgeStyle: 'bg-ada-purple/10 text-ada-purple',
-    title: 'Birth Doula Certification',
-    description:
-      'Support families through labor and delivery with culturally integrated training and ADA certification.',
-    facts: null,
-    link: { label: 'Get Notified \u2192', href: '/certifications/birth-doula' },
-    cardBorder: 'border-gray-200',
-  },
-  {
-    badge: 'Coming Soon',
-    badgeStyle: 'bg-ada-purple/10 text-ada-purple',
-    title: 'IBCLC Exam Prep',
-    description:
-      'Multilingual preparation course for the International Board Certified Lactation Consultant exam.',
-    facts: null,
-    link: { label: 'Get Notified \u2192', href: '/certifications/ibclc' },
-    cardBorder: 'border-gray-200',
-  },
-];
+export default async function ProgramsPage() {
+  const t = await getTranslations('programs');
 
-const additionalPrograms = [
-  {
-    title: 'Scholarship Program',
-    description:
-      'Financial assistance for qualifying doula trainees. ADA believes cost should never be a barrier to certification.',
-    link: { label: 'Learn More \u2192', href: '/programs/scholarship' },
-  },
-  {
-    title: 'Find a Training',
-    description:
-      'Browse ADA-approved training programs in your area and language.',
-    link: { label: 'Browse Programs \u2192', href: '/certifications/postpartum-doula/training' },
-  },
-];
+  const certificationTracks = [
+    {
+      badge: 'Now Enrolling',
+      badgeStyle: 'bg-green-50 text-green-700',
+      title: t('postpartumDoulaCertificationTitle'),
+      description: t('postpartumDoulaCertificationDescription'),
+      facts: '$625 exam fee · 3-year validity',
+      link: { label: t('learnMore'), href: '/certifications/postpartum-doula' },
+      cardBorder: 'border-2 border-ada-purple/20',
+    },
+    {
+      badge: 'Coming Soon',
+      badgeStyle: 'bg-ada-purple/10 text-ada-purple',
+      title: t('birthDoulaCertificationTitle'),
+      description: t('birthDoulaCertificationDescription'),
+      facts: null,
+      link: { label: t('getNotified'), href: '/certifications/birth-doula' },
+      cardBorder: 'border-gray-200',
+    },
+    {
+      badge: 'Coming Soon',
+      badgeStyle: 'bg-ada-purple/10 text-ada-purple',
+      title: t('ibclcExamPrepTitle'),
+      description: t('ibclcExamPrepDescription'),
+      facts: null,
+      link: { label: t('getNotified'), href: '/certifications/ibclc' },
+      cardBorder: 'border-gray-200',
+    },
+  ];
 
-export default function ProgramsPage() {
+  const additionalPrograms = [
+    {
+      title: t('scholarshipProgramTitle'),
+      description: t('scholarshipProgramDescription'),
+      link: { label: t('learnMore'), href: '/programs/scholarship' },
+    },
+    {
+      title: t('findATrainingTitle'),
+      description: t('findATrainingDescription'),
+      link: { label: t('browsePrograms'), href: '/certifications/postpartum-doula/training' },
+    },
+  ];
+
   return (
     <>
       {/* Hero */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            Programs
+            {t('heroTitle')}
           </span>
           <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Our Programs
+            {t('heroTitle')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            Certification tracks, training programs, and scholarships for
-            aspiring doulas and lactation professionals.
+            {t('heroDescription')}
           </p>
         </div>
       </section>
@@ -86,10 +83,10 @@ export default function ProgramsPage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              Certification Tracks
+              {t('certificationTracksTitle')}
             </h2>
             <p className="mt-4 text-lg text-ada-navy/60">
-              Choose the path that fits your career goals.
+              {t('certificationTracksDescription')}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -131,7 +128,7 @@ export default function ProgramsPage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              Additional Programs
+              {t('additionalProgramsTitle')}
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

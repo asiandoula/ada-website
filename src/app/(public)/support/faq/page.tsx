@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { FAQContent } from './faq-content';
 import { faqJsonLd, breadcrumbJsonLd } from '@/lib/json-ld';
 import { faqData } from './faq-data';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'FAQ',
@@ -22,7 +23,9 @@ const sidebarLinks = [
   { label: 'Certifications', href: '/certifications' },
 ];
 
-export default function FAQPage() {
+export default async function FAQPage() {
+  const t = await getTranslations('supportFaq');
+
   return (
     <>
       <script
@@ -30,8 +33,8 @@ export default function FAQPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: 'Support', path: '/support' },
-              { name: 'FAQ', path: '/support/faq' },
+              { name: t('heroSupport'), path: '/support' },
+              { name: t('heroTitle'), path: '/support/faq' },
             ])
           ),
         }}
@@ -48,14 +51,13 @@ export default function FAQPage() {
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            Support
+            {t('sidebarSupport')}
           </span>
           <h1 className="mt-3 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Frequently Asked Questions
+            {t('heroTitle')}
           </h1>
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            Everything you need to know about ADA certification, training, and
-            services.
+            {t('heroDescription')}
           </p>
         </div>
       </section>
@@ -73,7 +75,7 @@ export default function FAQPage() {
             <aside className="lg:w-1/5">
               <div className="lg:sticky lg:top-32">
                 <p className="font-outfit text-xs uppercase tracking-wider text-ada-navy/40 mb-4">
-                  Support
+                  {t('sidebarSupport')}
                 </p>
                 <nav className="flex flex-row lg:flex-col gap-3">
                   {sidebarLinks.map((link) => (
@@ -82,7 +84,7 @@ export default function FAQPage() {
                       href={link.href}
                       className="font-outfit text-sm text-ada-navy/60 hover:text-ada-purple transition-colors"
                     >
-                      {link.label}
+                      {t(link.label.replace(/ /g, '').toLowerCase())}
                     </Link>
                   ))}
                 </nav>
@@ -96,16 +98,16 @@ export default function FAQPage() {
       <section className="bg-ada-off-white py-16">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-            Still have questions?
+            {t('ctaTitle')}
           </h2>
           <p className="mt-4 font-outfit text-ada-navy/60 text-lg leading-relaxed">
-            Our team responds within 1-2 business days.
+            {t('ctaDescription')}
           </p>
           <Link
             href="/support/contact"
             className="mt-8 inline-flex items-center gap-1 rounded-full bg-ada-purple px-6 py-2.5 text-sm font-outfit font-medium text-white hover:bg-ada-purple-hover transition-colors"
           >
-            Contact Us &rarr;
+            {t('ctaContactUs')} &rarr;
           </Link>
         </div>
       </section>

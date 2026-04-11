@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ContactForm } from '@/components/public/contact-form';
 import { PronounceButton } from '@/components/public/pronounce-button';
+import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'For Families | Asian Doula Alliance',
@@ -15,56 +16,57 @@ export const metadata: Metadata = {
   },
 };
 
-const cards = [
-  {
-    title: 'How We Train Our Doulas',
-    description:
-      'Learn about ADA\u2019s rigorous training and certification process \u2014 so you know exactly what our doulas bring to your home.',
-    href: '/for-families/how-we-train',
-    linkText: 'Learn More',
-  },
-  {
-    title: 'Find a Doula',
-    description:
-      'Connect with an ADA-certified postpartum doula who speaks your language and understands your cultural needs.',
-    href: '/for-families/find-a-doula',
-    linkText: 'Find a Doula',
-  },
-  {
-    title: 'Verify a Doula',
-    description:
-      'Check if your doula holds a current ADA certification using their name or certification number.',
-    href: '/verify',
-    linkText: 'Verify Now',
-  },
-];
+export default async function ForFamiliesPage() {
+  const t = await getTranslations('forFamilies');
 
-const insurancePartners = [
-  'Medi-Cal',
-  'Kaiser',
-  'Cigna',
-  'IEHP',
-  'Carrot Fertility',
-  'Progyny',
-];
+  const cards = [
+    {
+      title: t('learnMore'),
+      description:
+        t('heroDescription'),
+      href: '/for-families/how-we-train',
+      linkText: t('learnMore'),
+    },
+    {
+      title: t('findADoula'),
+      description:
+        t('heroDescription'),
+      href: '/for-families/find-a-doula',
+      linkText: t('findADoula'),
+    },
+    {
+      title: t('verifyNow'),
+      description:
+        t('heroDescription'),
+      href: '/verify',
+      linkText: t('verifyNow'),
+    },
+  ];
 
-export default function ForFamiliesPage() {
+  const insurancePartners = [
+    'Medi-Cal',
+    'Kaiser',
+    'Cigna',
+    'IEHP',
+    'Carrot Fertility',
+    'Progyny',
+  ];
+
   return (
-    <>
+    <> 
       {/* Hero — text left + image right */}
       <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div className="flex-1 text-center lg:text-left">
               <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-                For Families
+                {t('notJustForAsianFamiliesTitle')}
               </span>
               <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-                Your Recovery Matters
+                {t('heroTitle')}
               </h1>
               <p className="mt-6 text-lg md:text-xl text-ada-navy/70 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Where modern postpartum care meets thousand-year Asian traditions
-                &mdash; because no new parent should recover alone.
+                {t('heroDescription')}
               </p>
             </div>
             <div className="w-full lg:w-[500px] shrink-0">
@@ -99,32 +101,20 @@ export default function ForFamiliesPage() {
             </div>
             <div className="flex-1">
               <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                The Fourth Trimester
+                {t('fourthTrimesterTitle')}
               </h2>
               <div className="mt-8 space-y-6 text-lg text-ada-navy/70 leading-relaxed">
                 <p>
-                  You come home from the hospital. The car seat feels impossibly
-                  heavy. Your body aches in ways no one warned you about. The baby
-                  is crying, and you realize that all the preparation in the
-                  world &mdash; the nursery, the registry, the birth plan &mdash;
-                  didn&apos;t prepare you for this moment: the quiet overwhelm of
-                  being home, being responsible, being utterly exhausted.
+                  {t('fourthTrimesterText1')}
                 </p>
                 <p>
-                  Your partner does their best. Your mother calls. Friends text
-                  congratulations. But between the midnight feedings and the
-                  uncertainty, you wonder: is this just how it is? Is this
-                  something I&apos;m supposed to figure out alone?
+                  {t('fourthTrimesterText2')}
                 </p>
                 <p className="text-ada-navy font-medium text-xl">
-                  In Asian cultures, the answer has always been no.
+                  {t('fourthTrimesterText3')}
                 </p>
                 <p>
-                  For thousands of years, Asian families have recognized that the
-                  weeks after birth are not just about the baby &mdash; they are
-                  about the mother. A dedicated period of rest, nourishment, and
-                  supported recovery. This is the tradition that ADA
-                  brings into your home.
+                  {t('fourthTrimesterText4')}
                 </p>
               </div>
             </div>
@@ -137,11 +127,10 @@ export default function ForFamiliesPage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              A Tradition Older Than Modern Medicine
+              {t('traditionTitle')}
             </h2>
             <p className="mt-4 text-lg text-ada-navy/70 max-w-2xl mx-auto leading-relaxed">
-              Across Asia, postpartum recovery isn&apos;t a suggestion &mdash;
-              it&apos;s a practice woven into the fabric of family life.
+              {t('traditionDescription')}
             </p>
           </div>
 
@@ -167,10 +156,7 @@ export default function ForFamiliesPage() {
               </h3>
               <PronounceButton text="坐月子" lang="zh-CN" label="zuò yuè zi" />
               <p className="mt-3 text-ada-navy/70 leading-relaxed">
-                &ldquo;Sitting the month&rdquo; &mdash; over 2,000 years old.
-                For 30 days, the mother rests completely, eats warming foods,
-                avoids cold. It is not pampering. It is medicine, passed down
-                through generations.
+                {t('fourthTrimesterText4')}
               </p>
             </div>
             <div className="bg-white rounded-2xl p-8">
@@ -182,9 +168,7 @@ export default function ForFamiliesPage() {
               </h3>
               <PronounceButton text="산후조리" lang="ko-KR" label="san-hu-jo-ri" />
               <p className="mt-3 text-ada-navy/70 leading-relaxed">
-                Korea built dedicated postpartum recovery centers where mothers
-                spend 2&ndash;4 weeks with professional support. The practice is
-                so valued that government subsidies make it accessible to all.
+                {t('fourthTrimesterText4')}
               </p>
             </div>
             <div className="bg-white rounded-2xl p-8">
@@ -196,9 +180,7 @@ export default function ForFamiliesPage() {
               </h3>
               <PronounceButton text="里帰り" lang="ja-JP" label="sa-to-ga-e-ri" />
               <p className="mt-3 text-ada-navy/70 leading-relaxed">
-                New mothers return to their own mother&apos;s home for the first
-                month. Recovery requires a village &mdash; and in Japan, that
-                village starts with family.
+                {t('fourthTrimesterText4')}
               </p>
             </div>
           </div>
@@ -206,11 +188,7 @@ export default function ForFamiliesPage() {
           {/* PPD stats callout */}
           <div className="mt-14 bg-ada-navy rounded-2xl p-10 md:p-14 text-center">
             <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-              In the United States, <span className="font-semibold text-white">1 in 7 mothers</span> experience
-              postpartum depression. Studies show that continuous doula support
-              significantly reduces this risk. The science is confirming what Asian
-              families have known for millennia: dedicated postpartum care
-              isn&apos;t a luxury &mdash; <span className="font-semibold text-white">it is a necessity.</span>
+              {t('recoveryStats')}
             </p>
           </div>
         </div>
@@ -222,12 +200,10 @@ export default function ForFamiliesPage() {
           <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-16 mb-14">
             <div className="flex-1">
               <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                What a Doula Actually Does
+                {t('doulaTitle')}
               </h2>
               <p className="mt-6 text-lg text-ada-navy/70 leading-relaxed">
-                Forget the vague promises of &ldquo;culturally competent
-                care.&rdquo; Here is what an ADA-certified doula brings into your
-                home, day by day.
+                {t('doulaDescription')}
               </p>
             </div>
             <div className="w-full lg:w-[440px] shrink-0">
@@ -245,12 +221,12 @@ export default function ForFamiliesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: 'Recovery Meals', text: 'Red date ginger tea, pork trotter vinegar soup, Korean seaweed soup. Every meal is intentional — not just nutrition, but medicine rooted in generations of knowledge.' },
-              { title: 'Newborn Care', text: 'Proper swaddling, gentle bathing, umbilical cord care, sleep routines. Your doula handles the learning curve so you can rest and bond.' },
-              { title: 'Mom\u2019s Physical Recovery', text: 'Belly binding, herbal baths, guidance on movement and rest. Your doula monitors your recovery and knows when something needs medical attention.' },
-              { title: 'Emotional Support', text: 'Postpartum depression is real. Your doula recognizes early signs and is the steady presence you need — someone who listens without judgment.' },
-              { title: 'Family Bridge', text: 'Helping partners participate meaningfully, navigating generational expectations, making sure everyone in the household feels included in the care.' },
-              { title: 'Breastfeeding Support', text: 'Latching guidance, supply troubleshooting, pumping schedules. Hands-on help through the early days, with referrals to lactation specialists when needed.' },
+              { title: t('recoveryMeals'), text: t('recoveryMealsDescription') },
+              { title: t('newbornCare'), text: t('newbornCareDescription') },
+              { title: t('momsPhysicalRecovery'), text: t('momsPhysicalRecoveryDescription') },
+              { title: t('emotionalSupport'), text: t('emotionalSupportDescription') },
+              { title: t('familyBridge'), text: t('familyBridgeDescription') },
+              { title: t('breastfeedingSupport'), text: t('breastfeedingSupportDescription') },
             ].map((item) => (
               <div key={item.title} className="border border-gray-200 rounded-2xl p-7">
                 <h3 className="font-dm-serif text-lg text-ada-navy">{item.title}</h3>
@@ -278,20 +254,17 @@ export default function ForFamiliesPage() {
             </div>
             <div className="flex-1">
               <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                Not Just for Asian Families
+                {t('notJustForAsianFamiliesTitle')}
               </h2>
               <div className="mt-6 space-y-5 text-lg text-ada-navy/70 leading-relaxed">
                 <p>
-                  &ldquo;Do I need to be Asian to benefit from an ADA-certified doula?&rdquo;
+                  {t('notJustForAsianFamiliesText1')}
                 </p>
                 <p>
-                  No. The principles behind dedicated postpartum recovery &mdash;
-                  rest, nourishment, emotional support, expert newborn care &mdash;
-                  are universal. ADA-certified doulas serve families of all
-                  backgrounds, adapting care to your specific needs and household.
+                  {t('notJustForAsianFamiliesText2')}
                 </p>
                 <p className="text-ada-navy font-medium">
-                  The tradition is the root. The care is for everyone.
+                  {t('notJustForAsianFamiliesText3')}
                 </p>
               </div>
             </div>
@@ -304,11 +277,10 @@ export default function ForFamiliesPage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="max-w-[800px]">
             <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              Insurance &amp; Coverage
+              {t('insuranceCoverageTitle')}
             </h2>
             <p className="mt-6 text-lg text-ada-navy/70 leading-relaxed">
-              ADA-certified doula services are recognized by major insurance
-              providers. FSA/HSA eligible.
+              {t('insuranceCoverageDescription')}
             </p>
           </div>
 
@@ -325,13 +297,13 @@ export default function ForFamiliesPage() {
 
           <div className="mt-10 bg-ada-off-white rounded-2xl p-8 max-w-[800px]">
             <h3 className="font-dm-serif text-lg text-ada-navy">
-              How to Check Your Coverage
+              {t('coverageInstructionsTitle')}
             </h3>
             <ol className="mt-4 space-y-2 text-ada-navy/70 leading-relaxed list-decimal list-inside">
-              <li>Call member services on the back of your insurance card.</li>
-              <li>Ask if your plan covers postpartum doula services.</li>
-              <li>Mention certification by the Asian Doula Alliance (ADA).</li>
-              <li>Ask about pre-authorization requirements or visit limits.</li>
+              <li>{t('coverageInstructionsStep1')}</li>
+              <li>{t('coverageInstructionsStep2')}</li>
+              <li>{t('coverageInstructionsStep3')}</li>
+              <li>{t('coverageInstructionsStep4')}</li>
             </ol>
           </div>
         </div>

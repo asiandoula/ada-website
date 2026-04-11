@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { ArticleCard } from '@/components/public/article-card';
 import { CategoryTabs } from './category-tabs';
+import { getTranslations } from 'next-intl/server';
 
 export const dynamic = 'force-dynamic';
 
@@ -35,6 +36,7 @@ export default async function ArticlesPage({
 }: {
   searchParams: Promise<SearchParams>;
 }) {
+  const t = await getTranslations('articles');
   const supabase = getSupabase();
   const params = await searchParams;
   const activeCategory = params.category || 'all';
@@ -56,11 +58,10 @@ export default async function ArticlesPage({
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="font-dm-serif text-4xl text-ada-navy mb-4">
-          Articles & News
+          {t('headerTitle')}
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Stay informed with the latest news, educational resources, and community
-          stories from the Asian Doula Alliance.
+          {t('headerDescription')}
         </p>
       </div>
 
@@ -87,7 +88,7 @@ export default async function ArticlesPage({
         </div>
       ) : (
         <div className="text-center py-16">
-          <p className="text-gray-500 text-lg">No articles found in this category.</p>
+          <p className="text-gray-500 text-lg">{t('noArticlesFound')}</p>
         </div>
       )}
     </div>
