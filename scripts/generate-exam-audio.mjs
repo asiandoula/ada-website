@@ -180,23 +180,23 @@ const audios = [
   // Module 8: Breastfeeding Positions - 5 steps
   {
     filename: 'm8-bf-cradle.mp3',
-    text: `第八项：亲喂姿势。请考生展示以下母乳妈妈的亲喂姿势。第一个：摇篮式。考核时间：15秒。请开始。`,
+    text: `第八项：亲喂姿势。请展示：摇篮式。考核时间：15秒。请开始。`,
   },
   {
     filename: 'm8-bf-cross.mp3',
-    text: `第八项：亲喂姿势。下一个：交叉式。考核时间：15秒。请开始。`,
+    text: `第八项：亲喂姿势。请展示：交叉式。考核时间：15秒。请开始。`,
   },
   {
     filename: 'm8-bf-football.mp3',
-    text: `第八项：亲喂姿势。下一个：橄榄球式。考核时间：15秒。请开始。`,
+    text: `第八项：亲喂姿势。请展示：橄榄球式。考核时间：15秒。请开始。`,
   },
   {
     filename: 'm8-bf-sidelying.mp3',
-    text: `第八项：亲喂姿势。下一个：侧卧式。考核时间：15秒。请开始。`,
+    text: `第八项：亲喂姿势。请展示：侧卧式。考核时间：15秒。请开始。`,
   },
   {
     filename: 'm8-bf-laidback.mp3',
-    text: `第八项：亲喂姿势。下一个：半躺式。考核时间：15秒。请开始。`,
+    text: `第八项：亲喂姿势。请展示：半躺式。考核时间：15秒。请开始。`,
   },
 
   // Module 9: Lactation Practices

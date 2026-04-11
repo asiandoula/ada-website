@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { getExamContent, type ExamLang } from '@/lib/exam-content';
 import { CountdownTimer } from '@/components/exam/countdown-timer';
 import { AudioPlayer } from '@/components/exam/audio-player';
-import { Maximize, Minimize, Pause, Play } from 'lucide-react';
+import { Maximize, Minimize, Pause, Play, Timer } from 'lucide-react';
 
 const VALID_LANGS: ExamLang[] = ['en', 'zh-cn', 'zh-tw', 'ja', 'ko'];
 
@@ -23,6 +23,7 @@ export default function WrittenExamPage() {
   const [startedAt, setStartedAt] = useState<string | undefined>(undefined);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [timerPaused, setTimerPaused] = useState(false);
+  const [timerActive, setTimerActive] = useState(false);
 
   // Poll exam session
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function WrittenExamPage() {
         if (data.status === 'active' && data.exam_part === 'written') {
           setStartedAt(data.startedAt);
           setState('active');
+          setTimerActive(true); // session-driven → timer starts immediately
         }
       } catch {}
     };
@@ -59,6 +61,20 @@ export default function WrittenExamPage() {
     document.addEventListener('fullscreenchange', handleChange);
     return () => document.removeEventListener('fullscreenchange', handleChange);
   }, []);
+
+  function handleBeginExam() {
+    // Switch to active state; audio will auto-play and start timer on end
+    setState('active');
+    setTimerActive(false); // wait for audio to finish
+  }
+
+  function handleAudioEnded() {
+    setTimerActive(true);
+  }
+
+  function startTimerNow() {
+    setTimerActive(true);
+  }
 
   const isValidLang = VALID_LANGS.includes(lang as ExamLang);
   if (!isValidLang) {
@@ -90,10 +106,6 @@ export default function WrittenExamPage() {
             {title}
           </h1>
 
-          <div className="mb-10">
-            <AudioPlayer src="/audio/exam/written-instructions.mp3" />
-          </div>
-
           <ol className="space-y-5 text-xl text-zinc-600 mb-10">
             {content.writtenRules.map((rule, index) => (
               <li key={index} className="flex gap-4">
@@ -106,7 +118,7 @@ export default function WrittenExamPage() {
           </ol>
 
           <button
-            onClick={() => setState('active')}
+            onClick={handleBeginExam}
             className="w-full py-5 rounded-xl bg-ada-purple text-white font-outfit font-semibold text-2xl hover:bg-ada-purple/90 transition"
           >
             {content.ui.beginExam}
@@ -116,34 +128,36 @@ export default function WrittenExamPage() {
     );
   }
 
-  // Active state — big clock, fullscreen optimized
+  // Active state — audio plays first, then countdown
   return (
     <div
       ref={containerRef}
-      className="bg-white min-h-screen flex flex-col items-center justify-center"
+      className="bg-white min-h-screen flex flex-col items-center justify-center relative"
     >
       {/* Top controls */}
-      <div className="absolute top-6 right-8 flex items-center gap-2">
-        <button
-          onClick={() => setTimerPaused(!timerPaused)}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-outfit text-sm font-semibold transition ${
-            timerPaused
-              ? 'bg-green-500 text-white hover:bg-green-600'
-              : 'bg-yellow-500 text-white hover:bg-yellow-600'
-          }`}
-        >
-          {timerPaused ? (
-            <>
-              <Play className="w-4 h-4" />
-              继续
-            </>
-          ) : (
-            <>
-              <Pause className="w-4 h-4" />
-              暂停
-            </>
-          )}
-        </button>
+      <div className="absolute top-6 right-8 flex items-center gap-2 z-10">
+        {timerActive && (
+          <button
+            onClick={() => setTimerPaused(!timerPaused)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-outfit text-sm font-semibold transition ${
+              timerPaused
+                ? 'bg-green-500 text-white hover:bg-green-600'
+                : 'bg-yellow-500 text-white hover:bg-yellow-600'
+            }`}
+          >
+            {timerPaused ? (
+              <>
+                <Play className="w-4 h-4" />
+                继续
+              </>
+            ) : (
+              <>
+                <Pause className="w-4 h-4" />
+                暂停
+              </>
+            )}
+          </button>
+        )}
         <button
           onClick={toggleFullscreen}
           className="p-2 rounded-lg hover:bg-zinc-100 text-zinc-500 transition"
@@ -158,25 +172,48 @@ export default function WrittenExamPage() {
       </div>
 
       {/* Title */}
-      <h1 className="font-dm-serif text-4xl text-ada-navy mb-16">
+      <h1 className="font-dm-serif text-4xl text-ada-navy mb-12">
         {title}
       </h1>
 
-      {/* Giant clock */}
-      <div className="scale-[2] origin-center">
-        <CountdownTimer
-          size="lg"
-          durationSeconds={3600}
-          warningAtSeconds={900}
-          startedAt={startedAt}
-          paused={timerPaused}
-        />
-      </div>
+      {/* Audio player — only shown before timer starts */}
+      {!timerActive && (
+        <div className="w-full max-w-md mb-10">
+          <AudioPlayer
+            src="/audio/exam/written-instructions.mp3"
+            autoPlay
+            onEnded={handleAudioEnded}
+          />
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={startTimerNow}
+              className="flex items-center gap-2 px-6 py-3 rounded-lg bg-green-500 text-white font-outfit text-base font-semibold hover:bg-green-600 transition"
+            >
+              <Timer className="w-5 h-5" />
+              跳过音频，开始计时
+            </button>
+          </div>
+        </div>
+      )}
 
-      {/* Passing score reminder */}
-      <p className="mt-20 text-lg text-zinc-400 font-outfit">
-        {content.ui.timeRemaining}
-      </p>
+      {/* Giant clock — only after audio finishes (or skip) */}
+      {timerActive && (
+        <div className="scale-[2] origin-center">
+          <CountdownTimer
+            size="lg"
+            durationSeconds={3600}
+            warningAtSeconds={900}
+            startedAt={startedAt}
+            paused={timerPaused}
+          />
+        </div>
+      )}
+
+      {timerActive && (
+        <p className="mt-20 text-lg text-zinc-400 font-outfit">
+          {content.ui.timeRemaining}
+        </p>
+      )}
     </div>
   );
 }
