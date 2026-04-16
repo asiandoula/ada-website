@@ -17,11 +17,12 @@ export const metadata: Metadata = {
   },
 };
 
+// Static key lookups per sidebar link — verified by scripts/check-i18n.mjs.
 const sidebarLinks = [
-  { label: 'Contact Us', href: '/support/contact' },
-  { label: 'Articles', href: '/articles' },
-  { label: 'Certifications', href: '/certifications' },
-];
+  { labelKey: 'sidebarContactUs', href: '/support/contact' },
+  { labelKey: 'sidebarArticles', href: '/articles' },
+  { labelKey: 'sidebarCertifications', href: '/certifications' },
+] as const;
 
 export default async function FAQPage() {
   const t = await getTranslations('supportFaq');
@@ -78,15 +79,29 @@ export default async function FAQPage() {
                   {t('sidebarSupport')}
                 </p>
                 <nav className="flex flex-row lg:flex-col gap-3">
-                  {sidebarLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="font-outfit text-sm text-ada-navy/60 hover:text-ada-purple transition-colors"
-                    >
-                      {t(link.label.replace(/ /g, '').toLowerCase())}
-                    </Link>
-                  ))}
+                  {sidebarLinks.map((link) => {
+                    let label: string;
+                    switch (link.labelKey) {
+                      case 'sidebarContactUs':
+                        label = t('sidebarContactUs');
+                        break;
+                      case 'sidebarArticles':
+                        label = t('sidebarArticles');
+                        break;
+                      case 'sidebarCertifications':
+                        label = t('sidebarCertifications');
+                        break;
+                    }
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="font-outfit text-sm text-ada-navy/60 hover:text-ada-purple transition-colors"
+                      >
+                        {label}
+                      </Link>
+                    );
+                  })}
                 </nav>
               </div>
             </aside>

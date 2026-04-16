@@ -8,50 +8,44 @@ export const metadata: Metadata = {
     'Three certification tracks to advance your career in maternal and newborn care — Postpartum Doula, Birth Doula, and IBCLC Exam Prep.',
 };
 
+// Each track uses a static set of keys — the `keyPrefix` is a literal so the
+// i18n guard can statically verify each lookup. Do NOT derive keys from titles
+// via string manipulation; that silently breaks when JSON uses different case.
 const tracks = [
   {
+    keyPrefix: 'trackPostpartumDoula',
     badge: 'Now Enrolling',
     badgeClass: 'bg-green-50 text-green-700',
-    title: 'Postpartum Doula',
-    description:
-      'The gold standard in culturally integrated postpartum care certification. Exams in 5 languages, recognized by 6 insurance partners.',
-    facts: '$625 exam fee · 3-year validity · 167+ certified',
     href: '/certifications/postpartum-doula',
-    linkText: 'Learn More →',
     cardBorder: 'border-ada-purple/20',
     opacity: '',
+    hasFacts: true,
   },
   {
+    keyPrefix: 'trackBirthDoula',
     badge: 'Coming Soon',
     badgeClass: 'bg-ada-purple/10 text-ada-purple',
-    title: 'Birth Doula',
-    description:
-      'Support families through labor and delivery with culturally integrated training and ADA certification.',
-    facts: '',
     href: '/certifications/birth-doula',
-    linkText: 'Get Notified →',
     cardBorder: 'border-gray-200',
     opacity: 'opacity-90',
+    hasFacts: false,
   },
   {
+    keyPrefix: 'trackIbclcExamPrep',
     badge: 'Coming Soon',
     badgeClass: 'bg-ada-purple/10 text-ada-purple',
-    title: 'IBCLC Exam Prep',
-    description:
-      'Multilingual preparation course for the International Board Certified Lactation Consultant exam.',
-    facts: '',
     href: '/certifications/ibclc',
-    linkText: 'Get Notified →',
     cardBorder: 'border-gray-200',
     opacity: 'opacity-90',
+    hasFacts: false,
   },
-];
+] as const;
 
 const sharedLinks = [
-  { label: 'Renew Certification', href: '/for-doulas/renew' },
-  { label: 'Code of Conduct', href: '/for-doulas/code-of-conduct' },
-  { label: 'Verify a Doula', href: '/verify' },
-];
+  { labelKey: 'sharedLinkRenewCertification', href: '/for-doulas/renew' },
+  { labelKey: 'sharedLinkCodeOfConduct', href: '/for-doulas/code-of-conduct' },
+  { labelKey: 'sharedLinkVerifyADoula', href: '/verify' },
+] as const;
 
 export default function CertificationsPage() {
   const t = useTranslations('certifications');
@@ -77,33 +71,61 @@ export default function CertificationsPage() {
       <section className="bg-white py-20">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {tracks.map((track) => (
-              <div
-                key={track.title}
-                className={`bg-white border-2 ${track.cardBorder} rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300 ${track.opacity}`}
-              >
-                <span
-                  className={`inline-block ${track.badgeClass} text-xs px-2.5 py-0.5 rounded-full font-medium mb-4`}
+            {tracks.map((track) => {
+              // Static key lookups — one branch per track. The guard script
+              // verifies each literal key against messages/en.json at build time.
+              let title: string;
+              let description: string;
+              let facts: string | null;
+              let linkText: string;
+              switch (track.keyPrefix) {
+                case 'trackPostpartumDoula':
+                  title = t('trackPostpartumDoulaTitle');
+                  description = t('trackPostpartumDoulaDescription');
+                  facts = track.hasFacts ? t('trackPostpartumDoulaFacts') : null;
+                  linkText = t('trackPostpartumDoulaLinkText');
+                  break;
+                case 'trackBirthDoula':
+                  title = t('trackBirthDoulaTitle');
+                  description = t('trackBirthDoulaDescription');
+                  facts = null;
+                  linkText = t('trackBirthDoulaLinkText');
+                  break;
+                case 'trackIbclcExamPrep':
+                  title = t('trackIbclcExamPrepTitle');
+                  description = t('trackIbclcExamPrepDescription');
+                  facts = null;
+                  linkText = t('trackIbclcExamPrepLinkText');
+                  break;
+              }
+              return (
+                <div
+                  key={track.keyPrefix}
+                  className={`bg-white border-2 ${track.cardBorder} rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300 ${track.opacity}`}
                 >
-                  {track.badge}
-                </span>
-                <h2 className="font-dm-serif text-2xl text-ada-navy">{t(`track${track.title.replace(/ /g, '')}Title`)}</h2>
-                <p className="mt-3 text-ada-navy/60 text-sm leading-relaxed">
-                  {t(`track${track.title.replace(/ /g, '')}Description`)}
-                </p>
-                {track.facts && (
-                  <p className="mt-4 text-xs text-ada-navy/40 font-outfit">
-                    {t(`track${track.title.replace(/ /g, '')}Facts`)}
+                  <span
+                    className={`inline-block ${track.badgeClass} text-xs px-2.5 py-0.5 rounded-full font-medium mb-4`}
+                  >
+                    {track.badge}
+                  </span>
+                  <h2 className="font-dm-serif text-2xl text-ada-navy">{title}</h2>
+                  <p className="mt-3 text-ada-navy/60 text-sm leading-relaxed">
+                    {description}
                   </p>
-                )}
-                <Link
-                  href={track.href}
-                  className="mt-6 inline-flex items-center rounded-full bg-ada-purple text-white px-4 py-2.5 text-sm font-medium hover:bg-ada-purple-hover transition-colors"
-                >
-                  {t(`track${track.title.replace(/ /g, '')}LinkText`)}
-                </Link>
-              </div>
-            ))}
+                  {facts && (
+                    <p className="mt-4 text-xs text-ada-navy/40 font-outfit">
+                      {facts}
+                    </p>
+                  )}
+                  <Link
+                    href={track.href}
+                    className="mt-6 inline-flex items-center rounded-full bg-ada-purple text-white px-4 py-2.5 text-sm font-medium hover:bg-ada-purple-hover transition-colors"
+                  >
+                    {linkText}
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -115,15 +137,29 @@ export default function CertificationsPage() {
             {t('sharedResourcesTitle')}
           </h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-            {sharedLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-ada-navy/70 hover:text-ada-purple text-sm font-outfit transition-colors"
-              >
-                {t(`sharedLink${link.label.replace(/ /g, '')}`)} &rarr;
-              </Link>
-            ))}
+            {sharedLinks.map((link) => {
+              let label: string;
+              switch (link.labelKey) {
+                case 'sharedLinkRenewCertification':
+                  label = t('sharedLinkRenewCertification');
+                  break;
+                case 'sharedLinkCodeOfConduct':
+                  label = t('sharedLinkCodeOfConduct');
+                  break;
+                case 'sharedLinkVerifyADoula':
+                  label = t('sharedLinkVerifyADoula');
+                  break;
+              }
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-ada-navy/70 hover:text-ada-purple text-sm font-outfit transition-colors"
+                >
+                  {label} &rarr;
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

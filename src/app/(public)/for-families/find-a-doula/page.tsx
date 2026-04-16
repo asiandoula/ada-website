@@ -152,9 +152,9 @@ export default async function FindADoulaPage() {
 
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {[
-                    { step: '01', title: t('steps[0].title'), desc: t('steps[0].desc') },
-                    { step: '02', title: t('steps[1].title'), desc: t('steps[1].desc') },
-                    { step: '03', title: t('steps[2].title'), desc: t('steps[2].desc') },
+                    { step: '01', title: t('step1Title'), desc: t('step1Desc') },
+                    { step: '02', title: t('step2Title'), desc: t('step2Desc') },
+                    { step: '03', title: t('step3Title'), desc: t('step3Desc') },
                   ].map((s) => (
                     <div key={s.step} className="bg-ada-off-white rounded-2xl p-6">
                       <span className="font-dm-serif text-2xl text-ada-purple/30">{s.step}</span>
@@ -201,23 +201,23 @@ export default async function FindADoulaPage() {
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                   {[
                     {
-                      title: t('certificationDetails[0].title'),
-                      desc: t('certificationDetails[0].desc'),
+                      title: t('certificationDetail1Title'),
+                      desc: t('certificationDetail1Desc'),
                       color: 'bg-ada-green-light',
                     },
                     {
-                      title: t('certificationDetails[1].title'),
-                      desc: t('certificationDetails[1].desc'),
+                      title: t('certificationDetail2Title'),
+                      desc: t('certificationDetail2Desc'),
                       color: 'bg-ada-blue-light',
                     },
                     {
-                      title: t('certificationDetails[2].title'),
-                      desc: t('certificationDetails[2].desc'),
+                      title: t('certificationDetail3Title'),
+                      desc: t('certificationDetail3Desc'),
                       color: 'bg-ada-pink-light',
                     },
                     {
-                      title: t('certificationDetails[3].title'),
-                      desc: t('certificationDetails[3].desc'),
+                      title: t('certificationDetail4Title'),
+                      desc: t('certificationDetail4Desc'),
                       color: 'bg-ada-violet-light',
                     },
                   ].map((item) => (
