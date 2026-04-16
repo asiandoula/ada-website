@@ -164,7 +164,7 @@ export function Header() {
   }, [mobileOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-colors duration-300" style={{ backgroundColor: mobileOpen ? '#606090' : 'rgba(96, 96, 144, 0.85)', backdropFilter: mobileOpen ? 'none' : 'blur(8px)' }}>
+    <header className={`fixed top-0 left-0 right-0 ${mobileOpen ? 'z-[110]' : 'z-50 transition-colors duration-300'}`} style={{ backgroundColor: mobileOpen ? '#606090' : 'rgba(96, 96, 144, 0.85)', backdropFilter: mobileOpen ? 'none' : 'blur(8px)' }}>
       <div className="max-w-[1200px] mx-auto px-6">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
@@ -215,9 +215,19 @@ export function Header() {
         </div>
       </div>
 
+      {/* Mobile backdrop — covers viewport instantly so page content and other fixed overlays (cookie banner, welcome popup) don't bleed through during drawer slide-in. Rendered only when drawer is open to avoid blocking pointer events when closed. */}
+      {mobileOpen && (
+        <div
+          className="lg:hidden fixed inset-0 top-16 z-[105]"
+          style={{ backgroundColor: '#606090' }}
+          aria-hidden="true"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
       {/* Mobile overlay */}
       <div
-        className={`lg:hidden fixed inset-0 top-16 z-40 transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`lg:hidden fixed inset-0 top-16 z-[106] transition-transform duration-300 ease-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'}`}
         style={{ backgroundColor: '#606090' }}
         aria-hidden={!mobileOpen}
       >
