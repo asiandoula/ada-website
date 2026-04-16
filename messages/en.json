@@ -139,9 +139,9 @@
     "ourValuesTitle": "Our Values",
     "scholarshipsSecured": "Scholarships Secured",
     "source": "Source",
-    "whyADADescription": "The Asian postpartum community has faced troubling challenges, including severe breaches of trust such as &ldquo;The Chinese Doula Incident In Bay Area&rdquo;, where a doula was caught on camera allegedly abusing a 2-day-old infant, underscores the critical need for rigorous standards and professional oversight in postpartum care. These events have left families vulnerable and distrustful.",
+    "whyADADescription": "The Asian postpartum community has faced troubling challenges, including severe breaches of trust such as “The Chinese Doula Incident In Bay Area”, where a doula was caught on camera allegedly abusing a 2-day-old infant, underscores the critical need for rigorous standards and professional oversight in postpartum care. These events have left families vulnerable and distrustful.",
     "whyADATitle": "Why ADA Matters",
-    "workshopsAndSeminars": "Workshops &amp; Seminars"
+    "workshopsAndSeminars": "Workshops & Seminars"
   },
   "aboutHistory": {
     "heroTitle": "Our History",
@@ -267,13 +267,13 @@
     "step3": "Pass the certification exam ($625)",
     "ctaTitle": "Ready to Start?",
     "ctaDescription": "Find an ADA-approved training program near you.",
-    "ctaButton": "Find a Training Program &rarr;",
-    "seeDetailedSteps": "See detailed steps &rarr;"
+    "ctaButton": "Find a Training Program →",
+    "seeDetailedSteps": "See detailed steps →"
   },
   "certSteps": {
     "atAGlance": "At a Glance",
     "certificateValidity": "Certificate Validity",
-    "certificationCommitment": "The ADA certification demonstrates your commitment to providing culturally sensitive, evidence-based postpartum care. Here&apos;s how to earn your credential.",
+    "certificationCommitment": "The ADA certification demonstrates your commitment to providing culturally sensitive, evidence-based postpartum care. Here’s how to earn your credential.",
     "certificationProcessDuration": "From enrollment to certification, most doulas complete the process in 2-4 weeks. Training programs typically run 4-5 days of intensive instruction, followed by the certification exam.",
     "certifications": "Certifications",
     "continuingEducation": "Access to continuing education resources",
@@ -318,7 +318,7 @@
     "threeStepsDescription": "Three steps to becoming an ADA-certified postpartum doula.",
     "totalCost": "How much does it cost in total?",
     "useAdaCertified": "Right to use the \"ADA Certified\" designation",
-    "whatsIncludedInCertification": "What&apos;s Included in ADA Certification",
+    "whatsIncludedInCertification": "What’s Included in ADA Certification",
     "yourPathToCertification": "Your Path to Certification"
   },
   "certTraining": {
@@ -537,7 +537,7 @@
     "verifyNow": "Verify Now"
   },
   "findDoula": {
-    "alreadyHaveDoulaDescription": "If you&apos;ve already found a doula through another channel, you can verify their ADA certification status using our public verification tool. Search by name, ID code, or certificate number.",
+    "alreadyHaveDoulaDescription": "If you’ve already found a doula through another channel, you can verify their ADA certification status using our public verification tool. Search by name, ID code, or certificate number.",
     "alreadyHaveDoulaTitle": "Already Have a Doula?",
     "certificationDetail1Desc": "7-module curriculum covering postpartum care, newborn care, lactation support, emergency response, and cultural competency.",
     "certificationDetail1Title": "Rigorous Training",
@@ -565,7 +565,7 @@
         "desc": "Annual renewal ensures doulas maintain current knowledge and adhere to our Code of Conduct."
       }
     ],
-    "contactUs": "Contact Us Below &darr;",
+    "contactUs": "Contact Us Below ↓",
     "faq": "FAQ",
     "featuredPartnerLabel": "Featured Partner",
     "findADoula": "Find a Doula",
@@ -580,7 +580,7 @@
     "partnerDescription": "Cooings specializes in culturally integrated postpartum doula care. Their entire roster consists of ADA-certified doulas serving families in Mandarin, Cantonese, Japanese, Korean, and English.",
     "partnerName": "Cooings",
     "personalizedMatching": "Personalized matching based on your needs",
-    "recommendationDescription": "Not sure where to start? We maintain relationships with certified doulas and partner agencies across the country. Tell us your location, language preference, and care needs — we&apos;ll personally recommend someone.",
+    "recommendationDescription": "Not sure where to start? We maintain relationships with certified doulas and partner agencies across the country. Tell us your location, language preference, and care needs — we’ll personally recommend someone.",
     "recommendationTitle": "Ask Us for a Recommendation",
     "serviceAreas": "LA, Bay Area, Seattle, NYC, Chicago",
     "serviceAreasTitle": "Service Areas",
@@ -604,14 +604,14 @@
       {
         "step": "03",
         "title": "You choose",
-        "desc": "Meet your recommended doula and decide if it&apos;s the right fit."
+        "desc": "Meet your recommended doula and decide if it’s the right fit."
       }
     ],
     "trustedPartnerDescription": "ADA works with select organizations whose doula teams are fully ADA-certified. Our primary partner serves families across the country with culturally integrated postpartum care.",
     "trustedPartnerTitle": "Work With a Trusted Partner",
     "verifyADoula": "Verify a Doula",
-    "verifyDoula": "Verify a Doula &rarr;",
-    "visitPartner": "Visit Cooings &rarr;",
+    "verifyDoula": "Verify a Doula →",
+    "visitPartner": "Visit Cooings →",
     "whyCertificationTitle": "Why ADA Certification Matters"
   },
   "howWeTrain": {
@@ -781,7 +781,7 @@
   },
   "verify": {
     "aboutADACertification": "About ADA Certification",
-    "accessDoulaPortal": "Access Doula Portal &rarr;",
+    "accessDoulaPortal": "Access Doula Portal →",
     "accessYourCredentialPortal": "Access your credential portal to view records, download certificates, and check exam history.",
     "activeStatus": "Active",
     "adaCertificationDescription": "ADA certifies doulas who meet rigorous training, examination, and continuing education standards — so families can trust who they invite into their homes.",
@@ -793,7 +793,7 @@
     "dayTraining": "Day Training",
     "doulaFound": "{count} doula{name}s found — select to view details:",
     "minExamScore": "Min. Exam Score",
-    "noMatchingRecords": "No matching records found for &ldquo;{query}&rdquo;. Please check the spelling or try a different search term.",
+    "noMatchingRecords": "No matching records found for “{query}”. Please check the spelling or try a different search term.",
     "openToEveryone": "Open to Everyone",
     "openToEveryoneDescription": "This service is available to expectant parents, insurance providers, healthcare facilities, and doula agencies. No registration required.",
     "recognizedBy": "Recognized by",

@@ -139,7 +139,7 @@
     "ourValuesTitle": "私たちの価値観",
     "scholarshipsSecured": "確保された奨学金",
     "source": "出典",
-    "whyADADescription": "アジアの産後コミュニティは、信頼の重大な侵害を含む困難な課題に直面しています。例えば、&ldquo;ベイエリアの中国ドゥーラ事件&rdquo;では、ドゥーラがカメラに捉えられ、2日齢の乳児を虐待したとされ、産後ケアにおける厳格な基準と専門的な監視の必要性が浮き彫りになりました。これらの出来事は、家族を脆弱で不信感を抱かせる結果となっています。",
+    "whyADADescription": "アジアの産後コミュニティは、信頼の重大な侵害を含む困難な課題に直面しています。例えば、“ベイエリアの中国ドゥーラ事件”では、ドゥーラがカメラに捉えられ、2日齢の乳児を虐待したとされ、産後ケアにおける厳格な基準と専門的な監視の必要性が浮き彫りになりました。これらの出来事は、家族を脆弱で不信感を抱かせる結果となっています。",
     "whyADATitle": "ADAが重要な理由",
     "workshopsAndSeminars": "ワークショップ＆セミナー"
   },
@@ -267,8 +267,8 @@
     "step3": "認証試験に合格する（$625）",
     "ctaTitle": "始める準備はできましたか？",
     "ctaDescription": "近くのADA承認のトレーニングプログラムを見つけてください。",
-    "ctaButton": "トレーニングプログラムを見つける &rarr;",
-    "seeDetailedSteps": "詳細なステップを見る &rarr;"
+    "ctaButton": "トレーニングプログラムを見つける →",
+    "seeDetailedSteps": "詳細なステップを見る →"
   },
   "certSteps": {
     "atAGlance": "概要",
@@ -565,7 +565,7 @@
         "desc": "年次更新により、ダウラは最新の知識を維持し、私たちの行動規範に従います。"
       }
     ],
-    "contactUs": "下記の方法でお問い合わせください &darr;",
+    "contactUs": "下記の方法でお問い合わせください ↓",
     "faq": "よくある質問",
     "featuredPartnerLabel": "特集パートナー",
     "findADoula": "ドゥーラを探す",
@@ -610,8 +610,8 @@
     "trustedPartnerDescription": "ADAは、ダウラチームが完全にADA認定を受けた選定された組織と提携しています。私たちの主要なパートナーは、全国の家族に文化的に統合された産後ケアを提供しています。",
     "trustedPartnerTitle": "信頼できるパートナーと協力する",
     "verifyADoula": "ドゥーラを照合",
-    "verifyDoula": "ダウラを確認する &rarr;",
-    "visitPartner": "Cooingsを訪問する &rarr;",
+    "verifyDoula": "ダウラを確認する →",
+    "visitPartner": "Cooingsを訪問する →",
     "whyCertificationTitle": "なぜADA認定が重要なのか"
   },
   "howWeTrain": {
@@ -781,7 +781,7 @@
   },
   "verify": {
     "aboutADACertification": "ADA認定について",
-    "accessDoulaPortal": "ダウラポータルにアクセス &rarr;",
+    "accessDoulaPortal": "ダウラポータルにアクセス →",
     "accessYourCredentialPortal": "資格ポータルにアクセスして、記録を表示し、証明書をダウンロードし、試験履歴を確認してください。",
     "activeStatus": "有効",
     "adaCertificationDescription": "ADAは、厳格な研修・試験・継続教育の基準を満たしたドゥーラを認定しています。ご家族が安心して迎え入れられる存在であるために。",

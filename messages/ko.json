@@ -139,9 +139,9 @@
     "ourValuesTitle": "우리의 가치",
     "scholarshipsSecured": "확보된 장학금",
     "source": "출처",
-    "whyADADescription": "아시아 산후 커뮤니티는 &ldquo;베이 지역의 중국 도우라 사건&rdquo;과 같은 심각한 신뢰 위반을 포함한 어려운 도전에 직면해 있습니다. 이 사건에서는 도우라가 카메라에 포착되어 2일 된 아기를 학대한 혐의를 받았습니다. 이는 산후 관리에서 엄격한 기준과 전문적인 감독의 필요성을 강조합니다. 이러한 사건들은 가족들을 취약하고 불신하게 만들었습니다.",
+    "whyADADescription": "아시아 산후 커뮤니티는 “베이 지역의 중국 도우라 사건”과 같은 심각한 신뢰 위반을 포함한 어려운 도전에 직면해 있습니다. 이 사건에서는 도우라가 카메라에 포착되어 2일 된 아기를 학대한 혐의를 받았습니다. 이는 산후 관리에서 엄격한 기준과 전문적인 감독의 필요성을 강조합니다. 이러한 사건들은 가족들을 취약하고 불신하게 만들었습니다.",
     "whyADATitle": "왜 ADA가 중요한가",
-    "workshopsAndSeminars": "워크숍 &amp; 세미나"
+    "workshopsAndSeminars": "워크숍 & 세미나"
   },
   "aboutHistory": {
     "heroTitle": "우리의 역사",
@@ -267,8 +267,8 @@
     "step3": "인증 시험 통과하기 ($625)",
     "ctaTitle": "시작할 준비가 되셨나요?",
     "ctaDescription": "근처의 ADA 승인 교육 프로그램을 찾으세요.",
-    "ctaButton": "교육 프로그램 찾기 &rarr;",
-    "seeDetailedSteps": "자세한 단계 보기 &rarr;"
+    "ctaButton": "교육 프로그램 찾기 →",
+    "seeDetailedSteps": "자세한 단계 보기 →"
   },
   "certSteps": {
     "atAGlance": "한눈에 보기",
@@ -565,7 +565,7 @@
         "desc": "연간 갱신을 통해 도우라가 최신 지식을 유지하고 우리의 행동 강령을 준수하도록 보장합니다."
       }
     ],
-    "contactUs": "아래에서 문의하기 &darr;",
+    "contactUs": "아래에서 문의하기 ↓",
     "faq": "자주 묻는 질문",
     "featuredPartnerLabel": "추천 파트너",
     "findADoula": "도울라 찾기",
@@ -610,8 +610,8 @@
     "trustedPartnerDescription": "ADA는 도우라 팀이 완전히 ADA 인증된 선택된 기관과 협력합니다. 우리의 주요 파트너는 문화적으로 통합된 산후 관리를 제공하는 가족을 위해 전국적으로 서비스를 제공합니다.",
     "trustedPartnerTitle": "신뢰할 수 있는 파트너와 함께 일하기",
     "verifyADoula": "도울라 확인",
-    "verifyDoula": "도우라 인증하기 &rarr;",
-    "visitPartner": "Cooings 방문하기 &rarr;",
+    "verifyDoula": "도우라 인증하기 →",
+    "visitPartner": "Cooings 방문하기 →",
     "whyCertificationTitle": "왜 ADA 인증이 중요한가"
   },
   "howWeTrain": {
@@ -781,7 +781,7 @@
   },
   "verify": {
     "aboutADACertification": "ADA 인증 안내",
-    "accessDoulaPortal": "도우라 포털에 접속 &rarr;",
+    "accessDoulaPortal": "도우라 포털에 접속 →",
     "accessYourCredentialPortal": "기록을 보고, 인증서를 다운로드하고, 시험 이력을 확인하려면 자격 포털에 접속하세요.",
     "activeStatus": "활성",
     "adaCertificationDescription": "ADA는 엄격한 교육, 시험, 보수 교육 기준을 충족한 도울라를 인증합니다. 가족이 믿고 집으로 맞이할 수 있는 분을 위한 인증입니다.",
@@ -793,7 +793,7 @@
     "dayTraining": "교육 일수",
     "doulaFound": "{count} 도우라{name}이(가) 발견되었습니다 — 세부 정보를 보려면 선택하세요:",
     "minExamScore": "합격 점수",
-    "noMatchingRecords": "&ldquo;{query}&rdquo;에 대한 일치하는 기록이 없습니다. 철자를 확인하거나 다른 검색어를 시도해 주세요.",
+    "noMatchingRecords": "“{query}”에 대한 일치하는 기록이 없습니다. 철자를 확인하거나 다른 검색어를 시도해 주세요.",
     "openToEveryone": "모두에게 개방",
     "openToEveryoneDescription": "이 서비스는 예비 부모, 보험 제공자, 의료 시설 및 도우라 기관에 제공됩니다. 등록이 필요하지 않습니다.",
     "recognizedBy": "인정 기관",

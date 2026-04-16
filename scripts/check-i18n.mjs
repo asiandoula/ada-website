@@ -45,10 +45,34 @@ function flattenKeys(obj, prefix = '') {
   return keys;
 }
 
+// Collect every string leaf with its dotted key path. Used for HTML-entity
+// detection — React escapes `&` when it comes from a JS expression (like
+// `{t('key')}`), so any entity in a translation value renders as raw text.
+function flattenLeaves(obj, prefix = '') {
+  const leaves = []; // { key, value }
+  for (const [k, v] of Object.entries(obj)) {
+    const path = prefix ? `${prefix}.${k}` : k;
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      leaves.push(...flattenLeaves(v, path));
+    } else if (Array.isArray(v)) {
+      v.forEach((item, i) => {
+        if (typeof item === 'string') leaves.push({ key: `${path}.${i}`, value: item });
+        else if (item && typeof item === 'object') leaves.push(...flattenLeaves(item, `${path}.${i}`));
+      });
+    } else if (typeof v === 'string') {
+      leaves.push({ key: path, value: v });
+    }
+  }
+  return leaves;
+}
+
 const localeKeys = {};
+const localeJson = {};
 for (const loc of LOCALES) {
   const raw = readFileSync(join(MESSAGES_DIR, `${loc}.json`), 'utf8');
-  localeKeys[loc] = flattenKeys(JSON.parse(raw));
+  const parsed = JSON.parse(raw);
+  localeJson[loc] = parsed;
+  localeKeys[loc] = flattenKeys(parsed);
 }
 const enKeys = localeKeys.en;
 
@@ -128,6 +152,34 @@ for (const file of files) {
   }
 }
 
+// ---------- HTML entity check (all locales) ----------
+//
+// React escapes `&` when a string comes from a JS expression (e.g.
+// `{t('key')}` or a JSON-loaded message), so entities like `&rarr;` render
+// as literal text instead of the intended arrow. This walks every string
+// leaf across all locales and fails hard on any `&<name>;` occurrence.
+//
+// The pattern matches named entities (`&rarr;`, `&ldquo;`, `&apos;`, ...)
+// and numeric ones (`&#8594;`, `&#x2192;`). We intentionally do not
+// whitelist — translators should use the Unicode character directly.
+
+const ENTITY_PATTERN = /&(?:[a-zA-Z][a-zA-Z0-9]+|#\d+|#x[0-9a-fA-F]+);/g;
+const entityHits = []; // { locale, key, snippet, entities: [...] }
+
+for (const loc of LOCALES) {
+  for (const { key, value } of flattenLeaves(localeJson[loc])) {
+    const matches = value.match(ENTITY_PATTERN);
+    if (matches && matches.length) {
+      entityHits.push({
+        locale: loc,
+        key,
+        snippet: value.length > 120 ? value.slice(0, 117) + '...' : value,
+        entities: [...new Set(matches)],
+      });
+    }
+  }
+}
+
 // ---------- locale drift ----------
 
 const drift = []; // { locale, missing: [...], extra: [...] }
@@ -166,6 +218,23 @@ if (drift.length) {
   }
 }
 
+if (entityHits.length) {
+  failed = true;
+  console.error(
+    `\n[i18n] ERROR: ${entityHits.length} translation string(s) contain HTML entities.`
+  );
+  console.error(
+    `  React escapes \`&\` when a string comes from an expression, so entities like`
+  );
+  console.error(
+    `  \`&rarr;\` render as raw text. Use Unicode characters directly (e.g. →, ", ').`
+  );
+  for (const h of entityHits) {
+    console.error(`  [${h.locale}] ${h.key}  (${h.entities.join(', ')})`);
+    console.error(`    "${h.snippet}"`);
+  }
+}
+
 if (dynamicHits.length) {
   console.warn(`\n[i18n] WARNING: ${dynamicHits.length} dynamic t(\`…\${…}…\`) call(s) — static checker skipped these; please human-review:`);
   for (const h of dynamicHits) {
@@ -178,4 +247,4 @@ if (failed) {
   process.exit(1);
 }
 
-console.log(`[i18n] OK — ${enKeys.size} keys in en.json, ${LOCALES.length - 1} locales in sync, ${dynamicHits.length} dynamic call(s) flagged for review`);
+console.log(`[i18n] OK — ${enKeys.size} keys in en.json, ${LOCALES.length - 1} locales in sync, 0 HTML entities, ${dynamicHits.length} dynamic call(s) flagged for review`);

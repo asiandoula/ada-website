@@ -267,8 +267,8 @@
     "step3": "通過認證考試 ($625)",
     "ctaTitle": "準備開始了嗎？",
     "ctaDescription": "尋找您附近的ADA認可訓練計劃。",
-    "ctaButton": "尋找訓練計劃 &rarr;",
-    "seeDetailedSteps": "查看詳細步驟 &rarr;"
+    "ctaButton": "尋找訓練計劃 →",
+    "seeDetailedSteps": "查看詳細步驟 →"
   },
   "certSteps": {
     "atAGlance": "一覽",
@@ -565,7 +565,7 @@
         "desc": "年度續證確保陪護員保持最新知識並遵守我們的行為準則。"
       }
     ],
-    "contactUs": "請在下方聯繫我們 &darr;",
+    "contactUs": "請在下方聯繫我們 ↓",
     "faq": "常見問題",
     "featuredPartnerLabel": "特色夥伴",
     "findADoula": "尋找導樂",
@@ -610,8 +610,8 @@
     "trustedPartnerDescription": "ADA 與選定的機構合作，這些機構的陪護團隊均為 ADA 認證。我們的主要夥伴為全國家庭提供文化整合的產後護理。",
     "trustedPartnerTitle": "與值得信賴的夥伴合作",
     "verifyADoula": "查驗導樂資格",
-    "verifyDoula": "驗證陪護員 &rarr;",
-    "visitPartner": "訪問 Cooings &rarr;",
+    "verifyDoula": "驗證陪護員 →",
+    "visitPartner": "訪問 Cooings →",
     "whyCertificationTitle": "為什麼 ADA 認證很重要"
   },
   "howWeTrain": {
@@ -781,7 +781,7 @@
   },
   "verify": {
     "aboutADACertification": "關於 ADA 認證",
-    "accessDoulaPortal": "訪問助產士入口 &rarr;",
+    "accessDoulaPortal": "訪問助產士入口 →",
     "accessYourCredentialPortal": "訪問您的證書入口以查看記錄、下載證書和檢查考試歷史。",
     "activeStatus": "有效",
     "adaCertificationDescription": "ADA 為符合嚴格培訓、考試與繼續教育標準的導樂頒發認證，讓家庭能放心地邀請她們入戶。",
@@ -793,7 +793,7 @@
     "dayTraining": "培訓天數",
     "doulaFound": "找到 {count} 位助產士{name} — 選擇以查看詳細資訊：",
     "minExamScore": "最低通過分",
-    "noMatchingRecords": "未找到與 &ldquo;{query}&rdquo; 匹配的記錄。請檢查拼寫或嘗試不同的搜尋詞。",
+    "noMatchingRecords": "未找到與 “{query}” 匹配的記錄。請檢查拼寫或嘗試不同的搜尋詞。",
     "openToEveryone": "對所有人開放",
     "openToEveryoneDescription": "此服務對準父母、保險提供者、醫療機構和助產士機構開放。無需註冊。",
     "recognizedBy": "認可機構",
