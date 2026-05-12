@@ -11,8 +11,8 @@
     "missionValues": "사명 및 가치",
     "boardOfDirectors": "이사회",
     "postpartumDoula": "산후 도우라",
-    "birthDoula": "출산 도우라 (곧 출시)",
-    "ibclc": "IBCLC 시험 준비 (곧 출시)",
+    "birthDoula": "출산 둘라",
+    "ibclc": "IBCLC 시험 준비",
     "myPortal": "내 포털",
     "renewRecertification": "갱신 / 재인증",
     "codeOfConduct": "행동 강령",
@@ -26,7 +26,8 @@
     "articles": "기사",
     "openMenu": "메뉴 열기",
     "closeMenu": "메뉴 닫기",
-    "language": "언어"
+    "language": "언어",
+    "donate": "기부하기"
   },
   "footer": {
     "tagline": "문화적으로 통합된 교육, 인증 및 다국어 지원을 통해 산후 관리의 기준을 설정합니다.",
@@ -47,7 +48,12 @@
     "availableHours": "월-금 10AM-5PM PST 이용 가능",
     "newsletter": "ADA와 연결 유지하기",
     "newsletterDescription": "교육 업데이트, 인증 뉴스 및 커뮤니티 이야기.",
-    "rights": "아시안 도우라 얼라이언스. 모든 권리 보유."
+    "rights": "아시안 도우라 얼라이언스. 모든 권리 보유.",
+    "supportAndLegal": "지원 및 법적 정보",
+    "donate": "기부하기",
+    "financials": "재무 및 책임",
+    "privacyPolicy": "개인정보 보호정책",
+    "termsOfService": "이용약관"
   },
   "languageSwitcher": {
     "label": "언어",

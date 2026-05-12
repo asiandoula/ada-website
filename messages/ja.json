@@ -11,8 +11,8 @@
     "missionValues": "使命と価値",
     "boardOfDirectors": "理事会",
     "postpartumDoula": "産後ドゥーラ",
-    "birthDoula": "出産ドゥーラ（近日公開）",
-    "ibclc": "IBCLC試験準備（近日公開）",
+    "birthDoula": "バースドゥーラ",
+    "ibclc": "IBCLC試験準備",
     "myPortal": "マイポータル",
     "renewRecertification": "更新 / 再認証",
     "codeOfConduct": "行動規範",
@@ -26,7 +26,8 @@
     "articles": "記事",
     "openMenu": "メニューを開く",
     "closeMenu": "メニューを閉じる",
-    "language": "言語"
+    "language": "言語",
+    "donate": "ご寄付"
   },
   "footer": {
     "tagline": "文化的に統合されたトレーニング、認証、そして多言語サポートを通じて、産後ケアの基準を設定します。",
@@ -47,7 +48,12 @@
     "availableHours": "月〜金 10AM-5PM PST",
     "newsletter": "ADAとつながりましょう",
     "newsletterDescription": "トレーニングの更新、認証ニュース、コミュニティのストーリー。",
-    "rights": "アジアドゥーラアライアンス。全著作権所有。"
+    "rights": "アジアドゥーラアライアンス。全著作権所有。",
+    "supportAndLegal": "サポート & 法的事項",
+    "donate": "ご寄付",
+    "financials": "財務 & 説明責任",
+    "privacyPolicy": "プライバシーポリシー",
+    "termsOfService": "利用規約"
   },
   "languageSwitcher": {
     "label": "言語",

@@ -10,7 +10,6 @@ export function Footer() {
 
   const doulaLinks = [
     { label: t('postpartumDoula'), href: '/certifications/postpartum-doula' },
-    { label: t('birthDoula'), href: '/certifications/birth-doula' },
     { label: t('renewRecertification'), href: '/for-doulas/renew' },
     { label: t('codeOfConduct'), href: '/for-doulas/code-of-conduct' },
   ];
@@ -27,10 +26,17 @@ export function Footer() {
     { label: t('faq'), href: '/support/faq' },
   ];
 
+  const supportLinks = [
+    { label: t('donate'), href: '/donate' },
+    { label: t('financials'), href: '/about-us/financials' },
+    { label: t('privacyPolicy'), href: '/privacy-policy' },
+    { label: t('termsOfService'), href: '/terms-of-service' },
+  ];
+
   return (
     <footer className="bg-ada-navy text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10">
           {/* About */}
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -107,6 +113,25 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Support & Legal */}
+          <div>
+            <h3 className="font-outfit font-semibold text-sm tracking-wider uppercase mb-4">
+              {t('supportAndLegal')}
+            </h3>
+            <ul className="space-y-2.5">
+              {supportLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-white/60 hover:text-white text-sm transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Contact Info */}
           <div>
             <h3 className="font-outfit font-semibold text-sm tracking-wider uppercase mb-4">
@@ -124,6 +149,10 @@ export function Footer() {
                 </a>
               </li>
               <li>{t('availableHours')}</li>
+              <li className="pt-2 text-white/50 text-xs leading-relaxed">
+                7515 Irvine Center Dr, Suite 110<br />
+                Irvine, CA 92618
+              </li>
               <li className="pt-2">
                 <a
                   href="https://www.instagram.com/asian_doula"
@@ -150,12 +179,27 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
+      {/* Bottom bar: nonprofit transparency */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <p className="text-white/60 text-xs text-center">
-            &copy; {new Date().getFullYear()} {t('rights')}
-          </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-white/60 text-xs">
+            <div className="space-y-1">
+              <p>
+                Asian Doula Alliance is a registered 501(c)(3) nonprofit organization.
+                Donations are tax-deductible to the fullest extent allowed by law.
+              </p>
+              <p>
+                EIN: <span className="font-mono">88-XXXXXXX</span> · See{' '}
+                <Link href="/about-us/financials" className="underline hover:text-white">
+                  Financials &amp; Accountability
+                </Link>{' '}
+                for our Form 990 and program impact details.
+              </p>
+            </div>
+            <p className="shrink-0 md:text-right">
+              &copy; {new Date().getFullYear()} {t('rights')}
+            </p>
+          </div>
         </div>
       </div>
     </footer>

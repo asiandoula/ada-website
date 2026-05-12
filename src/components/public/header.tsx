@@ -116,8 +116,9 @@ export function Header() {
 
   const certificationLinks = [
     { label: t('postpartumDoula'), href: '/certifications/postpartum-doula' },
-    { label: t('birthDoula'), href: '/certifications/birth-doula' },
-    { label: t('ibclc'), href: '/certifications/ibclc' },
+    // Birth Doula and IBCLC programs are in development; not surfaced in nav
+    // until enrollment opens (Google Ad Grants requirement: no placeholder
+    // pages in primary navigation).
   ];
 
   const doulaLinks = [
@@ -190,9 +191,15 @@ export function Header() {
             <DesktopDropdown label={t('support')} links={supportLinks} isOpen={openDropdown === 'support'} onOpen={() => setOpenDropdown('support')} onClose={() => setOpenDropdown(null)} />
           </nav>
 
-          {/* Right side: Language + CTA */}
-          <div className="hidden lg:flex items-center gap-4">
+          {/* Right side: Language + CTAs */}
+          <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
+            <Link
+              href="/donate"
+              className="inline-flex items-center px-4 py-2.5 bg-ada-purple text-white text-sm font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
+            >
+              {t('donate')}
+            </Link>
             <Link
               href="/certifications"
               className="inline-flex items-center px-4 py-2.5 bg-white/15 text-white text-sm font-medium rounded-full hover:bg-white/25 transition-colors"
@@ -267,10 +274,17 @@ export function Header() {
             onToggle={() => toggleAccordion('support')}
             onLinkClick={() => setMobileOpen(false)}
           />
-          <div className="pt-6">
+          <div className="pt-6 space-y-3">
+            <Link
+              href="/donate"
+              className="block w-full text-center px-4 py-2.5 bg-ada-purple text-white font-medium text-sm rounded-full hover:bg-ada-purple-hover transition-colors"
+              onClick={() => setMobileOpen(false)}
+            >
+              {t('donate')}
+            </Link>
             <Link
               href="/certifications"
-              className="block w-full text-center px-4 py-2.5 bg-ada-purple text-white font-medium text-sm rounded-full hover:bg-ada-purple-hover transition-colors"
+              className="block w-full text-center px-4 py-2.5 bg-white/15 text-white font-medium text-sm rounded-full hover:bg-white/25 transition-colors"
               onClick={() => setMobileOpen(false)}
             >
               {t('getCertified')} &rarr;
