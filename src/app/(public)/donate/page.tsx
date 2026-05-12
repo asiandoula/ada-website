@@ -42,12 +42,6 @@ const waysToGive = [
     note: 'A secure online giving portal is being set up. In the meantime, please email us and we will send a direct link.',
   },
   {
-    title: 'Check by Mail',
-    body: 'Make checks payable to "Asian Doula Alliance" and mail to our registered office in Irvine, California.',
-    cta: 'View mailing address',
-    href: '#mailing-address',
-  },
-  {
     title: 'Donor-Advised Funds',
     body: 'Recommend a grant to Asian Doula Alliance through your donor-advised fund. Use our EIN to direct your gift.',
     cta: 'See our EIN',
@@ -144,7 +138,7 @@ export default function DonatePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {waysToGive.map((w) => (
               <div
                 key={w.title}
@@ -171,83 +165,55 @@ export default function DonatePage() {
         </div>
       </section>
 
-      {/* Tax & mailing info */}
+      {/* Tax-deductibility */}
       <section className="bg-white py-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div
-              id="tax-info"
-              className="bg-ada-purple/5 border border-ada-purple/20 rounded-2xl p-8"
-            >
-              <h2 className="font-dm-serif text-2xl text-ada-navy mb-4">
-                Tax-deductibility & EIN
-              </h2>
-              <p className="text-ada-navy/60 leading-relaxed">
-                Asian Doula Alliance is a registered 501(c)(3) tax-exempt
-                organization. Donations are deductible to the fullest extent
-                permitted by U.S. law.
-              </p>
-              <dl className="mt-6 space-y-3 text-sm">
-                <div>
-                  <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
-                    Legal name
-                  </dt>
-                  <dd className="text-ada-navy font-medium">Asian Doula Alliance</dd>
-                </div>
-                <div>
-                  <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
-                    EIN
-                  </dt>
-                  <dd className="text-ada-navy font-mono">88-XXXXXXX</dd>
-                </div>
-                <div>
-                  <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
-                    IRS classification
-                  </dt>
-                  <dd className="text-ada-navy">
-                    501(c)(3) public charity, incorporated in California
-                  </dd>
-                </div>
-              </dl>
-              <p className="mt-6 text-ada-navy/50 text-xs leading-relaxed">
-                Your tax receipt will be emailed shortly after your gift is
-                processed. For Form 990, IRS determination letter, or annual
-                financial summaries, please see our{' '}
-                <Link
-                  href="/about-us/financials"
-                  className="underline hover:text-ada-purple"
-                >
-                  Financials &amp; Accountability
-                </Link>{' '}
-                page.
-              </p>
-            </div>
-
-            <div id="mailing-address" className="bg-ada-cream rounded-2xl p-8">
-              <h2 className="font-dm-serif text-2xl text-ada-navy mb-4">
-                Donate by mail
-              </h2>
-              <p className="text-ada-navy/60 leading-relaxed">
-                Make checks payable to <strong>Asian Doula Alliance</strong> and
-                mail to:
-              </p>
-              <address className="mt-6 not-italic text-ada-navy font-medium leading-relaxed">
-                Asian Doula Alliance
-                <br />
-                Attn: Donations
-                <br />
-                7515 Irvine Center Dr, Suite 110
-                <br />
-                Irvine, CA 92618
-                <br />
-                United States
-              </address>
-              <p className="mt-6 text-ada-navy/50 text-xs leading-relaxed">
-                Please include your name and email in the memo or on a separate
-                note so we can send your tax receipt and keep you updated on
-                program impact.
-              </p>
-            </div>
+        <div className="max-w-[800px] mx-auto px-6">
+          <div
+            id="tax-info"
+            className="bg-ada-purple/5 border border-ada-purple/20 rounded-2xl p-8"
+          >
+            <h2 className="font-dm-serif text-2xl text-ada-navy mb-4">
+              Tax-deductibility &amp; EIN
+            </h2>
+            <p className="text-ada-navy/60 leading-relaxed">
+              Asian Doula Alliance is a registered 501(c)(3) tax-exempt
+              organization. Donations are deductible to the fullest extent
+              permitted by U.S. law.
+            </p>
+            <dl className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
+              <div>
+                <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
+                  Legal name
+                </dt>
+                <dd className="text-ada-navy font-medium mt-1">Asian Doula Alliance</dd>
+              </div>
+              <div>
+                <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
+                  EIN
+                </dt>
+                <dd className="text-ada-navy font-mono mt-1">88-XXXXXXX</dd>
+              </div>
+              <div>
+                <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
+                  IRS classification
+                </dt>
+                <dd className="text-ada-navy mt-1">
+                  501(c)(3) public charity, California
+                </dd>
+              </div>
+            </dl>
+            <p className="mt-6 text-ada-navy/50 text-xs leading-relaxed">
+              Your tax receipt will be emailed shortly after your gift is
+              processed. For Form 990, IRS determination letter, or annual
+              financial summaries, please see our{' '}
+              <Link
+                href="/about-us/financials"
+                className="underline hover:text-ada-purple"
+              >
+                Financials &amp; Accountability
+              </Link>{' '}
+              page.
+            </p>
           </div>
         </div>
       </section>
