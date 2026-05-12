@@ -11,8 +11,8 @@
     "missionValues": "使命與價值",
     "boardOfDirectors": "董事會",
     "postpartumDoula": "產後助產士",
-    "birthDoula": "生產助產士（即將推出）",
-    "ibclc": "IBCLC 考試準備（即將推出）",
+    "birthDoula": "陪產導樂",
+    "ibclc": "IBCLC 備考",
     "myPortal": "我的入口網站",
     "renewRecertification": "續期 / 再認證",
     "codeOfConduct": "行為準則",
@@ -26,7 +26,8 @@
     "articles": "文章",
     "openMenu": "打開菜單",
     "closeMenu": "關閉菜單",
-    "language": "語言"
+    "language": "語言",
+    "donate": "捐贈"
   },
   "footer": {
     "tagline": "透過文化整合的訓練、認證和多語言支持，為亞洲產後護理設定標準。",
@@ -47,7 +48,12 @@
     "availableHours": "可用時間：週一至週五 上午10點至下午5點 PST",
     "newsletter": "保持與ADA的聯繫",
     "newsletterDescription": "訓練更新、認證消息和社區故事。",
-    "rights": "亞洲產後護理聯盟。版權所有。"
+    "rights": "亞洲產後護理聯盟。版權所有。",
+    "supportAndLegal": "支持與法律",
+    "donate": "捐贈",
+    "financials": "財務與問責",
+    "privacyPolicy": "隱私政策",
+    "termsOfService": "服務條款"
   },
   "languageSwitcher": {
     "label": "語言",

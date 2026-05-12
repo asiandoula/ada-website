@@ -6,9 +6,10 @@ import { courseJsonLd, breadcrumbJsonLd } from '@/lib/json-ld';
 import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
-  title: 'Birth Doula Certification (Coming Soon) | Asian Doula Alliance',
+  title: 'Birth Doula Program — In Development | Asian Doula Alliance',
   description:
-    'ADA is developing a Birth Doula Certification program — culturally integrated training and certification for labor and delivery support. Sign up to be notified when enrollment opens.',
+    'ADA is developing a Birth Doula training program — culturally integrated education for labor and delivery support. Enrollment is not yet open.',
+  robots: { index: false, follow: true },
 };
 
 export default async function BirthDoulaCertificationPage() {

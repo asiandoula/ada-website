@@ -184,29 +184,35 @@ export default async function HomePage() {
               { num: '2', emoji: '📚', title: t('step2Title'), description: t('step2Desc'), color: '#f15a29', cardSide: 'left' as const },
               { num: '3', emoji: '📝', title: t('step3Title'), description: t('step3Desc'), color: '#8dc63f', cardSide: 'right' as const },
               { num: '4', emoji: '🎓', title: t('step4Title'), description: t('step4Desc'), color: '#662d91', cardSide: 'left' as const },
-            ].map((step, i) => {
-              const card = (
-                <div className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300">
-                  <h3 className="font-dm-serif text-2xl text-ada-navy">
-                    {step.emoji} {step.title}
-                  </h3>
-                  <p className="mt-2 text-base text-ada-navy/60 leading-relaxed">
-                    {step.description}
-                  </p>
+            ].map((step, i) => (
+              // Single-DOM responsive layout: mobile renders [number, card];
+              // desktop renders [card, progress+number, shapes] with flex order
+              // swapped per step. Title and description appear ONCE per step
+              // so crawlers don't see duplicated content.
+              <div key={step.num} className="flex items-start gap-4 lg:items-stretch lg:gap-0">
+                {/* Mobile-only inline number circle */}
+                <div
+                  className="lg:hidden w-10 h-10 rounded-full flex items-center justify-center text-white font-outfit font-bold text-sm shrink-0"
+                  style={{ backgroundColor: step.color }}
+                  aria-hidden="true"
+                >
+                  {step.num}
                 </div>
-              );
-              const shapesArea = (
-                <div className="h-[200px] relative hidden lg:block">
-                  <svg className="absolute top-[39px] left-[60px] w-[80px] h-[80px] -rotate-[61deg] animate-float opacity-70" viewBox="0 0 100 100" fill="none">
-                    <circle cx="50" cy="50" r="40" fill={step.color} opacity="0.15" />
-                  </svg>
-                  <svg className="absolute bottom-[34px] right-[71px] w-[70px] h-[70px] rotate-[32deg] animate-float-delayed opacity-70" viewBox="0 0 100 50" fill="none">
-                    <path d="M50 0C22.4 0 0 22.4 0 50h100C100 22.4 77.6 0 50 0Z" fill={step.color} opacity="0.15" />
-                  </svg>
+
+                {/* Card (title + description) — rendered once */}
+                <div className={`flex-1 lg:flex-none lg:w-[45%] ${step.cardSide === 'right' ? 'lg:order-3' : 'lg:order-1'}`}>
+                  <div className="bg-white rounded-2xl p-4 border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300">
+                    <h3 className="font-dm-serif text-lg lg:text-2xl text-ada-navy">
+                      {step.emoji} {step.title}
+                    </h3>
+                    <p className="mt-2 text-sm lg:text-base text-ada-navy/60 leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
                 </div>
-              );
-              const progressLine = (
-                <div className="hidden lg:flex flex-col items-center shrink-0 w-[10%]">
+
+                {/* Desktop progress column with number circle */}
+                <div className="hidden lg:flex lg:flex-col lg:items-center lg:order-2 lg:w-[10%] lg:shrink-0">
                   <div
                     className="w-10 h-10 rounded-full flex items-center justify-center text-white font-outfit font-bold text-sm shrink-0"
                     style={{ backgroundColor: step.color }}
@@ -217,36 +223,21 @@ export default async function HomePage() {
                     <div className="w-[4px] flex-1 min-h-[180px] mt-1 rounded-full" style={{ borderLeft: '4px dashed #ebedee' }} />
                   )}
                 </div>
-              );
 
-              return (
-                <div key={step.num}>
-                  {/* Desktop: 3-column alternating */}
-                  <div className="hidden lg:flex items-stretch">
-                    <div className="w-[45%]">{step.cardSide === 'right' ? shapesArea : card}</div>
-                    {progressLine}
-                    <div className="w-[45%]">{step.cardSide === 'right' ? card : shapesArea}</div>
-                  </div>
-                  {/* Mobile: simple stack */}
-                  <div className="lg:hidden flex items-start gap-4">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-white font-outfit font-bold text-sm shrink-0"
-                      style={{ backgroundColor: step.color }}
-                    >
-                      {step.num}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-dm-serif text-lg text-ada-navy">
-                        {step.emoji} {step.title}
-                      </h3>
-                      <p className="mt-2 text-sm text-ada-navy/60 leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
+                {/* Desktop decorative shapes column */}
+                <div
+                  className={`hidden lg:block lg:w-[45%] h-[200px] relative ${step.cardSide === 'right' ? 'lg:order-1' : 'lg:order-3'}`}
+                  aria-hidden="true"
+                >
+                  <svg className="absolute top-[39px] left-[60px] w-[80px] h-[80px] -rotate-[61deg] animate-float opacity-70" viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="40" fill={step.color} opacity="0.15" />
+                  </svg>
+                  <svg className="absolute bottom-[34px] right-[71px] w-[70px] h-[70px] rotate-[32deg] animate-float-delayed opacity-70" viewBox="0 0 100 50" fill="none">
+                    <path d="M50 0C22.4 0 0 22.4 0 50h100C100 22.4 77.6 0 50 0Z" fill={step.color} opacity="0.15" />
+                  </svg>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
 
           <div className="text-center mt-10">

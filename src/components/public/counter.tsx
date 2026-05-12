@@ -12,7 +12,9 @@ interface CounterProps {
 }
 
 export function Counter({ target, label, suffix = '+', numberClassName = 'text-ada-purple', labelClassName = 'text-ada-navy/70', containerClassName }: CounterProps) {
-  const [count, setCount] = useState(0);
+  // SSR-correct initial value: crawlers (and Google Ad Grants reviewers) see
+  // the real number, not 0. Client animates from 0 -> target on intersection.
+  const [count, setCount] = useState(target);
   const [hasStarted, setHasStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -36,14 +38,17 @@ export function Counter({ target, label, suffix = '+', numberClassName = 'text-a
 
   useEffect(() => {
     if (!hasStarted) return;
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
 
+    setCount(0);
     const duration = 2000;
     const startTime = performance.now();
 
     function step(currentTime: number) {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease-out: 1 - (1 - t)^3
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.round(eased * target));
 

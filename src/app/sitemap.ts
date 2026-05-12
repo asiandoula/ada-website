@@ -16,8 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/certifications/postpartum-doula/steps', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/certifications/postpartum-doula/training', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/certifications/postpartum-doula/exam', priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/certifications/birth-doula', priority: 0.5, changeFrequency: 'monthly' as const },
-    { path: '/certifications/ibclc', priority: 0.5, changeFrequency: 'monthly' as const },
+    // birth-doula and ibclc programs intentionally excluded — in development, noindex'd
     { path: '/for-families', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/for-families/how-we-train', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/for-families/find-a-doula', priority: 0.8, changeFrequency: 'monthly' as const },
@@ -30,6 +29,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/support/contact', priority: 0.5, changeFrequency: 'yearly' as const },
     { path: '/portal', priority: 0.6, changeFrequency: 'monthly' as const },
     { path: '/articles', priority: 0.7, changeFrequency: 'weekly' as const },
+    { path: '/donate', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/about-us/financials', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/privacy-policy', priority: 0.3, changeFrequency: 'yearly' as const },
+    { path: '/terms-of-service', priority: 0.3, changeFrequency: 'yearly' as const },
   ].map((page) => ({
     url: `${baseUrl}${page.path}`,
     lastModified: new Date(),
