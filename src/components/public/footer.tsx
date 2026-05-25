@@ -150,7 +150,7 @@ export function Footer() {
               </li>
               <li>{t('availableHours')}</li>
               <li className="pt-2 text-white/50 text-xs leading-relaxed">
-                7515 Irvine Center Dr, Suite 110<br />
+                20 Fairbanks, Suite 184<br />
                 Irvine, CA 92618
               </li>
               <li className="pt-2">

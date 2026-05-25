@@ -118,7 +118,7 @@ export default function FinancialsPage() {
                     Registered office
                   </dt>
                   <dd className="text-ada-navy mt-1 leading-relaxed">
-                    7515 Irvine Center Dr, Suite 110
+                    20 Fairbanks, Suite 184
                     <br />
                     Irvine, CA 92618
                   </dd>

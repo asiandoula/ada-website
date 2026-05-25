@@ -150,7 +150,7 @@ export default function DonatePage() {
                         <p className="mt-2 text-ada-navy leading-relaxed">
                           Asian Doula Alliance
                           <br />
-                          7515 Irvine Center Drive, Suite 110
+                          20 Fairbanks, Suite 184
                           <br />
                           Irvine, CA 92618
                         </p>

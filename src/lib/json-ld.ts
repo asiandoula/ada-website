@@ -24,7 +24,7 @@ export function organizationJsonLd() {
     nonprofitStatus: 'Nonprofit501c3',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '7515 Irvine Center Dr, Suite 110',
+      streetAddress: '20 Fairbanks, Suite 184',
       addressLocality: 'Irvine',
       addressRegion: 'CA',
       postalCode: '92618',

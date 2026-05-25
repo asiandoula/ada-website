@@ -261,8 +261,8 @@ export default function PrivacyPolicyPage() {
               .
             </p>
             <p className="text-ada-navy/60 text-sm leading-relaxed mt-4">
-              Asian Doula Alliance, 7515 Irvine Center Dr, Suite 110, Irvine, CA
-              92618, United States.
+              Asian Doula Alliance, 20 Fairbanks, Suite 184, Irvine, CA 92618,
+              United States.
             </p>
           </div>
         </div>
