@@ -16,7 +16,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/certifications/postpartum-doula/steps', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/certifications/postpartum-doula/training', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/certifications/postpartum-doula/exam', priority: 0.8, changeFrequency: 'monthly' as const },
-    // birth-doula and ibclc programs intentionally excluded — in development, noindex'd
+    { path: '/certifications/birth-doula', priority: 0.8, changeFrequency: 'monthly' as const },
+    { path: '/certifications/ibclc', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/for-families', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/for-families/how-we-train', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/for-families/find-a-doula', priority: 0.8, changeFrequency: 'monthly' as const },

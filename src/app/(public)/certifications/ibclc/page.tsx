@@ -6,10 +6,9 @@ import { courseJsonLd, breadcrumbJsonLd } from '@/lib/json-ld';
 import { getTranslations } from 'next-intl/server';
 
 export const metadata: Metadata = {
-  title: 'IBCLC Exam Prep — In Development | Asian Doula Alliance',
+  title: 'IBCLC Exam Prep & Resources | Asian Doula Alliance',
   description:
-    'ADA is developing a multilingual IBCLC Exam Prep course — lactation-specific education to prepare for the International Board Certified Lactation Consultant exam. Enrollment is not yet open.',
-  robots: { index: false, follow: true },
+    "ADA's multilingual IBCLC Exam Prep course and partner-referral support: lactation-specific education to prepare for the International Board Certified Lactation Consultant exam. ADA prepares candidates; IBLCE issues the credential.",
 };
 
 export default async function IBCLCExamPrepPage() {
@@ -109,9 +108,6 @@ export default async function IBCLCExamPrepPage() {
           <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
             {t('heroSubtitle')}
           </p>
-          <span className="bg-ada-purple/10 text-ada-purple text-sm font-medium px-4 py-1.5 rounded-full inline-block mt-4">
-            {t('comingSoon')}
-          </span>
         </div>
       </section>
 

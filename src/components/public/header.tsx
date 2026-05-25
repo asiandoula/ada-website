@@ -116,9 +116,8 @@ export function Header() {
 
   const certificationLinks = [
     { label: t('postpartumDoula'), href: '/certifications/postpartum-doula' },
-    // Birth Doula and IBCLC programs are in development; not surfaced in nav
-    // until enrollment opens (Google Ad Grants requirement: no placeholder
-    // pages in primary navigation).
+    { label: t('birthDoula'), href: '/certifications/birth-doula' },
+    { label: t('ibclc'), href: '/certifications/ibclc' },
   ];
 
   const doulaLinks = [

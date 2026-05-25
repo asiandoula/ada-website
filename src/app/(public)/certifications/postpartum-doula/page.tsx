@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     'The gold standard in culturally integrated postpartum care — recognized by 6 major insurance providers. Learn about ADA Postpartum Doula Certification.',
 };
 
-const sidebarLinks = [
-  { label: 'sidebarStepsToCertification', href: '/certifications/postpartum-doula/steps' },
-  { label: 'sidebarFindATraining', href: '/certifications/postpartum-doula/training' },
-  { label: 'sidebarExamDetails', href: '/certifications/postpartum-doula/exam' },
+const sidebarLinkKeys: { labelKey: string; href: string }[] = [
+  { labelKey: 'sidebarStepsToCertification', href: '/certifications/postpartum-doula/steps' },
+  { labelKey: 'sidebarFindATraining', href: '/certifications/postpartum-doula/training' },
+  { labelKey: 'sidebarExamDetails', href: '/certifications/postpartum-doula/exam' },
 ];
 
 const sidebarExtraLinks = [
@@ -91,7 +91,12 @@ export default async function PostpartumDoulaPage() {
                 <span className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-navy/40 mb-4 block">
                   {t('sidebarStepsToCertification')}
                 </span>
-                <SidebarNav items={sidebarLinks} />
+                <SidebarNav
+                  items={sidebarLinkKeys.map((l) => ({
+                    label: t(l.labelKey),
+                    href: l.href,
+                  }))}
+                />
                 <div className="my-4 border-t border-gray-200" />
                 <nav className="flex flex-col">
                   {sidebarExtraLinks.map((link) => (
