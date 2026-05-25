@@ -14,58 +14,64 @@ type Director = {
   name: string;
   initials: string;
   role: string;
-  affiliation: 'Independent' | 'Cooings-affiliated' | 'Founder';
+  location: string;
   bio: string;
 };
 
-// Inaugural board, formally seated at the May 2026 meeting.
-// Independent directors hold the majority vote on any related-party
-// transaction involving ADA's training partner (Cooings LLC), per the
-// standing board resolution and the conflict-of-interest policy.
+// Inaugural board, seated at the May 2026 meeting, plus Founder Emeritus.
+// Affiliation labels removed from per-card display per Seth 2026-05-25;
+// composition disclosed in the Governance footer block instead.
 const currentDirectors: Director[] = [
+  {
+    name: 'Qi Wang',
+    initials: 'QW',
+    role: 'Founder Emeritus',
+    location: 'Southern California',
+    bio: "Doula and doula educator. Qi Wang seeded what would become the Asian Doula Alliance in 2021, starting from a WeChat community of Asian-immigrant postpartum caregivers and growing it into the seed of a national professional body. Her conviction — that culturally integrated postpartum care deserved both the dignity of formal certification and a community that protected the women practicing it — remains ADA's founding premise. As Founder Emeritus, she advises on community and cultural fidelity as ADA grows beyond its founding roots.",
+  },
   {
     name: 'Seth Meng',
     initials: 'SM',
-    role: 'Board Chair · Founding Director',
-    affiliation: 'Founder',
-    bio: "Seth founded the Asian Doula Alliance in 2022 to set professional standards for postpartum doulas serving Asian immigrant families in the United States. He serves as the inaugural Board Chair and leads ADA's technology infrastructure — including the five-language certification exam platform, exam administration system, and public doula verification registry. Seth is also affiliated with Cooings LLC, an ADA-approved training partner; this related-party relationship is fully disclosed and governed by a standing board resolution adopted under ADA's conflict-of-interest policy.",
+    role: 'President',
+    location: 'Buffalo, NY',
+    bio: "Seth Meng was elected ADA's inaugural Board President at the 2026 board meeting, where he serves as the executive lead for technology, governance, and standards. His background is as an analyst and researcher in elder-care outcomes at the University of Rochester Medical Center, applying statistics and machine learning to questions of long-term care quality and family-caregiver impact. That orientation toward measurement, instrumentation, and protective system design now shapes ADA's certification platform, multilingual exam architecture, and public verification registry. Seth came to ADA out of a long-standing commitment to building public-benefit institutions.",
   },
   {
     name: 'Wesley Lau',
     initials: 'WL',
-    role: 'Independent Director',
-    affiliation: 'Independent',
-    bio: 'Wesley serves as one of two independent directors providing external oversight of board governance, financial controls, and any decisions involving ADA training partners. As an independent voice, he holds a deciding vote on related-party transactions and on the standing approval of the Cooings exam-fee remittance arrangement. Wesley receives no compensation from ADA or any affiliated training partner.',
+    role: 'Director',
+    location: 'Los Angeles, CA',
+    bio: "Wesley Lau is a serial entrepreneur and venture capital investor whose career has crossed several industries — from technology and finance to community-focused initiatives. Outside his professional work, he has been a steady presence in community and public-benefit organizations, drawn to neighborhood cleanups and the unglamorous volunteer work others overlook. He brings that same orientation to ADA's board — that good organizations are built by people who do the small, repeatable work as carefully as the strategic decisions.",
   },
   {
     name: 'Mingyu Zhang',
     initials: 'MZ',
-    role: 'Independent Director',
-    affiliation: 'Independent',
-    bio: "Mingyu is the second of ADA's independent directors, contributing external expertise in community programs, member services, and member protection. Along with Wesley, she carries the independent vote required for the board to approve any transaction in which a Cooings-affiliated director has an interest. Mingyu receives no compensation from ADA or any affiliated training partner.",
+    role: 'Director',
+    location: 'Los Angeles, CA',
+    bio: "Mingyu Zhang spent her earlier career in finance before turning much of her time and energy toward public-benefit work. She volunteers across a range of community and nonprofit initiatives, with a particular commitment to animal welfare and rescue. On ADA's board, she pairs financial discipline with steady engagement in mission-driven organizations — reading budgets carefully and showing up for the work because she cares about the people behind it.",
   },
   {
     name: 'Veronica Tseng',
     initials: 'VT',
     role: 'Director',
-    affiliation: 'Cooings-affiliated',
-    bio: 'Veronica brings extensive operational experience in postpartum services and Asian-immigrant family care to ADA. She works directly with ADA-certified doulas, training partners, and the families ADA serves, and informs board strategy on member needs and program delivery. As a Cooings-affiliated director, Veronica abstains from board votes involving the Cooings training partnership.',
+    location: 'Irvine, CA',
+    bio: "Veronica Tseng works in operations at Cooings LLC, ADA's primary training partner, where she focuses on doula coordination and family-facing program delivery across the Bay Area, Southern California, Seattle, New York City, and Chicago. She brings that ground-level view to ADA's board — informing conversations on member needs, program quality, and how certification standards translate into daily practice for the doulas and families ADA serves.",
   },
   {
     name: 'Mia Liu',
     initials: 'ML',
     role: 'Director',
-    affiliation: 'Cooings-affiliated',
-    bio: "Mia leads operations at Cooings LLC, ADA's primary training partner today, and brings to the board a deep practical knowledge of the postpartum doula workforce, family-facing care delivery, and the regional service markets ADA's certified doulas serve. As a Cooings-affiliated director, Mia abstains from board votes involving the Cooings training partnership.",
+    location: 'Irvine, CA',
+    bio: "Mia Liu leads operations at Cooings LLC, ADA's primary training partner, where she oversees doula workforce coordination, regional service delivery, and the day-to-day work of running culturally integrated postpartum care at scale. She brings to ADA's board the practical realities of the field — the regional service markets, the doulas who carry the work, and the families they serve — and helps the board calibrate certification standards against operational reality.",
   },
 ];
 
 const officerRoles = [
   {
     number: '01',
-    title: 'Board Chair',
+    title: 'Board President',
     description:
-      "Leads the Board of Directors and represents ADA in external affairs. The Chair sets the strategic agenda, chairs board meetings, and serves as ADA's primary spokesperson. Works closely with all directors to ensure ADA's programs align with its mission of advancing culturally integrated postpartum care.",
+      "Leads the Board of Directors and represents ADA in external affairs. The President sets the strategic agenda, chairs board meetings, and serves as ADA's primary spokesperson. Works closely with all directors to ensure ADA's programs align with its mission of advancing culturally integrated postpartum care.",
     held_by: 'Seth Meng (first term, 2026)',
   },
   {
@@ -73,7 +79,7 @@ const officerRoles = [
     title: 'Treasurer',
     description:
       "Holds primary responsibility for the financial integrity of ADA, including budget oversight, financial reporting, scholarship fund stewardship, and compliance with 501(c)(3) requirements. By board policy, the Treasurer is held by an independent director so that financial oversight is separated from training-partner interests.",
-    held_by: 'Independent director (designated at inaugural board meeting)',
+    held_by: 'Designated at inaugural board meeting',
   },
   {
     number: '03',
@@ -97,12 +103,6 @@ const sidebarLinks = [
   { label: 'History', href: '/about-us/history' },
   { label: 'Financials & Accountability', href: '/about-us/financials' },
 ];
-
-const affiliationStyle: Record<Director['affiliation'], string> = {
-  Independent: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  'Cooings-affiliated': 'bg-amber-50 text-amber-700 border-amber-200',
-  Founder: 'bg-ada-purple/10 text-ada-purple border-ada-purple/20',
-};
 
 export default function BoardOfDirectorsPage() {
   const t = useTranslations('aboutBoard');
@@ -143,16 +143,15 @@ export default function BoardOfDirectorsPage() {
               Current Board · Inaugural Term, May 2026
             </p>
             <h2 className="mt-3 font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              Five directors. Two independent. One mission.
+              The people setting our standards
             </h2>
             <p className="mt-4 text-ada-navy/70 leading-relaxed">
               ADA&rsquo;s Board of Directors is a volunteer body that sets
-              strategy, holds management accountable, and protects the integrity
-              of certification. Our 2-2-1 structure &mdash; two independent
-              directors, two directors affiliated with our training partner, and
-              the founding Chair &mdash; gives independent directors the
-              deciding vote on any related-party matter, ensuring no single
-              interest can compromise ADA&rsquo;s standards.
+              strategy, holds management accountable, and protects the
+              integrity of certification. Our directors bring backgrounds in
+              postpartum care, finance, technology, entrepreneurship, and
+              community service &mdash; and an Honorary role for the founder
+              whose work seeded the alliance.
             </p>
           </div>
 
@@ -173,39 +172,52 @@ export default function BoardOfDirectorsPage() {
                     <h3 className="font-dm-serif text-xl text-ada-navy leading-tight">
                       {d.name}
                     </h3>
-                    <p className="text-ada-navy/60 text-sm mt-0.5">{d.role}</p>
+                    <p className="text-ada-navy/60 text-sm mt-0.5">
+                      {d.role} &middot; {d.location}
+                    </p>
                   </div>
                 </div>
-                <span
-                  className={`mt-4 self-start inline-block text-xs font-medium px-2.5 py-1 rounded-full border ${affiliationStyle[d.affiliation]}`}
-                >
-                  {d.affiliation}
-                </span>
                 <p className="mt-4 text-ada-navy/70 text-sm leading-relaxed flex-1">
                   {d.bio}
                 </p>
               </article>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-12 max-w-3xl text-ada-navy/50 text-sm leading-relaxed border-t border-ada-navy/10 pt-6">
-            <p>
-              <span className="font-medium text-ada-navy/70">
-                Compensation:
-              </span>{' '}
-              All directors serve without compensation from ADA. Directors are
-              reimbursed only for documented out-of-pocket expenses incurred on
-              ADA business.
+      {/* Governance & Conflicts of Interest */}
+      <section className="bg-ada-cream py-16">
+        <div className="max-w-[1000px] mx-auto px-6">
+          <div className="bg-white rounded-2xl p-8 md:p-10 border border-ada-navy/5">
+            <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy mb-5">
+              Governance &amp; Conflicts of Interest
+            </h2>
+            <p className="text-ada-navy/70 leading-relaxed">
+              ADA&rsquo;s voting board is composed of 2 independent directors
+              (Wesley Lau, Mingyu Zhang), 2 directors who work at our primary
+              training partner Cooings LLC (Mia Liu, Veronica Tseng), and a
+              founder-chair (Seth Meng). All directors serve as volunteers and
+              receive no compensation from ADA.
             </p>
-            <p className="mt-3">
-              <span className="font-medium text-ada-navy/70">
-                Conflicts of interest:
-              </span>{' '}
-              Each director signs an annual conflict-of-interest disclosure.
-              Where a director has a financial or material interest in a board
-              matter, they abstain from voting and may be excused from
-              deliberation. Independent directors hold the deciding vote on
-              all related-party transactions.
+            <p className="mt-4 text-ada-navy/70 leading-relaxed">
+              Each director signs an annual conflict-of-interest disclosure,
+              and any director with a financial or material interest in a
+              board matter abstains from voting. The board has adopted a
+              standing policy that any related-party transaction &mdash;
+              including arrangements with Cooings LLC &mdash; requires the
+              affirmative vote of the independent directors.
+            </p>
+            <p className="mt-4 text-ada-navy/70 leading-relaxed">
+              See our{' '}
+              <Link
+                href="/about-us/financials"
+                className="text-ada-purple underline hover:text-ada-purple-hover"
+              >
+                Financials &amp; Accountability
+              </Link>{' '}
+              page for the standing exam-fee remittance arrangement and other
+              related-party disclosures.
             </p>
           </div>
         </div>
