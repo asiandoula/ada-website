@@ -116,6 +116,42 @@ export default async function PostpartumDoulaPage() {
                 </p>
               </div>
 
+              {/* a.5 Mission context — how program fees support our nonprofit work */}
+              <div className="bg-ada-purple/5 border-l-4 border-ada-purple rounded-r-xl p-6 md:p-7">
+                <h3 className="font-dm-serif text-lg text-ada-navy mb-3">
+                  How your program fees support our mission
+                </h3>
+                <p className="text-ada-navy/70 leading-relaxed text-[15px]">
+                  Asian Doula Alliance is a 501(c)(3) nonprofit. Certification
+                  fees directly fund the work of expanding access to
+                  professional postpartum care in underserved Asian
+                  communities &mdash; including need-based scholarships for
+                  first-generation caregivers, multilingual exam development
+                  across five languages, the free public verification registry,
+                  and curriculum that pairs evidence-based practice with
+                  traditional postpartum knowledge. Enrolling in an ADA program
+                  is both a step in your career and a contribution to the
+                  community we serve.
+                </p>
+                <p className="mt-3 text-ada-navy/60 text-sm">
+                  Learn more on our{' '}
+                  <Link
+                    href="/about-us/financials"
+                    className="text-ada-purple underline hover:text-ada-purple-hover"
+                  >
+                    Financials &amp; Accountability
+                  </Link>{' '}
+                  page, or{' '}
+                  <Link
+                    href="/donate"
+                    className="text-ada-purple underline hover:text-ada-purple-hover"
+                  >
+                    support our scholarship fund
+                  </Link>
+                  .
+                </p>
+              </div>
+
               {/* b. At a Glance */}
               <div className="bg-ada-off-white rounded-2xl p-8">
                 <h3 className="font-dm-serif text-xl text-ada-navy mb-6">{t('atAGlanceTitle')}</h3>

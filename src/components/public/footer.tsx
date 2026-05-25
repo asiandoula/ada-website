@@ -189,7 +189,7 @@ export function Footer() {
                 Donations are tax-deductible to the fullest extent allowed by law.
               </p>
               <p>
-                EIN: <span className="font-mono">88-XXXXXXX</span> · See{' '}
+                EIN: <span className="font-mono">93-3935047</span> · See{' '}
                 <Link href="/about-us/financials" className="underline hover:text-white">
                   Financials &amp; Accountability
                 </Link>{' '}

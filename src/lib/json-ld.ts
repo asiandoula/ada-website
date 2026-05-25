@@ -3,26 +3,46 @@ const BASE_URL = 'https://asiandoula.org';
 export function organizationJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'NGO',
     name: 'Asian Doula Alliance',
+    alternateName: 'ADA',
     url: BASE_URL,
     logo: `${BASE_URL}/ada-logo.svg`,
     description:
-      'Setting standards in postpartum care through culturally integrated training and certification.',
+      'A 501(c)(3) nonprofit setting standards in postpartum care through culturally integrated certification, multilingual training, and scholarships for underserved Asian doulas.',
+    foundingDate: '2022',
+    foundingLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Irvine',
+        addressRegion: 'CA',
+        addressCountry: 'US',
+      },
+    },
+    taxID: '93-3935047',
+    nonprofitStatus: 'Nonprofit501c3',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '7515 Irvine Center Dr, #110',
+      streetAddress: '7515 Irvine Center Dr, Suite 110',
       addressLocality: 'Irvine',
       addressRegion: 'CA',
       postalCode: '92618',
       addressCountry: 'US',
     },
-    contactPoint: {
-      '@type': 'ContactPoint',
-      telephone: '+1-714-202-6501',
-      email: 'contact@asiandoula.org',
-      contactType: 'customer service',
-    },
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: '+1-714-202-6501',
+        email: 'contact@asiandoula.org',
+        contactType: 'customer service',
+      },
+      {
+        '@type': 'ContactPoint',
+        email: 'finance@asiandoula.org',
+        contactType: 'donations',
+      },
+    ],
     sameAs: ['https://www.instagram.com/asian_doula'],
   };
 }

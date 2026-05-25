@@ -37,7 +37,7 @@ const programAllocation = [
 
 const governanceCommitments = [
   'Annual independent review of finances and program outcomes.',
-  'Public Form 990 filing, available on request and through Candid (GuideStar).',
+  'Public Form 990 filing annually, starting with fiscal year 2025 (Q3 2026 publication).',
   'Volunteer Board of Directors — no board member receives compensation.',
   'Written conflict-of-interest policy reviewed annually.',
   'Whistleblower and document-retention policies in place.',
@@ -97,7 +97,7 @@ export default function FinancialsPage() {
                   <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
                     EIN (Federal Tax ID)
                   </dt>
-                  <dd className="text-ada-navy font-mono mt-1">88-XXXXXXX</dd>
+                  <dd className="text-ada-navy font-mono mt-1">93-3935047</dd>
                 </div>
                 <div>
                   <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
@@ -137,7 +137,7 @@ export default function FinancialsPage() {
                 </li>
                 <li className="flex gap-3">
                   <span className="text-ada-purple mt-0.5" aria-hidden="true">&#x2022;</span>
-                  Most recent Form 990 &mdash; available on request and via Candid (GuideStar).
+                  Form 990 &mdash; our first annual filing covers fiscal year 2025 and will be published in Q3 2026. Future filings are released annually within 30 days of IRS acceptance.
                 </li>
                 <li className="flex gap-3">
                   <span className="text-ada-purple mt-0.5" aria-hidden="true">&#x2022;</span>
@@ -175,8 +175,9 @@ export default function FinancialsPage() {
               Where our resources go
             </h2>
             <p className="mt-3 text-ada-navy/60 max-w-2xl mx-auto">
-              Indicative allocation of ADA&rsquo;s annual operating expenses.
-              Final percentages are audited and disclosed each year on Form 990.
+              Planned allocation of ADA&rsquo;s annual operating budget. Audited
+              actuals will be disclosed each year on Form 990, beginning with
+              the fiscal year 2025 filing (publication Q3 2026).
             </p>
           </div>
 
