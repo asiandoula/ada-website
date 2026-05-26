@@ -153,10 +153,12 @@ export default function BoardOfDirectorsPage() {
         </article>
       </section>
 
-      {/* Tiered Roster — Qi Wang large, Seth medium, 4 directors equal */}
-      <section className="bg-white pt-20 pb-24 md:pt-24 md:pb-28">
+      {/* Tiered Roster — pure typography, no portrait placeholders.
+          Hierarchy = type scale + section rhythm + asymmetric layout. */}
+      <section className="bg-white pt-20 pb-24 md:pt-28 md:pb-32">
         <div className="max-w-[1100px] mx-auto px-6">
-          <div className="flex items-center gap-6 mb-16">
+          {/* Section header — small caps + dividing rule */}
+          <div className="flex items-center gap-6 mb-20 md:mb-28">
             <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
               The Board
             </p>
@@ -164,80 +166,72 @@ export default function BoardOfDirectorsPage() {
             <p className="font-outfit text-xs tracking-[0.2em] text-ada-navy/50">2026</p>
           </div>
 
-          {/* Tier 1 — Qi Wang, full-width, large placeholder + bio */}
-          <article className="mb-20 md:mb-24">
-            <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 md:gap-14 items-start">
-              <div
-                className="w-full aspect-square bg-ada-cream rounded-sm flex items-center justify-center"
-                aria-hidden="true"
-              >
-                <span className="font-dm-serif text-6xl md:text-7xl text-ada-purple/40">
-                  {founderEmeritus.initials}
-                </span>
-              </div>
+          {/* Tier 1 — Qi Wang. Asymmetric split: name+role left, bio right. */}
+          <article className="mb-24 md:mb-32">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16">
               <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy leading-tight">
+                <h2 className="font-dm-serif text-5xl md:text-6xl lg:text-7xl text-ada-navy leading-[1.05]">
                   {founderEmeritus.name}
                 </h2>
-                <p className="mt-3 font-outfit text-xs tracking-[0.2em] uppercase text-ada-purple">
-                  {founderEmeritus.role} &middot; {founderEmeritus.location}
+                <p className="mt-6 font-outfit text-[11px] tracking-[0.25em] uppercase text-ada-purple leading-loose">
+                  {founderEmeritus.role}
+                  <br />
+                  <span className="text-ada-navy/50">{founderEmeritus.location}</span>
                 </p>
-                <p className="mt-6 text-ada-navy/75 leading-[1.8] text-[15px] md:text-base">
+              </div>
+              <div className="md:pt-6">
+                <p className="text-ada-navy/75 leading-[1.8] text-[15px] md:text-base">
                   {founderEmeritus.bio}
                 </p>
               </div>
             </div>
           </article>
 
-          {/* Tier 2 — Seth Meng, medium scale */}
-          <article className="mb-20 md:mb-24 max-w-[820px]">
-            <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 md:gap-12 items-start">
-              <div
-                className="w-full aspect-square bg-ada-cream rounded-sm flex items-center justify-center"
-                aria-hidden="true"
-              >
-                <span className="font-dm-serif text-5xl text-ada-purple/40">
-                  {president.initials}
-                </span>
-              </div>
+          {/* Hairline separator between Tier 1 and Tier 2 */}
+          <div className="h-px bg-ada-navy/10 mb-24 md:mb-32" aria-hidden="true" />
+
+          {/* Tier 2 — Seth Meng. Same split, smaller type. */}
+          <article className="mb-24 md:mb-32">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16">
               <div>
-                <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy leading-tight">
+                <h2 className="font-dm-serif text-3xl md:text-4xl lg:text-5xl text-ada-navy leading-[1.1]">
                   {president.name}
                 </h2>
-                <p className="mt-3 font-outfit text-xs tracking-[0.2em] uppercase text-ada-purple">
-                  {president.role} &middot; {president.location}
+                <p className="mt-5 font-outfit text-[11px] tracking-[0.25em] uppercase text-ada-purple leading-loose">
+                  {president.role}
+                  <br />
+                  <span className="text-ada-navy/50">{president.location}</span>
                 </p>
-                <p className="mt-5 text-ada-navy/75 leading-[1.8] text-[15px]">
+              </div>
+              <div className="md:pt-3">
+                <p className="text-ada-navy/75 leading-[1.8] text-[15px]">
                   {president.bio}
                 </p>
               </div>
             </div>
           </article>
 
-          {/* Tier 3 — 4 directors, equal weight, 2-column grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14">
+          {/* "THE DIRECTORS" sub-header with rules on both sides */}
+          <div className="flex items-center gap-6 mb-12 md:mb-16">
+            <span className="h-px flex-1 bg-ada-navy/15" aria-hidden="true" />
+            <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
+              The Directors
+            </p>
+            <span className="h-px flex-1 bg-ada-navy/15" aria-hidden="true" />
+          </div>
+
+          {/* Tier 3 — 4 directors, 2-col grid, vertical-stack cards
+              (small-caps role/location above the name; bio below) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-16 gap-y-14 md:gap-y-16">
             {directors.map((d) => (
               <article key={d.name}>
-                <div className="grid grid-cols-[88px_1fr] gap-5 items-start">
-                  <div
-                    className="bg-ada-cream rounded-sm flex items-center justify-center"
-                    style={{ width: '88px', height: '88px' }}
-                    aria-hidden="true"
-                  >
-                    <span className="font-dm-serif text-2xl text-ada-purple/40">
-                      {d.initials}
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="font-dm-serif text-xl text-ada-navy leading-tight">
-                      {d.name}
-                    </h3>
-                    <p className="mt-2 font-outfit text-[10px] tracking-[0.2em] uppercase text-ada-purple">
-                      {d.role} &middot; {d.location}
-                    </p>
-                  </div>
-                </div>
-                <p className="mt-4 text-ada-navy/75 leading-[1.75] text-[14px]">
+                <p className="font-outfit text-[10px] tracking-[0.25em] uppercase text-ada-purple">
+                  {d.role} &middot; {d.location}
+                </p>
+                <h3 className="mt-2 font-dm-serif text-2xl md:text-3xl text-ada-navy leading-tight">
+                  {d.name}
+                </h3>
+                <p className="mt-5 text-ada-navy/75 leading-[1.8] text-[14px] md:text-[15px]">
                   {d.bio}
                 </p>
               </article>
