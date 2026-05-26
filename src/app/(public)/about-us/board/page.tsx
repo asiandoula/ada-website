@@ -98,12 +98,15 @@ export default function BoardOfDirectorsPage() {
         }}
       />
 
-      {/* Hero — H1 + institutional intro. No quote, no decorative blocks. */}
+      {/* Hero — H1 + institutional intro. Small ada-rose accent rule
+          under H1 brings the brand warmth (homepage uses peach/sage/rose
+          decorative shapes) into an otherwise monochrome editorial page. */}
       <section className="bg-ada-cream pt-32 pb-12 md:pt-40 md:pb-16">
         <div className="max-w-[640px] mx-auto px-6">
           <h1 className="font-dm-serif text-3xl md:text-4xl lg:text-5xl text-ada-navy leading-[1.1]">
             Our Board
           </h1>
+          <div className="mt-5 h-[2px] w-16 bg-ada-pink/50 rounded-full" aria-hidden="true" />
           <p className="mt-8 text-ada-navy/75 leading-[1.8] text-[16px] md:text-[17px]">
             The Asian Doula Alliance is guided by six volunteer directors.
             The board sets certification standards, stewards a 501(c)(3)
@@ -146,7 +149,7 @@ export default function BoardOfDirectorsPage() {
           <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
             Governance &amp; Conflicts of Interest
           </h2>
-          <div className="mt-2 mb-8 h-px w-12 bg-ada-purple/30" />
+          <div className="mt-2 mb-8 h-px w-12 bg-ada-pink/30" />
           <div className="space-y-5 text-ada-navy/80 leading-[1.8] text-[15px] md:text-[16px]">
             <p>
               ADA&rsquo;s voting board is composed of 2 independent directors
@@ -185,7 +188,7 @@ export default function BoardOfDirectorsPage() {
               <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
                 Officers
               </h2>
-              <div className="mt-2 mb-8 h-px w-12 bg-ada-purple/30" />
+              <div className="mt-2 mb-8 h-px w-12 bg-ada-pink/30" />
               <dl className="space-y-5">
                 {officerRoles.map((o) => (
                   <div key={o.title}>
@@ -204,7 +207,7 @@ export default function BoardOfDirectorsPage() {
               <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
                 Standing Policies
               </h2>
-              <div className="mt-2 mb-8 h-px w-12 bg-ada-purple/30" />
+              <div className="mt-2 mb-8 h-px w-12 bg-ada-pink/30" />
               <dl className="space-y-5">
                 {standingPolicies.map((p) => (
                   <div key={p.title}>
