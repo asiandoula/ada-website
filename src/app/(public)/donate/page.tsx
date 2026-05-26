@@ -76,6 +76,17 @@ function SectionHeader({ children }: { children: React.ReactNode }) {
   );
 }
 
+function SectionHeaderCentered({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
+        {children}
+      </h2>
+      <div className="mt-2 mx-auto h-px w-12 bg-ada-pink/30" />
+    </>
+  );
+}
+
 export default function DonatePage() {
   return (
     <>
@@ -107,62 +118,64 @@ export default function DonatePage() {
         </div>
       </section>
 
-      {/* Make your gift — Donorbox embed + legal info, no white card */}
+      {/* Make your gift — Donorbox widget centered, single column. The
+          widget is the action; supporting text orbits around it. */}
       <section className="bg-ada-cream py-14 md:py-16 border-t border-ada-navy/10">
-        <div className="max-w-[960px] mx-auto px-6">
-          <SectionHeader>Make your gift</SectionHeader>
+        <div className="max-w-[640px] mx-auto px-6">
+          <div className="text-center">
+            <SectionHeaderCentered>Make your gift</SectionHeaderCentered>
+            <p className="mt-6 text-ada-navy/75 leading-[1.8] text-[14px] md:text-[15px] max-w-[520px] mx-auto">
+              One-time or recurring gifts in any amount are welcome. All
+              donations are tax-deductible to the fullest extent permitted
+              by U.S. law. You will receive an emailed receipt with our
+              legal name, EIN, and the deductible portion of your
+              contribution.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-10 md:gap-14 items-start">
-            <div>
-              <p className="text-ada-navy/75 leading-[1.8] text-[14px] md:text-[15px]">
-                One-time or recurring gifts in any amount are welcome. All
-                donations are tax-deductible to the fullest extent permitted
-                by U.S. law. You will receive an emailed receipt with our
-                legal name, EIN, and the deductible portion of your
-                contribution.
-              </p>
-              <dl className="mt-8 space-y-3 text-[13px]">
-                <div className="flex items-baseline gap-3">
-                  <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px] shrink-0 w-20">
-                    Legal name
-                  </dt>
-                  <dd className="text-ada-navy/80">Asian Doula Alliance</dd>
-                </div>
-                <div className="flex items-baseline gap-3">
-                  <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px] shrink-0 w-20">
-                    EIN
-                  </dt>
-                  <dd className="text-ada-navy/80 font-mono">93-3935047</dd>
-                </div>
-                <div className="flex items-baseline gap-3">
-                  <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px] shrink-0 w-20">
-                    Status
-                  </dt>
-                  <dd className="text-ada-navy/80">
-                    501(c)(3) public charity, California
-                  </dd>
-                </div>
-              </dl>
-            </div>
+          <div className="mt-10 flex justify-center">
+            <iframe
+              title="Donate to Asian Doula Alliance"
+              src={`https://donorbox.org/embed/${DONORBOX_CAMPAIGN}?default_interval=o&default_amount=50&hide_donation_meter=true&primary_color=6969C1`}
+              name="donorbox"
+              allow="payment"
+              seamless
+              frameBorder="0"
+              scrolling="no"
+              height="720px"
+              width="100%"
+              style={{
+                maxWidth: '500px',
+                minWidth: '250px',
+                maxHeight: 'none',
+              }}
+            />
+          </div>
 
-            <div className="flex justify-center md:justify-start">
-              <iframe
-                title="Donate to Asian Doula Alliance"
-                src={`https://donorbox.org/embed/${DONORBOX_CAMPAIGN}?default_interval=o&default_amount=50&hide_donation_meter=true&primary_color=6969C1`}
-                name="donorbox"
-                allow="payment"
-                seamless
-                frameBorder="0"
-                scrolling="no"
-                height="560px"
-                width="100%"
-                style={{
-                  maxWidth: '480px',
-                  minWidth: '250px',
-                  maxHeight: 'none',
-                }}
-              />
-            </div>
+          {/* Compact legal footer under the widget */}
+          <div className="mt-8 pt-6 border-t border-ada-navy/10">
+            <dl className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-[12px]">
+              <div className="flex items-baseline gap-2">
+                <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px]">
+                  Legal name
+                </dt>
+                <dd className="text-ada-navy/75">Asian Doula Alliance</dd>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px]">
+                  EIN
+                </dt>
+                <dd className="text-ada-navy/75 font-mono">93-3935047</dd>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px]">
+                  Status
+                </dt>
+                <dd className="text-ada-navy/75">
+                  501(c)(3) public charity, CA
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
