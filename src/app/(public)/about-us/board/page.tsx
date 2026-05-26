@@ -220,10 +220,10 @@ export default function BoardOfDirectorsPage() {
                   >
                     {/* Name block — always rendered first for mobile order */}
                     <div className={flip ? 'md:order-2' : ''}>
-                      <h3 className="font-dm-serif text-xl md:text-2xl text-ada-navy leading-tight">
+                      <h3 className="font-dm-serif text-lg md:text-xl text-ada-navy leading-tight">
                         {d.name}
                       </h3>
-                      <p className="mt-3 font-outfit text-[11px] tracking-[0.22em] uppercase text-ada-purple/80 leading-relaxed">
+                      <p className="mt-2.5 font-outfit text-[10px] tracking-[0.22em] uppercase text-ada-purple/80 leading-relaxed">
                         {d.role}{' '}
                         <span className="text-ada-navy/40">
                           &middot; {d.location}
@@ -232,7 +232,7 @@ export default function BoardOfDirectorsPage() {
                     </div>
                     {/* Bio block */}
                     <div className={flip ? 'md:order-1' : ''}>
-                      <p className="text-ada-navy/75 leading-[1.8] text-[15px]">
+                      <p className="text-ada-navy/70 leading-[1.75] text-[13.5px] md:text-[14px]">
                         {d.bio}
                       </p>
                     </div>
