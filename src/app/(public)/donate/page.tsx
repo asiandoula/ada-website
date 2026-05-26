@@ -111,7 +111,7 @@ export default function DonatePage() {
                   <div className="rounded-2xl overflow-hidden border border-ada-navy/10">
                     <iframe
                       title="Donate to Asian Doula Alliance"
-                      src={`https://donorbox.org/embed/${DONORBOX_CAMPAIGN}?default_interval=o&hide_donation_meter=true`}
+                      src={`https://donorbox.org/embed/${DONORBOX_CAMPAIGN}?default_interval=o&hide_donation_meter=true&primary_color=6969C1`}
                       name="donorbox"
                       allow="payment"
                       seamless
