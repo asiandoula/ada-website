@@ -12,56 +12,48 @@ export const metadata: Metadata = {
 
 type Director = {
   name: string;
-  initials: string;
   role: string;
   location: string;
   bio: string;
 };
 
-// Tier 1 — full-width treatment under the founder's letter
-const founderEmeritus: Director = {
-  name: 'Qi Wang',
-  initials: 'QW',
-  role: 'Founder Emeritus',
-  location: 'Southern California',
-  bio: "Doula and doula educator. Qi Wang seeded what would become the Asian Doula Alliance in 2021, starting from a WeChat community of Asian-immigrant postpartum caregivers and growing it into the seed of a national professional body. Her conviction — that culturally integrated postpartum care deserved both the dignity of formal certification and a community that protected the women practicing it — remains ADA's founding premise. As Founder Emeritus, she advises on community and cultural fidelity as ADA grows beyond its founding roots.",
-};
-
-// Tier 2 — full-width but medium scale
-const president: Director = {
-  name: 'Seth Meng',
-  initials: 'SM',
-  role: 'President',
-  location: 'Buffalo, NY',
-  bio: "Seth Meng was elected ADA's inaugural Board President at the 2026 board meeting, where he serves as the executive lead for technology, governance, and standards. His background is as an analyst and researcher in elder-care outcomes at the University of Rochester Medical Center, applying statistics and machine learning to questions of long-term care quality and family-caregiver impact. That orientation toward measurement, instrumentation, and protective system design now shapes ADA's certification platform, multilingual exam architecture, and public verification registry. Seth came to ADA out of a long-standing commitment to building public-benefit institutions.",
-};
-
-// Tier 3 — 4 directors, equal weight, 2-column grid
-const directors: Director[] = [
+// All board members rendered in a single linear sequence (Founder Emeritus
+// first, President second, four Directors after). Hierarchy lives in order
+// and role labels — not in differentiated type sizes — so the page reads
+// as one coordinated composition.
+const board: Director[] = [
+  {
+    name: 'Qi Wang',
+    role: 'Founder Emeritus',
+    location: 'Southern California',
+    bio: "Doula and doula educator. Qi Wang seeded what would become the Asian Doula Alliance in 2021, starting from a WeChat community of Asian-immigrant postpartum caregivers and growing it into the seed of a national professional body. Her conviction — that culturally integrated postpartum care deserved both the dignity of formal certification and a community that protected the women practicing it — remains ADA's founding premise. As Founder Emeritus, she advises on community and cultural fidelity as ADA grows beyond its founding roots.",
+  },
+  {
+    name: 'Seth Meng',
+    role: 'President',
+    location: 'Buffalo, NY',
+    bio: "Seth Meng was elected ADA's inaugural Board President at the 2026 board meeting, where he serves as the executive lead for technology, governance, and standards. His background is as an analyst and researcher in elder-care outcomes at the University of Rochester Medical Center, applying statistics and machine learning to questions of long-term care quality and family-caregiver impact. That orientation toward measurement, instrumentation, and protective system design now shapes ADA's certification platform, multilingual exam architecture, and public verification registry. Seth came to ADA out of a long-standing commitment to building public-benefit institutions.",
+  },
   {
     name: 'Wesley Lau',
-    initials: 'WL',
     role: 'Director',
     location: 'Los Angeles, CA',
     bio: "Wesley Lau is a serial entrepreneur and venture capital investor whose career has crossed several industries — from technology and finance to community-focused initiatives. Outside his professional work, he has been a steady presence in community and public-benefit organizations, drawn to neighborhood cleanups and the unglamorous volunteer work others overlook. He brings that same orientation to ADA's board — that good organizations are built by people who do the small, repeatable work as carefully as the strategic decisions.",
   },
   {
     name: 'Mingyu Zhang',
-    initials: 'MZ',
     role: 'Director',
     location: 'Los Angeles, CA',
     bio: "Mingyu Zhang spent her earlier career in finance before turning much of her time and energy toward public-benefit work. She volunteers across a range of community and nonprofit initiatives, with a particular commitment to animal welfare and rescue. On ADA's board, she pairs financial discipline with steady engagement in mission-driven organizations — reading budgets carefully and showing up for the work because she cares about the people behind it.",
   },
   {
     name: 'Veronica Tseng',
-    initials: 'VT',
     role: 'Director',
     location: 'Irvine, CA',
     bio: "Veronica Tseng works in postpartum doula service operations across the Bay Area, Southern California, Seattle, New York City, and Chicago, where she focuses on doula coordination and family-facing program delivery. She brings that ground-level view to ADA's board — informing conversations on member needs, program quality, and how certification standards translate into daily practice for the doulas and families ADA serves.",
   },
   {
     name: 'Mia Liu',
-    initials: 'ML',
     role: 'Director',
     location: 'Irvine, CA',
     bio: "Mia Liu leads operations for a doula services organization, overseeing doula workforce coordination, regional service delivery, and the day-to-day work of running culturally integrated postpartum care at scale. She brings to ADA's board the practical realities of the field — the regional service markets, the doulas who carry the work, and the families they serve — and helps the board calibrate certification standards against operational reality.",
@@ -106,133 +98,55 @@ export default function BoardOfDirectorsPage() {
         }}
       />
 
-      {/* Title hero — institutional "Our Board" framing with a single
-          attributed founder quote. Follows nonprofit convention (Mozilla
-          Foundation, etc.) of leading with what-this-is rather than a
-          first-person founder letter. The full founder letter is preserved
-          in git history; if relocated later, /about-us/history is the
-          contextually correct surface. */}
-      <section className="bg-ada-cream pt-32 pb-20 md:pt-40 md:pb-24">
+      {/* Hero — H1 + institutional intro. No quote, no decorative blocks. */}
+      <section className="bg-ada-cream pt-32 pb-12 md:pt-40 md:pb-16">
         <div className="max-w-[640px] mx-auto px-6">
-          <h1 className="font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy leading-[1.05]">
+          <h1 className="font-dm-serif text-3xl md:text-4xl lg:text-5xl text-ada-navy leading-[1.1]">
             Our Board
           </h1>
-
-          {/* Founder quote — attributed, short, sets emotional ground */}
-          <div className="mt-12">
-            <blockquote className="border-l-2 border-ada-purple pl-6 font-dm-serif text-[22px] md:text-[26px] text-ada-navy leading-snug">
-              &ldquo;We needed to protect the women doing this work.&rdquo;
-            </blockquote>
-            <p className="mt-3 pl-6 font-outfit text-[11px] tracking-[0.25em] uppercase text-ada-purple/80">
-              Qi Wang &middot; Founder Emeritus
-            </p>
-          </div>
-
-          {/* Institutional intro — what the board is, what it does */}
-          <p className="mt-12 text-ada-navy/75 leading-[1.8] text-[16px] md:text-[17px]">
-            Six volunteer directors guide the Asian Doula Alliance today,
-            carrying forward the work Qi Wang began in 2021 with a WeChat
-            community of Asian-immigrant postpartum caregivers. The board
-            sets certification standards, stewards a 501(c)(3) nonprofit,
-            and protects the women practicing this work.
+          <p className="mt-8 text-ada-navy/75 leading-[1.8] text-[16px] md:text-[17px]">
+            The Asian Doula Alliance is guided by six volunteer directors.
+            The board sets certification standards, stewards a 501(c)(3)
+            nonprofit, and protects the women practicing this work.
           </p>
         </div>
       </section>
 
-      {/* Tiered Roster — pure typography, no portrait placeholders.
-          Hierarchy = type scale + section rhythm + asymmetric layout. */}
-      <section className="bg-white pt-20 pb-24 md:pt-28 md:pb-32">
-        <div className="max-w-[1100px] mx-auto px-6">
-          {/* Section header — small caps + dividing rule */}
-          <div className="flex items-center gap-6 mb-20 md:mb-28">
-            <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
-              The Board
-            </p>
-            <span className="h-px flex-1 bg-ada-navy/15" aria-hidden="true" />
-            <p className="font-outfit text-xs tracking-[0.2em] text-ada-navy/50">2026</p>
-          </div>
-
-          {/* Tier 1 — Qi Wang. Asymmetric split: name+role left, bio right. */}
-          <article className="mb-24 md:mb-32">
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16">
-              <div>
-                <h2 className="font-dm-serif text-5xl md:text-6xl lg:text-7xl text-ada-navy leading-[1.05]">
-                  {founderEmeritus.name}
-                </h2>
-                <p className="mt-6 font-outfit text-[11px] tracking-[0.25em] uppercase text-ada-purple leading-loose">
-                  {founderEmeritus.role}
-                  <br />
-                  <span className="text-ada-navy/50">{founderEmeritus.location}</span>
-                </p>
+      {/* Board — six identical plates, hairlines between, one unified pattern */}
+      <section className="bg-ada-cream pb-8 md:pb-12">
+        <div className="max-w-[960px] mx-auto px-6 divide-y divide-ada-navy/10">
+          {board.map((d) => (
+            <article key={d.name} className="py-12 md:py-14">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-6 md:gap-12">
+                <div>
+                  <h2 className="font-dm-serif text-xl md:text-2xl text-ada-navy leading-tight">
+                    {d.name}
+                  </h2>
+                  <p className="mt-3 font-outfit text-[11px] tracking-[0.22em] uppercase text-ada-purple/80 leading-relaxed">
+                    {d.role}{' '}
+                    <span className="text-ada-navy/40">
+                      &middot; {d.location}
+                    </span>
+                  </p>
+                </div>
+                <div>
+                  <p className="text-ada-navy/75 leading-[1.8] text-[15px]">
+                    {d.bio}
+                  </p>
+                </div>
               </div>
-              <div className="md:pt-6">
-                <p className="text-ada-navy/75 leading-[1.8] text-[15px] md:text-base">
-                  {founderEmeritus.bio}
-                </p>
-              </div>
-            </div>
-          </article>
-
-          {/* Hairline separator between Tier 1 and Tier 2 */}
-          <div className="h-px bg-ada-navy/10 mb-24 md:mb-32" aria-hidden="true" />
-
-          {/* Tier 2 — Seth Meng. Same split, smaller type. */}
-          <article className="mb-24 md:mb-32">
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16">
-              <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl lg:text-5xl text-ada-navy leading-[1.1]">
-                  {president.name}
-                </h2>
-                <p className="mt-5 font-outfit text-[11px] tracking-[0.25em] uppercase text-ada-purple leading-loose">
-                  {president.role}
-                  <br />
-                  <span className="text-ada-navy/50">{president.location}</span>
-                </p>
-              </div>
-              <div className="md:pt-3">
-                <p className="text-ada-navy/75 leading-[1.8] text-[15px]">
-                  {president.bio}
-                </p>
-              </div>
-            </div>
-          </article>
-
-          {/* "THE DIRECTORS" sub-header with rules on both sides */}
-          <div className="flex items-center gap-6 mb-12 md:mb-16">
-            <span className="h-px flex-1 bg-ada-navy/15" aria-hidden="true" />
-            <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
-              The Directors
-            </p>
-            <span className="h-px flex-1 bg-ada-navy/15" aria-hidden="true" />
-          </div>
-
-          {/* Tier 3 — 4 directors, 2-col grid, vertical-stack cards
-              (small-caps role/location above the name; bio below) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-16 gap-y-14 md:gap-y-16">
-            {directors.map((d) => (
-              <article key={d.name}>
-                <p className="font-outfit text-[10px] tracking-[0.25em] uppercase text-ada-purple">
-                  {d.role} &middot; {d.location}
-                </p>
-                <h3 className="mt-2 font-dm-serif text-2xl md:text-3xl text-ada-navy leading-tight">
-                  {d.name}
-                </h3>
-                <p className="mt-5 text-ada-navy/75 leading-[1.8] text-[14px] md:text-[15px]">
-                  {d.bio}
-                </p>
-              </article>
-            ))}
-          </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      {/* Governance & Conflicts of Interest — editorial typography, no boxed card */}
-      <section className="bg-ada-cream py-24 md:py-28">
+      {/* Governance — same cream background, same hairline rhythm, same width as hero */}
+      <section className="bg-ada-cream py-16 md:py-20 border-t border-ada-navy/10">
         <div className="max-w-[640px] mx-auto px-6">
-          <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
+          <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
             Governance &amp; Conflicts of Interest
-          </p>
-          <div className="mt-2 mb-10 h-px w-16 bg-ada-purple/30" />
+          </h2>
+          <div className="mt-2 mb-8 h-px w-12 bg-ada-purple/30" />
           <div className="space-y-5 text-ada-navy/80 leading-[1.8] text-[15px] md:text-[16px]">
             <p>
               ADA&rsquo;s voting board is composed of 2 independent directors
@@ -263,15 +177,15 @@ export default function BoardOfDirectorsPage() {
         </div>
       </section>
 
-      {/* Officers & Standing Policies — condensed 2-column appendix */}
-      <section className="bg-white py-20 md:py-24">
-        <div className="max-w-[900px] mx-auto px-6">
+      {/* Officers & Standing Policies — 2-col appendix, same cream */}
+      <section className="bg-ada-cream py-16 md:py-20 border-t border-ada-navy/10">
+        <div className="max-w-[960px] mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
             <div>
-              <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple mb-1">
+              <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
                 Officers
-              </p>
-              <div className="h-px w-16 bg-ada-purple/30 mb-8" />
+              </h2>
+              <div className="mt-2 mb-8 h-px w-12 bg-ada-purple/30" />
               <dl className="space-y-5">
                 {officerRoles.map((o) => (
                   <div key={o.title}>
@@ -287,10 +201,10 @@ export default function BoardOfDirectorsPage() {
             </div>
 
             <div>
-              <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple mb-1">
+              <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
                 Standing Policies
-              </p>
-              <div className="h-px w-16 bg-ada-purple/30 mb-8" />
+              </h2>
+              <div className="mt-2 mb-8 h-px w-12 bg-ada-purple/30" />
               <dl className="space-y-5">
                 {standingPolicies.map((p) => (
                   <div key={p.title}>
@@ -323,8 +237,8 @@ export default function BoardOfDirectorsPage() {
         </div>
       </section>
 
-      {/* Quiet Open Call — replaces boxed election banner */}
-      <section className="bg-ada-cream py-16 md:py-20">
+      {/* Open call — italic single line, same cream */}
+      <section className="bg-ada-cream py-14 md:py-16 border-t border-ada-navy/10">
         <div className="max-w-[640px] mx-auto px-6 text-center">
           <p className="font-dm-serif italic text-ada-navy/70 text-base md:text-lg leading-relaxed">
             We accept board nominations year-round. To nominate yourself or
