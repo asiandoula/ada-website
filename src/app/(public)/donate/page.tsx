@@ -14,10 +14,9 @@ export const metadata: Metadata = {
   },
 };
 
-// Donorbox campaign slug, e.g. "asian-doula-alliance".
-// Set NEXT_PUBLIC_DONORBOX_CAMPAIGN in Vercel env vars when the campaign is live.
-// Until set, the page shows check-by-mail + bank-wire as functional giving methods.
-const DONORBOX_CAMPAIGN = process.env.NEXT_PUBLIC_DONORBOX_CAMPAIGN ?? '';
+// Donorbox campaign slug — public value, safe to hardcode.
+// Live URL: https://donorbox.org/general-fund-938446
+const DONORBOX_CAMPAIGN = 'general-fund-938446';
 
 const fundedPrograms = [
   {
