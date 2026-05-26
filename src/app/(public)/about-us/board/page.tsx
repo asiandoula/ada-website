@@ -106,51 +106,37 @@ export default function BoardOfDirectorsPage() {
         }}
       />
 
-      {/* Letter-as-hero — Qi Wang's founding letter, no traditional title hero */}
+      {/* Title hero — institutional "Our Board" framing with a single
+          attributed founder quote. Follows nonprofit convention (Mozilla
+          Foundation, etc.) of leading with what-this-is rather than a
+          first-person founder letter. The full founder letter is preserved
+          in git history; if relocated later, /about-us/history is the
+          contextually correct surface. */}
       <section className="bg-ada-cream pt-32 pb-20 md:pt-40 md:pb-24">
-        <article className="max-w-[640px] mx-auto px-6">
-          <p className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-ada-purple">
-            A note from our founder
-          </p>
-          <div className="mt-8 text-ada-navy/80 leading-[1.8] text-[17px] md:text-[18px] space-y-5 font-light">
-            <p>
-              In 2021, I started a small WeChat group for postpartum doulas
-              like me &mdash; women trained in the traditions our mothers and
-              grandmothers carried with them when they immigrated, and now
-              working in a country whose healthcare system rarely had room
-              for that knowledge. We needed a place to ask each other
-              questions. We needed each other.
-            </p>
-            <p>
-              What I did not expect was how quickly that group would grow
-              into something the work itself required: a place to set
-              standards, to certify, and &mdash; most of all &mdash; to
-              protect the women doing this work when no one else would.
-            </p>
-            <p>
-              Today, the Asian Doula Alliance is a 501(c)(3) nonprofit
-              guided by a volunteer board of directors, with members serving
-              their first formal term. I am honored to step into the role of
-              Founder Emeritus as they take the work forward. The premise
-              has not changed: culturally integrated postpartum care
-              deserves both the dignity of certification and a community
-              that protects its practitioners.
+        <div className="max-w-[640px] mx-auto px-6">
+          <h1 className="font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy leading-[1.05]">
+            Our Board
+          </h1>
+
+          {/* Founder quote — attributed, short, sets emotional ground */}
+          <div className="mt-12">
+            <blockquote className="border-l-2 border-ada-purple pl-6 font-dm-serif text-[22px] md:text-[26px] text-ada-navy leading-snug">
+              &ldquo;We needed to protect the women doing this work.&rdquo;
+            </blockquote>
+            <p className="mt-3 pl-6 font-outfit text-[11px] tracking-[0.25em] uppercase text-ada-purple/80">
+              Qi Wang &middot; Founder Emeritus
             </p>
           </div>
 
-          {/* Pull quote — mobile: below body; desktop: same column, visually offset */}
-          <blockquote className="mt-10 border-l-2 border-ada-purple pl-6 font-dm-serif text-[22px] md:text-[26px] text-ada-navy leading-snug">
-            &ldquo;We needed to protect the women doing this work.&rdquo;
-          </blockquote>
-
-          <p className="mt-10 font-outfit text-sm text-ada-navy/60">
-            &mdash; Qi Wang
-            <br />
-            <span className="text-ada-navy/40 tracking-wide uppercase text-xs">
-              Founder Emeritus &middot; Southern California
-            </span>
+          {/* Institutional intro — what the board is, what it does */}
+          <p className="mt-12 text-ada-navy/75 leading-[1.8] text-[16px] md:text-[17px]">
+            Six volunteer directors guide the Asian Doula Alliance today,
+            carrying forward the work Qi Wang began in 2021 with a WeChat
+            community of Asian-immigrant postpartum caregivers. The board
+            sets certification standards, stewards a 501(c)(3) nonprofit,
+            and protects the women practicing this work.
           </p>
-        </article>
+        </div>
       </section>
 
       {/* Tiered Roster — pure typography, no portrait placeholders.
