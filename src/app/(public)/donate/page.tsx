@@ -107,62 +107,73 @@ export default function DonatePage() {
         </div>
       </section>
 
-      {/* Make your gift — Donorbox embed + legal info, no white card */}
+      {/* Make your gift — CTA button to Donorbox hosted page (not embed).
+          Keeps the page editorial / monochrome; the donation form itself
+          opens on donorbox.org in a new tab. */}
       <section className="bg-ada-cream py-14 md:py-16 border-t border-ada-navy/10">
-        <div className="max-w-[960px] mx-auto px-6">
-          <SectionHeader>Make your gift</SectionHeader>
+        <div className="max-w-[640px] mx-auto px-6 text-center">
+          <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
+            Make your gift
+          </h2>
+          <div className="mt-2 mx-auto h-px w-12 bg-ada-pink/30" />
 
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-10 md:gap-14 items-start">
-            <div>
-              <p className="text-ada-navy/75 leading-[1.8] text-[14px] md:text-[15px]">
-                One-time or recurring gifts in any amount are welcome. All
-                donations are tax-deductible to the fullest extent permitted
-                by U.S. law. You will receive an emailed receipt with our
-                legal name, EIN, and the deductible portion of your
-                contribution.
-              </p>
-              <dl className="mt-8 space-y-3 text-[13px]">
-                <div className="flex items-baseline gap-3">
-                  <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px] shrink-0 w-20">
-                    Legal name
-                  </dt>
-                  <dd className="text-ada-navy/80">Asian Doula Alliance</dd>
-                </div>
-                <div className="flex items-baseline gap-3">
-                  <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px] shrink-0 w-20">
-                    EIN
-                  </dt>
-                  <dd className="text-ada-navy/80 font-mono">93-3935047</dd>
-                </div>
-                <div className="flex items-baseline gap-3">
-                  <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px] shrink-0 w-20">
-                    Status
-                  </dt>
-                  <dd className="text-ada-navy/80">
-                    501(c)(3) public charity, California
-                  </dd>
-                </div>
-              </dl>
-            </div>
+          <p className="mt-8 text-ada-navy/75 leading-[1.8] text-[15px] md:text-[16px]">
+            One-time or recurring gifts in any amount are welcome. All
+            donations are tax-deductible to the fullest extent permitted
+            by U.S. law. You will receive an emailed receipt with our
+            legal name, EIN, and the deductible portion of your
+            contribution.
+          </p>
 
-            <div className="flex justify-center md:justify-start">
-              <iframe
-                title="Donate to Asian Doula Alliance"
-                src={`https://donorbox.org/embed/${DONORBOX_CAMPAIGN}?default_interval=o&default_amount=50&hide_donation_meter=true&primary_color=6969C1`}
-                name="donorbox"
-                allow="payment"
-                seamless
-                frameBorder="0"
-                scrolling="no"
-                height="560px"
-                width="100%"
-                style={{
-                  maxWidth: '480px',
-                  minWidth: '250px',
-                  maxHeight: 'none',
-                }}
-              />
-            </div>
+          <a
+            href={`https://donorbox.org/${DONORBOX_CAMPAIGN}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-10 inline-flex items-center gap-2 px-9 py-3.5 bg-ada-purple text-white font-outfit text-[12px] tracking-[0.18em] uppercase font-semibold rounded-full hover:bg-ada-purple-hover transition-colors"
+          >
+            Donate now
+            <span aria-hidden="true">→</span>
+          </a>
+
+          <p className="mt-4 text-ada-navy/40 text-[11px] tracking-wide">
+            Secure checkout on donorbox.org &middot; opens in a new tab
+          </p>
+
+          <p className="mt-6 text-ada-navy/55 text-[12.5px] leading-relaxed">
+            Prefer to give by check or bank transfer? Email{' '}
+            <a
+              href="mailto:finance@asiandoula.org?subject=Donation%20%E2%80%94%20Check%20or%20Wire%20Instructions"
+              className="text-ada-purple underline underline-offset-4 hover:text-ada-purple-hover"
+            >
+              finance@asiandoula.org
+            </a>
+            .
+          </p>
+
+          {/* Compact legal footer */}
+          <div className="mt-10 pt-6 border-t border-ada-navy/10">
+            <dl className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-[12px]">
+              <div className="flex items-baseline gap-2">
+                <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px]">
+                  Legal name
+                </dt>
+                <dd className="text-ada-navy/75">Asian Doula Alliance</dd>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px]">
+                  EIN
+                </dt>
+                <dd className="text-ada-navy/75 font-mono">93-3935047</dd>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <dt className="text-ada-navy/40 font-outfit uppercase tracking-[0.18em] text-[10px]">
+                  Status
+                </dt>
+                <dd className="text-ada-navy/75">
+                  501(c)(3) public charity, CA
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
