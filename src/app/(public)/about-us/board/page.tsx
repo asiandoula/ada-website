@@ -60,6 +60,48 @@ const board: Director[] = [
   },
 ];
 
+const responsibilities = [
+  "Sets ADA's certification standards, curriculum direction, and exam integrity.",
+  'Stewards a 501(c)(3) nonprofit — budget oversight, scholarship funds, annual filings, audited reporting.',
+  'Protects member doulas — through professional standards, the public verification registry, and incident review.',
+  "Approves all related-party transactions involving ADA's training partners.",
+];
+
+const principles = [
+  'Independent oversight over all training partners.',
+  'Member protection before institutional growth.',
+];
+
+const howWeWork = [
+  'Meets quarterly, with an annual community assembly open to certified doulas.',
+  'Decisions by simple majority; related-party transactions require the affirmative vote of independent directors only.',
+  'Standing committees: Finance, Education, and Member Protection.',
+  'Annual Form 990 and audited financials are published each year.',
+];
+
+const priorities2026 = [
+  {
+    title: 'Member protection programs',
+    detail:
+      'Incident reporting, peer support, and group professional insurance for certified doulas.',
+  },
+  {
+    title: 'Multilingual exam expansion',
+    detail:
+      'Adding new languages to the certification exam, beginning with Vietnamese and Tagalog.',
+  },
+  {
+    title: 'Hospital and insurance partnerships',
+    detail:
+      'Pilot agreements with hospital systems and insurers to recognize and reimburse ADA-certified care.',
+  },
+  {
+    title: 'Inaugural board formalization',
+    detail:
+      'Officer elections, conflict-of-interest policy adoption, and standing committee charters.',
+  },
+];
+
 const officerRoles = [
   { title: 'Board President', held_by: 'Seth Meng (2026–)' },
   { title: 'Treasurer', held_by: 'Designated at inaugural board meeting' },
@@ -81,6 +123,17 @@ const sidebarLinks = [
   { label: 'Financials & Accountability', href: '/about-us/financials' },
 ];
 
+function SectionHeader({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
+        {children}
+      </h2>
+      <div className="mt-2 mb-8 h-px w-12 bg-ada-pink/30" />
+    </>
+  );
+}
+
 export default function BoardOfDirectorsPage() {
   const t = useTranslations('aboutBoard');
 
@@ -98,15 +151,16 @@ export default function BoardOfDirectorsPage() {
         }}
       />
 
-      {/* Hero — H1 + institutional intro. Small ada-rose accent rule
-          under H1 brings the brand warmth (homepage uses peach/sage/rose
-          decorative shapes) into an otherwise monochrome editorial page. */}
+      {/* Hero — H1 + institutional intro + brand signature rule */}
       <section className="bg-ada-cream pt-32 pb-12 md:pt-40 md:pb-16">
         <div className="max-w-[640px] mx-auto px-6">
           <h1 className="font-dm-serif text-3xl md:text-4xl lg:text-5xl text-ada-navy leading-[1.1]">
             Our Board
           </h1>
-          <div className="mt-5 h-[2px] w-16 bg-ada-pink/50 rounded-full" aria-hidden="true" />
+          <div
+            className="mt-5 h-[2px] w-16 bg-ada-pink/50 rounded-full"
+            aria-hidden="true"
+          />
           <p className="mt-8 text-ada-navy/75 leading-[1.8] text-[16px] md:text-[17px]">
             The Asian Doula Alliance is guided by six volunteer directors.
             The board sets certification standards, stewards a 501(c)(3)
@@ -115,41 +169,135 @@ export default function BoardOfDirectorsPage() {
         </div>
       </section>
 
-      {/* Board — six identical plates, hairlines between, one unified pattern */}
-      <section className="bg-ada-cream pb-8 md:pb-12">
-        <div className="max-w-[960px] mx-auto px-6 divide-y divide-ada-navy/10">
-          {board.map((d) => (
-            <article key={d.name} className="py-12 md:py-14">
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-6 md:gap-12">
-                <div>
-                  <h2 className="font-dm-serif text-xl md:text-2xl text-ada-navy leading-tight">
-                    {d.name}
-                  </h2>
-                  <p className="mt-3 font-outfit text-[11px] tracking-[0.22em] uppercase text-ada-purple/80 leading-relaxed">
-                    {d.role}{' '}
-                    <span className="text-ada-navy/40">
-                      &middot; {d.location}
-                    </span>
-                  </p>
-                </div>
-                <div>
-                  <p className="text-ada-navy/75 leading-[1.8] text-[15px]">
-                    {d.bio}
-                  </p>
-                </div>
-              </div>
-            </article>
-          ))}
+      {/* What this board does + Principles */}
+      <section className="bg-ada-cream py-14 md:py-16 border-t border-ada-navy/10">
+        <div className="max-w-[640px] mx-auto px-6">
+          <SectionHeader>What this board does</SectionHeader>
+          <ol className="space-y-6">
+            {responsibilities.map((item, i) => (
+              <li key={item} className="grid grid-cols-[32px_1fr] gap-4 items-baseline">
+                <span className="font-dm-serif text-lg text-ada-pink/70 tabular-nums">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <p className="text-ada-navy/80 leading-[1.7] text-[15px]">
+                  {item}
+                </p>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-12 pt-8 border-t border-ada-navy/10 space-y-3">
+            <p className="font-outfit text-[10px] tracking-[0.25em] uppercase text-ada-navy/40">
+              Principles
+            </p>
+            {principles.map((p) => (
+              <p
+                key={p}
+                className="font-dm-serif italic text-ada-navy/80 text-[18px] md:text-[20px] leading-snug"
+              >
+                &ldquo;{p}&rdquo;
+              </p>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Governance — same cream background, same hairline rhythm, same width as hero */}
+      {/* The Board — six plates with alternating L/R rhythm */}
+      <section className="bg-ada-cream py-12 md:py-16 border-t border-ada-navy/10">
+        <div className="max-w-[960px] mx-auto px-6">
+          <SectionHeader>The Board · 2026</SectionHeader>
+          <div className="divide-y divide-ada-navy/10">
+            {board.map((d, i) => {
+              const flip = i % 2 === 1;
+              return (
+                <article key={d.name} className="py-12 md:py-14 first:pt-0">
+                  <div
+                    className={`grid grid-cols-1 gap-6 md:gap-12 ${
+                      flip
+                        ? 'md:grid-cols-[1.5fr_1fr]'
+                        : 'md:grid-cols-[1fr_1.5fr]'
+                    }`}
+                  >
+                    {/* Name block — always rendered first for mobile order */}
+                    <div className={flip ? 'md:order-2' : ''}>
+                      <h3 className="font-dm-serif text-xl md:text-2xl text-ada-navy leading-tight">
+                        {d.name}
+                      </h3>
+                      <p className="mt-3 font-outfit text-[11px] tracking-[0.22em] uppercase text-ada-purple/80 leading-relaxed">
+                        {d.role}{' '}
+                        <span className="text-ada-navy/40">
+                          &middot; {d.location}
+                        </span>
+                      </p>
+                    </div>
+                    {/* Bio block */}
+                    <div className={flip ? 'md:order-1' : ''}>
+                      <p className="text-ada-navy/75 leading-[1.8] text-[15px]">
+                        {d.bio}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* How we work + 2026 priorities — 2-col operational + forward-looking */}
+      <section className="bg-ada-cream py-14 md:py-16 border-t border-ada-navy/10">
+        <div className="max-w-[960px] mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+            <div>
+              <SectionHeader>How we work</SectionHeader>
+              <ul className="space-y-5">
+                {howWeWork.map((item) => (
+                  <li
+                    key={item}
+                    className="grid grid-cols-[10px_1fr] gap-3 items-baseline"
+                  >
+                    <span
+                      className="block h-1 w-1 rounded-full bg-ada-pink/60 translate-y-[8px]"
+                      aria-hidden="true"
+                    />
+                    <p className="text-ada-navy/80 leading-[1.7] text-[14px]">
+                      {item}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <SectionHeader>2026 priorities</SectionHeader>
+              <ol className="space-y-5">
+                {priorities2026.map((p, i) => (
+                  <li key={p.title}>
+                    <div className="grid grid-cols-[32px_1fr] gap-3 items-baseline">
+                      <span className="font-dm-serif text-base text-ada-pink/70 tabular-nums">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <div>
+                        <p className="font-dm-serif text-[17px] text-ada-navy leading-tight">
+                          {p.title}
+                        </p>
+                        <p className="mt-1 text-ada-navy/60 text-[13px] leading-relaxed">
+                          {p.detail}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Governance & Conflicts of Interest */}
       <section className="bg-ada-cream py-16 md:py-20 border-t border-ada-navy/10">
         <div className="max-w-[640px] mx-auto px-6">
-          <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
-            Governance &amp; Conflicts of Interest
-          </h2>
-          <div className="mt-2 mb-8 h-px w-12 bg-ada-pink/30" />
+          <SectionHeader>Governance &amp; Conflicts of Interest</SectionHeader>
           <div className="space-y-5 text-ada-navy/80 leading-[1.8] text-[15px] md:text-[16px]">
             <p>
               ADA&rsquo;s voting board is composed of 2 independent directors
@@ -180,15 +328,12 @@ export default function BoardOfDirectorsPage() {
         </div>
       </section>
 
-      {/* Officers & Standing Policies — 2-col appendix, same cream */}
+      {/* Officers & Standing Policies */}
       <section className="bg-ada-cream py-16 md:py-20 border-t border-ada-navy/10">
         <div className="max-w-[960px] mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
             <div>
-              <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
-                Officers
-              </h2>
-              <div className="mt-2 mb-8 h-px w-12 bg-ada-pink/30" />
+              <SectionHeader>Officers</SectionHeader>
               <dl className="space-y-5">
                 {officerRoles.map((o) => (
                   <div key={o.title}>
@@ -204,10 +349,7 @@ export default function BoardOfDirectorsPage() {
             </div>
 
             <div>
-              <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
-                Standing Policies
-              </h2>
-              <div className="mt-2 mb-8 h-px w-12 bg-ada-pink/30" />
+              <SectionHeader>Standing Policies</SectionHeader>
               <dl className="space-y-5">
                 {standingPolicies.map((p) => (
                   <div key={p.title}>
@@ -240,7 +382,7 @@ export default function BoardOfDirectorsPage() {
         </div>
       </section>
 
-      {/* Open call — italic single line, same cream */}
+      {/* Open call */}
       <section className="bg-ada-cream py-14 md:py-16 border-t border-ada-navy/10">
         <div className="max-w-[640px] mx-auto px-6 text-center">
           <p className="font-dm-serif italic text-ada-navy/70 text-base md:text-lg leading-relaxed">
