@@ -41,10 +41,10 @@ const board: Director[] = [
     bio: "Wesley Lau is a serial entrepreneur and venture capital investor whose career has crossed several industries — from technology and finance to community-focused initiatives. Outside his professional work, he has been a steady presence in community and public-benefit organizations, drawn to neighborhood cleanups and the unglamorous volunteer work others overlook. He brings that same orientation to ADA's board — that good organizations are built by people who do the small, repeatable work as carefully as the strategic decisions.",
   },
   {
-    name: 'Mingyu Zhang',
+    name: 'Minyu Zhang',
     role: 'Director',
     location: 'Los Angeles, CA',
-    bio: "Mingyu Zhang spent her earlier career in finance before turning much of her time and energy toward public-benefit work. She volunteers across a range of community and nonprofit initiatives, with a particular commitment to animal welfare and rescue. On ADA's board, she pairs financial discipline with steady engagement in mission-driven organizations — reading budgets carefully and showing up for the work because she cares about the people behind it.",
+    bio: "Minyu Zhang spent her earlier career in finance before turning much of her time and energy toward public-benefit work. She volunteers across a range of community and nonprofit initiatives, with a particular commitment to animal welfare and rescue. On ADA's board, she pairs financial discipline with steady engagement in mission-driven organizations — reading budgets carefully and showing up for the work because she cares about the people behind it.",
   },
   {
     name: 'Veronica Tseng',
@@ -301,7 +301,7 @@ export default function BoardOfDirectorsPage() {
           <div className="space-y-5 text-ada-navy/80 leading-[1.8] text-[15px] md:text-[16px]">
             <p>
               ADA&rsquo;s voting board is composed of 2 independent directors
-              (Wesley Lau, Mingyu Zhang), 2 directors who work in the doula
+              (Wesley Lau, Minyu Zhang), 2 directors who work in the doula
               industry (Mia Liu, Veronica Tseng), and a founder-chair (Seth
               Meng). All directors serve as volunteers and receive no
               compensation from ADA.
