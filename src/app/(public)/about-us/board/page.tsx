@@ -10,127 +10,112 @@ export const metadata: Metadata = {
     "Meet the volunteer Board of Directors who guide the Asian Doula Alliance's mission and strategic direction.",
 };
 
-type Director = {
+type Person = {
   name: string;
   role: string;
   location: string;
   bio: string;
+  initials: string;
+  avatarBg: string; // brand pastel background (literal class for Tailwind JIT)
+  avatarText: string; // deep accent ink for the monogram letters
 };
 
-// All board members rendered in a single linear sequence (Founder Emeritus
-// first, President second, four Directors after). Hierarchy lives in order
-// and role labels — not in differentiated type sizes — so the page reads
-// as one coordinated composition.
-const board: Director[] = [
+// Leadership pair (Founder Emeritus + President) — shown as two large plates.
+const leadership: Person[] = [
   {
     name: 'Qi Wang',
     role: 'Founder Emeritus',
     location: 'Southern California',
+    initials: 'QW',
+    avatarBg: 'bg-ada-sage',
+    avatarText: 'text-[#4a7c1f]',
     bio: "Doula and doula educator. Qi Wang seeded what would become the Asian Doula Alliance in 2021, starting from a WeChat community of Asian-immigrant postpartum caregivers and growing it into the seed of a national professional body. Her conviction — that culturally integrated postpartum care deserved both the dignity of formal certification and a community that protected the women practicing it — remains ADA's founding premise. As Founder Emeritus, she advises on community and cultural fidelity as ADA grows beyond its founding roots.",
   },
   {
     name: 'Seth Meng',
     role: 'President',
     location: 'Buffalo, NY',
+    initials: 'SM',
+    avatarBg: 'bg-ada-sky',
+    avatarText: 'text-[#1f6f8f]',
     bio: "Seth Meng was elected ADA's inaugural Board President at the 2026 board meeting, where he serves as the executive lead for technology, governance, and standards. His background is as an analyst and researcher in elder-care outcomes at the University of Rochester Medical Center, applying statistics and machine learning to questions of long-term care quality and family-caregiver impact. That orientation toward measurement, instrumentation, and protective system design now shapes ADA's certification platform, multilingual exam architecture, and public verification registry. Seth came to ADA out of a long-standing commitment to building public-benefit institutions.",
   },
+];
+
+// Serving directors — 2 independent + 2 industry — shown in a 2×2 grid.
+const directors: Person[] = [
   {
     name: 'Wesley Lau',
-    role: 'Director',
+    role: 'Independent Director',
     location: 'Los Angeles, CA',
+    initials: 'WL',
+    avatarBg: 'bg-ada-peach',
+    avatarText: 'text-[#b85a2a]',
     bio: "Wesley Lau is a serial entrepreneur and venture capital investor whose career has crossed several industries — from technology and finance to community-focused initiatives. Outside his professional work, he has been a steady presence in community and public-benefit organizations, drawn to neighborhood cleanups and the unglamorous volunteer work others overlook. He brings that same orientation to ADA's board — that good organizations are built by people who do the small, repeatable work as carefully as the strategic decisions.",
   },
   {
     name: 'Minyu Zhang',
-    role: 'Director',
+    role: 'Independent Director',
     location: 'Los Angeles, CA',
+    initials: 'MZ',
+    avatarBg: 'bg-ada-pink-light',
+    avatarText: 'text-[#b3006b]',
     bio: "Minyu Zhang spent her earlier career in finance before turning much of her time and energy toward public-benefit work. She volunteers across a range of community and nonprofit initiatives, with a particular commitment to animal welfare and rescue. On ADA's board, she pairs financial discipline with steady engagement in mission-driven organizations — reading budgets carefully and showing up for the work because she cares about the people behind it.",
   },
   {
     name: 'Veronica Tseng',
     role: 'Director',
     location: 'Irvine, CA',
+    initials: 'VT',
+    avatarBg: 'bg-ada-violet-light',
+    avatarText: 'text-[#662d91]',
     bio: "Veronica Tseng works in postpartum doula service operations across the Bay Area, Southern California, Seattle, New York City, and Chicago, where she focuses on doula coordination and family-facing program delivery. She brings that ground-level view to ADA's board — informing conversations on member needs, program quality, and how certification standards translate into daily practice for the doulas and families ADA serves.",
   },
   {
     name: 'Mia Liu',
     role: 'Director',
     location: 'Irvine, CA',
+    initials: 'ML',
+    avatarBg: 'bg-ada-rose',
+    avatarText: 'text-[#b03a6e]',
     bio: "Mia Liu leads operations for a doula services organization, overseeing doula workforce coordination, regional service delivery, and the day-to-day work of running culturally integrated postpartum care at scale. She brings to ADA's board the practical realities of the field — the regional service markets, the doulas who carry the work, and the families they serve — and helps the board calibrate certification standards against operational reality.",
   },
 ];
 
-const responsibilities = [
-  "Sets ADA's certification standards, curriculum direction, and exam integrity.",
-  'Stewards a 501(c)(3) nonprofit — budget oversight, scholarship funds, annual filings, audited reporting.',
-  'Protects member doulas — through professional standards, the public verification registry, and incident review.',
-  "Approves all related-party transactions involving ADA's training partners.",
-];
-
-const principles = [
-  'Independent oversight over all training partners.',
-  'Member protection before institutional growth.',
-];
-
-const howWeWork = [
-  'Meets quarterly, with an annual community assembly open to certified doulas.',
-  'Decisions by simple majority; related-party transactions require the affirmative vote of independent directors only.',
-  'Standing committees: Finance, Education, and Member Protection.',
-  'Annual Form 990 and audited financials are published each year.',
-];
-
-const priorities2026 = [
-  {
-    title: 'Member protection programs',
-    detail:
-      'Incident reporting, peer support, and group professional insurance for certified doulas.',
-  },
-  {
-    title: 'Multilingual exam expansion',
-    detail:
-      'Adding new languages to the certification exam, beginning with Vietnamese and Tagalog.',
-  },
-  {
-    title: 'Hospital and insurance partnerships',
-    detail:
-      'Pilot agreements with hospital systems and insurers to recognize and reimburse ADA-certified care.',
-  },
-  {
-    title: 'Inaugural board formalization',
-    detail:
-      'Officer elections, conflict-of-interest policy adoption, and standing committee charters.',
-  },
-];
-
-const officerRoles = [
-  { title: 'Board President', held_by: 'Seth Meng (2026–)' },
-  { title: 'Treasurer', held_by: 'Designated at inaugural board meeting' },
-  { title: 'Secretary', held_by: 'Designated at inaugural board meeting' },
-  { title: 'Director of Education', held_by: 'Standing committee chair' },
-];
-
-const standingPolicies = [
-  { title: 'Conflict of Interest', detail: 'Signed annually by all directors' },
-  { title: 'Document Retention', detail: '7-year minimum' },
-  { title: 'Whistleblower', detail: 'Protections in place' },
-  { title: 'Independent Audit', detail: 'Annual, beginning FY2025' },
-];
-
-const sidebarLinks = [
-  { label: 'About Us', href: '/about-us' },
-  { label: 'Mission & Values', href: '/about-us/mission-value' },
-  { label: 'History', href: '/about-us/history' },
-  { label: 'Financials & Accountability', href: '/about-us/financials' },
-];
-
 function SectionHeader({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <h2 className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-ada-purple">
+    <div className="flex items-baseline gap-4 mb-10 md:mb-12">
+      <p className="font-outfit text-[11px] font-semibold tracking-[0.26em] uppercase text-ada-purple">
         {children}
-      </h2>
-      <div className="mt-2 mb-8 h-px w-12 bg-ada-pink/30" />
-    </>
+      </p>
+      <span className="flex-1 h-px bg-ada-navy/10" aria-hidden="true" />
+    </div>
+  );
+}
+
+function Monogram({ person, size }: { person: Person; size: 'lg' | 'md' }) {
+  const dim =
+    size === 'lg'
+      ? 'w-[72px] h-[72px] text-[27px]'
+      : 'w-[60px] h-[60px] text-[23px]';
+  return (
+    <div
+      className={`${dim} ${person.avatarBg} ${person.avatarText} flex-none rounded-full grid place-items-center font-dm-serif leading-none`}
+      aria-hidden="true"
+    >
+      {person.initials}
+    </div>
+  );
+}
+
+function RoleRow({ person }: { person: Person }) {
+  return (
+    <div className="flex items-center gap-2.5 flex-wrap">
+      <span className="font-outfit text-[11px] font-semibold tracking-[0.16em] uppercase text-ada-purple-muted bg-ada-violet-light px-2.5 py-1 rounded-full">
+        {person.role}
+      </span>
+      <span className="text-[13px] text-ada-navy/50">{person.location}</span>
+    </div>
   );
 }
 
@@ -151,241 +136,165 @@ export default function BoardOfDirectorsPage() {
         }}
       />
 
-      {/* Hero — H1 + institutional intro + brand signature rule */}
-      <section className="bg-ada-cream pt-32 pb-12 md:pt-40 md:pb-16">
-        <div className="max-w-[640px] mx-auto px-6">
-          <h1 className="font-dm-serif text-3xl md:text-4xl lg:text-5xl text-ada-navy leading-[1.1]">
-            Our Board
+      {/* Hero — centered, friendly */}
+      <section className="bg-ada-cream pt-32 pb-12 md:pt-40 md:pb-16 text-center">
+        <div className="max-w-[760px] mx-auto px-6">
+          <span className="inline-block font-outfit text-xs font-semibold tracking-[0.08em] text-ada-purple-muted bg-ada-violet-light px-4 py-1.5 rounded-full">
+            Asian Doula Alliance &middot; 2026
+          </span>
+          <h1 className="mt-6 font-dm-serif text-[42px] sm:text-5xl md:text-6xl lg:text-7xl text-ada-navy leading-[1.05] tracking-[-0.01em]">
+            Meet our board
           </h1>
-          <div
-            className="mt-5 h-[2px] w-16 bg-ada-pink/50 rounded-full"
-            aria-hidden="true"
-          />
-          <p className="mt-8 text-ada-navy/75 leading-[1.8] text-[16px] md:text-[17px]">
-            The Asian Doula Alliance is guided by six volunteer directors.
-            The board sets certification standards, stewards a 501(c)(3)
-            nonprofit, and protects the women practicing this work.
+          <p className="mt-6 mx-auto max-w-[60ch] text-ada-navy/75 text-[17px] md:text-[19px] leading-[1.7]">
+            Six volunteer directors set ADA&rsquo;s certification standards,
+            steward a 501(c)(3) nonprofit, and protect the women practicing
+            this work &mdash; serving without compensation.
           </p>
         </div>
       </section>
 
-      {/* What this board does + Principles */}
-      <section className="bg-ada-cream py-14 md:py-16 border-t border-ada-navy/10">
-        <div className="max-w-[640px] mx-auto px-6">
-          <SectionHeader>What this board does</SectionHeader>
-          <ol className="space-y-6">
-            {responsibilities.map((item, i) => (
-              <li key={item} className="grid grid-cols-[32px_1fr] gap-4 items-baseline">
-                <span className="font-dm-serif text-lg text-ada-pink/70 tabular-nums">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <p className="text-ada-navy/80 leading-[1.7] text-[15px]">
-                  {item}
+      {/* Leadership — Founder Emeritus + President */}
+      <section className="bg-ada-cream pt-8 md:pt-10 pb-5">
+        <div className="max-w-[1120px] mx-auto px-6">
+          <SectionHeader>Leadership</SectionHeader>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {leadership.map((p) => (
+              <article
+                key={p.name}
+                className="bg-white border border-ada-navy/[0.07] rounded-[22px] p-7 md:p-10 shadow-[0_1px_2px_rgba(12,34,49,0.04)] transition-all duration-[400ms] ease-out hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(12,34,49,0.22)] flex flex-col gap-4"
+              >
+                <Monogram person={p} size="lg" />
+                <h2 className="font-dm-serif text-[28px] md:text-[30px] leading-[1.1] text-ada-navy">
+                  {p.name}
+                </h2>
+                <RoleRow person={p} />
+                <p className="text-[15px] text-ada-navy/[0.74] leading-[1.7] max-w-[60ch]">
+                  {p.bio}
                 </p>
-              </li>
-            ))}
-          </ol>
-
-          <div className="mt-12 pt-8 border-t border-ada-navy/10 space-y-3">
-            <p className="font-outfit text-[10px] tracking-[0.25em] uppercase text-ada-navy/40">
-              Principles
-            </p>
-            {principles.map((p) => (
-              <p
-                key={p}
-                className="font-dm-serif italic text-ada-navy/80 text-[18px] md:text-[20px] leading-snug"
-              >
-                &ldquo;{p}&rdquo;
-              </p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* The Board — six plates with alternating L/R rhythm */}
-      <section className="bg-ada-cream py-12 md:py-16 border-t border-ada-navy/10">
-        <div className="max-w-[960px] mx-auto px-6">
-          <SectionHeader>The Board · 2026</SectionHeader>
-          <div className="divide-y divide-ada-navy/10">
-            {board.map((d, i) => {
-              const flip = i % 2 === 1;
-              return (
-                <article key={d.name} className="py-12 md:py-14 first:pt-0">
-                  <div
-                    className={`grid grid-cols-1 gap-6 md:gap-12 ${
-                      flip
-                        ? 'md:grid-cols-[1.5fr_1fr]'
-                        : 'md:grid-cols-[1fr_1.5fr]'
-                    }`}
-                  >
-                    {/* Name block — always rendered first for mobile order */}
-                    <div className={flip ? 'md:order-2' : ''}>
-                      <h3 className="font-dm-serif text-lg md:text-xl text-ada-navy leading-tight">
-                        {d.name}
-                      </h3>
-                      <p className="mt-2.5 font-outfit text-[10px] tracking-[0.22em] uppercase text-ada-purple/80 leading-relaxed">
-                        {d.role}{' '}
-                        <span className="text-ada-navy/40">
-                          &middot; {d.location}
-                        </span>
-                      </p>
-                    </div>
-                    {/* Bio block */}
-                    <div className={flip ? 'md:order-1' : ''}>
-                      <p className="text-ada-navy/70 leading-[1.75] text-[13.5px] md:text-[14px]">
-                        {d.bio}
-                      </p>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* How we work + 2026 priorities — 2-col operational + forward-looking */}
-      <section className="bg-ada-cream py-14 md:py-16 border-t border-ada-navy/10">
-        <div className="max-w-[960px] mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-            <div>
-              <SectionHeader>How we work</SectionHeader>
-              <ul className="space-y-5">
-                {howWeWork.map((item) => (
-                  <li
-                    key={item}
-                    className="grid grid-cols-[10px_1fr] gap-3 items-baseline"
-                  >
-                    <span
-                      className="block h-1 w-1 rounded-full bg-ada-pink/60 translate-y-[8px]"
-                      aria-hidden="true"
-                    />
-                    <p className="text-ada-navy/80 leading-[1.7] text-[14px]">
-                      {item}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <SectionHeader>2026 priorities</SectionHeader>
-              <ol className="space-y-5">
-                {priorities2026.map((p, i) => (
-                  <li key={p.title}>
-                    <div className="grid grid-cols-[32px_1fr] gap-3 items-baseline">
-                      <span className="font-dm-serif text-base text-ada-pink/70 tabular-nums">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <div>
-                        <p className="font-dm-serif text-[17px] text-ada-navy leading-tight">
-                          {p.title}
-                        </p>
-                        <p className="mt-1 text-ada-navy/60 text-[13px] leading-relaxed">
-                          {p.detail}
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Governance & Conflicts of Interest */}
-      <section className="bg-ada-cream py-16 md:py-20 border-t border-ada-navy/10">
-        <div className="max-w-[640px] mx-auto px-6">
-          <SectionHeader>Governance &amp; Conflicts of Interest</SectionHeader>
-          <div className="space-y-5 text-ada-navy/80 leading-[1.8] text-[15px] md:text-[16px]">
-            <p>
-              ADA&rsquo;s voting board is composed of 2 independent directors
-              (Wesley Lau, Minyu Zhang), 2 directors who work in the doula
-              industry (Mia Liu, Veronica Tseng), and a founder-chair (Seth
-              Meng). All directors serve as volunteers and receive no
-              compensation from ADA.
-            </p>
-            <p>
-              Each director signs an annual conflict-of-interest disclosure,
-              and any director with a financial or material interest in a
-              board matter abstains from voting. The board has adopted a
-              standing policy that any related-party transaction requires
-              the affirmative vote of the independent directors.
-            </p>
-            <p>
-              For ADA&rsquo;s exam-fee remittance arrangement and other
-              related-party disclosures, see{' '}
-              <Link
-                href="/about-us/financials"
-                className="text-ada-purple underline underline-offset-4 hover:text-ada-purple-hover"
+      {/* Directors — 2 independent + 2 industry */}
+      <section className="bg-ada-cream pt-8 md:pt-10 pb-12 md:pb-14">
+        <div className="max-w-[1120px] mx-auto px-6">
+          <SectionHeader>Directors</SectionHeader>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {directors.map((p) => (
+              <article
+                key={p.name}
+                className="bg-white border border-ada-navy/[0.07] rounded-[20px] p-7 md:p-10 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5 md:gap-6 items-start shadow-[0_1px_2px_rgba(12,34,49,0.04)] transition-all duration-[400ms] ease-out hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(12,34,49,0.2)]"
               >
-                Financials &amp; Accountability
-              </Link>
-              .
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Officers & Standing Policies */}
-      <section className="bg-ada-cream py-16 md:py-20 border-t border-ada-navy/10">
-        <div className="max-w-[960px] mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-            <div>
-              <SectionHeader>Officers</SectionHeader>
-              <dl className="space-y-5">
-                {officerRoles.map((o) => (
-                  <div key={o.title}>
-                    <dt className="font-dm-serif text-[17px] text-ada-navy leading-tight">
-                      {o.title}
-                    </dt>
-                    <dd className="mt-1 text-ada-navy/60 text-[13px] leading-relaxed">
-                      {o.held_by}
-                    </dd>
+                <Monogram person={p} size="md" />
+                <div>
+                  <h2 className="font-dm-serif text-[23px] leading-[1.12] text-ada-navy">
+                    {p.name}
+                  </h2>
+                  <div className="mt-2">
+                    <RoleRow person={p} />
                   </div>
-                ))}
-              </dl>
-            </div>
-
-            <div>
-              <SectionHeader>Standing Policies</SectionHeader>
-              <dl className="space-y-5">
-                {standingPolicies.map((p) => (
-                  <div key={p.title}>
-                    <dt className="font-dm-serif text-[17px] text-ada-navy leading-tight">
-                      {p.title}
-                    </dt>
-                    <dd className="mt-1 text-ada-navy/60 text-[13px] leading-relaxed">
-                      {p.detail}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
-
-          <nav className="mt-16 pt-8 border-t border-ada-navy/10 flex flex-wrap gap-x-6 gap-y-2">
-            <p className="font-outfit text-xs tracking-[0.2em] uppercase text-ada-navy/40 mr-2">
-              Related
-            </p>
-            {sidebarLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-ada-navy/60 hover:text-ada-purple transition-colors"
-              >
-                {link.label}
-              </Link>
+                  <p className="mt-4 text-[14.5px] text-ada-navy/[0.72] leading-[1.7]">
+                    {p.bio}
+                  </p>
+                </div>
+              </article>
             ))}
-          </nav>
+          </div>
+        </div>
+      </section>
+
+      {/* Governance — composition + standing facts */}
+      <section className="bg-ada-sage py-14 md:py-20 border-t border-ada-navy/[0.06]">
+        <div className="max-w-[1120px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
+          <div>
+            <h2 className="font-dm-serif text-[28px] md:text-[40px] leading-[1.12] text-ada-navy">
+              Real governance, openly disclosed
+            </h2>
+            <p className="mt-4 text-[16px] text-ada-navy/[0.72] max-w-[46ch] leading-[1.7]">
+              ADA&rsquo;s board is built so that no single organization can
+              capture it. Independent voices hold the Alliance to its own
+              standards.
+            </p>
+            <div className="flex gap-6 mt-10 flex-wrap">
+              <div className="flex-1 min-w-[120px]">
+                <div className="font-dm-serif text-[38px] text-ada-purple-muted leading-none">
+                  2
+                </div>
+                <div className="text-[13px] text-ada-navy/[0.62] mt-1.5 leading-[1.5]">
+                  Independent directors
+                  <br />
+                  Wesley Lau &middot; Minyu Zhang
+                </div>
+              </div>
+              <div className="flex-1 min-w-[120px]">
+                <div className="font-dm-serif text-[38px] text-ada-purple-muted leading-none">
+                  2
+                </div>
+                <div className="text-[13px] text-ada-navy/[0.62] mt-1.5 leading-[1.5]">
+                  Industry directors
+                  <br />
+                  Mia Liu &middot; Veronica Tseng
+                </div>
+              </div>
+              <div className="flex-1 min-w-[120px]">
+                <div className="font-dm-serif text-[38px] text-ada-purple-muted leading-none">
+                  1
+                </div>
+                <div className="text-[13px] text-ada-navy/[0.62] mt-1.5 leading-[1.5]">
+                  Founder-chair
+                  <br />
+                  Seth Meng
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <div className="bg-white/70 rounded-2xl px-7 py-6 md:px-10">
+              <div className="font-outfit text-[11px] font-semibold tracking-[0.2em] uppercase text-ada-purple-muted">
+                Compensation
+              </div>
+              <div className="text-[14.5px] text-ada-navy/[0.78] mt-1.5 leading-[1.6]">
+                All directors serve as volunteers and receive no compensation
+                from ADA.
+              </div>
+            </div>
+            <div className="bg-white/70 rounded-2xl px-7 py-6 md:px-10">
+              <div className="font-outfit text-[11px] font-semibold tracking-[0.2em] uppercase text-ada-purple-muted">
+                Conflicts of interest
+              </div>
+              <div className="text-[14.5px] text-ada-navy/[0.78] mt-1.5 leading-[1.6]">
+                Each director signs an annual COI disclosure; any director with a
+                material interest abstains. Related-party transactions require
+                the affirmative vote of the independent directors.
+              </div>
+            </div>
+            <div className="bg-white/70 rounded-2xl px-7 py-6 md:px-10">
+              <div className="font-outfit text-[11px] font-semibold tracking-[0.2em] uppercase text-ada-purple-muted">
+                Accountability
+              </div>
+              <div className="text-[14.5px] text-ada-navy/[0.78] mt-1.5 leading-[1.6]">
+                Annual Form 990 and audited financials are published each year.
+                See{' '}
+                <Link
+                  href="/about-us/financials"
+                  className="text-ada-purple underline underline-offset-4 hover:text-ada-purple-hover"
+                >
+                  Financials &amp; Accountability
+                </Link>
+                .
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Open call */}
-      <section className="bg-ada-cream py-14 md:py-16 border-t border-ada-navy/10">
-        <div className="max-w-[640px] mx-auto px-6 text-center">
-          <p className="font-dm-serif italic text-ada-navy/70 text-base md:text-lg leading-relaxed">
+      <section className="bg-ada-cream py-14 md:py-16 text-center">
+        <div className="max-w-[640px] mx-auto px-6">
+          <p className="font-dm-serif italic text-ada-navy/75 text-lg md:text-2xl leading-relaxed">
             We accept board nominations year-round. To nominate yourself or
             someone for the 2027 term, write to{' '}
             <a
