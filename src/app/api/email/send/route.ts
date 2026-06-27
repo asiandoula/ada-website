@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
           sendParams.certNumber = cert.certificate_number;
           sendParams.expirationDate = cert.expiration_date;
           sendParams.pdfBuffer = pdfBuffer;
-          sendParams.pdfFilename = `ADA_${cert.certificate_type === 'postpartum' ? 'Postpartum_Doula' : cert.certificate_type === 'birth' ? 'Birth_Doula' : cert.certificate_type}_Certificate_${doula.full_name.replace(/\s+/g, '')}.pdf`;
+          sendParams.pdfFilename = `ADA_${cert.certificate_type === 'postpartum' ? 'Postpartum_Doula' : cert.certificate_type === 'birth' ? 'Birth_Doula' : cert.certificate_type === 'trainer' ? 'Certified_Trainer' : cert.certificate_type}_Certificate_${doula.full_name.replace(/\s+/g, '')}.pdf`;
         }
 
         const { id: resendId } = await sendEmail(sendParams);

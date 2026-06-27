@@ -19,11 +19,12 @@ export function generateVerificationCode(): string {
 }
 
 export function generateCertificateNumber(
-  type: 'postpartum' | 'birth' | 'cpr',
+  type: 'postpartum' | 'birth' | 'trainer' | 'cpr',
   sequence: number
 ): string {
   const year = new Date().getFullYear();
-  const prefix = type === 'postpartum' ? 'PD' : type === 'birth' ? 'BD' : 'CPR';
+  const prefix =
+    type === 'postpartum' ? 'PD' : type === 'birth' ? 'BD' : type === 'trainer' ? 'TR' : 'CPR';
   return `ADA-${prefix}-${year}-${sequence.toString().padStart(4, '0')}`;
 }
 

@@ -66,7 +66,11 @@ export async function POST(request: NextRequest) {
 
     // Generate new certificate number
     const year = new Date().getFullYear();
-    const prefix = certificate_type === 'postpartum' ? 'PD' : certificate_type === 'birth' ? 'BD' : 'CPR';
+    const prefix =
+      certificate_type === 'postpartum' ? 'PD'
+      : certificate_type === 'birth' ? 'BD'
+      : certificate_type === 'trainer' ? 'TR'
+      : 'CPR';
     const numberPrefix = `ADA-${prefix}-${year}-`;
 
     const { data: latest } = await supabase
@@ -107,6 +111,7 @@ export async function POST(request: NextRequest) {
       fullName: doula.full_name,
       certificateNumber,
       expirationDate,
+      certificateType: certificate_type,
     });
     console.log('PDF generated, size:', pdfBuffer.length);
 

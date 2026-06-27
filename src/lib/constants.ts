@@ -73,12 +73,13 @@ export const CREDENTIAL_STATUS_COLORS: Record<CredentialStatus, string> = {
   revoked: 'bg-gray-100 text-gray-800',
 };
 
-export const CERTIFICATE_TYPES = ['postpartum', 'birth', 'cpr', 'ibclc_training'] as const;
+export const CERTIFICATE_TYPES = ['postpartum', 'birth', 'trainer', 'cpr', 'ibclc_training'] as const;
 export type CertificateType = (typeof CERTIFICATE_TYPES)[number];
 
 export const CERT_TYPE_LABELS: Record<CertificateType, string> = {
   postpartum: 'ADA Postpartum Doula Certificate',
   birth: 'ADA Birth Doula Certificate',
+  trainer: 'ADA Certified Trainer Certificate',
   cpr: 'American Red Cross CPR Certificate',
   ibclc_training: 'ADA IBCLC Training Qualified',
 };
