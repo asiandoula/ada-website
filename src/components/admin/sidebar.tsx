@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -29,6 +30,19 @@ export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
+  const [identity, setIdentity] = useState<{ email: string; avatar?: string } | null>(null);
+  const [avatarBroken, setAvatarBroken] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        setIdentity({
+          email: user.email ?? '',
+          avatar: (user.user_metadata?.avatar_url as string | undefined) ?? undefined,
+        });
+      }
+    });
+  }, [supabase]);
 
   async function handleLogout() {
     await supabase.auth.signOut();
@@ -59,6 +73,34 @@ export function AdminSidebar() {
           </Link>
         ))}
       </nav>
+      <Link
+        href="/admin/profile"
+        className={cn(
+          'mt-2 flex items-center gap-2 rounded-md px-2 py-2 transition-colors',
+          pathname.startsWith('/admin/profile') ? 'bg-white/10' : 'hover:bg-white/10'
+        )}
+      >
+        {identity?.avatar && !avatarBroken ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={identity.avatar}
+            alt=""
+            referrerPolicy="no-referrer"
+            onError={() => setAvatarBroken(true)}
+            className="h-7 w-7 rounded-full"
+          />
+        ) : (
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-xs">
+            {identity?.email?.[0]?.toUpperCase() ?? '?'}
+          </span>
+        )}
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-xs text-gray-300">
+            {identity?.email ?? 'Signed in'}
+          </span>
+          <span className="block text-[10px] text-gray-500">View profile</span>
+        </span>
+      </Link>
       <Button
         variant="ghost"
         className="text-gray-400 hover:text-white hover:bg-white/10 justify-start"

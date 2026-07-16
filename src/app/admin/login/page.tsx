@@ -13,6 +13,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const supabase = createClient();
 
@@ -64,51 +65,66 @@ export default function LoginPage() {
           <CardTitle>ADA Admin</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="mb-4 space-y-4">
-            <Button
+          <Button
+            type="button"
+            onClick={handleGoogleLogin}
+            disabled={loading}
+            className="w-full bg-white text-zinc-800 border border-zinc-300 hover:bg-zinc-50"
+          >
+            Sign in with Google
+          </Button>
+
+          {error && !showPassword && (
+            <p className="mt-4 text-sm text-red-600">{error}</p>
+          )}
+
+          {!showPassword ? (
+            <button
               type="button"
-              onClick={handleGoogleLogin}
-              disabled={loading}
-              className="w-full bg-white text-zinc-800 border border-zinc-300 hover:bg-zinc-50"
+              onClick={() => { setShowPassword(true); setError(''); }}
+              className="mt-4 w-full text-center text-xs text-zinc-400 hover:text-zinc-600"
             >
-              Sign in with Google
-            </Button>
-            <div className="flex items-center gap-3 text-xs text-zinc-400">
-              <span className="h-px flex-1 bg-zinc-200" />
-              or
-              <span className="h-px flex-1 bg-zinc-200" />
-            </div>
-          </div>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            {error && <p className="text-sm text-red-600">{error}</p>}
-            <Button
-              type="submit"
-              className="w-full bg-ada-purple hover:bg-ada-purple/90"
-              disabled={loading}
-            >
-              {loading ? 'Signing in...' : 'Sign In'}
-            </Button>
-          </form>
+              Trouble with Google? Sign in with password
+            </button>
+          ) : (
+            <>
+              <div className="my-4 flex items-center gap-3 text-xs text-zinc-400">
+                <span className="h-px flex-1 bg-zinc-200" />
+                backup sign-in
+                <span className="h-px flex-1 bg-zinc-200" />
+              </div>
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div>
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                {error && <p className="text-sm text-red-600">{error}</p>}
+                <Button
+                  type="submit"
+                  className="w-full bg-ada-purple hover:bg-ada-purple/90"
+                  disabled={loading}
+                >
+                  {loading ? 'Signing in...' : 'Sign In'}
+                </Button>
+              </form>
+            </>
+          )}
         </CardContent>
       </Card>
     </div>
