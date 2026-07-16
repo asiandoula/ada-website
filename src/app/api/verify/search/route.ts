@@ -40,8 +40,15 @@ export async function GET(request: NextRequest) {
         .select('*')
         .eq('doula_id', doula.id);
 
+      // Only expose public-facing fields (drop internal UUID)
+      const doulaPublic = {
+        full_name: doula.full_name,
+        full_name_zh: doula.full_name_zh,
+        doula_id_code: doula.doula_id_code,
+        status: doula.status,
+      };
       return NextResponse.json({
-        results: (certs || []).map(c => ({ ...c, doula })),
+        results: (certs || []).map(c => ({ ...c, doula: doulaPublic })),
         query: q,
         type: 'doula_id',
       });
@@ -94,8 +101,15 @@ export async function GET(request: NextRequest) {
 
     const results = doulas.map(doula => {
       const doulaCerts = (certs || []).filter(c => c.doula_id === doula.id);
+      // Only expose public-facing fields (drop internal UUID)
+      const doulaPublic = {
+        full_name: doula.full_name,
+        full_name_zh: doula.full_name_zh,
+        doula_id_code: doula.doula_id_code,
+        status: doula.status,
+      };
       return {
-        doula,
+        doula: doulaPublic,
         certificates: doulaCerts,
       };
     });
