@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -15,6 +15,28 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+
+  const googleEnabled = process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === 'true';
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('error') === 'unauthorized') {
+      setError('This Google account is not authorized for admin access.');
+    }
+  }, []);
+
+  async function handleGoogleLogin() {
+    setLoading(true);
+    setError('');
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: 'https://www.asiandoula.org/auth/callback' },
+    });
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  }
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -44,6 +66,23 @@ export default function LoginPage() {
           <CardTitle>ADA Admin</CardTitle>
         </CardHeader>
         <CardContent>
+          {googleEnabled && (
+            <div className="mb-4 space-y-4">
+              <Button
+                type="button"
+                onClick={handleGoogleLogin}
+                disabled={loading}
+                className="w-full bg-white text-zinc-800 border border-zinc-300 hover:bg-zinc-50"
+              >
+                Sign in with Google
+              </Button>
+              <div className="flex items-center gap-3 text-xs text-zinc-400">
+                <span className="h-px flex-1 bg-zinc-200" />
+                or
+                <span className="h-px flex-1 bg-zinc-200" />
+              </div>
+            </div>
+          )}
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <Label htmlFor="email">Email</Label>

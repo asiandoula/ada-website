@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { isAllowedAdminEmail } from '@/lib/auth/access';
 
 const VALID_STATUSES = ['draft', 'published', 'archived'] as const;
 const VALID_CATEGORIES = ['general', 'news', 'education', 'community', 'certification'] as const;
@@ -38,7 +39,9 @@ async function getAuthUser() {
     }
   );
   const { data: { user } } = await supabase.auth.getUser();
-  return user;
+  // Only allowlisted admins count as authenticated; any other session is
+  // treated as public (drafts hidden, writes rejected).
+  return isAllowedAdminEmail(user?.email) ? user : null;
 }
 
 function getAdminClient() {

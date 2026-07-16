@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createClient as createServerClient } from '@/lib/supabase/server';
+import { isAllowedAdminEmail } from '@/lib/auth/access';
 import { sendEmail, type EmailType } from '@/lib/email';
 
 function getSupabaseAdmin() {
@@ -23,7 +24,7 @@ export async function POST(request: NextRequest) {
     // 1. Auth check — get current admin user
     const supabase = await createServerClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
+    if (authError || !user || !isAllowedAdminEmail(user.email)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     const sentBy = user.id;

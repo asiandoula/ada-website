@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createClient as createServerClient } from '@/lib/supabase/server';
+import { isAllowedAdminEmail } from '@/lib/auth/access';
 import { generateCertificatePDF } from '@/components/certificate/pdf-template';
 import { generateVerificationCode, generateCertificateNumber } from '@/lib/utils';
 
@@ -12,10 +13,10 @@ function getSupabase() {
 }
 
 export async function POST(request: NextRequest) {
-  // Auth check — admin only
+  // Auth check — allowlisted admin only
   const auth = await createServerClient();
   const { data: { user }, error: authError } = await auth.auth.getUser();
-  if (authError || !user) {
+  if (authError || !user || !isAllowedAdminEmail(user.email)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

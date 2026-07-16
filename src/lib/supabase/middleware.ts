@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
+import { isAllowedAdminEmail } from '@/lib/auth/access';
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -29,9 +30,14 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // An authenticated identity only counts as admin if its email is allowlisted.
+  // A session from any other identity (e.g. self-registered signup) is treated
+  // as unauthenticated for the purposes of every /admin route.
+  const isAdmin = isAllowedAdminEmail(user?.email);
+
   // Protect /admin routes (except /admin/login)
   if (
-    !user &&
+    !isAdmin &&
     request.nextUrl.pathname.startsWith('/admin') &&
     !request.nextUrl.pathname.startsWith('/admin/login')
   ) {
@@ -40,8 +46,10 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Redirect logged-in users away from login page
-  if (user && request.nextUrl.pathname === '/admin/login') {
+  // Redirect logged-in admins away from the login page. Only allowlisted users
+  // are bounced to the dashboard — a non-admin session must stay on /admin/login
+  // (redirecting it to the dashboard would loop against the guard above).
+  if (isAdmin && request.nextUrl.pathname === '/admin/login') {
     const url = request.nextUrl.clone();
     url.pathname = '/admin/dashboard';
     return NextResponse.redirect(url);
