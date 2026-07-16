@@ -29,16 +29,12 @@ Supabase 项目：`sztqpeebrvgualvegbxd`
 
 ### 3. 关掉公开注册（重要，防御纵深）
 **Authentication → Sign In / Providers → 关闭 "Allow new users to sign up"**（即 `disable_signup = true`）。
-现在它是**开着**的——虽然白名单已经挡住了外人进后台，但关掉注册能从源头断掉"外人自助建号"。走 Google 登录后，根本不需要公开注册。
+✅ **2026-07-16 已关闭**。关掉注册从源头断掉"外人自助建号"；走 Google 登录后根本不需要公开注册。
 
-### 4. 打开登录页的 Google 按钮（Vercel env，~2 分钟）
-Vercel → ada-website 项目 → Settings → Environment Variables，加：
-```
-NEXT_PUBLIC_GOOGLE_AUTH_ENABLED = true
-```
-（Production 环境）然后 **Redeploy**（这是 `NEXT_PUBLIC_` 变量，必须重新部署才生效）。
+### 4. 登录页 Google 按钮
+~~原本用 `NEXT_PUBLIC_GOOGLE_AUTH_ENABLED` env 门控~~ → **2026-07-16 已移除门控，按钮默认常显**，无需任何 Vercel env 配置。provider 开好后按钮即生效。
 
-做完这 4 步，登录页就会出现「Sign in with Google」，6 个人用各自的 @cooings.com / @asiandoula.org Google 账号一键登录，非白名单的 Google 账号会被自动踢回登录页并提示未授权。
+配好后，登录页会出现「Sign in with Google」，6 个人用各自的 @cooings.com / @asiandoula.org Google 账号一键登录，非白名单的 Google 账号会被自动踢回登录页并提示未授权。
 
 ## 验证（配置完之后）
 1. 用一个 @cooings.com 账号点 Google 登录 → 应进 `/admin/dashboard`
