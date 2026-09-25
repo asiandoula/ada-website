@@ -1,5 +1,7 @@
+import { randomUUID } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { sendInquiryNotification } from '@/lib/inquiry-notify';
 
 // In-memory rate limiter: IP -> { count, resetAt }
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
@@ -68,17 +70,28 @@ export async function POST(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 
-  const { error } = await supabase.from('contact_submissions').insert({
+  // Id generated here (not by the DB) so the notification email can link to
+  // the admin page — the anon key can insert but cannot read the row back.
+  const inquiry = {
+    id: randomUUID(),
     full_name: full_name.trim(),
     phone: phone?.toString().trim() || null,
     email: email.trim(),
     topic: topic?.toString().trim() || null,
     message: message.trim(),
-  });
+  };
+
+  const { error } = await supabase.from('contact_submissions').insert(inquiry);
 
   if (error) {
     console.error('Contact submission error:', error);
     return NextResponse.json({ error: 'Failed to submit. Please try again.' }, { status: 500 });
+  }
+
+  // The inquiry is saved; the staff email is best-effort and never fails the request.
+  const notified = await sendInquiryNotification({ ...inquiry, created_at: new Date().toISOString() });
+  if (!notified.ok) {
+    console.error('Contact notification email failed:', inquiry.id, notified.error);
   }
 
   return NextResponse.json({ success: true });

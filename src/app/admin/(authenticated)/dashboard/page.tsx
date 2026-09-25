@@ -6,14 +6,22 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CERT_TYPE_LABELS } from '@/lib/constants';
 import type { CertificateType } from '@/lib/constants';
+import { hasInquiryStatusColumn } from '@/lib/inquiries';
 
 export default async function DashboardPage() {
   const supabase = await createClient();
   const today = new Date().toISOString().split('T')[0];
   const in90Days = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
+  // Website contact-form inquiries: count the ones nobody has followed up on.
+  // Before migration 017 there is no status column, so fall back to the total.
+  const inquiryTracking = await hasInquiryStatusColumn(supabase);
+  let inquiryQuery = supabase.from('contact_submissions').select('id', { count: 'exact', head: true });
+  if (inquiryTracking) inquiryQuery = inquiryQuery.eq('status', 'new');
+
   // Parallel fetch — all queries are independent
   const [
+    { count: inquiryCount },
     { count: totalDoulas },
     { count: activeDoulas },
     { count: expiringDoulas },
@@ -23,6 +31,7 @@ export default async function DashboardPage() {
     { data: recentExams },
     { data: recentCerts },
   ] = await Promise.all([
+    inquiryQuery,
     supabase.from('doulas').select('*', { count: 'exact', head: true }),
     supabase.from('doulas').select('*', { count: 'exact', head: true }).eq('status', 'active'),
     supabase.from('doulas').select('*', { count: 'exact', head: true }).eq('status', 'active').lte('expiration_date', in90Days).gte('expiration_date', today),
@@ -48,6 +57,33 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Dashboard</h1>
+
+      {/* Website inquiries waiting for a reply */}
+      <Link
+        href="/admin/inquiries"
+        className={`flex items-center justify-between rounded-lg border px-5 py-4 transition-colors ${
+          inquiryTracking && (inquiryCount ?? 0) > 0
+            ? 'border-amber-300 bg-amber-50 hover:bg-amber-100'
+            : 'bg-white hover:bg-zinc-50'
+        }`}
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">📥</span>
+          <div>
+            <div className="font-semibold">
+              {inquiryTracking
+                ? (inquiryCount ?? 0) > 0
+                  ? `${inquiryCount} new website ${inquiryCount === 1 ? 'inquiry' : 'inquiries'} waiting for a reply`
+                  : 'No new website inquiries'
+                : `${inquiryCount ?? 0} website inquiries`}
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Families, future doulas and partners writing in through the contact form
+            </div>
+          </div>
+        </div>
+        <span className="text-sm font-medium text-ada-purple whitespace-nowrap">Review →</span>
+      </Link>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
