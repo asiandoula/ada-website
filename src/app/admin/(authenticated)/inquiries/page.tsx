@@ -17,7 +17,19 @@ import {
 
 export const dynamic = 'force-dynamic';
 
-const PER_PAGE = 25;
+const PER_PAGE = 50;
+
+// Search box → PostgREST or-filter. Values are double-quoted, so strip the two
+// characters that could break out of the quotes; any dash becomes the LIKE
+// single-char wildcard so "K-Mama" also finds "K‑Mama" (non-breaking hyphen).
+function toSearchPattern(raw: string): string {
+  return raw
+    .replace(/["\\]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 80)
+    .replace(/[-\u2010-\u2015]/g, '_');
+}
 
 function getSupabase() {
   return createClient(
@@ -29,15 +41,20 @@ function getSupabase() {
 export default async function InquiriesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; topic?: string; page?: string }>;
+  searchParams: Promise<{ status?: string; topic?: string; page?: string; q?: string }>;
 }) {
   const supabase = getSupabase();
   const params = await searchParams;
   const tracking = await hasInquiryStatusColumn(supabase);
 
+  const searchText = (params.q ?? '').trim().slice(0, 80);
+  const searchPattern = toSearchPattern(searchText);
+
   // Default view is the work queue (New). "all" shows everything.
-  const statusFilter =
-    tracking && (params.status === 'all' || isInquiryStatus(params.status))
+  // A search always looks across every status, so a handled inquiry is still findable.
+  const statusFilter = searchPattern
+    ? 'all'
+    : tracking && (params.status === 'all' || isInquiryStatus(params.status))
       ? params.status!
       : tracking
         ? 'new'
@@ -55,6 +72,13 @@ export default async function InquiriesPage({
     .range(offset, offset + PER_PAGE - 1);
   if (tracking && statusFilter !== 'all') query = query.eq('status', statusFilter);
   if (topicFilter) query = query.eq('topic', topicFilter);
+  if (searchPattern) {
+    query = query.or(
+      ['full_name', 'email', 'phone', 'message']
+        .map((col) => `${col}.ilike."*${searchPattern}*"`)
+        .join(',')
+    );
+  }
 
   const countFor = (status?: string) => {
     let q = supabase.from('contact_submissions').select('id', { count: 'exact', head: true });
@@ -80,7 +104,7 @@ export default async function InquiriesPage({
   const now = Date.now();
 
   function buildUrl(next: Record<string, string>) {
-    const merged = { status: statusFilter, topic: topicFilter, page: String(page), ...next };
+    const merged = { status: statusFilter, topic: topicFilter, q: searchText, page: String(page), ...next };
     const p = new URLSearchParams();
     Object.entries(merged).forEach(([k, v]) => {
       if (v && !(k === 'page' && v === '1')) p.set(k, v);
@@ -111,12 +135,43 @@ export default async function InquiriesPage({
         </div>
       )}
 
-      {tracking && (
+      <form action="/admin/inquiries" method="get" className="mb-4 flex gap-2">
+        {topicFilter && <input type="hidden" name="topic" value={topicFilter} />}
+        <input
+          type="search"
+          name="q"
+          defaultValue={searchText}
+          placeholder="Search name, email, phone or message (e.g. an organization name)"
+          className="h-9 w-full max-w-md rounded-md border border-zinc-200 bg-white px-3 text-sm outline-none focus:border-ada-purple focus:ring-2 focus:ring-ada-purple/20"
+        />
+        <button
+          type="submit"
+          className="h-9 rounded-md bg-ada-purple px-4 text-sm font-medium text-white hover:opacity-90"
+        >
+          Search
+        </button>
+        {searchText && (
+          <Link
+            href={buildUrl({ q: '', status: '', page: '1' })}
+            className="flex h-9 items-center rounded-md border border-zinc-200 bg-white px-3 text-sm text-zinc-600 hover:bg-zinc-50"
+          >
+            Clear
+          </Link>
+        )}
+      </form>
+
+      {searchText && (
+        <p className="mb-3 text-sm text-zinc-600">
+          {count ?? 0} {count === 1 ? 'result' : 'results'} for “{searchText}” across all statuses
+        </p>
+      )}
+
+      {tracking && !searchText && (
         <div className="flex flex-wrap gap-2 mb-3">
           {statusTabs.map((f) => (
             <Link
               key={f.value}
-              href={buildUrl({ status: f.value, page: '1' })}
+              href={buildUrl({ status: f.value, q: '', page: '1' })}
               className={`px-3 py-1.5 text-sm rounded-md border transition-colors ${
                 statusFilter === f.value
                   ? 'bg-ada-purple text-white border-ada-purple'
@@ -187,7 +242,7 @@ export default async function InquiriesPage({
                   </td>
                   <td className="p-3 min-w-[260px] max-w-[480px]">
                     <Link href={href} className="block text-zinc-700 hover:text-zinc-900">
-                      <span className="line-clamp-2 whitespace-pre-line">{row.message}</span>
+                      <span className="line-clamp-3">{row.message.replace(/\s+/g, ' ').trim()}</span>
                     </Link>
                     {row.note && (
                       <div className="mt-1 text-xs text-muted-foreground line-clamp-1">Note: {row.note}</div>
@@ -204,7 +259,11 @@ export default async function InquiriesPage({
             {rows.length === 0 && !error && (
               <tr>
                 <td colSpan={tracking ? 5 : 4} className="p-8 text-center text-muted-foreground">
-                  {statusFilter === 'new' ? 'No new inquiries. All caught up.' : 'No inquiries here.'}
+                  {searchText
+                    ? 'Nothing matches that search.'
+                    : statusFilter === 'new'
+                      ? 'No new inquiries. All caught up.'
+                      : 'No inquiries here.'}
                 </td>
               </tr>
             )}
