@@ -116,7 +116,19 @@ export function ContactForm() {
                   onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
                   className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-ada-navy focus:outline-none focus:ring-2 focus:ring-ada-purple/40 focus:border-ada-purple"
                   placeholder="(123) 456-7890"
+                  aria-describedby="phone-sms-consent"
                 />
+                {/* SMS consent disclosure (toll-free verification opt-in evidence, 2026-09-28) */}
+                <p id="phone-sms-consent" className="mt-1.5 text-xs leading-relaxed text-ada-navy/50">
+                  Optional. By sharing your mobile number, you agree that Asian Doula Alliance may
+                  text you about your inquiry and, if you are a doula in our network, about client
+                  matches, work orders and scheduling. Message frequency varies. Msg &amp; data rates
+                  may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of any
+                  service. See our{' '}
+                  <a href="/privacy-policy" className="underline hover:text-ada-purple">Privacy Policy</a>{' '}
+                  and{' '}
+                  <a href="/terms-of-service" className="underline hover:text-ada-purple">Terms of Service</a>.
+                </p>
               </div>
 
               {/* Email */}

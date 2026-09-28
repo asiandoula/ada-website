@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     'How Asian Doula Alliance collects, uses, and protects your personal information across our website, certification programs, and donor relationships.',
 };
 
-const LAST_UPDATED = 'May 11, 2026';
+const LAST_UPDATED = 'September 28, 2026';
 
 export default function PrivacyPolicyPage() {
   return (
@@ -141,6 +141,35 @@ export default function PrivacyPolicyPage() {
               <li>
                 <strong>Payment processors</strong> (for donations) &mdash; PCI-compliant
                 providers; ADA does not store full card numbers.
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="font-dm-serif text-2xl text-ada-navy mb-3">
+              Text messages (SMS)
+            </h2>
+            <ul className="space-y-2 text-ada-navy/70 leading-relaxed list-disc pl-5">
+              <li>
+                If you share your mobile number with us (for example on our
+                contact form), Asian Doula Alliance may text you about your
+                inquiry and, if you are a doula in our network, about client
+                matches, work orders and scheduling. Message frequency varies.
+                Message and data rates may apply.
+              </li>
+              <li>
+                Reply <strong>STOP</strong> at any time to stop receiving texts,
+                or <strong>HELP</strong> for help. You can also reach us at{' '}
+                <a href="mailto:contact@asiandoula.org" className="underline">
+                  contact@asiandoula.org
+                </a>
+                .
+              </li>
+              <li>
+                We do not share mobile numbers or text-message opt-in consent
+                with third parties or affiliates for their marketing or
+                promotional purposes. Our messaging provider processes your
+                number only to deliver our messages.
               </li>
             </ul>
           </div>
