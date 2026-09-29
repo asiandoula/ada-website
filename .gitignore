@@ -72,3 +72,6 @@ next-env.d.ts
 .zencoder/
 skills/
 skills-lock.json
+
+# MCP client configs hold per-user secrets (this repo is public)
+.mcp.json
