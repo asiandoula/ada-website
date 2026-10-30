@@ -16,6 +16,11 @@ import {
 } from '@/lib/inquiries';
 
 export const dynamic = 'force-dynamic';
+// force-dynamic alone does not stop Next 14 caching the Supabase fetches: on a
+// tab click (soft navigation) the layout's cookies() call doesn't run, so the
+// HEAD count requests got cached and the tab numbers froze (Contacted showed 0
+// while the list had contacted rows).
+export const fetchCache = 'force-no-store';
 
 const PER_PAGE = 50;
 
