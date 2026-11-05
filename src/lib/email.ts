@@ -124,7 +124,7 @@ export interface SendEmailParams {
   pdfFilename?: string;
 }
 
-export async function sendEmail(params: SendEmailParams): Promise<{ id: string }> {
+export async function sendEmail(params: SendEmailParams): Promise<{ id: string; subject: string }> {
   let template: { subject: string; html: string };
 
   switch (params.type) {
@@ -162,5 +162,5 @@ export async function sendEmail(params: SendEmailParams): Promise<{ id: string }
     throw new Error(error.message);
   }
 
-  return { id: data!.id };
+  return { id: data!.id, subject: template.subject };
 }

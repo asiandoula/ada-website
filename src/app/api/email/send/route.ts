@@ -100,20 +100,14 @@ export async function POST(request: NextRequest) {
           sendParams.pdfFilename = `ADA_${cert.certificate_type === 'postpartum' ? 'Postpartum_Doula' : cert.certificate_type === 'birth' ? 'Birth_Doula' : cert.certificate_type === 'trainer' ? 'Certified_Trainer' : cert.certificate_type}_Certificate_${doula.full_name.replace(/\s+/g, '')}.pdf`;
         }
 
-        const { id: resendId } = await sendEmail(sendParams);
-
-        // Use the generated subject from template for logging
-        const subjectMap: Record<EmailType, string> = {
-          exam_pass: `Congratulations on Passing the ADA Exam`,
-          exam_fail: `ADA Exam Results`,
-          certificate: 'Your ADA Postpartum Doula Certificate',
-        };
+        // Log the subject that was actually sent (it depends on the cert / exam type)
+        const { id: resendId, subject } = await sendEmail(sendParams);
 
         await supabaseAdmin.from('email_logs').insert({
           doula_id: email.doula_id,
           email_type: email.type,
           recipient_email: email.recipient_email,
-          subject: subjectMap[email.type],
+          subject,
           related_id: email.related_id,
           sent_by: sentBy,
           resend_id: resendId,

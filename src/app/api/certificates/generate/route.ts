@@ -4,6 +4,7 @@ import { createClient as createServerClient } from '@/lib/supabase/server';
 import { isAllowedAdminEmail } from '@/lib/auth/access';
 import { generateCertificatePDF } from '@/components/certificate/pdf-template';
 import { generateVerificationCode, generateCertificateNumber } from '@/lib/utils';
+import { CREDENTIAL_TYPES } from '@/lib/constants';
 
 function getSupabase() {
   return createClient(
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
     }
 
     // For credential-backed types, credential must exist as source of truth
-    const credentialTypes = ['postpartum', 'birth', 'ibclc_training'];
+    const credentialTypes: readonly string[] = CREDENTIAL_TYPES;
     const issuedDate = new Date().toISOString().split('T')[0];
     let expirationDate: string;
     let credential: { id: string; certification_date: string; expiration_date: string } | null = null;

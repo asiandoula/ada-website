@@ -421,7 +421,8 @@ export default function EditDoulaPage() {
           doulaName={doula.full_name}
           doulaEmail={doula.email}
           doulaIdCode={doula.doula_id_code}
-          existingCertTypes={credentials.map((c: Record<string, string>) => c.credential_type)}
+          credentials={credentials}
+          activeCertTypes={certs.filter((c) => c.status === 'active').map((c) => c.certificate_type)}
           loading={loading}
           setLoading={setLoading}
           onDone={reloadData}
@@ -718,23 +719,45 @@ export default function EditDoulaPage() {
 
 /* ==================== Grant Certification ==================== */
 function GrantCertification({
-  doulaId, doulaName, doulaEmail, doulaIdCode, existingCertTypes, loading, setLoading, onDone, onEmailPrompt,
+  doulaId, doulaName, doulaEmail, doulaIdCode, credentials, activeCertTypes, loading, setLoading, onDone, onEmailPrompt,
 }: {
   doulaId: string;
   doulaName: string;
   doulaEmail: string | null;
   doulaIdCode: string;
-  existingCertTypes: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  credentials: Record<string, any>[];
+  activeCertTypes: string[];
   loading: boolean;
   setLoading: (v: boolean) => void;
   onDone: () => void;
   onEmailPrompt: (recipients: EmailRecipient[]) => void;
 }) {
   const supabase = createClient();
-  const availableTypes = CERTIFICATE_TYPES.filter(t => !existingCertTypes.includes(t));
-  const [certType, setCertType] = useState<string>(availableTypes[0] || 'postpartum');
+  const today = new Date().toISOString().split('T')[0];
   const defaultExp = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0];
-  const [expDate, setExpDate] = useState(defaultExp);
+  const credentialFor = (t: string) => credentials.find((c) => c.credential_type === t);
+  const isCredentialType = (t: string) => (CREDENTIAL_TYPES as readonly string[]).includes(t);
+
+  // A credential-backed type (Postpartum / Birth / IBCLC) can be granted unless the
+  // doula already has an active certificate for it (use Renew instead) or its
+  // credential is revoked/suspended. A credential added via "+ Add Credential" with no
+  // certificate yet stays grantable, so its PDF can still be issued.
+  const availableTypes = CERTIFICATE_TYPES.filter((t) => {
+    if (!isCredentialType(t)) return true;
+    if (activeCertTypes.includes(t)) return false;
+    const cred = credentialFor(t);
+    return !cred || !['revoked', 'suspended'].includes(cred.status);
+  });
+  const [certType, setCertType] = useState<string>(availableTypes[0] || 'postpartum');
+  // The list changes after every grant/reload; never act on a type that's no longer offered
+  const selectedType = availableTypes.includes(certType as CertificateType) ? certType : availableTypes[0];
+  const existingCred = selectedType ? credentialFor(selectedType) : undefined;
+  const existingExp: string | null = existingCred?.expiration_date && existingCred.expiration_date > today
+    ? existingCred.expiration_date
+    : null;
+  const [expEdits, setExpEdits] = useState<Record<string, string>>({});
+  const expDate = (selectedType && expEdits[selectedType]) || existingExp || defaultExp;
   const [result, setResult] = useState<string | null>(null);
 
   if (availableTypes.length === 0) {
@@ -760,18 +783,29 @@ function GrantCertification({
               <Label>Certificate Type</Label>
               <select
                 className="w-full border rounded-md px-3 py-2 text-sm"
-                value={certType}
+                value={selectedType}
                 onChange={(e) => setCertType(e.target.value)}
               >
                 {availableTypes.map((t) => (
                   <option key={t} value={t}>{CERT_TYPE_LABELS[t]}</option>
                 ))}
               </select>
+              {existingCred && (
+                <p className="text-xs text-muted-foreground mt-1">
+                  Uses the existing {CREDENTIAL_LABELS[selectedType as CredentialType]} credential (no active certificate yet).
+                </p>
+              )}
             </div>
             <div>
               <Label>Expiration Date</Label>
-              <Input type="date" value={expDate} onChange={(e) => setExpDate(e.target.value)} />
-              <p className="text-xs text-muted-foreground mt-1">Default: 1 year from today</p>
+              <Input
+                type="date"
+                value={expDate}
+                onChange={(e) => selectedType && setExpEdits((prev) => ({ ...prev, [selectedType]: e.target.value }))}
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                {existingExp ? 'Default: the credential’s current expiry' : 'Default: 1 year from today'}
+              </p>
             </div>
           </div>
           {result && (
@@ -783,34 +817,45 @@ function GrantCertification({
             className="bg-ada-purple hover:bg-ada-purple/90"
             disabled={loading}
             onClick={async () => {
-              if (!confirm(`Grant ${CERT_TYPE_LABELS[certType as CertificateType]} to ${doulaName}?`)) return;
+              if (!selectedType) return;
+              if (!confirm(`Grant ${CERT_TYPE_LABELS[selectedType as CertificateType]} to ${doulaName}?`)) return;
               setLoading(true);
               setResult(null);
 
-              // Step 1: Create credential first (source of truth)
-              if (['postpartum', 'birth', 'ibclc_training'].includes(certType)) {
-                const isIbclc = certType === 'ibclc_training';
-                const { error: credError } = await supabase.from('doula_credentials').insert({
-                  doula_id: doulaId,
-                  credential_type: certType,
-                  status: 'active',
-                  certification_date: new Date().toISOString().split('T')[0],
-                  expiration_date: isIbclc ? null : expDate,
-                });
+              // Step 1: Credential first (source of truth) — create it, or re-activate
+              // the one already on file with the chosen expiry
+              if (isCredentialType(selectedType)) {
+                const isIbclc = selectedType === 'ibclc_training';
+                const { error: credError } = existingCred
+                  ? await supabase.from('doula_credentials').update({
+                      status: 'active',
+                      certification_date: existingCred.certification_date ?? today,
+                      expiration_date: isIbclc ? null : expDate,
+                      updated_at: new Date().toISOString(),
+                    }).eq('id', existingCred.id)
+                  : await supabase.from('doula_credentials').insert({
+                      doula_id: doulaId,
+                      credential_type: selectedType,
+                      status: 'active',
+                      certification_date: today,
+                      expiration_date: isIbclc ? null : expDate,
+                    });
                 if (credError) {
-                  alert(`Failed to create credential: ${credError.message}`);
+                  alert(`Failed to save credential: ${credError.message}`);
                   setLoading(false);
                   return;
                 }
               }
 
-              // Step 2: Generate certificate PDF (reads dates from credential)
+              // Step 2: Generate certificate PDF (reads dates from credential;
+              // Trainer / CPR have no credential and use expiration_date directly)
               const res = await fetch('/api/certificates/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                   doula_id: doulaId,
-                  certificate_type: certType,
+                  certificate_type: selectedType,
+                  expiration_date: expDate,
                 }),
               });
               const data = await res.json();
