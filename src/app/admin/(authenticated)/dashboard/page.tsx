@@ -56,7 +56,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <h1 className="text-2xl font-semibold">Dashboard</h1>
 
       {/* Website inquiries waiting for a reply */}
       <Link

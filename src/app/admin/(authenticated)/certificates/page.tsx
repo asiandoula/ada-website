@@ -32,7 +32,7 @@ export default function CertificatesPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Certificates</h1>
+        <h1 className="text-2xl font-semibold">Certificates</h1>
         <Link href="/admin/certificates/generate">
           <Button className="bg-ada-purple hover:bg-ada-purple/90">
             + Generate Certificate

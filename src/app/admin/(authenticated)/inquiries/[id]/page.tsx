@@ -71,7 +71,7 @@ export default async function InquiryDetailPage({
       </Link>
 
       <div className="mt-3 mb-6 flex flex-wrap items-center gap-3">
-        <h1 className="text-2xl font-bold">{inquiry.full_name}</h1>
+        <h1 className="text-2xl font-semibold">{inquiry.full_name}</h1>
         <Badge className={topicColor(inquiry.topic)}>{inquiry.topic || 'No topic'}</Badge>
         {tracking && (
           <Badge className={INQUIRY_STATUS_COLORS[status]}>{INQUIRY_STATUS_LABELS[status]}</Badge>

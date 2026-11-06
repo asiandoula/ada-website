@@ -258,7 +258,7 @@ export default function RecordExamPage() {
 
   return (
     <div className="max-w-6xl">
-      <h1 className="text-2xl font-bold mb-2">Record Exam Results</h1>
+      <h1 className="text-2xl font-semibold mb-2">Record Exam Results</h1>
       <p className="text-sm text-muted-foreground mb-6">
         Passing score: <strong>{PASS_SCORE}/100</strong>. Overall score is auto-calculated as the average of all sub-scores.
         You can manually override pass/fail for individual doulas with a required note.

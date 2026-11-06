@@ -136,7 +136,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: SP | 
           ) : null}
 
           {outcome?.status === 'error' ? (
-            <p id="results" role="alert" className="m-0 py-4 px-5 bg-white border border-solid border-ada2-hairline border-l-4 border-l-ada2-suspended text-ada2-body">
+            <p id="results" role="alert" className="m-0 py-4 px-5 bg-white border-2 border-solid border-ada2-suspended text-ada2-body">
               {t('search.searchError')}
             </p>
           ) : null}

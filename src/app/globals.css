@@ -61,6 +61,7 @@
   --ada-navy: #0c2231;
   --ada-navy-warm: #1a3346;
   --ada-purple: #6969C1;
+  --ada-purple-rgb: 105 105 193; /* = #6969C1, read by Tailwind's ada-purple */
   --ada-purple-hover: #7b7bd4;
   --ada-purple-muted: #606090;
   --ada-cream: #fdfcfa;
@@ -163,6 +164,87 @@
 
 @media print {
   .ada2-no-print { display: none !important; }
+}
+
+/* ==========================================================================
+   Admin ("ADA Registry Office", 2026-11 reskin). Source of truth: canvas
+   Admin*.dc.html. Scoped to .ada-admin (set by src/app/admin/layout.tsx), so
+   public pages keep the values in the :root blocks above.
+
+   The variables are also set on :root while an .ada-admin element is on the
+   page, because Dialog, Sheet, Select and DropdownMenu render into <body>,
+   outside the .ada-admin wrapper. Browsers without :has() still get the
+   wrapper values; only those portals fall back to the old palette.
+   ========================================================================== */
+.ada-admin,
+:root:has(.ada-admin) {
+  --background: 0 0% 100%;
+  --foreground: 204 61% 12%; /* ink #0C2231 */
+  --card: 0 0% 100%;
+  --card-foreground: 204 61% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 204 61% 12%;
+  /* Primary actions are ink on the boards (hover #1A3346). For indigo #3F3F7A
+     instead, set --primary: 240 32% 36% and --ada-purple-rgb: 63 63 122. */
+  --primary: 204 61% 12%;
+  --ada-purple-rgb: 12 34 49; /* the bg-ada-purple / text-ada-purple used across admin pages */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 25% 97%; /* panel #F5F7F9 */
+  --secondary-foreground: 204 61% 12%;
+  --muted: 210 25% 97%; /* panel #F5F7F9 (row hover) */
+  --muted-foreground: 209 15% 42%; /* #5A6B7B */
+  --accent: 240 26% 95%; /* selected option #EEEEF5 */
+  --accent-foreground: 204 61% 12%;
+  --destructive: 4 76% 40%; /* #B42318 */
+  --destructive-foreground: 0 0% 100%;
+  --border: 212 19% 82%; /* hairline #C9D1DA */
+  --input: 210 15% 58%; /* control border #8595A5 */
+  --ring: 240 20% 47%; /* blossom #606090 */
+  --radius: 2px;
+  --radius-xl: 2px;
+  --radius-md: 2px;
+  --radius-sm: 2px;
+}
+
+/* Type: Source Sans 3 (same stack as font-site), 14px body. */
+:root:has(.ada-admin) body,
+.ada-admin {
+  font-family: var(--font-source-sans), var(--font-cjk), system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+.ada-admin {
+  font-size: 14px;
+  line-height: 20px;
+}
+/* IDs, codes and counts: IBM Plex Mono, as on the boards. */
+:root:has(.ada-admin) .font-mono,
+.ada-admin .font-mono {
+  font-family: var(--font-plex-mono), ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* Focus: blossom ring, as on the boards and the public site. */
+:root:has(.ada-admin) :is(a, button, input, select, textarea, summary, [role="button"]):focus-visible,
+.ada-admin :is(a, button, input, select, textarea, summary, [role="button"]):focus-visible {
+  outline: 3px solid #606090;
+  outline-offset: 2px;
+}
+
+/* Data tables: the boards' header band. Colour and type only, so column
+   widths and padding stay as each page sets them. */
+.ada-admin thead {
+  background-color: #E9EDF2;
+  border-bottom-color: #8595A5;
+}
+.ada-admin thead th {
+  background-color: #E9EDF2;
+  color: #5A6B7B;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ada-admin table {
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 /* CJK families are loaded from Google Fonts' CSS in src/app/layout.tsx. */

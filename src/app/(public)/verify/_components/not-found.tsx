@@ -30,7 +30,7 @@ export function RegistryNotFound({
   return (
     <section
       aria-labelledby={headingId}
-      className="flex flex-col gap-3 pt-6 px-7 pb-7 max-[480px]:px-4 bg-white border border-solid border-ada2-hairline border-l-4 border-l-ada2-ink"
+      className="flex flex-col gap-3 pt-6 px-7 pb-7 max-[480px]:px-4 bg-white border border-solid border-ada2-hairline border-t-2 border-t-ada2-ink"
     >
       <H id={headingId} className="m-0 text-[28px] leading-[35px] font-light text-ada2-ink [text-wrap:balance] break-words">
         {t('heading', { query })}

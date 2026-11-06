@@ -125,7 +125,7 @@ export default async function InquiriesPage({
   return (
     <div>
       <div className="flex items-center justify-between mb-2">
-        <h1 className="text-2xl font-bold">Website Inquiries</h1>
+        <h1 className="text-2xl font-semibold">Website Inquiries</h1>
         <span className="text-sm text-muted-foreground">{statusCounts.all} total</span>
       </div>
       <p className="text-sm text-muted-foreground mb-6">

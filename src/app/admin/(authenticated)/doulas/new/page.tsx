@@ -71,7 +71,7 @@ export default function NewDoulaPage() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="text-2xl font-bold mb-6">New Doula</h1>
+      <h1 className="text-2xl font-semibold mb-6">New Doula</h1>
       <Card>
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit} className="space-y-4">

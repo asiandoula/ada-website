@@ -48,7 +48,9 @@ const config: Config = {
           navy: '#0c2231',
           'navy-warm': '#1a3346',
           'navy-dark': '#4a4a70',
-          purple: '#6969C1',
+          // Same #6969C1 everywhere by default (--ada-purple-rgb on :root);
+          // the admin scope in globals.css repoints it to the Registry Office ink.
+          purple: 'rgb(var(--ada-purple-rgb) / <alpha-value>)',
           'purple-hover': '#7b7bd4',
           'purple-muted': '#606090',
           cream: '#fdfcfa',
@@ -131,10 +133,13 @@ const config: Config = {
         'noto-jp': ['var(--font-noto-jp)', 'sans-serif'],
         'noto-kr': ['var(--font-noto-kr)', 'sans-serif'],
       },
+      // The --radius-* overrides are only set inside the admin scope (globals.css);
+      // everywhere else the fallbacks keep the previous values exactly.
       borderRadius: {
+        xl: "var(--radius-xl, 0.75rem)",
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "var(--radius-md, calc(var(--radius) - 2px))",
+        sm: "var(--radius-sm, calc(var(--radius) - 4px))",
       },
     },
   },

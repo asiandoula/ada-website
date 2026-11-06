@@ -115,7 +115,7 @@ export default function GenerateCertificatePage() {
 
   return (
     <div className="max-w-lg">
-      <h1 className="text-2xl font-bold mb-6">Generate Certificate</h1>
+      <h1 className="text-2xl font-semibold mb-6">Generate Certificate</h1>
 
       <Card>
         <CardContent className="pt-6 space-y-4">

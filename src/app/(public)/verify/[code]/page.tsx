@@ -80,7 +80,7 @@ export default async function VerifyRecordPage({ params }: { params: Params | Pr
         <div className="bg-ada2-band py-10">
           <div className="ada2-wrap max-w-[1000px]">
             {found === 'error' ? (
-              <p role="alert" className="m-0 py-4 px-5 bg-white border border-solid border-ada2-hairline border-l-4 border-l-ada2-suspended text-ada2-body">
+              <p role="alert" className="m-0 py-4 px-5 bg-white border-2 border-solid border-ada2-suspended text-ada2-body">
                 {tv('search.searchError')}
               </p>
             ) : (

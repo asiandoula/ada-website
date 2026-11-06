@@ -47,7 +47,7 @@ export function AlertCardView({
   return (
     <section aria-label={label} className="bg-ada2-band py-6 print:hidden">
       <div className="ada2-wrap flex justify-center">
-        <div className="relative w-full max-w-[760px] box-border flex flex-col gap-1.5 pt-[18px] pr-[60px] pb-5 pl-6 bg-white border border-ada2-hairline border-l-4 border-l-ada2-ink">
+        <div className="relative w-full max-w-[760px] box-border flex flex-col gap-1.5 pt-[18px] pr-[60px] pb-5 pl-6 bg-white border border-ada2-hairline border-t-2 border-t-ada2-ink">
           <p className="m-0 text-[19px] leading-[26px] font-semibold text-ada2-ink [text-wrap:balance]">{title}</p>
           <p className="m-0 text-[16px] leading-[25px] text-ada2-body [text-wrap:pretty]">
             {body}{' '}

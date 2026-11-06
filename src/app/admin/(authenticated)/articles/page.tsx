@@ -28,7 +28,7 @@ export default async function AdminArticlesPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Articles</h1>
+        <h1 className="text-2xl font-semibold">Articles</h1>
         <Link href="/admin/articles/new">
           <Button className="bg-ada-purple hover:bg-ada-purple/90">
             + New Article

@@ -418,7 +418,7 @@ export default function PortalPage() {
                   </div>
 
                   {error && (
-                    <p role="alert" className="m-0 pl-3.5 border-l-4 border-solid border-ada2-suspended text-[16px] leading-6 text-ada2-ink">
+                    <p role="alert" className="m-0 py-2 px-3 border-2 border-solid border-ada2-suspended text-[16px] leading-6 text-ada2-ink">
                       {error}
                     </p>
                   )}

@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { AdminSidebar } from '@/components/admin/sidebar';
+import { AdminBreadcrumb } from '@/components/admin/breadcrumb';
 import { createClient } from '@/lib/supabase/server';
 import { isAllowedAdminEmail } from '@/lib/auth/access';
 
@@ -20,7 +21,10 @@ export default async function AuthenticatedAdminLayout({
   return (
     <div className="flex min-h-screen">
       <AdminSidebar />
-      <main className="flex-1 bg-zinc-100 p-8">{children}</main>
+      <main className="flex-1 bg-white px-8 pb-12 pt-6 text-ada2-record-ink">
+        <AdminBreadcrumb />
+        {children}
+      </main>
     </div>
   );
 }
