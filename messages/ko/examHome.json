@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "title": "Exam"
+  },
+  "chrome": {
+    "product": "ADA Examination",
+    "homeLabel": "ADA Examination, start screen",
+    "session": "Session",
+    "language": "Language",
+    "privacy": "Privacy"
+  },
+  "start": {
+    "eyebrow": "ADA Postpartum Doula exam",
+    "title": "Choose your exam language",
+    "lead": "The written exam instructions appear in the language you choose. Practical tasks are given in Chinese, with English titles.",
+    "languagesLabel": "Exam languages",
+    "partsTitle": "Then choose your part",
+    "partsLead": "The written exam comes first. The practical exam is one-on-one.",
+    "partWritten": "{part} · {minutes} minutes",
+    "partPractical": "{part} · {minutes} minutes, one-on-one",
+    "checkInTitle": "Check in with the proctor first",
+    "idTitle": "Show your ID",
+    "idBody": "Bring a valid government-issued photo ID.",
+    "startTitle": "Wait for the start",
+    "startBody": "Choose your language and the written exam, then wait. The exam clock starts when the proctor starts the session.",
+    "helpTitle": "Need help",
+    "helpBody": "Raise your hand.",
+    "examDayLink": "Exam day and ID"
+  },
+  "parts": {
+    "eyebrow": "ADA Postpartum Doula exam",
+    "title": "Choose your part",
+    "writtenMeta": "{minutes} minutes",
+    "practicalMeta": "{count} items · {minutes} minutes, one-on-one",
+    "open": "Open",
+    "changeLanguage": "Change language"
+  },
+  "controls": {
+    "fullscreen": "Full screen",
+    "exitFullscreen": "Exit full screen",
+    "pause": "Pause",
+    "resume": "Resume",
+    "previous": "Previous",
+    "next": "Next",
+    "finish": "Finish",
+    "invalidLanguage": "Invalid language."
+  },
+  "audio": {
+    "title": "Audio instructions",
+    "play": "Play",
+    "pause": "Pause",
+    "playing": "Playing",
+    "progress": "Audio progress"
+  },
+  "written": {
+    "rulesTitle": "Exam room rules",
+    "ofMinutes": "of {minutes} minutes"
+  },
+  "practical": {
+    "instructionsTitle": "Practical exam instructions",
+    "intro": "The exam has {count} items. Each item has its own task and time limit. Follow the prompts in order.",
+    "itemsTitle": "Items",
+    "steps": "{count, plural, one {# step} other {# steps}}",
+    "stepFallback": "Step {number}",
+    "scoring": "Scoring",
+    "scoreFor": "Item {number}: {title}",
+    "pass": "Pass",
+    "fail": "Fail",
+    "notScored": "Not scored",
+    "notes": "Notes (optional)",
+    "taskTimer": "Task timer",
+    "notStarted": "Not started",
+    "timerNote": "The task timer starts when the audio ends.",
+    "startTimer": "Start timer",
+    "reset": "Reset",
+    "now": "Now",
+    "proctorControls": "Proctor controls",
+    "summaryTitle": "Score summary",
+    "summaryCount": "{scored} of {total} items scored, {passed} passed",
+    "restart": "Start again"
+  },
+  "lookup": {
+    "title": "Exam result lookup",
+    "lead": "Confirm your name to see your exam result.",
+    "examId": "Exam ID",
+    "fullName": "Full name",
+    "fullNameHint": "Enter your full name as it appears on your ADA record.",
+    "submit": "View my result",
+    "submitting": "Checking…",
+    "errors": {
+      "notFound": "Exam record not found. Please check the exam ID.",
+      "tooMany": "Too many attempts. Please try again later.",
+      "noMatch": "That name does not match our records. Please try again.",
+      "failed": "Verification did not work. Please try again.",
+      "network": "Network error. Please check your connection and try again."
+    }
+  },
+  "result": {
+    "metaTitle": "Exam results",
+    "eyebrow": "ADA {credential} exam · written and practical",
+    "title": "Your exam result",
+    "candidate": "Candidate",
+    "doulaId": "Doula ID",
+    "examDate": "Exam date",
+    "session": "Session",
+    "notRecorded": "Not recorded",
+    "overall": "Overall score",
+    "outOf": "/ {max}",
+    "passed": "Passed",
+    "notPassed": "Not passed",
+    "passMark": "The pass mark is {pass} out of {max}.",
+    "whereFalls": "Where your score falls",
+    "scaleLabel": "Your overall score of {score} on a scale of {min} to {max}",
+    "yourLevel": "Your level",
+    "levels": {
+      "highlyProficient": "Highly Proficient",
+      "proficient": "Proficient",
+      "notProficient": "Not Proficient"
+    },
+    "levelRange": {
+      "highlyProficient": "{min} and above",
+      "proficient": "{min}–{max}",
+      "notProficient": "below {pass}"
+    },
+    "areasTitle": "Your scores by area",
+    "areasLead": "Each area is scored out of {max}. The line on each bar marks {pass}.",
+    "areasCaption": "Your scores by area, against the pass mark of {pass}",
+    "colArea": "Area",
+    "colScore": "Score",
+    "colAgainst": "Against the pass mark of {pass}",
+    "atOrAbove": "{pass} or above",
+    "below": "Below {pass}",
+    "overallRow": "Overall",
+    "areas": {
+      "score_terminology": "Terminology",
+      "score_newborn": "Newborn Care",
+      "score_lactation": "Lactation",
+      "score_emergency": "Emergency",
+      "score_practical": "Practical Skills",
+      "score_postpartum": "Postpartum Care",
+      "score_knowledge": "Knowledge",
+      "score_ethics": "Ethics"
+    },
+    "nextTitle": "What happens next",
+    "recordTitle": "Your public record",
+    "recordBody": "Families, agencies and insurers can check your credential in the ADA registry, free and without an account. Your exam scores are never shown there.",
+    "recordAction": "Open your public record",
+    "renewTitle": "Stay in good standing",
+    "renewBody": "Each ADA credential is valid for {years, plural, one {# year} other {# years}}. Renewal is {fee}.",
+    "renewLink": "How to renew",
+    "retakeTitle": "Retaking the exam",
+    "retakeBody": "You can retake the exam {days} days or more after this attempt. The retake fee is {fee}.",
+    "questionsTitle": "Questions",
+    "questionsBody": "Email {email} or call {phone}.",
+    "cta": "Your exam results and credentials are in My ADA.",
+    "ctaAction": "Go to My ADA",
+    "photoAlt": "A trainee in the ADA Postpartum Doula Program practises a newborn hold with a training doll",
+    "photoCaption": "A trainee in the ADA Postpartum Doula Program. {date}.",
+    "noneTitle": "No exam results found",
+    "noneBody": "No exam records were found for this ID. If you recently took an exam, results may still be processing.",
+    "types": {
+      "postpartum": "Postpartum Doula",
+      "birth": "Birth Doula"
+    }
+  }
+}

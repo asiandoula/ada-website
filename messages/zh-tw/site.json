@@ -1,0 +1,134 @@
+{
+  "skipToContent": "跳至正文",
+  "brand": {
+    "homeLabel": "Asian Doula Alliance 首頁"
+  },
+  "utility": {
+    "languageNav": "語言",
+    "contact": "聯絡我們",
+    "signIn": "導樂登入",
+    "signInShort": "登入"
+  },
+  "audience": {
+    "navLabel": "按身份瀏覽",
+    "candidates": "考生",
+    "doulas": "認證導樂",
+    "families": "家庭",
+    "insurers": "保險公司與機構",
+    "providers": "培訓師與培訓機構",
+    "about": "關於 ADA"
+  },
+  "menu": {
+    "open": "選單"
+  },
+  "verify": {
+    "label": "查詢認證",
+    "labelLong": "查詢認證：證書編號、導樂編號或姓名",
+    "fieldLabel": "證書編號、導樂編號或姓名",
+    "placeholder": "證書編號、導樂編號或姓名",
+    "submit": "查詢",
+    "submitLong": "查詢認證註冊名錄",
+    "free": "免費查詢，無需註冊帳戶。",
+    "terms": "免費查詢，無需註冊帳戶。僅限核實認證之用，不得用於建立聯繫人或行銷名單。"
+  },
+  "breadcrumb": {
+    "label": "頁面路徑",
+    "home": "首頁"
+  },
+  "footer": {
+    "programs": "項目",
+    "postpartum": "產後導樂",
+    "birth": "分娩導樂",
+    "ibclc": "IBCLC 備考課程",
+    "ce": "繼續教育",
+    "trainer": "培訓師",
+    "registry": "認證註冊名錄",
+    "verify": "查詢認證",
+    "reportConcern": "舉報問題",
+    "ada": "ADA",
+    "about": "關於 ADA",
+    "governance": "治理",
+    "education": "教育與課程",
+    "contact": "聯絡我們",
+    "help": "幫助與法律資訊",
+    "examDay": "考試當天與身份證件",
+    "privacy": "隱私政策",
+    "terms": "服務條款",
+    "entity": "{dba} 是 {legalName} 的經營名稱（dba）。{legalName} 是一家加利福尼亞州非營利公益法人，為 {taxCode} 公共慈善機構 · EIN {ein} · {address}",
+    "entityShort": "{dba} 是 {legalName} 的經營名稱（dba）。{legalName} 是一家加利福尼亞州非營利公益法人，為 {taxCode} 公共慈善機構 · EIN {ein}",
+    "copyright": "© {year} {legalName}"
+  },
+  "examType": {
+    "postpartum": "產後導樂",
+    "birth": "分娩導樂"
+  },
+  "hero": {
+    "nextExam": "下一場{type}考試定於{date}舉行。"
+  },
+  "dates": {
+    "caption": "即將舉行的 ADA 考試日期",
+    "date": "考試日期*",
+    "type": "考試",
+    "location": "地點",
+    "status": "狀態",
+    "register": "報名",
+    "registerFor": "報名參加{date}的{type}考試",
+    "statusScheduled": "已排定",
+    "statusToday": "今日舉行",
+    "noteFormat": "*每場考試包括 {written} 分鐘筆試和 {practical} 分鐘一對一實操考核。",
+    "noteResults": "考試結果約在 {days} 個工作日內通過電子郵件發送。",
+    "empty": "考試場次在每期培訓結束後安排。",
+    "emptyAction": "請聯絡我們瞭解下一場考試的日期。"
+  },
+  "alert": {
+    "label": "考生須知",
+    "title": "您將參加{date}的考試嗎？",
+    "body": "請攜帶有效的政府簽發帶照片身份證件。考試結果約在 {days} 個工作日內通過電子郵件發送。",
+    "link": "考試當天與身份證件",
+    "dismiss": "關閉此通知"
+  },
+  "status": {
+    "active": "有效",
+    "current": "現行",
+    "authorized": "已授權",
+    "completed": "已完成",
+    "superseded": "已被取代",
+    "expired": "已過期",
+    "retired": "已退出",
+    "suspended": "已暫停",
+    "revoked": "已撤銷",
+    "withdrawn": "已撤回"
+  },
+  "record": {
+    "label": "註冊記錄",
+    "print": "列印或儲存為 PDF",
+    "copyLink": "複製連結",
+    "linkCopied": "連結已複製",
+    "requestLetter": "申請認證證明信",
+    "reportConcern": "舉報問題",
+    "seal": "Asian Doula Alliance 印章",
+    "title": "ADA 認證註冊名錄——官方記錄",
+    "doulaId": "導樂編號",
+    "copyValue": "複製{label}",
+    "copied": "已複製",
+    "retrieved": "查詢時間 {when}",
+    "source": "來源：ADA 認證註冊名錄，即 ADA 認證狀態的原始來源",
+    "footNote": "本頁面為原始來源。紙質證書僅顯示頒發當日的狀態。",
+    "certificateOnLink": "此連結對應的證書",
+    "publicActions": {
+      "title": "在案公開處分",
+      "suspension": "暫停",
+      "revocation": "撤銷",
+      "other": "其他公開處分",
+      "none": "無",
+      "note": "公開處分是指依據 ADA《職業行為守則》作出的暫停與撤銷。暫停處分在生效期間予以公示。"
+    }
+  },
+  "cookie": {
+    "label": "Cookie 通知",
+    "text": "我們使用 Cookie 和 Google Analytics 瞭解訪客如何使用本網站，以改進您的瀏覽體驗。我們不會收集任何個人健康資訊。",
+    "learnMore": "隱私政策",
+    "decline": "拒絕",
+    "accept": "接受"
+  }
+}

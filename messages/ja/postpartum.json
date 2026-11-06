@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "title": "Postpartum Doula Certification",
+    "description": "How to earn the ADA Postpartum Doula credential: an ADA-approved training program, the written and practical exam, fees, results and renewal."
+  },
+  "breadcrumb": "ADA Postpartum Doula",
+  "courseName": "ADA Postpartum Doula Certification",
+  "hero": {
+    "title": "ADA Postpartum Doula",
+    "line": "For doulas who blend traditional Asian postpartum practices with modern, evidence-based care.",
+    "imageAlt": "A trainee changes a training doll’s diaper during an ADA Postpartum Doula Program session"
+  },
+  "steps": {
+    "title": "How to get certified",
+    "intro": "The ADA credential for postpartum and newborn care. Five steps take you from an ADA-approved program to a public record in the ADA registry.",
+    "s1": {
+      "title": "Complete an ADA-approved training program",
+      "body": "{count} modules, usually <b>{days} days</b> of intensive instruction, in person or online. American Red Cross Infant CPR is included. Training fees vary by provider. <link>Find an ADA course</link>"
+    },
+    "s2": {
+      "title": "Register for an exam date",
+      "bodyNext": "The next exam is on <d>{date}</d>. The exam fee is <b>{fee}</b>, paid to ADA. Your training provider guides you through registration, or you can contact ADA. <link>Exam dates</link>",
+      "bodyNone": "Exam sessions are scheduled after each training cohort. The exam fee is <b>{fee}</b>, paid to ADA. Your training provider guides you through registration, or you can contact ADA. <link>Exam dates</link>"
+    },
+    "s3": {
+      "title": "Sit the written and practical exams",
+      "body": "Exams are held at {location}: a <b>{written}-minute</b> written exam and a <b>{practical}-minute</b> one-on-one practical exam. Bring a valid government-issued photo ID. <link>Exam day and ID</link>"
+    },
+    "s4": {
+      "title": "Get your result",
+      "body": "By email in about {days} business days. The pass mark is <b>{pass}/{max}</b>. A certified ADA examiner assesses the practical exam."
+    },
+    "s5": {
+      "title": "Join the registry, then renew",
+      "body": "ADA issues your certificate, numbered in the form <b>{format}</b>, and lists you in the ADA registry. The certificate is valid for {validity}, and renewal costs <b>{fee}</b>. <registry>Check the registry</registry>"
+    }
+  },
+  "exam": {
+    "title": "What’s on the exam",
+    "intro": "The exam covers the {count} modules of the program. The written exam asks multiple-choice and short-answer questions. The practical exam is a hands-on demonstration of doula skills, one-on-one with an examiner.",
+    "imageAlt": "An instructor teaches a session of the ADA Postpartum Doula Program, with a slide on a wall screen",
+    "caption": "An instructor teaches a session of the ADA Postpartum Doula Program. {date}."
+  },
+  "modules": {
+    "postpartumRecovery": {
+      "title": "Postpartum Recovery",
+      "description": "Stages of body recovery, wound care assessment, vital-sign monitoring, and traditional recovery principles such as warming and circulation support."
+    },
+    "newbornCare": {
+      "title": "Newborn Care",
+      "description": "Bottle and breast feeding technique, bathing and umbilical care, evidence-based safe sleep, soothing, and milestone tracking."
+    },
+    "breastfeedingSupport": {
+      "title": "Breastfeeding Support",
+      "description": "Latch and positioning, engorgement, low supply and nipple pain, pumping, and when to refer to a lactation consultant."
+    },
+    "culturalTraditions": {
+      "title": "Cultural Traditions",
+      "description": "Chinese zuo yuezi (<zh>坐月子</zh>), Korean sanhujori (<ko>산후조리</ko>) and Japanese satogaeri (<ja>里帰り</ja>), along with confinement meals and family dynamics."
+    },
+    "nutrition": {
+      "title": "Nutrition & Meal Planning",
+      "description": "Postpartum recipes across Asian traditions, and dietary guidance for breastfeeding."
+    },
+    "emotionalWellness": {
+      "title": "Emotional Wellness",
+      "description": "Recognizing postpartum depression and anxiety, active listening, cultural stigma, boundaries and referral protocols."
+    },
+    "safetyEmergency": {
+      "title": "Safety & Emergency",
+      "description": "Infant CPR (American Red Cross), choking response, emergency protocols, safe-sleep setup, and when to call emergency services and when to call the pediatrician."
+    }
+  },
+  "fees": {
+    "title": "Fees and renewal",
+    "caption": "ADA Postpartum Doula fees and renewal",
+    "colFee": "Fee",
+    "colAmount": "Amount",
+    "colNotes": "Notes",
+    "exam": {
+      "label": "Exam registration",
+      "note": "Paid to ADA. Covers the written and the practical exam."
+    },
+    "retake": {
+      "label": "Retake",
+      "note": "For each new attempt after a result below {pass}/{max}, at least {days} days after your last attempt."
+    },
+    "renewal": {
+      "label": "Renewal",
+      "note": "{years, plural, one {Every year} other {Every # years}}, to keep your certificate current."
+    },
+    "tuition": {
+      "label": "Program tuition",
+      "amount": "Varies by training program",
+      "note": "Paid to the training program, not to ADA. Some scholarship funding may be available. <link>Scholarships</link>"
+    },
+    "footnote": "Exam fees are paid to ADA. Training fees are paid to the training program."
+  },
+  "cta": {
+    "withDate": "Register for the <nw>{date}</nw> exam.",
+    "noDate": "Exam sessions are scheduled after each training cohort.",
+    "askDate": "Ask for the next date"
+  },
+  "links": {
+    "renew": "Renew {years, plural, one {every year} other {every # years}} to keep your certificate current."
+  },
+  "faq": {
+    "experience": {
+      "q": "Do I need prior experience?",
+      "a": "No. No prior doula experience is required. ADA-approved training programs take you from beginner to exam-ready."
+    },
+    "register": {
+      "q": "How do I register for the exam?",
+      "a": "After you complete an ADA-approved training program, your training provider guides you through registration. You can also contact ADA at <mail>{email}</mail> or <tel>{phone}</tel>."
+    },
+    "retake": {
+      "q": "What if I don’t pass?",
+      "a": "You can retake the exam for {fee}, at least {days} days after your attempt. Review the areas to improve with your training program before you retake."
+    },
+    "languages": {
+      "q": "Which languages are offered?",
+      "a": "Training and exams are offered in {languages}. Choose your exam language when you register. All exam materials, including instructions and questions, are then in that language."
+    },
+    "afterPass": {
+      "q": "What happens after I pass?",
+      "a": "ADA issues your certification, valid for {validity}, and lists you in the ADA registry. Insurance providers can verify your certification there."
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "title": "ADA 认证续证",
+    "description": "ADA 导乐认证的续证方式：认证有效期 {years} 年，续证费 {fee}，可选择推荐信或再认证考试。"
+  },
+  "breadcrumb": "ADA 认证续证",
+  "title": "ADA 认证续证",
+  "lead": "请在认证有效期结束前完成续证，以保持资格良好。如需开始办理，请联系 ADA。",
+  "facts": {
+    "label": "续证要点",
+    "period": "认证有效期",
+    "periodValue": "{years} 年",
+    "fee": "续证费",
+    "pathways": "续证途径",
+    "pathwaysValue": "推荐信或再认证考试"
+  },
+  "onThisPage": "本页内容",
+  "need": {
+    "title": "所需材料",
+    "photoAlt": "一位讲师在幻灯片旁讲授新生儿护理课程，桌上摆放着训练用娃娃",
+    "photoCaption": "ADA 产后导乐课程中的新生儿护理课。2024 年 8 月。",
+    "doulaId": "您的导乐编号",
+    "doulaIdValue": "格式为 <nowrap>#YY-NNNN</nowrap>，印在您的原始证书上。",
+    "email": "您的注册邮箱",
+    "emailValue": "您在 ADA 登记的电子邮箱地址。",
+    "pathway": "一种续证途径",
+    "pathwayValue": "途径 A：专业推荐信；或途径 B：再认证考试。<link>比较两种途径</link>",
+    "fee": "续证费",
+    "feeValue": "{fee}，支付给 ADA。"
+  },
+  "pathways": {
+    "title": "续证途径",
+    "intro": "请选择最适合您的一种。每种途径都用于向 ADA 证明您仍在良好执业。",
+    "caption": "ADA 续证途径",
+    "colPathway": "途径",
+    "colWhat": "您需要做什么",
+    "colDetails": "具体要求",
+    "aName": "A · 专业推荐信",
+    "aWhat": "提交 {count} 封专业推荐信，推荐人可以是客户、同事或医疗专业人员，须能说明您作为导乐的工作情况。",
+    "aDetailsTitle": "每封推荐信须包括：",
+    "aItem1": "推荐人的全名",
+    "aItem2": "电话号码或电子邮箱地址",
+    "aItem3": "介绍您导乐工作的书面推荐",
+    "bName": "B · 再认证考试",
+    "bWhat": "参加一场较短的再认证考试，证明您在产后导乐照护方面持续具备专业能力。",
+    "bDetailsTitle": "考试说明：",
+    "bItem1": "比首次认证考试更短",
+    "bItem2": "涵盖最新的实践与操作规范",
+    "bItem3": "合格分数：{pass}/{max}"
+  },
+  "steps": {
+    "title": "续证步骤",
+    "s1Title": "查看您的认证状态",
+    "s1Body": "在 ADA 认证注册名录中查看您当前的认证状态和到期日期，或登录导乐门户查看。您需要准备导乐编号（格式为 <nowrap>#YY-NNNN</nowrap>）和注册邮箱。",
+    "s1Verify": "查询您的认证记录",
+    "s1Portal": "导乐登录",
+    "s2Title": "选择续证途径",
+    "s2Body": "途径 A：专业推荐信；或途径 B：再认证考试。<link>比较两种途径</link>",
+    "s3Title": "提交续证申请",
+    "s3Body": "提交续证申请时，请附上所选途径的材料（推荐信或考试成绩），并缴纳 <strong>{fee} 续证费</strong>。",
+    "s3Contact": "请联系 ADA 开始办理：<mail>{email}</mail> · <tel>{phone}</tel>",
+    "s4Title": "领取续期后的认证",
+    "s4Body": "ADA 审核并批准您的申请后，您将获得续期后的认证，自续证之日起再有效 <strong>{years} 年</strong>。",
+    "s4ReceiveTitle": "您将获得：",
+    "s4Item1": "更新后的电子证书",
+    "s4Item2": "ADA 认证注册名录和导乐门户中已更新的认证状态",
+    "s4Item3": "继续保持保险服务名单的资格",
+    "action": "发邮件给 ADA 办理续证",
+    "questions": "如有疑问：<mail>{email}</mail> · <tel>{phone}</tel>"
+  },
+  "status": {
+    "title": "您的认证记录显示什么",
+    "intro": "家庭、保险公司和机构会在 ADA 认证注册名录中查看您的公开记录，因此记录始终显示您当前的状态。记录中的每项认证都会显示以下状态之一。",
+    "active": "在所示日期之前符合 ADA 认证要求。",
+    "superseded": "已被较新证书取代的旧证书，通常发生在续证时。",
+    "expired": "曾获认证，但未在到期日前续证，目前不属于 ADA 认证导乐。这不是纪律处分。",
+    "suspended": "根据《行为准则》，在一定期限内不属于 ADA 认证导乐。",
+    "revoked": "根据《行为准则》，认证已被撤销。",
+    "link": "查询认证注册名录"
+  },
+  "cta": {
+    "title": "准备续证？请联系 ADA 开始办理。",
+    "action": "发邮件给 ADA"
+  }
+}

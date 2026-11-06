@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "考試日期",
+    "description": "即將舉行的 ADA 考試日期、報名方式、考試費用以及成績公佈時間。"
+  },
+  "breadcrumb": {
+    "candidates": "考生",
+    "current": "考試日期"
+  },
+  "title": "考試日期",
+  "lead": "即將舉行的 ADA 考試日期、報名方式、考試費用以及成績公佈時間。",
+  "postpartum": {
+    "title": "產後導樂考試",
+    "intro": "考試地點為 {address}。考試費為 {fee}，向 ADA 繳納。"
+  },
+  "before": {
+    "title": "報名前須知",
+    "who": "報名資格",
+    "whoValue": "已完成 ADA 核准培訓課程的學員。",
+    "how": "報名方式",
+    "howValue": "您的培訓機構會指導您完成報名。您也可以直接聯繫 ADA 報名：<mail>{email}</mail> 或 <tel>{phone}</tel>。",
+    "language": "考試語言",
+    "languageValue": "報名時可選擇{languages}。全部考試材料均以您所選的語言提供。",
+    "id": "身份證件",
+    "idValue": "考試當天請攜帶政府簽發的有效帶照片身份證件。<link>考試當天須知與身份證件</link>"
+  },
+  "birth": {
+    "title": "分娩導樂考試",
+    "dates": "考試日期",
+    "datesValue": "分娩導樂考試場次在每期培訓結束後安排。<link>請聯繫我們瞭解下一場考試的日期。</link>",
+    "program": "課程",
+    "programValue": "ADA 分娩導樂課程滾動開班。<link>ADA 分娩導樂</link>"
+  },
+  "fees": {
+    "title": "費用",
+    "intro": "考試費向 ADA 繳納。培訓課程的費用由各培訓機構自行確定。",
+    "caption": "ADA 考試費用",
+    "fee": "費用項目",
+    "amount": "金額",
+    "when": "適用情況",
+    "exam": "考試報名",
+    "examWhen": "包含筆試與實操考試。向 ADA 繳納。",
+    "retake": "重考",
+    "retakeWhen": "成績低於 {pass}/{max} 後，每次重新參加考試時收取。須在上次考試後至少等待 {days} 天。",
+    "renewal": "認證續期",
+    "renewalWhen": "續期後，證書有效期再延長 {years} 年。",
+    "assistance": "費用資助",
+    "assistanceAmount": "部分或全額",
+    "assistanceWhen": "提供基於經濟需要和基於成績的獎學金，可用於培訓費和考試費。<link>獎學金</link>"
+  },
+  "results": {
+    "title": "考試成績",
+    "when": "公佈時間",
+    "whenValue": "考試後約 {days} 個工作日內以電子郵件發送。",
+    "result": "成績內容",
+    "resultValue": "滿分 {max} 分的成績及等級：高度熟練（Highly Proficient，{high} 分及以上）、熟練（Proficient，{pass}–{highBelow} 分）或未達熟練（Not Proficient，{pass} 分以下）。合格分數為 {pass}/{max}。",
+    "pass": "通過考試後",
+    "passValue": "ADA 將為您頒發有效期 {years} 年的證書，證書編號格式為 <b>{format}</b>，並在 ADA 認證註冊名錄中公佈您的記錄。",
+    "fail": "未通過考試",
+    "failValue": "可報名參加之後的考試日期。重考費為 {fee}，須在上次考試後至少 {days} 天方可重考。",
+    "lookup": "在認證註冊名錄中查詢記錄"
+  },
+  "policies": {
+    "title": "考試政策與幫助",
+    "examDay": "考試當天須知與身份證件要求",
+    "examDayDescription": "須攜帶的物品、考試地點，以及考試各部分的進行方式。",
+    "conduct": "職業行為守則",
+    "conductDescription": "每一位 ADA 認證導樂均承諾遵守的原則。",
+    "contact": "報名咨詢",
+    "contactDescription": "有關報名或考試日期的問題，請聯繫 ADA。"
+  },
+  "cta": {
+    "noSession": "請向 ADA 咨詢下一場考試的日期。",
+    "register": "報名參加考試",
+    "contact": "聯繫 ADA"
+  },
+  "languages": {
+    "en": "英語",
+    "zh": "中文（普通話）",
+    "ja": "日語",
+    "ko": "韓語"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "metaTitle": "About ADA",
+  "metaDescription": "Asian Doula Alliance is a nonprofit standards body for postpartum doulas: its legal entity, board, conflict of interest rules, documents and contacts.",
+  "breadcrumb": "About ADA",
+  "title": "A nonprofit standards body for postpartum doulas",
+  "lead": "Asian Doula Alliance writes the curriculum and the professional standard for postpartum doulas in Asian immigrant communities, examines candidates and keeps the public registry. It does not place doulas with families or provide care.",
+  "cta": {
+    "title": "Ask for ADA’s {form990}, bylaws or policies.",
+    "action": "Request documents",
+    "subject": "Document request"
+  },
+  "toc": {
+    "title": "On this page",
+    "does": "What ADA does",
+    "entity": "Legal entity",
+    "board": "Board",
+    "independence": "Independence and conflicts of interest",
+    "documents": "Financials and documents",
+    "contact": "Contact"
+  },
+  "does": {
+    "title": "What ADA does",
+    "photoAlt": "An instructor stands beside a wall screen showing a slide, teaching a session of the ADA Postpartum Doula Program",
+    "photoCaption": "An instructor teaches the ADA Postpartum Doula Program. {date}.",
+    "doesTitle": "ADA does",
+    "does1": "Publishes the standard and the Code of Conduct",
+    "does2": "Writes the ADA curriculum and approves training programs",
+    "does3": "Runs and grades the certification exam",
+    "does4": "Keeps the public registry of ADA-certified doulas",
+    "does5": "Reviews reports about ADA-certified doulas",
+    "doesNotTitle": "ADA does not",
+    "doesNot1": "Match families with doulas or provide care",
+    "doesNot2": "Issue state licenses",
+    "link": "Standards and the Code of Conduct"
+  },
+  "entity": {
+    "title": "Legal entity",
+    "legalName": "Legal name",
+    "operatingName": "Operating name",
+    "operatingNameValue": "{dba} (dba)",
+    "type": "Type",
+    "typeValue": "California nonprofit public benefit corporation",
+    "incorporated": "Incorporated",
+    "incorporatedValue": "California, {year}",
+    "taxStatus": "Tax status",
+    "taxStatusValue": "{taxCode} public charity",
+    "ein": "EIN",
+    "address": "Mailing address"
+  },
+  "board": {
+    "title": "Board",
+    "intro": "{count} volunteer directors. Directors are not paid.",
+    "chosen": "How directors are chosen",
+    "chosenValue": "Elected by ADA’s certified doula community, for {years}-year terms.",
+    "link": "Board of directors and elections"
+  },
+  "independence": {
+    "title": "Independence and conflicts of interest",
+    "body": "Each director signs a conflict of interest disclosure every year. A director with a material interest in a decision does not vote on it, and a related-party transaction needs the affirmative vote of the independent directors.",
+    "curriculum": "Curriculum",
+    "curriculumValue": "ADA writes the curriculum and the professional standards.",
+    "training": "Training",
+    "trainingValue": "ADA-approved training programs teach the ADA curriculum.",
+    "exam": "Examination",
+    "examValue": "ADA runs and grades the certification exam itself: a {written}-minute written exam and a {practical}-minute one-on-one practical exam.",
+    "registry": "Registry",
+    "registryValue": "ADA keeps the public registry. Anyone can check a doula’s credential there, free and without an account.",
+    "link": "Check the registry"
+  },
+  "documents": {
+    "title": "Financials and documents",
+    "caption": "ADA financial and governance documents",
+    "colDocument": "Document",
+    "colStatus": "Status*",
+    "form990Status": "Available on request. The first filing covers fiscal year {year}.",
+    "irs": "IRS determination letter",
+    "charitableTrusts": "California Registry of Charitable Trusts filings",
+    "bylaws": "Bylaws",
+    "coi": "Conflict of interest policy",
+    "onRequest": "Available on request",
+    "note": "*Requests to <mail></mail> are answered within {days} business days.",
+    "link": "Financial information"
+  },
+  "contact": {
+    "title": "Contact",
+    "general": "General",
+    "finance": "Finance and documents",
+    "mail": "Mail"
+  }
+}

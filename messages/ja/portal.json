@@ -1,0 +1,169 @@
+{
+  "meta": {
+    "titleSignedOut": "Sign in to My ADA | Asian Doula Alliance",
+    "titleSignedIn": "{name}: My ADA | Asian Doula Alliance"
+  },
+  "breadcrumb": {
+    "signIn": "Sign in to My ADA",
+    "account": "My ADA"
+  },
+  "signIn": {
+    "title": "Sign in to My ADA",
+    "lead": "For ADA doulas and exam candidates. See your credentials and exam results, and download your certificates.",
+    "formTitle": "Sign in",
+    "doulaId": "Doula ID",
+    "doulaIdHint": "It is on your ADA certificate and in emails from ADA, for example {example}.",
+    "method": "Check it against my",
+    "methodEmail": "Email",
+    "methodPhone": "Phone",
+    "emailLabel": "Email on your ADA record",
+    "emailHint": "The email where ADA sends your exam and certificate messages.",
+    "phoneLabel": "Phone number on your ADA record",
+    "phoneHint": "The mobile number ADA has on file for you.",
+    "submit": "Sign in",
+    "submitting": "Checking…",
+    "note": "There is no password. ADA checks your Doula ID against the email or phone number on your record.",
+    "errors": {
+      "tooMany": "Too many attempts. Please try again later.",
+      "noMatch": "We could not match that Doula ID with that {method, select, email {email} other {phone number}}. Check both and try again.",
+      "failed": "Sign-in did not work. Please try again.",
+      "network": "Network error. Please try again."
+    }
+  },
+  "who": {
+    "title": "Who uses My ADA",
+    "doulasTitle": "Doulas and exam candidates",
+    "doulasBody": "See your credentials and exam results, and download your certificate PDFs.",
+    "familiesTitle": "Families, insurers and agencies",
+    "familiesBody": "You do not need an account to check a doula. The registry is free and public.",
+    "familiesLink": "Check the registry",
+    "staffTitle": "ADA staff",
+    "staffBody": "Staff do not use My ADA. Sign in to the admin with your staff account.",
+    "staffLink": "Staff sign-in"
+  },
+  "trouble": {
+    "title": "Can’t sign in?",
+    "idTitle": "Find your Doula ID",
+    "idBody": "It is on your ADA certificate and in emails from ADA.",
+    "methodTitle": "Try the other method",
+    "methodBody": "If your email does not match, choose Phone and enter the number on your record, or the other way round.",
+    "askTitle": "Ask ADA",
+    "askBody": "Email {email} or call {phone} with your full name and Doula ID.",
+    "photoAlt": "A trainee in the ADA Postpartum Doula Program practises a newborn hold with a training doll",
+    "photoCaption": "A trainee practises a newborn hold in the ADA Postpartum Doula Program. {date}."
+  },
+  "account": {
+    "title": "My ADA",
+    "doulaId": "Doula ID",
+    "signOut": "Sign out",
+    "sectionsLabel": "My ADA sections",
+    "nav": {
+      "standing": "Standing",
+      "credentials": "Credentials",
+      "results": "Exam results",
+      "profile": "Profile",
+      "help": "Help"
+    }
+  },
+  "standing": {
+    "title": "Your standing",
+    "goodStanding": "In good standing",
+    "status": {
+      "registered": "Registered",
+      "active": "Active",
+      "under_investigation": "Under review",
+      "suspended": "Suspended",
+      "revoked": "Revoked",
+      "retired": "Retired"
+    },
+    "bodyActive": "{count, plural, =0 {Your ADA record is active. No credential is active yet.} one {Your ADA record is active. You hold # active ADA credential.} other {Your ADA record is active. You hold # active ADA credentials.}}",
+    "bodyRegistered": "You are registered with ADA. Your credentials appear here once ADA issues them.",
+    "bodyReview": "ADA is reviewing your record. Contact ADA with any questions.",
+    "bodyOther": "Contact ADA about the status of your record.",
+    "statActive": "Active credentials",
+    "statValidThrough": "{credential} valid through",
+    "statCertificates": "Certificates on file",
+    "publicRecord": "View your public record"
+  },
+  "cta": {
+    "renew": "Renew before your {credential} credential expires on {date}.",
+    "renewAction": "How to renew"
+  },
+  "credentials": {
+    "title": "Your credentials and certificates",
+    "caption": "Credentials and certificates held by {name}, Doula ID {id}",
+    "colCredential": "Credential",
+    "colStatus": "Status",
+    "colCertificate": "Certificate no.*",
+    "colCertified": "Certified on",
+    "colValidThrough": "Valid through",
+    "colPdf": "Certificate PDF",
+    "footnote": "*Each number opens your public record in the ADA registry.",
+    "empty": "No credentials or certificates on file yet.",
+    "certificate": "Certificate",
+    "noCertificate": "None issued",
+    "noExpiry": "No expiry",
+    "download": "Download",
+    "downloadPdf": "Download certificate PDF",
+    "downloadLabel": "Download the {credential} certificate, {number}, as a PDF",
+    "noPdf": "No PDF yet",
+    "expired": "Expired",
+    "expiresInDays": "{days, plural, one {Expires in # day} other {Expires in # days}}",
+    "expiresInMonths": "{months, plural, one {Expires in # month} other {Expires in # months}}",
+    "expiresInYears": "Expires in {years, plural, one {# year} other {# years}}{months, plural, =0 {} one {, # month} other {, # months}}",
+    "underReview": "Under review",
+    "types": {
+      "postpartum": "Postpartum Doula",
+      "birth": "Birth Doula",
+      "ibclc_training": "IBCLC Training",
+      "cpr": "Infant CPR",
+      "trainer": "Trainer"
+    }
+  },
+  "results": {
+    "title": "Your exam results",
+    "empty": "No exam results on file.",
+    "session": "Session",
+    "score": "Score",
+    "outOf": "/ {max}",
+    "passed": "Passed",
+    "notPassed": "Not passed",
+    "show": "Show scores by area",
+    "hide": "Hide scores by area",
+    "caption": "Scores by area for exam session {session}",
+    "colArea": "Area",
+    "colScore": "Score",
+    "colAgainst": "Against the pass mark of {pass}",
+    "atOrAbove": "{pass} or above",
+    "below": "Below {pass}",
+    "areas": {
+      "score_terminology": "Terminology",
+      "score_newborn": "Newborn Care",
+      "score_lactation": "Lactation",
+      "score_emergency": "Emergency",
+      "score_practical": "Practical Skills",
+      "score_postpartum": "Postpartum Care",
+      "score_knowledge": "Knowledge",
+      "score_ethics": "Ethics"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "email": "Email",
+    "phone": "Phone",
+    "languages": "Languages",
+    "region": "Region",
+    "note": "To update your information, contact ADA at {email} or {phone}."
+  },
+  "help": {
+    "title": "Help",
+    "renew": "Renewing your credential",
+    "renewDesc": "Each credential is valid for {years, plural, one {# year} other {# years}}. Renewal is {fee}.",
+    "conduct": "Code of Conduct",
+    "conductDesc": "The standards every ADA-certified doula agrees to.",
+    "contact": "Contact ADA",
+    "contactDesc": "{email} · {phone}",
+    "registry": "Check the registry",
+    "registryDesc": "Look up an ADA doula by name, Doula ID or certificate number."
+  }
+}

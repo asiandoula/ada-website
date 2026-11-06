@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "title": "Support ADA",
+    "description": "Support the Asian Doula Alliance, a {taxCode} nonprofit. Gifts fund scholarships, multilingual training and the free public registry."
+  },
+  "breadcrumb": "Support ADA",
+  "title": "Support ADA",
+  "lead": "Asian Doula Alliance is a nonprofit. Gifts help candidates pay for training, keep course materials in the languages candidates speak, and keep the public registry free.",
+  "status": "{taxCode} public charity · EIN {ein}",
+  "taxNote": "Gifts are tax-deductible to the fullest extent permitted by U.S. law. Your emailed receipt shows ADA’s legal name, {legalName}, the EIN and the deductible portion of your gift.",
+  "give": {
+    "title": "Make a gift",
+    "body": "One-time or recurring gifts in any amount are welcome. You give on ADA’s secure Donorbox page, by card, bank (ACH), Apple Pay or Google Pay.",
+    "action": "Continue to Donorbox",
+    "actionLabel": "Continue to Donorbox to give (opens donorbox.org in a new tab)",
+    "newTab": "Opens donorbox.org in a new tab.",
+    "secure": "Payment is taken on Donorbox’s secure page. ADA does not store full card numbers.",
+    "receipt": "Your tax receipt is emailed shortly after your gift is processed."
+  },
+  "photo": {
+    "alt": "A trainee in the ADA Postpartum Doula Program sits holding a training doll",
+    "caption": "A trainee practises holding a newborn in the ADA Postpartum Doula Program. {date}."
+  },
+  "funds": {
+    "title": "What your gift funds",
+    "side": "For ADA’s IRS determination letter and financial documents, see Financials.",
+    "sideLink": "Financials",
+    "scholarships": "Scholarships",
+    "scholarshipsValue": "Need-based and merit-based scholarships that cover partial or full training and exam fees.",
+    "scholarshipsLink": "About scholarships",
+    "materials": "Multilingual materials",
+    "materialsValue": "Course and exam materials in the languages candidates speak: {languages}. The site itself is in English, <zhHans>简体</zhHans>, <zhHant>繁體</zhHant>, <ja>日本語</ja> and <ko>한국어</ko>.",
+    "registry": "The public registry",
+    "registryValue": "Families, insurers and agencies use it to check a doula’s ADA credential. It needs no account and costs nothing. <registry>Check the registry</registry>"
+  },
+  "ways": {
+    "title": "Other ways to give",
+    "side": "Questions about a gift or a receipt? Write to <mail>{email}</mail>.",
+    "check": "Check or wire",
+    "checkValue": "Write to <mail>{email}</mail> for the details.",
+    "daf": "Donor-advised fund",
+    "dafValue": "Recommend a grant to {legalName} dba {dba} through your donor-advised fund, using EIN {ein}.",
+    "employer": "Employer matching",
+    "employerValue": "Many employers match charitable gifts. Ask your HR team; ADA completes any verification forms your employer requires. <mail>Ask about a match</mail>"
+  }
+}

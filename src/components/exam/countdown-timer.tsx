@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface CountdownTimerProps {
@@ -8,9 +8,13 @@ interface CountdownTimerProps {
   startedAt?: string;
   onTimeUp?: () => void;
   warningAtSeconds?: number;
+  /** lg = the projected room clock (written exam) · sm = the task timer (practical exam). */
   size?: 'sm' | 'lg';
   paused?: boolean;
   playSound?: boolean; // play alert sound when time's up (default: true)
+  /** Shown when the time is up, in the exam language (e.g. <BiText main={ui.timeUp} …/>). Default 00:00. */
+  timeUpLabel?: ReactNode;
+  className?: string;
 }
 
 function computeInitialRemaining(durationSeconds: number, startedAt?: string): number {
@@ -31,6 +35,12 @@ export function formatTime(seconds: number): string {
   return [m, s].map((v) => String(v).padStart(2, '0')).join(':');
 }
 
+/** Type sizes shared with the static (not started) task-timer read-out. */
+export const TIMER_TEXT: Record<'sm' | 'lg', string> = {
+  lg: 'text-[clamp(88px,15vw,200px)] leading-none font-semibold tracking-[-0.02em]',
+  sm: 'text-[64px] leading-none font-light',
+};
+
 export function CountdownTimer({
   durationSeconds,
   startedAt,
@@ -39,6 +49,8 @@ export function CountdownTimer({
   size = 'lg',
   paused = false,
   playSound = true,
+  timeUpLabel,
+  className,
 }: CountdownTimerProps) {
   const [remaining, setRemaining] = useState<number>(() =>
     computeInitialRemaining(durationSeconds, startedAt)
@@ -100,13 +112,14 @@ export function CountdownTimer({
   if (isTimeUp) {
     return (
       <span
+        role="status"
         className={cn(
-          'text-red-500 font-semibold animate-pulse',
-          size === 'lg' && 'block text-center text-4xl font-dm-serif',
-          size === 'sm' && 'inline text-5xl font-outfit font-semibold'
+          'block font-semibold text-ada2-suspended motion-safe:animate-pulse',
+          size === 'lg' ? 'text-[clamp(48px,7vw,96px)] leading-[1.1]' : 'text-[40px] leading-[1.15]',
+          className
         )}
       >
-        Time&apos;s up! 时间到！
+        {timeUpLabel ?? formatTime(0)}
       </span>
     );
   }
@@ -114,12 +127,12 @@ export function CountdownTimer({
   return (
     <span
       className={cn(
-        'tabular-nums',
-        !isWarning && 'text-ada-navy',
-        isWarning && 'text-red-500 animate-pulse',
-        paused && 'opacity-50',
-        size === 'lg' && 'block text-center text-6xl font-dm-serif',
-        size === 'sm' && 'inline text-5xl font-outfit font-semibold'
+        'block [font-variant-numeric:tabular-nums_lining-nums]',
+        TIMER_TEXT[size],
+        !isWarning && !paused && 'text-ada2-ink',
+        isWarning && 'text-ada2-suspended motion-safe:animate-pulse',
+        paused && !isWarning && 'text-ada2-muted',
+        className
       )}
     >
       {formatTime(remaining)}

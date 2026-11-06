@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "title": "IBCLC 備考課程",
+    "description": "ADA 多語言 IBCLC 備考課程：提供 IBLCE 規定的 IBCLC 報考前提中的泌乳專項教育學時。ADA 負責備考培訓，IBCLC 由 IBLCE 頒發。"
+  },
+  "breadcrumb": "ADA IBCLC 泌乳備考課程",
+  "courseName": "ADA IBCLC 備考課程",
+  "courseDescription": "融合文化背景的多語言 IBCLC 備考與泌乳教育。",
+  "mailSubject": "IBCLC Exam Prep - Interest",
+  "hero": {
+    "title": "ADA IBCLC <nw>泌乳備考課程</nw>",
+    "line": "課程全年滾動開班。",
+    "findCohort": "查找課程",
+    "imageAlt": "ADA 講師對照牆上屏幕的幻燈片授課，面前的桌上擺放著訓練娃娃"
+  },
+  "req": {
+    "title": "<nw>結業記錄，</nw><nw>而非資格認證</nw>",
+    "intro": "本課程提供 IBLCE（國際泌乳顧問考試委員會）規定的、報考 IBCLC 考試前須完成的泌乳專項教育學時。<b>本課程不授予 IBCLC 資格。IBCLC 由 IBLCE 頒發。</b>",
+    "caption": "ADA 課程對應 IBLCE 的 IBCLC 報考要求的情況",
+    "colRequirement": "IBLCE 要求*",
+    "colAda": "ADA 課程的作用",
+    "health": {
+      "label": "健康科學教育",
+      "value": "不屬於本課程內容。"
+    },
+    "lactation": {
+      "label": "泌乳專項教育學時",
+      "value": "<b>涵蓋</b>，並提供 ADA 結業記錄**"
+    },
+    "clinical": {
+      "label": "督導下的臨床實踐學時",
+      "value": "ADA 不提供。ADA 可為您轉介合作的 IBCLC 培訓機構。"
+    },
+    "exam": {
+      "label": "IBCLC 考試與資格",
+      "value": "由 IBLCE 命題並頒發†"
+    },
+    "note1": "*以上僅為概要。報讀前請在 <link>iblce.org</link> 查看最新的報考資格要求。",
+    "note2": "**結業記錄名稱為“IBCLC 培訓合格”（IBCLC Training Qualified），僅記錄完成教育學時。",
+    "note3": "†ADA 不負責 IBCLC 考試的命題、評分，也不頒發 IBCLC 資格。"
+  },
+  "cta": {
+    "title": "咨詢下一期 IBCLC 備考課程。"
+  },
+  "topics": {
+    "title": "課程內容",
+    "intro": "課程涵蓋 IBLCE 的各內容領域，包括解剖學、生理學、藥理學、病理學和臨床技能。課程還關注亞洲文化中的母乳餵養觀念與做法，從傳統月子飲食對奶量的影響，到家庭在母乳餵養決定中的互動。",
+    "listLabel": "IBCLC 備考課程主題",
+    "items": {
+      "anatomy": "乳房解剖與生理",
+      "oral": "嬰兒口腔解剖與吸吮機制",
+      "management": "出生後第一年的母乳餵養管理",
+      "challenges": "奶量不足、漲奶、乳腺炎與舌系帶過短",
+      "pharmacology": "藥理學與哺乳期用藥",
+      "special": "早產兒、多胞胎與新生兒重症監護",
+      "cultural": "泌乳支持中的文化因素",
+      "strategies": "應試策略與練習題"
+    }
+  },
+  "who": {
+    "title": "適合人群與授課方式",
+    "intro": "專為正在為 IBCLC 做準備的在職導樂和醫療專業人員設計。",
+    "imageAlt": "ADA 培訓課上，一名學員在護理台上為訓練娃娃穿衣",
+    "caption": "ADA 培訓課上，一名學員為訓練娃娃穿衣。{date}。",
+    "openTo": {
+      "label": "報讀對象",
+      "value": "符合 IBLCE 報考資格要求的任何人，包括護士及其他醫療專業人員。"
+    },
+    "credential": {
+      "label": "ADA 認證",
+      "value": "不要求。無需先成為 ADA 認證導樂。"
+    },
+    "format": {
+      "label": "授課方式",
+      "value": "自主學習結合直播授課。"
+    },
+    "cohorts": {
+      "label": "開班",
+      "value": "全年滾動開班。"
+    },
+    "languages": {
+      "label": "語言"
+    },
+    "tuition": {
+      "label": "學費",
+      "value": "如需瞭解當期學費和分期付款方式，請發送郵件至 <mail>{email}</mail>。"
+    }
+  },
+  "record": {
+    "title": "您的結業記錄",
+    "intro": "完成課程後，ADA 會將您的結業情況記入 ADA 認證註冊名錄，任何人都可以查詢。",
+    "record": {
+      "label": "記錄",
+      "value": "IBCLC 培訓合格（IBCLC Training Qualified）"
+    },
+    "status": {
+      "label": "狀態",
+      "note": "永久記錄，不會過期。"
+    },
+    "isNot": {
+      "label": "不代表",
+      "value": "IBCLC 資格。IBCLC 由 IBLCE 頒發。"
+    }
+  },
+  "faq": {
+    "what": {
+      "q": "什麼是 IBCLC？",
+      "a": "國際認證泌乳顧問（IBCLC）是面向泌乳照護專業人員的資格認證，由國際泌乳顧問考試委員會（IBLCE）頒發。取得該資格需要接受專門教育、積累臨床經驗，並通過 IBLCE 的考試。"
+    },
+    "issue": {
+      "q": "ADA 頒發 IBCLC 資格嗎？",
+      "a": "不頒發。IBCLC 由 IBLCE 頒發。ADA 提供備考課程，涵蓋報考 IBCLC 所需的泌乳專項教育學時，並記錄您的結業情況。"
+    },
+    "adaFirst": {
+      "q": "我需要先成為 ADA 認證導樂嗎？",
+      "a": "不需要。符合 IBLCE 報考資格要求的任何人都可以報讀，包括護士及其他醫療專業人員。"
+    },
+    "next": {
+      "q": "下一期課程什麼時候開課？",
+      "a": "課程全年滾動開班。請發送郵件給我們，加入下一期課程名單。我們會告知開課日期、學費，並可根據需要為您轉介合作的 IBCLC 培訓機構，以完成臨床實踐學時。"
+    },
+    "cost": {
+      "q": "費用是多少？",
+      "a": "如需瞭解當期學費、分期付款方式，以及 ADA 不提供的臨床實踐學時的轉介，請發送郵件至 <mail>{email}</mail>。"
+    }
+  }
+}

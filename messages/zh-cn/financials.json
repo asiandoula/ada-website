@@ -1,0 +1,87 @@
+{
+  "metaTitle": "财务信息",
+  "metaDescription": "Asian Doula Alliance 的税务身份与 EIN、申报文件与治理文件、捐款用途，以及如何索取各项文件。",
+  "breadcrumbAbout": "关于 ADA",
+  "breadcrumb": "财务信息",
+  "title": "财务信息",
+  "lead": "ADA 的税务身份、申报文件与治理文件，以及捐款的用途。",
+  "cta": {
+    "title": "如需任何文件，请联系财务办公室。",
+    "action": "索取文件",
+    "subject": "索取文件"
+  },
+  "toc": {
+    "title": "本页内容",
+    "taxStatus": "税务身份",
+    "documents": "{form990} 及其他文件",
+    "donations": "捐款用途",
+    "accountability": "问责"
+  },
+  "tax": {
+    "title": "税务身份",
+    "legalName": "法定名称",
+    "legalNameValue": "{legalName}，以 {dba} 的名义开展业务",
+    "organization": "机构类型",
+    "organizationValue": "加利福尼亚州非营利公益法人，{year}年注册成立。",
+    "status": "税务身份",
+    "statusValue": "{taxCode} 公共慈善机构。",
+    "ein": "EIN（联邦税号）",
+    "donations": "捐款",
+    "donationsValue": "在法律允许的最大范围内可抵税。",
+    "office": "办公地址"
+  },
+  "documents": {
+    "title": "{form990} 及其他文件",
+    "intro": "以下各项文件均可应要求向财务办公室索取。",
+    "caption": "ADA 报税申报文件与治理文件及其状态",
+    "colDocument": "文件",
+    "colCovers": "涵盖范围",
+    "colStatus": "状态*",
+    "colAction": "索取",
+    "form990Covers": "{year} 财年，首份申报",
+    "irs": "美国国税局（IRS）免税资格认定函",
+    "irsCovers": "{taxCode} 免税资格",
+    "charitableTrusts": "加州慈善信托登记处申报文件",
+    "charitableTrustsCovers": "向加州总检察长提交的申报文件",
+    "bylaws": "章程",
+    "bylawsCovers": "现行版本",
+    "coi": "利益冲突政策",
+    "coiCovers": "每年审阅",
+    "onRequest": "应要求提供",
+    "request": "索取",
+    "requestLabel": "索取：{document}",
+    "requestSubject": "索取文件：{document}",
+    "noteRequests": "*发送至 <mail></mail> 的索取请求将在 {days} 个工作日内答复。",
+    "note990": "†{form990} 是免税机构每年向美国国税局（IRS）提交的信息申报表。"
+  },
+  "donations": {
+    "title": "捐款用途",
+    "intro": "捐款用于支持 ADA 在以下领域的非营利工作。ADA 在其 {form990} 中如实申报各项支出。",
+    "certification": "认证与认证注册名录",
+    "certificationValue": "多语言考试开发、考官培训、培训课程维护，以及公开的认证查询注册名录。",
+    "scholarships": "奖学金",
+    "scholarshipsValue": "为来自资源匮乏亚裔社区的导乐提供需求型补助，用于支付考试和培训费用。",
+    "community": "社区项目",
+    "communityValue": "工作坊、家庭教育活动、合作推广，以及产后照护资料的翻译。",
+    "administration": "行政管理",
+    "administrationValue": "技术、会计、法律和保险。董事均为志愿者，不领取报酬。",
+    "privacy": "捐款人隐私",
+    "privacyValue": "ADA 绝不出售或与其他组织共享捐款人名单。",
+    "link": "我要捐款"
+  },
+  "accountability": {
+    "title": "问责",
+    "review": "每年对财务状况和项目成效进行独立审查",
+    "form990": "每年提交一份公开的 {form990}，自 {year} 财年起",
+    "board": "志愿董事会：所有董事均不领取报酬",
+    "coi": "书面利益冲突政策，每年审阅一次",
+    "policies": "举报人保护政策和文件保存政策"
+  },
+  "more": {
+    "title": "更多关于 ADA",
+    "boardLabel": "董事会与选举",
+    "boardBody": "董事会的 {count} 位志愿董事，以及认证导乐如何选举董事会。",
+    "governanceLabel": "治理",
+    "governanceBody": "ADA 负责和不负责的事项、法律实体及相关文件。"
+  }
+}

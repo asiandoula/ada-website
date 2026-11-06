@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "title": "Questions and answers",
+    "description": "Short answers about ADA certification, the exam, renewal, the registry and ADA training."
+  },
+  "breadcrumb": {
+    "help": "Help and contact",
+    "current": "Questions and answers"
+  },
+  "intro": {
+    "title": "Questions and answers",
+    "lead": "Short answers for candidates, certified doulas, families, insurers and agencies, and training providers.",
+    "note": "Fees and dates are on the program and exam pages."
+  },
+  "onThisPage": "On this page",
+  "cta": {
+    "title": "Write to ADA if your question is not answered here.",
+    "action": "Contact ADA"
+  },
+  "lang": {
+    "en": "English",
+    "zh": "Chinese (Mandarin)",
+    "ja": "Japanese",
+    "ko": "Korean"
+  },
+  "modules": {
+    "postpartumRecovery": "Postpartum Recovery",
+    "newbornCare": "Newborn Care",
+    "breastfeedingSupport": "Breastfeeding Support",
+    "culturalTraditions": "Cultural Traditions",
+    "nutrition": "Nutrition & Meal Planning",
+    "emotionalWellness": "Emotional Wellness",
+    "safetyEmergency": "Safety & Emergency"
+  },
+  "groups": {
+    "candidates": "Candidates",
+    "doulas": "Certified doulas",
+    "families": "Families",
+    "insurers": "Insurers and agencies",
+    "providers": "Training providers",
+    "about": "About ADA"
+  },
+  "candidates": {
+    "becomeQ": "How do I become ADA-certified?",
+    "becomeA": "Enroll in an ADA-approved training program and complete it. Then pass the ADA certification exam: a {written}-minute written exam and a {practical}-minute one-on-one practical exam. The pass mark is {pass}/{max}.",
+    "becomeLink": "How to get certified",
+    "experienceQ": "Do I need doula experience first?",
+    "experienceA": "No. No prior doula experience is required. ADA-approved training programs are designed to take you from beginner to exam-ready.",
+    "costQ": "What does it cost?",
+    "costA": "The ADA exam fee is {fee}. Training costs vary by program, and scholarships are available for qualified candidates.",
+    "costLink": "Exam dates",
+    "scholarshipQ": "Are there scholarships?",
+    "scholarshipA": "Yes. ADA offers need-based and merit-based scholarships to make doula training accessible. Scholarships cover partial or full training and exam fees.",
+    "scholarshipLink": "Scholarships",
+    "languagesQ": "Which languages are the training and the exam in?",
+    "languagesA": "The training and the exam are available in {languages}. Say which language you prefer when you register for the exam.",
+    "trainingQ": "How long is the training?",
+    "trainingA": "The intensive program runs {days} days and covers the {modules} modules of the ADA curriculum. Infant CPR from the American Red Cross is included.",
+    "trainingLink": "ADA education",
+    "registerQ": "How do I register for the exam?",
+    "registerA": "After you complete an ADA-approved training program, your training provider guides you through exam registration. You can also contact ADA directly at {email} or {phone}.",
+    "locationQ": "Where is the exam held?",
+    "locationA": "Exams are held at {location}. Additional exam locations may be available depending on demand. Contact ADA for the latest schedule.",
+    "resultsQ": "When will I get my result?",
+    "resultsA": "By email in about {days} business days. If you pass, ADA issues your certificate and your record appears in the ADA registry. If you do not pass, you can retake the exam after at least {wait} days. The retake fee is {retakeFee}.",
+    "resultsLink": "Exam day and ID"
+  },
+  "doulas": {
+    "validityQ": "How long is ADA certification valid?",
+    "validityA": "ADA certification is valid for {years, plural, one {# year} other {# years}}. After that, you renew it to stay certified.",
+    "renewQ": "How do I renew?",
+    "renewA": "Renewal costs {fee} and requires either professional reference letters or passing a recertification exam.",
+    "renewLink": "Renew your certification",
+    "checkedQ": "How do families and insurers check my certification?",
+    "checkedA": "They search the ADA registry by certificate number, Doula ID or name. The record shows your status on the day they look.",
+    "checkedLink": "Check the registry"
+  },
+  "families": {
+    "checkQ": "How do I check a doula’s certification?",
+    "checkA": "Search the ADA registry by certificate number, Doula ID or name. It is free and needs no account. The record shows the doula’s status on the day you look.",
+    "checkLink": "Check the registry",
+    "findQ": "How do I find an ADA-certified doula?",
+    "findA": "Visit the Find a Doula page. You can also write to ADA at {email}.",
+    "findLink": "Find a Doula",
+    "insuranceQ": "Does insurance cover an ADA-certified doula?",
+    "insuranceA": "Insurers and benefit platforms that recognize ADA certification include {insurers}. Coverage depends on your plan, so contact your insurance provider for details.",
+    "concernQ": "How do I report a concern about a doula?",
+    "concernA": "Report it to ADA at {email}. Violations of the ADA Code of Conduct may result in disciplinary action, including suspension or revocation of ADA certification.",
+    "concernLink": "Read the Code of Conduct"
+  },
+  "insurers": {
+    "sourceQ": "What is the primary source for an ADA credential?",
+    "sourceA": "The live record in the ADA registry. A paper certificate shows status only on the day it was issued, so check the registry when you need the current status.",
+    "sourceLink": "Verify a credential",
+    "recognitionQ": "Which insurers recognize ADA certification?",
+    "recognitionA": "Insurers and benefit platforms that recognize ADA certification include {insurers}.",
+    "bulkQ": "Can we check many doulas at once?",
+    "bulkA": "Not on the website. Check each certificate number or Doula ID on Verify, or write to ADA at {email}."
+  },
+  "providers": {
+    "approvedQ": "How does an organization become an Approved Training Provider?",
+    "approvedA": "Write to ADA at {email} and tell ADA about your organization and your program.",
+    "approvedLink": "ADA education",
+    "registrationQ": "Who registers our students for the exam?",
+    "registrationA": "After a student completes an ADA-approved training program, the training provider guides them through exam registration. Students can also contact ADA directly.",
+    "curriculumQ": "What does the ADA curriculum cover?",
+    "curriculumA": "{count} modules: {modules}."
+  },
+  "about": {
+    "whatQ": "What is the Asian Doula Alliance?",
+    "whatA": "The Asian Doula Alliance (ADA) is a {taxCode} public charity dedicated to setting standards in postpartum care through culturally integrated training, certification and multilingual support. ADA is a dba of {legalName}, a California nonprofit public benefit corporation.",
+    "differentQ": "How is ADA different from other doula certification organizations?",
+    "differentA": "ADA bridges traditional Asian postpartum practices, such as zuo yuezi (sitting the month), herbal care and dietary customs, with modern evidence-based care. The ADA exam is available in {languages}, and insurers and benefit platforms including {insurers} recognize ADA certification.",
+    "onlyAsianQ": "Is ADA only for Asian doulas?",
+    "onlyAsianA": "No. ADA welcomes doulas of all backgrounds. ADA certification emphasizes cultural competency and multilingual skills, but any caregiver committed to culturally sensitive postpartum care can pursue it."
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "title": "查询认证",
+    "description": "在 ADA 认证注册名录中查询 ADA 认证导乐，查看每项认证的当前状态。免费查询，无需注册账户。"
+  },
+  "breadcrumb": "查询认证",
+  "title": "查询认证",
+  "lede": "查询 ADA 认证导乐。认证注册名录显示每项认证的当前状态；纸质证书仅显示颁发当日的状态。",
+  "search": {
+    "heading": "查询认证注册名录",
+    "by": "查询方式",
+    "byNumber": "证书编号或导乐编号",
+    "byName": "姓名",
+    "numberLabel": "证书编号或导乐编号",
+    "numberPlaceholder": "例如 ADA-PD-YYYY-NNNN",
+    "lookUp": "查询",
+    "numberEmpty": "请输入证书编号或导乐编号。",
+    "numberTooShort": "请至少输入 {min} 个字符。",
+    "detected": {
+      "doula_id": "导乐编号",
+      "cert_number": "证书编号",
+      "code_or_name": "证书验证码",
+      "name": "姓名"
+    },
+    "howTo": "如何识读 ADA 编号",
+    "segRegistry": "注册名录",
+    "segCredential": "认证类别",
+    "segYear": "颁发年份",
+    "segSequence": "序号",
+    "prefixes": "PD = 产后导乐 · BD = 分娩导乐 · TR = 培训师",
+    "doulaIdPattern": "#YY-NNNN",
+    "doulaIdFormat": "导乐编号，由 ADA 为每位导乐分配，以 # 开头。",
+    "exactOpens": "输入完整编号将直接打开对应记录。",
+    "family": "姓",
+    "given": "名",
+    "familyEmpty": "请输入姓。按姓名查询须同时填写姓和名。",
+    "givenEmpty": "请输入名。按姓名查询须同时填写姓和名。",
+    "nameTooShort": "姓名请至少输入 {min} 个字符。",
+    "nameHint": "可输入英文姓名，或中文、日文、韩文书写的姓名，例如 <zh>陈美琳</zh> 或 <ko>박지우</ko>。",
+    "submitName": "查询认证注册名录",
+    "terms": "免费查询，无需注册账户。仅限核实认证之用，不得用于建立联系人或营销名单。",
+    "searchError": "暂时无法连接认证注册名录，请稍后再试。"
+  },
+  "results": {
+    "heading": "共 {count} 条记录与“{query}”相符",
+    "retrieved": "查询时间 {when}",
+    "scope": "显示范围：ADA 认证导乐，包括已过期、已暂停及已撤销的记录。尚未通过考试的考生不在列表中。",
+    "caption": "相符的 ADA 记录",
+    "colName": "姓名",
+    "colId": "导乐编号",
+    "colCredential": "认证",
+    "colRecord": "记录",
+    "viewRecord": "查看记录",
+    "viewRecordFor": "查看 {name} 的记录",
+    "noCredential": "暂无在案认证，请查看证书历史记录。",
+    "showingAll": "共显示 {count} 条记录。",
+    "showingFirst": "仅显示前 {count} 条。请输入更完整的姓名以缩小范围。",
+    "notRight": "不是您要找的人？请<link>按证书编号查询</link>（编号印于证书上）。"
+  },
+  "notFound": {
+    "heading": "认证注册名录中没有与“{query}”相符的 ADA 记录。",
+    "body": "可能是姓名或编号的写法不同，也可能该人士并非 ADA 认证导乐。",
+    "tipNative": "请尝试输入中文、日文或韩文书写的姓名。",
+    "tipNumber": "请使用证书上印有的证书编号，格式为 <id>{pattern}</id>。",
+    "tipHash": "请检查连字符，以及导乐编号开头的 #。",
+    "contact": "仍然找不到？请发送电子邮件至 <link>{email}</link> 联系认证注册名录。",
+    "byName": "改为按姓名查询",
+    "byNumber": "改为按证书编号查询"
+  },
+  "rail": {
+    "heading": "关于认证查询",
+    "legendTitle": "各状态的含义",
+    "legend": {
+      "active": "在所示日期之前符合 ADA 认证要求。",
+      "expired": "曾获认证，但未在到期日前续期，目前不具备 ADA 认证。此状态不属于纪律处分。",
+      "suspended": "依据《职业行为守则》，在一定期限内不具备 ADA 认证。",
+      "revoked": "依据《职业行为守则》撤销认证。",
+      "retired": "资格良好状态下退出，不再以 ADA 认证身份执业。",
+      "superseded": "已被新证书取代的旧证书，通常因续期而产生。请查看持证人的当前资格状态。",
+      "withdrawn": "已失效的证书。请查看持证人的当前资格状态。"
+    },
+    "realTitle": "如何辨别真实记录",
+    "real1": "真实的 ADA 记录仅发布于 <b>{host}/verify</b>，请核对浏览器地址栏。",
+    "real2": "每份记录均显示查询的日期和时间。没有该信息的截图或 PDF 不能作为证明。",
+    "real3": "查询记录免费，无需注册账户。",
+    "reportTitle": "举报问题",
+    "reportBody": "如您对某位 ADA 认证导乐有任何疑虑，请告知我们。所有举报均予以保密处理。",
+    "reportLink": "举报问题"
+  }
+}

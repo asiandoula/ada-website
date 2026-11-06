@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "title": "认证",
+    "description": "ADA 产后导乐认证、分娩导乐认证及 IBCLC 备考课程：各项认证的取得方式、考试、费用与续证。"
+  },
+  "shared": {
+    "candidates": "考生",
+    "questions": "常见问题",
+    "notAnswered": "未找到答案？请发送邮件至 <link>{email}</link>。",
+    "forCandidates": "考生资源",
+    "checkRegistry": "查询认证注册名录",
+    "validity": "{years} 年",
+    "renewEvery": "{years, plural, =1 {每年一次} other {每 # 年一次}}",
+    "register": "报名考试",
+    "findCourse": "查找 ADA 课程",
+    "examDates": "考试日期",
+    "examDay": "考试当天与身份证件",
+    "askCohort": "咨询下一期课程",
+    "languages": {
+      "en": "英语",
+      "zh": "中文（普通话）",
+      "ja": "日语",
+      "ko": "韩语"
+    },
+    "links": {
+      "postpartum": {
+        "label": "ADA 产后导乐",
+        "description": "{count} 个培训模块，之后参加 ADA 笔试与实操考试。"
+      },
+      "birth": {
+        "label": "ADA 分娩导乐",
+        "description": "在分娩过程中为家庭提供支持。课程全年滚动开班。"
+      },
+      "ibclc": {
+        "label": "IBCLC 泌乳备考课程",
+        "description": "提供 IBLCE 规定的 IBCLC 报考前提中的泌乳专项教育学时。"
+      },
+      "handbook": {
+        "label": "考生手册",
+        "description": "报考资格、考试、费用、成绩与续证，一页说明。"
+      },
+      "examDates": {
+        "label": "考试日期",
+        "description": "即将举行的产后导乐与分娩导乐考试场次。"
+      },
+      "examDay": {
+        "label": "考试当天与身份证件要求",
+        "description": "需要携带的物品，以及各部分考试的进行方式。"
+      },
+      "renew": {
+        "label": "认证续期",
+        "description": "续证的要求与费用。"
+      },
+      "education": {
+        "label": "ADA 教育",
+        "description": "ADA 认可的培训项目，以及产后导乐项目的 {count} 个培训模块。"
+      },
+      "courses": {
+        "label": "课程与开班信息",
+        "description": "ADA 认可的培训项目，可线下或线上参加。"
+      },
+      "scholarships": {
+        "label": "奖学金",
+        "description": "为符合条件的学员提供培训费与考试费资助。"
+      },
+      "portal": {
+        "label": "我的 ADA",
+        "description": "您的认证记录、证书与考试记录。"
+      },
+      "conduct": {
+        "label": "职业行为准则",
+        "description": "每位 ADA 认证导乐都应遵守的职业与道德标准。"
+      },
+      "verify": {
+        "label": "查询导乐认证",
+        "description": "每项 ADA 认证都在 ADA 认证注册名录中有公开记录。"
+      },
+      "contact": {
+        "label": "联系 ADA",
+        "description": "咨询开班、费用或临床实践学时的转介。"
+      }
+    }
+  },
+  "hero": {
+    "title": "取得 ADA 认证。",
+    "line": "提供{languages}培训与考试。",
+    "imageAlt": "考生在间隔排列的考桌前参加 ADA 笔试，监考人员在旁监考"
+  },
+  "credentials": {
+    "title": "ADA 颁发的认证",
+    "intro": "下列每项认证均在 ADA 认证注册名录中有公开记录，任何人都可以查询。",
+    "caption": "ADA 颁发的认证：编号前缀、取得方式、有效期与续证",
+    "colCredential": "认证",
+    "colPrefix": "编号前缀",
+    "colHow": "取得方式",
+    "colPeriod": "有效期*",
+    "colRenewal": "续证**",
+    "noPrefix": "无编号前缀",
+    "postpartum": {
+      "name": "产后导乐",
+      "how": "完成 ADA 认可的培训项目，然后参加 {written} 分钟笔试和 {practical} 分钟实操考试。合格分数为 {pass}/{max}。考试费 {fee}。"
+    },
+    "birth": {
+      "name": "分娩导乐",
+      "how": "参加 ADA 分娩导乐课程，然后参加笔试和实操考试。"
+    },
+    "ibclc": {
+      "name": "IBCLC 培训合格†",
+      "how": "ADA 的 IBCLC 备考课程：提供 IBLCE 规定的 IBCLC 报考前提中的泌乳专项教育学时。",
+      "period": "永久记录",
+      "renewal": "无需续证"
+    },
+    "noteStanding": "*依据《ADA 职业行为准则》，认证可被暂停或撤销。",
+    "noteRenewal": "**续证费为 {fee}。",
+    "noteIbclc": "†此为结业记录，并非 IBCLC 资格。IBCLC 由 IBLCE 颁发。",
+    "lookup": "在认证注册名录中查询任何认证"
+  },
+  "steps": {
+    "title": "认证流程",
+    "intro": "取得 ADA 产后导乐认证的步骤：完成 ADA 认可的培训项目，通过 ADA 考试，获得公开记录，之后按期续证。",
+    "imageAlt": "ADA 考官为考生的实操考试评分，墙上屏幕正在计时",
+    "caption": "实操考试：考官在计时期间评分。{date}。",
+    "s1": {
+      "title": "完成 ADA 认可的培训项目",
+      "body": "产后导乐项目通常为期 <b>{days} 天</b>的集中培训，可线下或线上参加。培训费用因机构而异。<link>查找 ADA 课程</link>"
+    },
+    "s2": {
+      "title": "报名考试场次",
+      "bodyNext": "下一场考试定于 <d>{date}</d>。考试费为 <b>{fee}</b>，交付 ADA。<link>考试日期</link>",
+      "bodyNone": "考试场次在每期培训结束后安排。考试费为 <b>{fee}</b>，交付 ADA。<link>考试日期</link>"
+    },
+    "s3": {
+      "title": "参加笔试和实操考试",
+      "body": "<b>{written} 分钟</b>笔试和 <b>{practical} 分钟</b>一对一实操考试。请携带有效的政府签发带照片身份证件。<link>考试当天与身份证件</link>"
+    },
+    "s4": {
+      "title": "获得考试结果和公开记录",
+      "body": "考试结果约在 {days} 个工作日内通过电子邮件发送。合格分数为 <b>{pass}/{max}</b>。通过后，ADA 将为您颁发证书，并将您列入 ADA 认证注册名录，任何人都可以查询。<registry>查询认证注册名录</registry>"
+    },
+    "s5": {
+      "title": "按期续证，保持资格良好",
+      "body": "证书有效期为 {validity}。续证费为 <b>{fee}</b>，可通过专业推荐信或重新认证考试完成续证。<link>认证续期</link>"
+    }
+  },
+  "links": {
+    "title": "考生与认证导乐资源"
+  }
+}

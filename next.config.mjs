@@ -21,9 +21,15 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // 2026-11 redesign: retired pages fold into their new homes
+      { source: '/certifications/postpartum-doula/steps', destination: '/certifications/postpartum-doula', permanent: true },
+      { source: '/certifications/postpartum-doula/training', destination: '/programs', permanent: true },
+      { source: '/for-families/how-we-train', destination: '/programs', permanent: true },
+      { source: '/about-us/history', destination: '/about-us', permanent: true },
+      { source: '/about-us/mission-value', destination: '/about-us', permanent: true },
       {
         source: '/become-a-doula/steps-to-certification',
-        destination: '/certifications/postpartum-doula/steps',
+        destination: '/certifications/postpartum-doula',
         permanent: true,
       },
       {
@@ -38,7 +44,7 @@ const nextConfig = {
       },
       {
         source: '/become-a-doula/find-a-doula-training',
-        destination: '/certifications/postpartum-doula/training',
+        destination: '/programs',
         permanent: true,
       },
       {

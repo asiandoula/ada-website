@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "Exam day and ID requirements",
+    "description": "What to do before your ADA exam, what to bring, and what happens on the day and after it."
+  },
+  "breadcrumb": {
+    "candidates": "Candidates",
+    "current": "Exam day and ID requirements"
+  },
+  "title": "Exam day and ID requirements",
+  "lead": "What to do before your ADA exam, what to bring, and what happens on the day and after it.",
+  "scope": "For the ADA Postpartum Doula exam.",
+  "toc": {
+    "title": "On this page",
+    "before": "Before exam day",
+    "onTheDay": "On exam day",
+    "after": "After the exam"
+  },
+  "before": {
+    "title": "Before exam day",
+    "register": "Registration",
+    "registerValue": "Register through your training provider, or with ADA directly at <mail>{email}</mail> or <tel>{phone}</tel>.",
+    "date": "Exam date",
+    "dateNoSession": "Exam sessions are scheduled after each training cohort. <link>Exam dates</link>",
+    "dateLink": "All exam dates",
+    "language": "Exam language",
+    "languageValue": "Choose {languages} when you register. All exam materials are provided in the language you choose."
+  },
+  "onTheDay": {
+    "title": "On exam day",
+    "imageAlt": "A candidate bathes a training doll in the practical exam while an examiner watches, with a timer on the screen behind",
+    "caption": "A practical exam, with the timer on the screen. August 2024.",
+    "bring": "Bring",
+    "bringValue": "A valid government-issued photo ID.",
+    "where": "Where",
+    "written": "Written exam",
+    "writtenValue": "{minutes} minutes.",
+    "practical": "Practical exam",
+    "practicalValue": "{minutes} minutes, one-on-one with an ADA examiner."
+  },
+  "after": {
+    "title": "After the exam",
+    "results": "Results",
+    "resultsValue": "By email in about {days} business days.",
+    "score": "Your score",
+    "scoreValue": "A score out of {max} and a level: Highly Proficient ({high} and above), Proficient ({pass}–{highBelow}) or Not Proficient (below {pass}). The pass mark is {pass}/{max}.",
+    "pass": "If you pass",
+    "passValue": "ADA issues your certificate, valid for {years, plural, one {# year} other {# years}}, and publishes your record in the ADA registry. <link>Check the registry</link>",
+    "fail": "If you do not pass",
+    "failValue": "You can register for a later date, {days} days or more after your attempt. The retake fee is {fee}. <link>Exam dates</link>"
+  },
+  "cta": {
+    "title": "Write to ADA with any question about your exam.",
+    "action": "Contact ADA"
+  },
+  "languages": {
+    "en": "English",
+    "zh": "Chinese (Mandarin)",
+    "ja": "Japanese",
+    "ko": "Korean"
+  }
+}

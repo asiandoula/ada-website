@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "helpTitle": "Help and contact",
+    "helpDescription": "Contact the Asian Doula Alliance, find the page that answers your question, or send a message.",
+    "contactTitle": "Contact ADA",
+    "contactDescription": "Send the Asian Doula Alliance a message, or write or call using ADA’s contact details."
+  },
+  "breadcrumb": {
+    "help": "Help and contact",
+    "contact": "Contact ADA"
+  },
+  "intro": {
+    "helpTitle": "Help and contact",
+    "helpLead": "Ask ADA about certification, exams, renewals, the registry or the ADA curriculum. Start with the page that covers your question, or send a message below.",
+    "contactTitle": "Contact ADA",
+    "contactLead": "Send ADA a message with the form below, or write or call using the details further down the page."
+  },
+  "details": {
+    "title": "Contact ADA",
+    "titleOther": "Other ways to reach ADA",
+    "email": "Email",
+    "phone": "Phone",
+    "mail": "Mail",
+    "mailValue": "{legalName} dba {dba}, {address}"
+  },
+  "routing": {
+    "title": "Where to start",
+    "intro": "Many answers are on the site already. Try the page in the last column first.",
+    "label": "Topics ADA can help with, and the page to read first",
+    "colTopic": "Topic",
+    "colAbout": "Write about",
+    "colStart": "Start here",
+    "certification": "Certification",
+    "certificationAbout": "Eligibility, the ADA Postpartum Doula Program, certificates and corrections to your record",
+    "certificationLink": "How to get certified",
+    "registry": "Registry and verification",
+    "registryAbout": "Checking a doula’s ADA credential, and a record that looks wrong",
+    "registryLink": "Verify a credential",
+    "exams": "Exams",
+    "examsAbout": "Registration, exam dates, testing accommodations, rescheduling and results",
+    "examsLinkDates": "Exam dates",
+    "examsLinkDay": "Exam day and ID",
+    "renewals": "Renewals",
+    "renewalsAbout": "Renewal pathways, the renewal fee and a credential that has lapsed",
+    "renewalsLink": "Renew your certification",
+    "providers": "Training providers",
+    "providersAbout": "Becoming an Approved Training Provider or an ADA Certified Trainer, and teaching the ADA curriculum",
+    "providersLink": "ADA education",
+    "note": "To write to ADA about any of these, use <mail>{email}</mail> and name the topic in the subject line."
+  },
+  "form": {
+    "title": "Send a message",
+    "intro": "If your question is about your own record, put your Doula ID in the message so ADA can find it. This form is not for complaints about a doula: use <concern>Report a concern</concern> instead.",
+    "required": "Phone and topic are optional. All other fields are required.",
+    "name": "Your name",
+    "email": "Email",
+    "phone": "Phone (optional)",
+    "phoneConsent": "Optional. By sharing your mobile number, you agree that Asian Doula Alliance may text you about your inquiry and, if you are a doula in our network, about client matches, work orders and scheduling. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of any service. See our <privacy>Privacy Policy</privacy> and <terms>Terms of Service</terms>.",
+    "topic": "Topic (optional)",
+    "topicPlaceholder": "Choose a topic",
+    "topicBecoming": "Becoming a doula",
+    "topicHiring": "Hiring a doula",
+    "topicTraining": "Training programs",
+    "topicOther": "Other",
+    "message": "Message",
+    "messageHint": "Do not send ID documents, card numbers or medical details here.",
+    "consent": "By sending this form, you agree that ADA may use these details to answer you. See the <privacy>Privacy policy</privacy>.",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "replyNote": "ADA replies to the email address you give.",
+    "sent": "Message sent. ADA will reply to the email address you gave.",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "errorTooMany": "Too many messages have been sent from this connection. Please try again later.",
+    "errorInvalid": "Please check your name, email and message, then try again.",
+    "errorNetwork": "Could not send your message. Check your connection and try again, or email {email}."
+  },
+  "concern": {
+    "title": "Report a concern",
+    "body": "If you have a concern about an ADA-certified doula, report it to ADA at <mail>{email}</mail>. Violations of the ADA Code of Conduct may result in disciplinary action, including suspension or revocation of ADA certification.",
+    "link": "Read the Code of Conduct"
+  },
+  "security": {
+    "title": "If someone says they are from ADA",
+    "messages": "Texts and email",
+    "messagesValue": "If a message asks you to send your ID, a password or a card number, do not reply. Forward it to <mail>{email}</mail>.",
+    "exams": "Exams",
+    "examsValue": "ADA does not sell exam questions, scores or certificates. If someone offers you any of them, tell ADA.",
+    "certificates": "Certificates",
+    "certificatesValue": "A certificate is real only if the registry has a matching record. <registry>Check the registry</registry>"
+  },
+  "more": {
+    "title": "More help",
+    "faq": "Questions and answers",
+    "faqDescription": "For candidates, certified doulas, families, insurers and agencies, and training providers.",
+    "examDay": "Exam day and ID",
+    "examDayDescription": "What to bring and what happens after the exam.",
+    "privacy": "Privacy policy",
+    "privacyDescription": "What ADA collects, how ADA uses it and the choices you have.",
+    "donate": "Support ADA",
+    "donateDescription": "Give to scholarships, multilingual course materials and the public registry."
+  },
+  "cta": {
+    "title": "Most questions already have an answer in the FAQ.",
+    "action": "Read the FAQ"
+  }
+}

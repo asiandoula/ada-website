@@ -1,122 +1,21 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { HelpContact } from './_kit/help-contact';
 
-export const metadata: Metadata = {
-  title: 'Support',
-  description:
-    'Find answers, get in touch, or explore resources from the Asian Doula Alliance.',
-  openGraph: {
-    title: 'Support | Asian Doula Alliance',
-    description:
-      'Find answers, get in touch, or explore resources from the Asian Doula Alliance.',
-    images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
-  },
-};
-
-export default async function SupportPage() {
-  const t = await getTranslations('support');
-
-  const cards = [
-    {
-      title: t('faqCardTitle'),
-      description: t('faqCardDescription'),
-      href: '/support/faq',
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('support.meta');
+  return {
+    title: t('helpTitle'),
+    description: t('helpDescription'),
+    alternates: { canonical: '/support' },
+    openGraph: {
+      title: `${t('helpTitle')} | Asian Doula Alliance`,
+      description: t('helpDescription'),
+      images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
     },
-    {
-      title: t('contactCardTitle'),
-      description: t('contactCardDescription'),
-      href: '/support/contact',
-    },
-    {
-      title: t('articlesCardTitle'),
-      description: t('articlesCardDescription'),
-      href: '/articles',
-    },
-  ];
+  };
+}
 
-  return (
-    <> 
-      {/* Hero */}
-      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            {t('supportTitle')}
-          </span>
-          <h1 className="mt-3 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            {t('supportHeroHeading')}
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            {t('supportHeroDescription')}
-          </p>
-        </div>
-      </section>
-
-      {/* Entry Cards */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {cards.map((card) => (
-              <Link
-                key={card.href}
-                href={card.href}
-                className="bg-ada-off-white rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300 group"
-              >
-                <h2 className="font-dm-serif text-xl text-ada-navy">
-                  {card.title}
-                </h2>
-                <p className="mt-3 font-outfit text-sm text-ada-navy/60 leading-relaxed">
-                  {card.description}
-                </p>
-                <span className="mt-4 inline-flex items-center gap-1 font-outfit text-sm font-medium text-ada-purple">
-                  {t('learnMore')}{' '}
-                  <span className="group-hover:translate-x-1 transition-transform">
-                    &rarr;
-                  </span>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Contact */}
-      <section className="bg-ada-off-white py-16">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16">
-            <div className="text-center">
-              <p className="text-xs font-outfit uppercase tracking-wider text-ada-navy/40">
-                Phone
-              </p>
-              <a
-                href="tel:+17142026501"
-                className="mt-1 block font-outfit text-ada-navy hover:text-ada-purple transition-colors"
-              >
-                (714) 202-6501
-              </a>
-            </div>
-            <div className="text-center">
-              <p className="text-xs font-outfit uppercase tracking-wider text-ada-navy/40">
-                Email
-              </p>
-              <a
-                href="mailto:contact@asiandoula.org"
-                className="mt-1 block font-outfit text-ada-navy hover:text-ada-purple transition-colors"
-              >
-                contact@asiandoula.org
-              </a>
-            </div>
-            <div className="text-center">
-              <p className="text-xs font-outfit uppercase tracking-wider text-ada-navy/40">
-                Hours
-              </p>
-              <p className="mt-1 font-outfit text-ada-navy">
-                Mon&ndash;Fri 10AM&ndash;5PM PST
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
+export default function SupportPage() {
+  return <HelpContact variant="help" />;
 }

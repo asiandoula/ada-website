@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "title": "考試"
+  },
+  "chrome": {
+    "product": "ADA 考試",
+    "homeLabel": "ADA 考試首頁",
+    "session": "考場",
+    "language": "語言",
+    "privacy": "隱私政策"
+  },
+  "start": {
+    "eyebrow": "ADA 產後導樂考試",
+    "title": "選擇考試語言",
+    "lead": "筆試說明將以您選擇的語言顯示。實操考核以中文進行，並附英文標題。",
+    "languagesLabel": "考試語言",
+    "partsTitle": "然後選擇考試部分",
+    "partsLead": "先進行筆試；實操考試為一對一進行。",
+    "partWritten": "{part} · {minutes} 分鐘",
+    "partPractical": "{part} · {minutes} 分鐘，一對一",
+    "checkInTitle": "請先向監考老師簽到",
+    "idTitle": "出示證件",
+    "idBody": "請攜帶有效的政府簽發帶照片身份證件。",
+    "startTitle": "等待開考",
+    "startBody": "選擇語言和筆試後請等待。監考老師開始考試後，考試計時隨即開始。",
+    "helpTitle": "需要幫助",
+    "helpBody": "請舉手示意。",
+    "examDayLink": "考試當天與證件要求"
+  },
+  "parts": {
+    "eyebrow": "ADA 產後導樂考試",
+    "title": "選擇考試部分",
+    "writtenMeta": "{minutes} 分鐘",
+    "practicalMeta": "{count} 項考核 · {minutes} 分鐘，一對一",
+    "open": "進入",
+    "changeLanguage": "更換語言"
+  },
+  "controls": {
+    "fullscreen": "全屏",
+    "exitFullscreen": "退出全屏",
+    "pause": "暫停",
+    "resume": "繼續",
+    "previous": "上一步",
+    "next": "下一步",
+    "finish": "完成",
+    "invalidLanguage": "無效的語言。"
+  },
+  "audio": {
+    "title": "語音說明",
+    "play": "播放",
+    "pause": "暫停",
+    "playing": "正在播放",
+    "progress": "播放進度"
+  },
+  "written": {
+    "rulesTitle": "考場規則",
+    "ofMinutes": "共 {minutes} 分鐘"
+  },
+  "practical": {
+    "instructionsTitle": "實操考試流程說明",
+    "intro": "考試共 {count} 項考核模塊。每項考核模塊有具體的考核內容和時間限制。請按照提示依次完成。",
+    "itemsTitle": "考核模塊",
+    "steps": "{count} 步",
+    "stepFallback": "步驟 {number}",
+    "scoring": "評分",
+    "scoreFor": "模塊 {number}：{title}",
+    "pass": "通過",
+    "fail": "未通過",
+    "notScored": "未評分",
+    "notes": "備注（可選）",
+    "taskTimer": "考核計時",
+    "notStarted": "未開始",
+    "timerNote": "語音結束後，考核計時自動開始。",
+    "startTimer": "開始計時",
+    "reset": "重置",
+    "now": "進行中",
+    "proctorControls": "監考操作",
+    "summaryTitle": "評分匯總",
+    "summaryCount": "已評分 {scored} / {total} 個模塊，通過 {passed} 個",
+    "restart": "重新開始"
+  },
+  "lookup": {
+    "title": "考試成績查詢",
+    "lead": "請確認您的姓名以查看考試成績。",
+    "examId": "考試 ID",
+    "fullName": "全名",
+    "fullNameHint": "請輸入與您 ADA 檔案一致的全名。",
+    "submit": "查看我的成績",
+    "submitting": "正在核驗…",
+    "errors": {
+      "notFound": "未找到考試記錄，請檢查考試 ID。",
+      "tooMany": "嘗試次數過多，請稍後再試。",
+      "noMatch": "姓名與我們的記錄不符，請重試。",
+      "failed": "核驗未成功，請重試。",
+      "network": "網絡錯誤，請檢查網絡連接後重試。"
+    }
+  },
+  "result": {
+    "metaTitle": "考試成績",
+    "eyebrow": "ADA {credential}考試 · 筆試與實操",
+    "title": "您的考試成績",
+    "candidate": "考生",
+    "doulaId": "導樂 ID",
+    "examDate": "考試日期",
+    "session": "考場",
+    "notRecorded": "未記錄",
+    "overall": "總分",
+    "outOf": "/ {max}",
+    "passed": "通過",
+    "notPassed": "未通過",
+    "passMark": "及格線為 {pass} 分（滿分 {max} 分）。",
+    "whereFalls": "您的成績所處等級",
+    "scaleLabel": "您的總分為 {score} 分，分數範圍為 {min}–{max} 分",
+    "yourLevel": "您的等級",
+    "levels": {
+      "highlyProficient": "高度熟練",
+      "proficient": "熟練",
+      "notProficient": "未達熟練"
+    },
+    "levelRange": {
+      "highlyProficient": "{min} 分及以上",
+      "proficient": "{min}–{max} 分",
+      "notProficient": "低於 {pass} 分"
+    },
+    "areasTitle": "各領域成績",
+    "areasLead": "各領域滿分均為 {max} 分。每條進度條上的竪線標示 {pass} 分。",
+    "areasCaption": "各領域成績，對照及格線 {pass} 分",
+    "colArea": "領域",
+    "colScore": "成績",
+    "colAgainst": "對照及格線 {pass} 分",
+    "atOrAbove": "{pass} 分及以上",
+    "below": "低於 {pass} 分",
+    "overallRow": "總分",
+    "areas": {
+      "score_terminology": "專業術語",
+      "score_newborn": "新生兒護理",
+      "score_lactation": "哺乳指導",
+      "score_emergency": "應急處理",
+      "score_practical": "實操技能",
+      "score_postpartum": "產後護理",
+      "score_knowledge": "專業知識",
+      "score_ethics": "職業倫理"
+    },
+    "nextTitle": "後續事項",
+    "recordTitle": "您的公開記錄",
+    "recordBody": "家庭、機構和保險公司可在 ADA 認證註冊名錄中免費查詢您的認證，無需賬戶。您的考試成績不會在名錄中顯示。",
+    "recordAction": "打開您的公開記錄",
+    "renewTitle": "保持資格良好",
+    "renewBody": "每項 ADA 認證有效期為 {years} 年，續期費用為 {fee}。",
+    "renewLink": "瞭解如何續期",
+    "retakeTitle": "重新參加考試",
+    "retakeBody": "本次考試 {days} 天後即可重新參加考試，重考費用為 {fee}。",
+    "questionsTitle": "如有疑問",
+    "questionsBody": "請發送郵件至 {email} 或致電 {phone}。",
+    "cta": "您的考試成績與認證可在 My ADA 中查看。",
+    "ctaAction": "前往 My ADA",
+    "photoAlt": "ADA 產後導樂課程的一名學員正在用教學娃娃練習新生兒抱姿",
+    "photoCaption": "ADA 產後導樂課程的學員。{date}。",
+    "noneTitle": "未找到考試成績",
+    "noneBody": "未找到此 ID 的考試記錄。如果您近期剛參加考試，成績可能仍在處理中。",
+    "types": {
+      "postpartum": "產後導樂",
+      "birth": "分娩導樂"
+    }
+  }
+}

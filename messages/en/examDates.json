@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "Exam dates",
+    "description": "Upcoming ADA exam dates, how to register, the exam fees, and when results arrive."
+  },
+  "breadcrumb": {
+    "candidates": "Candidates",
+    "current": "Exam dates"
+  },
+  "title": "Exam dates",
+  "lead": "Upcoming ADA exam dates, how to register, the exam fees, and when results arrive.",
+  "postpartum": {
+    "title": "Postpartum Doula exam",
+    "intro": "Exams are held at {address}. The exam fee is {fee}, paid to ADA."
+  },
+  "before": {
+    "title": "Before you register",
+    "who": "Who can register",
+    "whoValue": "Candidates who have completed an ADA-approved training program.",
+    "how": "How",
+    "howValue": "Your training provider guides you through registration. You can also register with ADA directly at <mail>{email}</mail> or <tel>{phone}</tel>.",
+    "language": "Exam language",
+    "languageValue": "Choose {languages} when you register. All exam materials are provided in the language you choose.",
+    "id": "Your ID",
+    "idValue": "Bring a valid government-issued photo ID on exam day. <link>Exam day and ID</link>"
+  },
+  "birth": {
+    "title": "Birth Doula exam",
+    "dates": "Exam dates",
+    "datesValue": "Birth Doula exam sessions are scheduled after each training cohort. <link>Contact us for the next date.</link>",
+    "program": "The program",
+    "programValue": "The ADA Birth Doula Program runs cohorts on a rolling basis. <link>ADA Birth Doula</link>"
+  },
+  "fees": {
+    "title": "Fees",
+    "intro": "Exam fees are paid to ADA. Fees for the training program are set by each training provider.",
+    "caption": "ADA exam fees",
+    "fee": "Fee",
+    "amount": "Amount",
+    "when": "When it applies",
+    "exam": "Exam registration",
+    "examWhen": "Covers the written and the practical exam. Paid to ADA.",
+    "retake": "Retake",
+    "retakeWhen": "Each new attempt after a result below {pass}/{max}. Wait at least {days} days after your attempt.",
+    "renewal": "Renewal",
+    "renewalWhen": "Renews your certificate for {years, plural, one {another year} other {another # years}}.",
+    "assistance": "Fee assistance",
+    "assistanceAmount": "Partial or full",
+    "assistanceWhen": "Need-based and merit-based scholarships for training and exam fees. <link>Scholarships</link>"
+  },
+  "results": {
+    "title": "Results",
+    "when": "When",
+    "whenValue": "By email, about {days} business days after your exam.",
+    "result": "Your result",
+    "resultValue": "A score out of {max} and a level: Highly Proficient ({high} and above), Proficient ({pass}–{highBelow}) or Not Proficient (below {pass}). The pass mark is {pass}/{max}.",
+    "pass": "If you pass",
+    "passValue": "ADA issues your certificate, valid for {years, plural, one {# year} other {# years}}, with a number in the form <b>{format}</b>, and publishes your record in the ADA registry.",
+    "fail": "If you do not pass",
+    "failValue": "Register for a later date. The retake fee is {fee}, and you can retake the exam {days} days or more after your attempt.",
+    "lookup": "Look up a record in the registry"
+  },
+  "policies": {
+    "title": "Policies and help",
+    "examDay": "Exam day and ID requirements",
+    "examDayDescription": "What to bring, where the exam is held, and how each part runs.",
+    "conduct": "Code of Conduct",
+    "conductDescription": "The principles every ADA-certified doula agrees to.",
+    "contact": "Questions about registration",
+    "contactDescription": "Write to ADA about registering or about your exam date."
+  },
+  "cta": {
+    "noSession": "Ask ADA about the next exam date.",
+    "register": "Register for the exam",
+    "contact": "Contact ADA"
+  },
+  "languages": {
+    "en": "English",
+    "zh": "Chinese (Mandarin)",
+    "ja": "Japanese",
+    "ko": "Korean"
+  }
+}

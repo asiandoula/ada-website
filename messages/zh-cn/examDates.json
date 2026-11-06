@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "考试日期",
+    "description": "即将举行的 ADA 考试日期、报名方式、考试费用以及成绩公布时间。"
+  },
+  "breadcrumb": {
+    "candidates": "考生",
+    "current": "考试日期"
+  },
+  "title": "考试日期",
+  "lead": "即将举行的 ADA 考试日期、报名方式、考试费用以及成绩公布时间。",
+  "postpartum": {
+    "title": "产后导乐考试",
+    "intro": "考试地点为 {address}。考试费为 {fee}，向 ADA 缴纳。"
+  },
+  "before": {
+    "title": "报名前须知",
+    "who": "报名资格",
+    "whoValue": "已完成 ADA 核准培训课程的学员。",
+    "how": "报名方式",
+    "howValue": "您的培训机构会指导您完成报名。您也可以直接联系 ADA 报名：<mail>{email}</mail> 或 <tel>{phone}</tel>。",
+    "language": "考试语言",
+    "languageValue": "报名时可选择{languages}。全部考试材料均以您所选的语言提供。",
+    "id": "身份证件",
+    "idValue": "考试当天请携带政府签发的有效带照片身份证件。<link>考试当天须知与身份证件</link>"
+  },
+  "birth": {
+    "title": "分娩导乐考试",
+    "dates": "考试日期",
+    "datesValue": "分娩导乐考试场次在每期培训结束后安排。<link>请联系我们了解下一场考试的日期。</link>",
+    "program": "课程",
+    "programValue": "ADA 分娩导乐课程滚动开班。<link>ADA 分娩导乐</link>"
+  },
+  "fees": {
+    "title": "费用",
+    "intro": "考试费向 ADA 缴纳。培训课程的费用由各培训机构自行确定。",
+    "caption": "ADA 考试费用",
+    "fee": "费用项目",
+    "amount": "金额",
+    "when": "适用情况",
+    "exam": "考试报名",
+    "examWhen": "包含笔试与实操考试。向 ADA 缴纳。",
+    "retake": "重考",
+    "retakeWhen": "成绩低于 {pass}/{max} 后，每次重新参加考试时收取。须在上次考试后至少等待 {days} 天。",
+    "renewal": "认证续期",
+    "renewalWhen": "续期后，证书有效期再延长 {years} 年。",
+    "assistance": "费用资助",
+    "assistanceAmount": "部分或全额",
+    "assistanceWhen": "提供基于经济需要和基于成绩的奖学金，可用于培训费和考试费。<link>奖学金</link>"
+  },
+  "results": {
+    "title": "考试成绩",
+    "when": "公布时间",
+    "whenValue": "考试后约 {days} 个工作日内以电子邮件发送。",
+    "result": "成绩内容",
+    "resultValue": "满分 {max} 分的成绩及等级：高度熟练（Highly Proficient，{high} 分及以上）、熟练（Proficient，{pass}–{highBelow} 分）或未达熟练（Not Proficient，{pass} 分以下）。合格分数为 {pass}/{max}。",
+    "pass": "通过考试后",
+    "passValue": "ADA 将为您颁发有效期 {years} 年的证书，证书编号格式为 <b>{format}</b>，并在 ADA 认证注册名录中公布您的记录。",
+    "fail": "未通过考试",
+    "failValue": "可报名参加之后的考试日期。重考费为 {fee}，须在上次考试后至少 {days} 天方可重考。",
+    "lookup": "在认证注册名录中查询记录"
+  },
+  "policies": {
+    "title": "考试政策与帮助",
+    "examDay": "考试当天须知与身份证件要求",
+    "examDayDescription": "须携带的物品、考试地点，以及考试各部分的进行方式。",
+    "conduct": "职业行为守则",
+    "conductDescription": "每一位 ADA 认证导乐均承诺遵守的原则。",
+    "contact": "报名咨询",
+    "contactDescription": "有关报名或考试日期的问题，请联系 ADA。"
+  },
+  "cta": {
+    "noSession": "请向 ADA 咨询下一场考试的日期。",
+    "register": "报名参加考试",
+    "contact": "联系 ADA"
+  },
+  "languages": {
+    "en": "英语",
+    "zh": "中文（普通话）",
+    "ja": "日语",
+    "ko": "韩语"
+  }
+}

@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { computeProficiencyLevel } from '@/lib/utils';
+import { computeProficiencyLevel, PASS_SCORE } from '@/lib/utils';
 
 export interface ExamRecord {
   id: string;
@@ -86,7 +86,7 @@ export function ExamEditDialog({ exam, onSaved, trigger }: ExamEditDialogProps) 
         score_postpartum: form.get('score_postpartum') ? Number(form.get('score_postpartum')) : null,
         score_knowledge: form.get('score_knowledge') ? Number(form.get('score_knowledge')) : null,
         score_ethics: form.get('score_ethics') ? Number(form.get('score_ethics')) : null,
-        passed: overall !== null ? overall >= 85 : null,
+        passed: overall !== null ? overall >= PASS_SCORE : null,
         proficiency_level: computeProficiencyLevel(overall),
         notes: form.get('notes') || null,
         updated_at: new Date().toISOString(),

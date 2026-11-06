@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "title": "记录 {id}",
+    "description": "ADA 认证注册名录记录 {id}：显示查询时的认证状态。",
+    "notFoundTitle": "未找到 ADA 记录"
+  },
+  "breadcrumb": "记录 {id}",
+  "breadcrumbNotFound": "未找到记录",
+  "credential": {
+    "postpartum": "产后导乐",
+    "birth": "分娩导乐",
+    "ibclc_training": "IBCLC 培训合格",
+    "trainer": "ADA 认证培训师",
+    "cpr": "婴儿心肺复苏（美国红十字会）"
+  },
+  "notCurrent": "非现行",
+  "link": {
+    "current": "这是持证人的现行证书。",
+    "expiredOn": "该证书对应的认证已于 {date} 过期。",
+    "expired": "该证书对应的认证已过期。",
+    "suspended": "该证书对应的认证已被暂停。",
+    "retired": "持证人已在资格良好状态下退出。",
+    "withdrawn": "该证书已失效。",
+    "replaced": "该证书已于 {date} 由 <id>{number}</id> 取代。持证人的当前资格状态见下文。",
+    "replacedNoCurrent": "该证书已被新证书取代。持证人的当前资格状态见下文。"
+  },
+  "holder": {
+    "title": "持证人",
+    "name": "认证姓名",
+    "native": "母语姓名",
+    "doulaId": "导乐编号"
+  },
+  "standing": {
+    "title": "资格状态",
+    "good": "资格良好",
+    "goodBody": "持有有效的 ADA 认证。目前没有生效中的暂停、撤销或其他公开处分。",
+    "retired": "资格良好，已退出",
+    "retiredBody": "不再以 ADA 认证身份执业。目前没有生效中的暂停、撤销或其他公开处分。",
+    "lapsed": "目前没有有效的 ADA 认证",
+    "lapsedOne": "曾获 ADA 认证。{credential}认证未在 {date} 前续期。此为行政性失效，不属于纪律处分。",
+    "lapsedOneNoDate": "曾获 ADA 认证。{credential}认证已过期。此为行政性失效，不属于纪律处分。",
+    "lapsedMany": "曾获 ADA 认证。下列认证均未续期。此为行政性失效，不属于纪律处分。",
+    "notGood": "未处于资格良好状态",
+    "suspendedBody": "{credentials}认证已被暂停。暂停期间不具备 ADA 认证。",
+    "revokedBodyOn": "{credentials}认证已于 {date} 被撤销。目前不具备 ADA 认证。",
+    "revokedBody": "{credentials}认证已被撤销。目前不具备 ADA 认证。",
+    "note": "资格状态依据下列全部认证及任何生效中的公开处分综合判定。",
+    "banner": {
+      "good": "资格良好",
+      "retired": "资格良好，已退出",
+      "lapsed": "目前没有有效认证",
+      "suspended": "未处于资格良好状态",
+      "revoked": "未处于资格良好状态"
+    }
+  },
+  "credentials": {
+    "title": "所持认证",
+    "colCredential": "认证类别",
+    "colStatus": "状态",
+    "colFirst": "首次认证日期",
+    "colEnds": "认证有效期至",
+    "colEnded": "认证有效期截至",
+    "colCert": "现行证书",
+    "noEnd": "无到期日",
+    "none": "无",
+    "empty": "暂无在案的 ADA 认证。证书历史记录见下文。",
+    "note": "此处仅列出 ADA 已颁发的认证。考试成绩、申请材料及正在审查中的投诉一律不予公开。"
+  },
+  "meaning": {
+    "activeThrough": "符合 ADA 认证要求，认证有效期至 {date}。",
+    "active": "符合 ADA 认证要求，无到期日。",
+    "expiredBy": "未在 {date} 前续期，目前不具备 ADA 认证。",
+    "expired": "目前不具备 ADA 认证。",
+    "suspended": "已暂停。暂停期间不具备 ADA 认证。",
+    "revokedOn": "已于 {date} 撤销，目前不具备 ADA 认证。",
+    "revoked": "已撤销，目前不具备 ADA 认证。",
+    "retired": "资格良好状态下退出，不再以 ADA 认证身份执业。"
+  },
+  "actions": {
+    "inEffect": "生效中",
+    "effective": "自 {date} 起生效",
+    "onFile": "在案",
+    "credential": "{credential}认证",
+    "withCredential": "{action}（{credential}）",
+    "separator": "；"
+  },
+  "history": {
+    "title": "证书历史记录",
+    "colNumber": "证书编号",
+    "colCredential": "认证类别",
+    "colIssued": "颁发日期",
+    "colStatus": "状态",
+    "replacedBy": "已于 {date} 由 <id>{number}</id> 取代。",
+    "replaced": "已被新证书取代。",
+    "withdrawnOn": "已于 {date} 失效。",
+    "issued": "颁发日期：{date}。",
+    "empty": "本记录暂无在案证书。"
+  },
+  "about": {
+    "title": "关于本记录",
+    "primary": "<b>原始来源：</b>本页面为 ADA 认证注册名录的官方记录，是 ADA 认证状态的原始来源。证书显示的是颁发当日的状态；本页面显示的是当前状态。",
+    "currency": "<b>时效性：</b>本记录反映上方所示查询时间的注册名录信息。记录变更由 ADA 注册名录工作人员录入。",
+    "use": "<b>用途：</b>仅供查询认证使用，不得用于招揽业务或编制营销名单。",
+    "corrections": "<b>更正：</b>如发现本记录有误，请联系 <link>{email}</link>。"
+  },
+  "another": {
+    "title": "查询其他认证"
+  },
+  "mobile": {
+    "savePdf": "保存为 PDF",
+    "aboutPrimary": "本页面为 ADA 认证状态的原始来源。纸质证书仅显示颁发当日的状态。",
+    "aboutUse": "仅供查询认证使用，不得用于建立联系人名单或营销名单。如需更正记录，请发送电子邮件至 <link>{email}</link>。",
+    "rowLabel": "{label}："
+  }
+}

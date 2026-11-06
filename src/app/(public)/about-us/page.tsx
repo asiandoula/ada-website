@@ -1,251 +1,230 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
+/**
+ * /about-us: Governance (canvas Governance.dc.html).
+ *
+ * Built from facts only: ENTITY/CONTACT/EXAM in src/lib/facts.ts and the live
+ * board, election and financials pages (about-us/_lib/governance.ts). The
+ * board's unconfirmed rows (effective date, entity number, officers,
+ * relationships, registry email) are left out, and the training partner is
+ * not named: the live site does not name it in any disclosure.
+ */
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import { ContactForm } from '@/components/public/contact-form';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { ArrowLink, Breadcrumb, CtaBox, inlineLinkClassName } from '@/components/site';
+import { CONTACT, ENTITY, EXAM } from '@/lib/facts';
+import { breadcrumbJsonLd } from '@/lib/json-ld';
+import { ContactBand } from '../for-families/_components/contact-band';
+import { BoardComposition, BoardTable } from './_components/board-table';
+import {
+  DataTable,
+  DocH3,
+  DocHead,
+  DocLayout,
+  DocNote,
+  DocSection,
+  DocText,
+  OnThisPage,
+  Rows,
+  RuledList,
+  tdClass,
+  thRowClass,
+} from './_components/doc';
+import { asLocale, formatMonth } from './_lib/format';
+import { DIRECTORS, ELECTION, FINANCE, PHOTO_MONTH, mailto } from './_lib/governance';
 
-export const metadata: Metadata = {
-  title: 'About Us',
-  description:
-    'Learn about the Asian Doula Alliance — a 501(c)(3) non-profit setting the standard in culturally integrated postpartum doula care and certification.',
-  openGraph: {
-    title: 'About Us | Asian Doula Alliance',
-    description:
-      'Learn about the Asian Doula Alliance — a 501(c)(3) non-profit setting the standard in culturally integrated postpartum doula care and certification.',
-    images: [{ url: '/images/hero.webp', width: 1200, height: 630 }],
-  },
-};
-
-const values = [
-  {
-    title: 'History',
-    href: '/about-us/history',
-    description:
-      'Providing honest and empathetic care to every family, fostering a foundation of respect and reliability.',
-  },
-  {
-    title: 'Mission & Values',
-    href: '/about-us/mission-value',
-    description:
-      'Committed to the highest standards through comprehensive training and culturally attuned support.',
-  },
-  {
-    title: 'Board of Directors',
-    href: '/about-us/board',
-    description:
-      'The volunteers who guide ADA\'s mission, set strategic direction, and ensure accountability.',
-  },
-  {
-    title: 'Partners & More',
-    href: null,
-    description:
-      'Harmonizing traditional Asian practices with modern care to serve families globally.',
-  },
-];
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('about');
+  return {
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+    alternates: { canonical: '/about-us' },
+    openGraph: { title: t('metaTitle'), description: t('metaDescription') },
+  };
+}
 
 export default async function AboutUsPage() {
-  const t = await getTranslations('aboutUs');
+  const t = await getTranslations('about');
+  const locale = asLocale(await getLocale());
+  const financeArgs = { form990: FINANCE.form990 };
+
+  const documents = [
+    { name: FINANCE.form990, status: t('documents.form990Status', { year: String(FINANCE.firstForm990FiscalYear) }) },
+    { name: t('documents.irs'), status: t('documents.onRequest') },
+    { name: t('documents.charitableTrusts'), status: t('documents.onRequest') },
+    { name: t('documents.bylaws'), status: t('documents.onRequest') },
+    { name: t('documents.coi'), status: t('documents.onRequest') },
+  ];
+
   return (
     <>
-      {/* Hero */}
-      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            {t('heroTitle')}
-          </span>
-          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            {t('heroTitle')}
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            {t('heroDescription')}
-          </p>
-          <div className="mt-8">
-            <Link
-              href="/certifications/postpartum-doula/steps"
-              className="inline-flex items-center px-4 py-2.5 text-sm bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
-            >
-              {t('getCertified')}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd([{ name: t('breadcrumb'), path: '/about-us' }])),
+        }}
+      />
+      <Breadcrumb items={[{ label: t('breadcrumb') }]} />
 
-      {/* Why ADA Matters */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex flex-col items-start gap-4 mb-10">
-            <span className="text-sm font-medium text-ada-purple bg-ada-purple/10 rounded-full px-3 py-1">
-              {t('whyADATitle')}
-            </span>
-            <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              {t('whyADATitle')}
-            </h2>
-          </div>
+      <DocLayout
+        aside={
+          <CtaBox
+            title={t('cta.title', financeArgs)}
+            action={{ href: mailto(FINANCE.email, t('cta.subject')), label: t('cta.action') }}
+          />
+        }
+      >
+        <DocHead title={t('title')} lead={t('lead')} />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-            {/* Left - text card */}
-            <div className="bg-ada-cream rounded-2xl p-8 flex flex-col justify-center">
-              <p className="text-lg text-ada-navy/80 italic leading-relaxed">
-                &ldquo;The Chinese Doula Incident In Bay Area&rdquo; &mdash; a doula was
-                caught on camera allegedly abusing a 2-day-old infant.
-              </p>
-              <p className="mt-4 text-sm text-ada-navy/60">
-                {t('source')}: Bay Area local news reports
-              </p>
-            </div>
+        <OnThisPage
+          title={t('toc.title')}
+          items={[
+            { href: '#does', label: t('toc.does') },
+            { href: '#entity', label: t('toc.entity') },
+            { href: '#board', label: t('toc.board') },
+            { href: '#independence', label: t('toc.independence') },
+            { href: '#documents', label: t('toc.documents') },
+            { href: '#contact', label: t('toc.contact') },
+          ]}
+        />
 
-            {/* Right - YouTube thumbnail */}
-            <a
-              href="https://www.youtube.com/watch?v=J8BAE_e3APw"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative block aspect-video rounded-2xl overflow-hidden bg-ada-navy/10 group"
-            >
-              <img
-                src={`https://img.youtube.com/vi/J8BAE_e3APw/maxresdefault.jpg`}
-                alt="Why ADA Matters - Video"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        <DocSection id="does" title={t('does.title')} gap="lg">
+          <figure className="m-0 flex flex-col gap-2.5">
+            <Image
+              src="/images/2026/ada-trainer-slide.jpg"
+              alt={t('does.photoAlt')}
+              width={1600}
+              height={1067}
+              sizes="(min-width: 1344px) 900px, (min-width: 1000px) 66vw, 100vw"
+              className="block w-full h-auto aspect-[2/1] object-cover"
+              style={{ objectPosition: '50% 45%' }}
+            />
+            <figcaption className="text-[14px] leading-5 text-ada2-muted">
+              {t('does.photoCaption', { date: formatMonth(PHOTO_MONTH, locale) })}
+            </figcaption>
+          </figure>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-x-12 gap-y-8 items-start">
+            <div className="flex flex-col gap-3 min-w-0">
+              <DocH3 id="does-yes">{t('does.doesTitle')}</DocH3>
+              <RuledList
+                labelledBy="does-yes"
+                items={[t('does.does1'), t('does.does2'), t('does.does3'), t('does.does4'), t('does.does5')]}
               />
-              {/* Play button overlay */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-ada-purple/90 flex items-center justify-center group-hover:bg-ada-purple transition-colors">
-                  <svg
-                    className="w-7 h-7 text-white ml-1"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <p className="text-lg text-ada-navy/70 leading-relaxed max-w-4xl">
-            {t('whyADADescription')}
-          </p>
-        </div>
-      </section>
-
-      {/* How ADA Can Help */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Left - image */}
-            <div className="relative w-full max-w-[454px] mx-auto lg:mx-0">
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden">
-                <Image
-                  src="/images/about-ada-help.webp"
-                  alt="How ADA Can Help"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 454px"
-                />
-              </div>
             </div>
-
-            {/* Right - content */}
-            <div className="flex flex-col justify-center">
-              <span className="text-sm font-medium text-ada-purple bg-ada-purple/10 rounded-full px-3 py-1 w-fit">
-                {t('howADATitle')}
-              </span>
-              <h2 className="mt-4 font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                {t('howADATitle')}
-              </h2>
-              <p className="mt-6 text-lg text-ada-navy/70 leading-relaxed">
-                {t('howADAHelpDescription')}
-              </p>
-              <div className="mt-8">
-                <Link
-                  href="/about-us/mission-value"
-                  className="inline-flex items-center px-4 py-2.5 text-sm bg-ada-purple text-white font-medium rounded-full hover:bg-ada-purple-hover transition-colors"
-                >
-                  {t('learnMore')}
-                </Link>
-              </div>
-
-              {/* Stats row */}
-              <div className="mt-10 flex flex-wrap gap-8">
-                <div>
-                  <p className="font-dm-serif text-2xl text-ada-navy">167+</p>
-                  <p className="text-sm text-ada-navy/60 mt-1">{t('doulasTrained')}</p>
-                </div>
-                <div>
-                  <p className="font-dm-serif text-2xl text-ada-navy">50+</p>
-                  <p className="text-sm text-ada-navy/60 mt-1">{t('workshopsAndSeminars')}</p>
-                </div>
-                <div>
-                  <p className="font-dm-serif text-2xl text-ada-navy">$2M+</p>
-                  <p className="text-sm text-ada-navy/60 mt-1">{t('scholarshipsSecured')}</p>
-                </div>
-              </div>
+            <div className="flex flex-col gap-3 min-w-0">
+              <DocH3 id="does-no">{t('does.doesNotTitle')}</DocH3>
+              <RuledList labelledBy="does-no" items={[t('does.doesNot1'), t('does.doesNot2')]} />
             </div>
           </div>
-        </div>
-      </section>
+          <ArrowLink href="/for-doulas/code-of-conduct" className="self-start">
+            {t('does.link')}
+          </ArrowLink>
+        </DocSection>
 
-      {/* Our Values */}
-      <section className="py-20 bg-ada-cream">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="text-center mb-14">
-            <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              {t('ourValuesTitle')}
-            </h2>
-            <p className="mt-4 text-lg text-ada-navy/70 max-w-2xl mx-auto">
-              {t('ourValuesDescription')}
-            </p>
-          </div>
+        <DocSection id="entity" title={t('entity.title')}>
+          <Rows
+            rows={[
+              { label: t('entity.legalName'), value: <span lang="en">{ENTITY.legalName}</span> },
+              { label: t('entity.operatingName'), value: t('entity.operatingNameValue', { dba: ENTITY.dba }) },
+              { label: t('entity.type'), value: t('entity.typeValue') },
+              { label: t('entity.incorporated'), value: t('entity.incorporatedValue', { year: String(FINANCE.incorporatedYear) }) },
+              { label: t('entity.taxStatus'), value: t('entity.taxStatusValue', { taxCode: ENTITY.taxCode }) },
+              { label: t('entity.ein'), value: ENTITY.ein },
+              { label: t('entity.address'), value: <span lang="en">{ENTITY.address.oneLine}</span> },
+            ]}
+          />
+        </DocSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value) => {
-              const inner = (
-                <div
-                  key={value.title}
-                  className="bg-white rounded-2xl p-8 min-h-[395px] flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300"
-                >
-                  <div>
-                    <h3 className="font-dm-serif text-xl text-ada-navy">
-                      {value.title}
-                    </h3>
-                    <p className="mt-4 text-ada-navy/70 leading-relaxed">
-                      {value.description}
-                    </p>
-                  </div>
-                  {value.href && (
-                    <span className="text-sm font-medium text-ada-purple mt-6 inline-flex items-center gap-1">
-                      {t('learnMoreLink')}
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </span>
-                  )}
-                </div>
-              );
+        <DocSection id="board" title={t('board.title')}>
+          <DocText>{t('board.intro', { count: DIRECTORS.length })}</DocText>
+          <BoardTable />
+          <BoardComposition
+            extra={[{ label: t('board.chosen'), value: t('board.chosenValue', { years: ELECTION.termYears }) }]}
+          />
+          <ArrowLink href="/about-us/board" className="self-start">
+            {t('board.link')}
+          </ArrowLink>
+        </DocSection>
 
-              return value.href ? (
-                <Link key={value.title} href={value.href} className="block">
-                  {inner}
-                </Link>
-              ) : (
-                <div key={value.title}>{inner}</div>
-              );
+        <DocSection id="independence" title={t('independence.title')}>
+          <DocText>{t('independence.body')}</DocText>
+          <Rows
+            rows={[
+              { label: t('independence.curriculum'), value: t('independence.curriculumValue') },
+              { label: t('independence.training'), value: t('independence.trainingValue') },
+              {
+                label: t('independence.exam'),
+                value: t('independence.examValue', { written: EXAM.writtenMinutes, practical: EXAM.practicalMinutes }),
+              },
+              { label: t('independence.registry'), value: t('independence.registryValue') },
+            ]}
+          />
+          <ArrowLink href="/verify" tone="registry" className="self-start">
+            {t('independence.link')}
+          </ArrowLink>
+        </DocSection>
+
+        <DocSection id="documents" title={t('documents.title')} gap="sm">
+          <DataTable
+            caption={t('documents.caption')}
+            minWidth={0}
+            columns={[{ label: t('documents.colDocument') }, { label: t('documents.colStatus') }]}
+          >
+            {documents.map((d, i) => (
+              <tr key={i}>
+                <th scope="row" className={thRowClass}>
+                  {d.name}
+                </th>
+                <td className={tdClass}>{d.status}</td>
+              </tr>
+            ))}
+          </DataTable>
+          <DocNote>
+            {t.rich('documents.note', {
+              days: FINANCE.replyBusinessDays,
+              mail: () => (
+                <a href={mailto(FINANCE.email)} className={inlineLinkClassName}>
+                  {FINANCE.email}
+                </a>
+              ),
             })}
-          </div>
-        </div>
-      </section>
+          </DocNote>
+          <ArrowLink href="/about-us/financials" className="self-start">
+            {t('documents.link')}
+          </ArrowLink>
+        </DocSection>
 
-      {/* Contact */}
-      <ContactForm />
+        <DocSection id="contact" title={t('contact.title')}>
+          <Rows
+            rows={[
+              {
+                label: t('contact.general'),
+                value: (
+                  <>
+                    <a href={mailto(CONTACT.email)} className={inlineLinkClassName}>
+                      {CONTACT.email}
+                    </a>
+                    {' · '}
+                    <a href={`tel:${CONTACT.phone.tel}`} className={`${inlineLinkClassName} whitespace-nowrap`}>
+                      {CONTACT.phone.display}
+                    </a>
+                  </>
+                ),
+              },
+              {
+                label: t('contact.finance'),
+                value: (
+                  <a href={mailto(FINANCE.email)} className={inlineLinkClassName}>
+                    {FINANCE.email}
+                  </a>
+                ),
+              },
+              { label: t('contact.mail'), value: <span lang="en">{`${ENTITY.dba}, ${ENTITY.address.oneLine}`}</span> },
+            ]}
+          />
+        </DocSection>
+      </DocLayout>
+
+      <ContactBand id="about-contact" />
     </>
   );
 }

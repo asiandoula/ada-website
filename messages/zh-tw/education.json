@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "title": "ADA 教育與課程",
+    "description": "ADA 課程體系：產後導樂課程及其 {count} 個模塊、繼續教育，以及如何成為培訓師或培訓機構講授 ADA 課程。"
+  },
+  "breadcrumb": "ADA 教育與課程",
+  "hero": {
+    "title": "學習 ADA 課程。",
+    "line": "課程由 ADA 編寫，由 ADA 認證培訓師和 ADA 認可的培訓機構講授，每一位考生都由 ADA 考核。",
+    "photoAlt": "一位 ADA 產後導樂課程講師在幻燈片旁授課，桌上擺放著訓練用娃娃和嬰兒浴盆",
+    "examDates": "查看考試日期",
+    "teach": "講授 ADA 課程"
+  },
+  "tiles": {
+    "title": "ADA 課程項目",
+    "postpartumTitle": "ADA 產後導樂課程",
+    "postpartumText": "ADA 的核心課程：共 {count} 個模塊，面授 {days} 天或在線學習，之後參加 ADA 考試。學費由培訓機構確定。",
+    "nextExam": "下一場考試",
+    "examFee": "考試費",
+    "examFeeValue": "{fee}，支付給 ADA",
+    "examDates": "查看考試日期",
+    "credential": "產後導樂認證",
+    "birthTitle": "ADA 分娩導樂",
+    "birthText": "為待產和分娩提供支持。課程班滾動開課。",
+    "birthProgram": "課程介紹",
+    "birthCohort": "咨詢下一期課程班",
+    "coursesTitle": "課程與繼續教育",
+    "coursesText": "IBCLC 備考課程、繼續教育和培訓師培訓，均由 ADA 認證培訓師講授。",
+    "ibclc": "IBCLC 備考課程",
+    "ce": "繼續教育",
+    "teach": "成為培訓師或培訓機構"
+  },
+  "how": {
+    "title": "ADA 教育如何運作",
+    "photoAlt": "在 ADA 產後導樂課程的新生兒護理課上，一名學員為訓練用娃娃穿衣",
+    "photoCaption": "用訓練娃娃上新生兒護理課。2024 年 8 月。",
+    "curriculum": "課程",
+    "curriculumText": "每個 ADA 項目的課程和標準均由 ADA 編寫並擁有。每一位培訓師和每一家培訓機構講授的內容都相同。",
+    "teaching": "教學",
+    "teachingText": "由 ADA 認證培訓師和 ADA 認可的培訓機構以面授和在線方式講授。ADA 每年審核每一家培訓機構。",
+    "examination": "考試",
+    "examinationText": "ADA 親自考核並評分每一位考生。培訓師、監考人員和培訓機構均不能更改分數。",
+    "registry": "認證註冊名錄",
+    "registryText": "通過考試的學員會獲得證書編號，並在 ADA 認證註冊名錄中留有注明日期的公開記錄。ADA 認證培訓師同樣有公開記錄。",
+    "languages": "授課語言",
+    "languagesText": "{languages}。",
+    "link": "近期考試日期"
+  },
+  "language": {
+    "en": "英語",
+    "zh": "普通話",
+    "ja": "日語",
+    "ko": "韓語"
+  },
+  "program": {
+    "title": "產後導樂課程",
+    "intro": "ADA 的核心課程，由 ADA 認證培訓師或 ADA 認可的培訓機構講授。開課前，每位學員需完成一組附有練習的簡短技能視頻。",
+    "modulesTitle": "{count} 個模塊",
+    "detailsTitle": "課程詳情",
+    "format": "形式",
+    "formatValue": "面授：{days} 天集中授課；或在線學習。",
+    "includes": "包含",
+    "includesValue": "美國紅十字會（{provider}）嬰兒心肺復蘇（CPR）",
+    "tuition": "學費",
+    "tuitionValue": "由培訓師或培訓機構確定",
+    "scholarships": "獎學金",
+    "scholarshipsValue": "基於經濟需要和基於成績兩類。<link>ADA 獎學金</link>",
+    "leadsTo": "結業後",
+    "leadsToValue": "參加 ADA 產後導樂考試。考試費為 {fee}，支付給 ADA。",
+    "ctaNext": "結業學員可報名參加{date}的考試。",
+    "ctaNone": "結業學員向 ADA 報名參加 ADA 考試。",
+    "ctaAction": "報名參加考試"
+  },
+  "module": {
+    "postpartumRecovery": "身體恢復的各個階段、傷口護理評估、生命體徵監測，以及溫養、促進血液循環等傳統恢復理念。",
+    "newbornCare": "奶瓶餵養與母乳餵養技巧、洗澡與臍帶護理、安全睡眠、安撫、拍嗝、換尿布、吐奶處理、俯臥練習以及發育里程碑記錄。",
+    "breastfeedingSupport": "含接與哺乳姿勢、乳房脹痛、奶量不足與乳頭疼痛、吸奶，以及何時轉介哺乳顧問。",
+    "culturalTraditions": "中國的<zh>坐月子</zh>、韓國的產後調理（<ko>산후조리</ko>）和日本的回娘家待產（<ja>里帰り</ja>），以及月子餐和家庭關係。",
+    "nutrition": "亞洲各地傳統的產後食譜，以及哺乳期飲食指導。",
+    "emotionalWellness": "識別圍產期抑鬱和焦慮、積極傾聽、病恥感、邊界設定以及轉介流程。",
+    "safetyEmergency": "嬰兒心肺復蘇（美國紅十字會）、窒息急救、應急流程、安全睡眠環境佈置，以及何時撥打 {emergency}、何時聯繫兒科醫生。"
+  },
+  "moduleTitle": {
+    "postpartumRecovery": "產後恢復",
+    "newbornCare": "新生兒護理",
+    "breastfeedingSupport": "母乳餵養支持",
+    "culturalTraditions": "文化傳統",
+    "nutrition": "營養與膳食規劃",
+    "emotionalWellness": "情緒健康",
+    "safetyEmergency": "安全與應急"
+  },
+  "dates": {
+    "title": "近期 ADA 考試日期",
+    "intro": "各培訓師或培訓機構自行安排課程日期，並負責報名和學費事宜。完成課程後，您需向 ADA 報名參加 ADA 考試。考試費為 {fee}。"
+  },
+  "teach": {
+    "title": "繼續教育與教學",
+    "ce": "繼續教育",
+    "ceText": "ADA 認可的工作坊和更新課程，幫助認證導樂及時掌握產後照護和安全規範的最新要求。",
+    "trainer": "ADA 認證培訓師",
+    "trainerText": "面向資格良好、經驗豐富並希望講授 ADA 課程的 ADA 認證導樂，須完成培訓師培訓。ADA 認證培訓師持有 TR 開頭的證書編號。",
+    "provider": "ADA 認可的培訓機構",
+    "providerText": "面向講授 ADA 課程的機構。ADA 每年依據其在場地設施、課程實施和講師資質方面的標準審核每一家培訓機構。",
+    "apply": "如需申請成為培訓師或培訓機構，請發送電子郵件至 <mail>{email}</mail>。",
+    "verifyTitle": "查詢 ADA 認證培訓師",
+    "verifyText": "每一位 ADA 認證培訓師都持有 ADA 證書，並在 ADA 認證註冊名錄中留有注明日期的公開記錄。可按姓名或證書編號查詢。",
+    "verifyAction": "查詢認證註冊名錄"
+  }
+}

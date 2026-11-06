@@ -1,0 +1,169 @@
+{
+  "meta": {
+    "titleSignedOut": "登录 My ADA | Asian Doula Alliance",
+    "titleSignedIn": "{name}：My ADA | Asian Doula Alliance"
+  },
+  "breadcrumb": {
+    "signIn": "登录 My ADA",
+    "account": "My ADA"
+  },
+  "signIn": {
+    "title": "登录 My ADA",
+    "lead": "供 ADA 导乐及考生使用。查看您的认证与考试成绩，并下载证书。",
+    "formTitle": "登录",
+    "doulaId": "导乐 ID",
+    "doulaIdHint": "可在您的 ADA 证书及 ADA 发送的邮件中找到，例如 {example}。",
+    "method": "验证方式",
+    "methodEmail": "邮箱",
+    "methodPhone": "手机号",
+    "emailLabel": "您在 ADA 登记的邮箱",
+    "emailHint": "ADA 向您发送考试及证书通知所用的邮箱。",
+    "phoneLabel": "您在 ADA 登记的手机号",
+    "phoneHint": "ADA 档案中登记的您的手机号码。",
+    "submit": "登录",
+    "submitting": "正在核验…",
+    "note": "无需密码。ADA 会将您的导乐 ID 与您档案中登记的邮箱或手机号进行核对。",
+    "errors": {
+      "tooMany": "尝试次数过多，请稍后再试。",
+      "noMatch": "该导乐 ID 与所填{method, select, email {邮箱} other {手机号}}不匹配。请检查后重试。",
+      "failed": "登录未成功，请重试。",
+      "network": "网络错误，请重试。"
+    }
+  },
+  "who": {
+    "title": "谁使用 My ADA",
+    "doulasTitle": "导乐及考生",
+    "doulasBody": "查看您的认证与考试成绩，并下载证书 PDF。",
+    "familiesTitle": "家庭、保险公司与机构",
+    "familiesBody": "查询导乐无需账户。认证注册名录免费公开。",
+    "familiesLink": "查询认证",
+    "staffTitle": "ADA 工作人员",
+    "staffBody": "工作人员不使用 My ADA，请使用员工账户登录管理后台。",
+    "staffLink": "员工登录"
+  },
+  "trouble": {
+    "title": "无法登录？",
+    "idTitle": "查找您的导乐 ID",
+    "idBody": "可在您的 ADA 证书及 ADA 发送的邮件中找到。",
+    "methodTitle": "改用另一种方式",
+    "methodBody": "如果邮箱不匹配，请选择“手机号”并输入档案中登记的号码，反之亦然。",
+    "askTitle": "联系 ADA",
+    "askBody": "请发送邮件至 {email} 或致电 {phone}，并提供您的全名和导乐 ID。",
+    "photoAlt": "ADA 产后导乐课程的一名学员正在用教学娃娃练习新生儿抱姿",
+    "photoCaption": "ADA 产后导乐课程的学员练习新生儿抱姿。{date}。"
+  },
+  "account": {
+    "title": "My ADA",
+    "doulaId": "导乐 ID",
+    "signOut": "退出登录",
+    "sectionsLabel": "My ADA 栏目",
+    "nav": {
+      "standing": "资格状态",
+      "credentials": "认证",
+      "results": "考试成绩",
+      "profile": "个人信息",
+      "help": "帮助"
+    }
+  },
+  "standing": {
+    "title": "您的资格状态",
+    "goodStanding": "资格良好",
+    "status": {
+      "registered": "已注册",
+      "active": "有效",
+      "under_investigation": "审核中",
+      "suspended": "已暂停",
+      "revoked": "已撤销",
+      "retired": "已退休"
+    },
+    "bodyActive": "{count, plural, =0 {您的 ADA 档案有效，目前尚无有效认证。} other {您的 ADA 档案有效，您持有 # 项有效的 ADA 认证。}}",
+    "bodyRegistered": "您已在 ADA 注册。ADA 颁发认证后，认证将显示在此处。",
+    "bodyReview": "ADA 正在审核您的档案。如有疑问，请联系 ADA。",
+    "bodyOther": "如需了解您的档案状态，请联系 ADA。",
+    "statActive": "有效认证",
+    "statValidThrough": "{credential}有效期至",
+    "statCertificates": "在档证书",
+    "publicRecord": "查看您的公开记录"
+  },
+  "cta": {
+    "renew": "请在您的{credential}认证于 {date} 到期前完成续期。",
+    "renewAction": "了解如何续期"
+  },
+  "credentials": {
+    "title": "您的认证与证书",
+    "caption": "{name}（导乐 ID {id}）持有的认证与证书",
+    "colCredential": "认证",
+    "colStatus": "状态",
+    "colCertificate": "证书编号*",
+    "colCertified": "认证日期",
+    "colValidThrough": "有效期至",
+    "colPdf": "证书 PDF",
+    "footnote": "*点击编号可在 ADA 认证注册名录中打开您的公开记录。",
+    "empty": "暂无认证或证书记录。",
+    "certificate": "证书",
+    "noCertificate": "尚未颁发",
+    "noExpiry": "长期有效",
+    "download": "下载",
+    "downloadPdf": "下载证书 PDF",
+    "downloadLabel": "下载{credential}证书 {number} 的 PDF",
+    "noPdf": "暂无 PDF",
+    "expired": "已过期",
+    "expiresInDays": "{days} 天后到期",
+    "expiresInMonths": "{months} 个月后到期",
+    "expiresInYears": "{years} 年{months, plural, =0 {} other {# 个月}}后到期",
+    "underReview": "审核中",
+    "types": {
+      "postpartum": "产后导乐",
+      "birth": "分娩导乐",
+      "ibclc_training": "IBCLC 培训",
+      "cpr": "婴儿心肺复苏",
+      "trainer": "培训师"
+    }
+  },
+  "results": {
+    "title": "您的考试成绩",
+    "empty": "暂无考试记录。",
+    "session": "考场",
+    "score": "成绩",
+    "outOf": "/ {max}",
+    "passed": "通过",
+    "notPassed": "未通过",
+    "show": "查看各领域成绩",
+    "hide": "收起各领域成绩",
+    "caption": "考场 {session} 的各领域成绩",
+    "colArea": "领域",
+    "colScore": "成绩",
+    "colAgainst": "对照及格线 {pass} 分",
+    "atOrAbove": "{pass} 分及以上",
+    "below": "低于 {pass} 分",
+    "areas": {
+      "score_terminology": "专业术语",
+      "score_newborn": "新生儿护理",
+      "score_lactation": "哺乳指导",
+      "score_emergency": "应急处理",
+      "score_practical": "实操技能",
+      "score_postpartum": "产后护理",
+      "score_knowledge": "专业知识",
+      "score_ethics": "职业伦理"
+    }
+  },
+  "profile": {
+    "title": "个人信息",
+    "email": "邮箱",
+    "phone": "手机号",
+    "languages": "语言",
+    "region": "地区",
+    "note": "如需更新信息，请联系 ADA：{email} 或 {phone}。"
+  },
+  "help": {
+    "title": "帮助",
+    "renew": "认证续期",
+    "renewDesc": "每项认证有效期为 {years} 年，续期费用为 {fee}。",
+    "conduct": "职业行为准则",
+    "conductDesc": "每位 ADA 认证导乐承诺遵守的职业标准。",
+    "contact": "联系 ADA",
+    "contactDesc": "{email} · {phone}",
+    "registry": "查询认证",
+    "registryDesc": "按姓名、导乐 ID 或证书编号查询 ADA 导乐。"
+  }
+}

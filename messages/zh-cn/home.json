@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "title": "Asian Doula Alliance：导乐认证、考试与 ADA 认证注册名录",
+    "description": "Asian Doula Alliance 为产后导乐与分娩导乐提供认证，组织 ADA 笔试与实操考试，并维护一份任何人都可免费查询的公开认证注册名录。"
+  },
+  "hero": {
+    "title": "成为 ADA 认证导乐。",
+    "line": "ADA 培训与考试提供{languages}版本。",
+    "imageAlt": "四位 ADA 产后导乐课程学员使用训练娃娃练习怀抱新生儿",
+    "register": "报名参加考试",
+    "findCourse": "查找 ADA 课程"
+  },
+  "registry": {
+    "title": "核实导乐是否持有 ADA 认证",
+    "body": "每一份 ADA 证书都有一份标注日期的公开记录，显示该认证目前是否有效，并列出任何暂停或撤销处分。",
+    "example": "例如 <nw>{cert}</nw>、<nw>{id}</nw> 或 {name}。",
+    "exampleLong": "可按证书编号、导乐编号或完整姓名查询记录，例如 <nw>{cert}</nw>、<nw>{id}</nw> 或 {name}。",
+    "counts": "截至 {date}：<b>{doulas, number}</b> 位导乐持有有效认证 · 已颁发 <b>{certificates, number}</b> 份证书",
+    "trainer": "查询培训师证书"
+  },
+  "programs": {
+    "title": "ADA 项目",
+    "postpartum": {
+      "title": "ADA 产后导乐",
+      "description": "先完成共 {modules} 个模块的 ADA 课程，再参加 ADA 笔试与实操考试。",
+      "nextExam": "下次考试",
+      "fee": "考试费",
+      "feeValue": "{fee}，向 ADA 缴纳",
+      "validity": "证书",
+      "validityValue": "有效期 {years} 年",
+      "register": "报名参加考试",
+      "requirements": "报考要求与费用"
+    },
+    "birth": {
+      "title": "ADA 分娩导乐",
+      "description": "待产与分娩期间的陪伴支持。课程滚动开班。",
+      "program": "课程介绍",
+      "examDates": "考试日期"
+    },
+    "education": {
+      "title": "ADA 教育与课程",
+      "description": "ADA 课程由 ADA 认证培训师和 ADA 核准培训机构讲授。",
+      "ibclc": "IBCLC 备考课程",
+      "ce": "继续教育",
+      "trainer": "成为培训师"
+    }
+  },
+  "examDay": {
+    "title": "考试当天须知",
+    "imageAlt": "四位考生在间隔摆放的考桌前参加 ADA 笔试",
+    "caption": "ADA 笔试现场：每位考生单独一桌。2024年8月。",
+    "bring": "须携带",
+    "bringValue": "政府签发的有效带照片身份证件。",
+    "where": "考试地点",
+    "written": "笔试",
+    "writtenValue": "{minutes} 分钟，可选{languages}。",
+    "practical": "实操考试",
+    "practicalValue": "{minutes} 分钟，由 ADA 考官一对一进行。",
+    "results": "成绩通知",
+    "resultsValue": "约 {days} 个工作日内以电子邮件发送。合格分数为 {pass}/{max}。",
+    "link": "考试当天须知与身份证件"
+  },
+  "audiences": {
+    "label": "面向家庭、保险公司与机构",
+    "families": {
+      "title": "面向家庭",
+      "body": "准备聘请导乐？请先查看该导乐的 ADA 公开认证记录，了解其认证目前是否有效。",
+      "verify": "查询导乐认证",
+      "find": "查找认证导乐",
+      "training": "了解 ADA 如何培训导乐"
+    },
+    "insurers": {
+      "title": "面向保险公司与机构",
+      "body": "ADA 认证获得 {insurers} 的认可。任何人都可在 ADA 认证注册名录中免费查询导乐的认证。",
+      "verify": "查询认证",
+      "conduct": "阅读职业行为守则",
+      "contact": "联系 ADA"
+    }
+  },
+  "about": {
+    "title": "关于 ADA",
+    "what": "ADA 的职能",
+    "whatDescription": "一家加利福尼亚州非营利机构，负责制定课程、考核考生并维护认证注册名录。",
+    "governance": "治理结构",
+    "governanceDescription": "ADA 董事会，以及董事的选举方式。",
+    "conduct": "职业行为守则",
+    "conductDescription": "每一位 ADA 认证导乐均承诺遵守的原则。违反守则可导致认证被暂停或撤销。",
+    "providers": "培训师与培训机构",
+    "providersDescription": "以 ADA 认证培训师或 ADA 核准培训机构的身份讲授 ADA 课程。",
+    "contact": "联系我们",
+    "contactDescription": "有关考试、认证注册名录或您本人记录的问题，请发送邮件至 {email}"
+  },
+  "languages": {
+    "en": "英语",
+    "zh": "中文（普通话）",
+    "ja": "日语",
+    "ko": "韩语"
+  }
+}

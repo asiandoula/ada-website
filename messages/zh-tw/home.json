@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "title": "Asian Doula Alliance：導樂認證、考試與 ADA 認證註冊名錄",
+    "description": "Asian Doula Alliance 為產後導樂與分娩導樂提供認證，組織 ADA 筆試與實操考試，並維護一份任何人都可免費查詢的公開認證註冊名錄。"
+  },
+  "hero": {
+    "title": "成為 ADA 認證導樂。",
+    "line": "ADA 培訓與考試提供{languages}版本。",
+    "imageAlt": "四位 ADA 產後導樂課程學員使用訓練娃娃練習懷抱新生兒",
+    "register": "報名參加考試",
+    "findCourse": "查找 ADA 課程"
+  },
+  "registry": {
+    "title": "覈實導樂是否持有 ADA 認證",
+    "body": "每一份 ADA 證書都有一份標注日期的公開記錄，顯示該認證目前是否有效，並列出任何暫停或撤銷處分。",
+    "example": "例如 <nw>{cert}</nw>、<nw>{id}</nw> 或 {name}。",
+    "exampleLong": "可按證書編號、導樂編號或完整姓名查詢記錄，例如 <nw>{cert}</nw>、<nw>{id}</nw> 或 {name}。",
+    "counts": "截至 {date}：<b>{doulas, number}</b> 位導樂持有有效認證 · 已頒發 <b>{certificates, number}</b> 份證書",
+    "trainer": "查詢培訓師證書"
+  },
+  "programs": {
+    "title": "ADA 項目",
+    "postpartum": {
+      "title": "ADA 產後導樂",
+      "description": "先完成共 {modules} 個模塊的 ADA 課程，再參加 ADA 筆試與實操考試。",
+      "nextExam": "下次考試",
+      "fee": "考試費",
+      "feeValue": "{fee}，向 ADA 繳納",
+      "validity": "證書",
+      "validityValue": "有效期 {years} 年",
+      "register": "報名參加考試",
+      "requirements": "報考要求與費用"
+    },
+    "birth": {
+      "title": "ADA 分娩導樂",
+      "description": "待產與分娩期間的陪伴支持。課程滾動開班。",
+      "program": "課程介紹",
+      "examDates": "考試日期"
+    },
+    "education": {
+      "title": "ADA 教育與課程",
+      "description": "ADA 課程由 ADA 認證培訓師和 ADA 核准培訓機構講授。",
+      "ibclc": "IBCLC 備考課程",
+      "ce": "繼續教育",
+      "trainer": "成為培訓師"
+    }
+  },
+  "examDay": {
+    "title": "考試當天須知",
+    "imageAlt": "四位考生在間隔擺放的考桌前參加 ADA 筆試",
+    "caption": "ADA 筆試現場：每位考生單獨一桌。2024年8月。",
+    "bring": "須攜帶",
+    "bringValue": "政府簽發的有效帶照片身份證件。",
+    "where": "考試地點",
+    "written": "筆試",
+    "writtenValue": "{minutes} 分鐘，可選{languages}。",
+    "practical": "實操考試",
+    "practicalValue": "{minutes} 分鐘，由 ADA 考官一對一進行。",
+    "results": "成績通知",
+    "resultsValue": "約 {days} 個工作日內以電子郵件發送。合格分數為 {pass}/{max}。",
+    "link": "考試當天須知與身份證件"
+  },
+  "audiences": {
+    "label": "面向家庭、保險公司與機構",
+    "families": {
+      "title": "面向家庭",
+      "body": "準備聘請導樂？請先查看該導樂的 ADA 公開認證記錄，瞭解其認證目前是否有效。",
+      "verify": "查詢導樂認證",
+      "find": "查找認證導樂",
+      "training": "瞭解 ADA 如何培訓導樂"
+    },
+    "insurers": {
+      "title": "面向保險公司與機構",
+      "body": "ADA 認證獲得 {insurers} 的認可。任何人都可在 ADA 認證註冊名錄中免費查詢導樂的認證。",
+      "verify": "查詢認證",
+      "conduct": "閱讀職業行為守則",
+      "contact": "聯繫 ADA"
+    }
+  },
+  "about": {
+    "title": "關於 ADA",
+    "what": "ADA 的職能",
+    "whatDescription": "一家加利福尼亞州非營利機構，負責制定課程、考核考生並維護認證註冊名錄。",
+    "governance": "治理結構",
+    "governanceDescription": "ADA 董事會，以及董事的選舉方式。",
+    "conduct": "職業行為守則",
+    "conductDescription": "每一位 ADA 認證導樂均承諾遵守的原則。違反守則可導致認證被暫停或撤銷。",
+    "providers": "培訓師與培訓機構",
+    "providersDescription": "以 ADA 認證培訓師或 ADA 核准培訓機構的身份講授 ADA 課程。",
+    "contact": "聯繫我們",
+    "contactDescription": "有關考試、認證註冊名錄或您本人記錄的問題，請發送郵件至 {email}"
+  },
+  "languages": {
+    "en": "英語",
+    "zh": "中文（普通話）",
+    "ja": "日語",
+    "ko": "韓語"
+  }
+}

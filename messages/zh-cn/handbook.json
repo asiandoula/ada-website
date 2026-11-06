@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "title": "产后导乐考生手册",
+    "description": "ADA 产后导乐考生手册：报考资格、认证要求、笔试与实操考试、费用、考试结果、续证与职业行为准则。"
+  },
+  "breadcrumb": "考生手册",
+  "title": "产后导乐考生手册",
+  "lead": "ADA 产后导乐认证表明导乐已通过 ADA 的笔试和实操考试。本手册说明如何取得认证，以及如何保持认证有效。",
+  "scope": "产后导乐在产后数周内为家庭提供非医疗支持：新生儿护理、喂养、产妇恢复以及家庭的适应调整。医疗问题由家庭的医护人员处理。",
+  "facts": {
+    "credential": "认证",
+    "examFee": "考试费",
+    "examFeeValue": "{fee}，交付 ADA",
+    "exam": "考试",
+    "examValue": "笔试 {written} 分钟，实操 {practical} 分钟",
+    "passMark": "合格分数",
+    "passMarkValue": "{pass}/{max}",
+    "period": "认证有效期"
+  },
+  "toc": {
+    "title": "本页内容",
+    "apply": "报考资格",
+    "requirements": "认证要求",
+    "exam": "考试",
+    "fees": "费用",
+    "results": "考试结果与证书",
+    "renewal": "续证",
+    "conduct": "职业行为准则",
+    "questions": "常见问题"
+  },
+  "apply": {
+    "graduates": {
+      "label": "ADA 培训项目结业学员",
+      "value": "您已完成 ADA 认可的产后导乐培训项目。"
+    },
+    "experience": {
+      "label": "相关经验",
+      "value": "无需任何经验。ADA 认可的培训项目会带您从零基础达到应考水平。"
+    }
+  },
+  "requirements": {
+    "r1": {
+      "title": "完成 ADA 认可的培训项目",
+      "body": "共 {count} 个模块，通常为期 <b>{days} 天</b>的集中培训，可线下或线上参加。培训包含美国红十字会婴儿心肺复苏（CPR）课程。培训费用因机构而异。"
+    },
+    "r2": {
+      "title": "报名考试场次并缴纳 {fee}",
+      "body": "您的培训机构会指导您完成报名，您也可以直接联系 ADA。请在报名时选择考试语言。"
+    },
+    "r3": {
+      "title": "携带有效的政府签发带照片身份证件",
+      "body": "考试当天需要出示。<link>需要携带的物品</link>"
+    },
+    "r4": {
+      "title": "通过笔试和实操考试",
+      "body": "合格分数为 <b>{pass}/{max}</b>。"
+    },
+    "r5": {
+      "title": "遵守《ADA 职业行为准则》",
+      "body": "每位 ADA 认证导乐都应遵守的职业与道德标准。<link>准则内容</link>"
+    }
+  },
+  "exam": {
+    "intro": "考试分为两部分：笔试，以及与 ADA 认证考官一对一进行的实操考试。考试地点：{location}。",
+    "imageAlt": "四名考生在间隔排列的考桌前参加 ADA 笔试",
+    "caption": "笔试：每位考生一张考桌。{date}。",
+    "caption2": "ADA 产后导乐考试的两个部分",
+    "colDetail": "考试项目",
+    "colWritten": "笔试",
+    "colPractical": "实操考试",
+    "length": {
+      "label": "时长",
+      "written": "{minutes} 分钟",
+      "practical": "{minutes} 分钟，与 ADA 认证考官一对一进行"
+    },
+    "format": {
+      "label": "形式",
+      "written": "选择题和简答题",
+      "practical": "现场演示导乐技能"
+    },
+    "content": {
+      "label": "考核内容",
+      "written": "产后护理、新生儿护理、母乳喂养支持、文化胜任力、安全规程以及与客户的沟通",
+      "practical": "新生儿抱持、包裹襁褓、洗澡、产后恢复支持，以及与不同文化背景家庭的沟通"
+    },
+    "languages": {
+      "label": "语言",
+      "value": "{languages}。所有考试材料（包括说明和试题）均以您选择的语言提供。"
+    }
+  },
+  "covers": {
+    "title": "考试涵盖的内容",
+    "intro": "两部分考试均涵盖 ADA 产后导乐培训项目的 {count} 个模块。",
+    "caption": "ADA 产后导乐考试涵盖的模块",
+    "colModule": "模块",
+    "colCovers": "涵盖内容"
+  },
+  "booking": {
+    "title": "预约考试日期",
+    "how": {
+      "label": "如何报名",
+      "value": "您的培训机构会指导您完成报名。您也可以通过 <mail>{email}</mail> 或 <tel>{phone}</tel> 直接联系 ADA。"
+    },
+    "examDay": "考试当天与身份证件要求"
+  },
+  "fees": {
+    "colWhen": "适用情形"
+  },
+  "results": {
+    "when": {
+      "label": "时间",
+      "value": "约在 {days} 个工作日内通过电子邮件发送。"
+    },
+    "result": {
+      "label": "您的成绩",
+      "value": "满分为 {max} 分的成绩及等级：<b>高度熟练</b>（Highly Proficient，{high} 分及以上）、<b>熟练</b>（Proficient，{pass}–{proficientTop} 分）或<b>未达熟练</b>（Not Proficient，低于 {pass} 分）。合格分数为 {pass}/{max}。"
+    },
+    "pass": {
+      "label": "通过考试",
+      "value": "ADA 将为您颁发认证和唯一的考试编号，并将您列入 ADA 认证注册名录，任何人都可以查询。"
+    },
+    "fail": {
+      "label": "未通过考试",
+      "value": "您可以重考，重考费为 {fee}，须在上次考试至少 {days} 天后进行。"
+    }
+  },
+  "number": {
+    "title": "您的证书编号",
+    "format": "每张证书都有独立编号：ADA、认证类别（{pd} 为产后导乐，{bd} 为分娩导乐）、颁发年份和序号。",
+    "record": {
+      "label": "您的公开记录",
+      "value": "显示您当前的认证状态。证书只反映颁发当天的状态；认证注册名录中的记录才是权威来源。"
+    }
+  },
+  "renewal": {
+    "intro": "您的认证有效期为 {validity}。请在记录所示的到期日之前续证，以保持资格良好。",
+    "need": {
+      "label": "所需材料",
+      "value": "两种途径任选其一：专业推荐信，或合格分数为 {pass}/{max} 的重新认证考试；另需缴纳续证费 {fee}。"
+    },
+    "start": {
+      "label": "如何开始",
+      "value": "先在 ADA 认证注册名录或“我的 ADA”中查看您的认证状态和到期日，然后联系 ADA 办理。"
+    },
+    "link": "办理 ADA 认证续期"
+  },
+  "conduct": {
+    "intro": "每位 ADA 认证导乐都应遵守《ADA 职业行为准则》。",
+    "professional": {
+      "label": "职业标准",
+      "value": "保持专业技能和认证有效，在执业范围内提供服务，并以专业方式沟通。"
+    },
+    "client": {
+      "label": "客户照护",
+      "value": "以客户需求为中心，事先征得知情同意，对客户信息保密，尊重每个家庭的文化，并一视同仁地服务所有家庭。"
+    },
+    "ethics": {
+      "label": "职业道德",
+      "value": "如实说明自己的资质，披露利益冲突，保持职业边界，依法报告虐待、疏忽或安全隐患，并配合 ADA 的审查。"
+    },
+    "enforcement": {
+      "label": "违反准则的处理",
+      "value": "违反准则可能导致 ADA 认证被暂停或撤销。任何人都可以发送邮件至 <mail>{email}</mail> 反映问题，所有举报均保密处理。"
+    },
+    "readFull": "阅读《职业行为准则》全文",
+    "report": "反映问题"
+  },
+  "questions": {
+    "course": {
+      "q": "在哪里参加培训课程？",
+      "a": "参加 ADA 认可的培训项目，可线下或线上进行。培训项目列在 <link>ADA 教育</link>页面。"
+    },
+    "language": {
+      "q": "可以用我的母语参加考试吗？",
+      "a": "可以。考试提供{languages}。请在报名时选择考试语言。"
+    },
+    "check": {
+      "q": "家庭和保险机构如何核实我的认证？",
+      "a": "他们可以在 <link>{url}</link> 查询 ADA 认证注册名录。保险机构可以在名录中核实您的认证。"
+    }
+  }
+}

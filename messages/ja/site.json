@@ -1,0 +1,134 @@
+{
+  "skipToContent": "Skip to content",
+  "brand": {
+    "homeLabel": "Asian Doula Alliance, home"
+  },
+  "utility": {
+    "languageNav": "Language",
+    "contact": "Contact",
+    "signIn": "Doula sign in",
+    "signInShort": "Sign in"
+  },
+  "audience": {
+    "navLabel": "Audience",
+    "candidates": "Candidates",
+    "doulas": "Certified Doulas",
+    "families": "Families",
+    "insurers": "Insurers & Agencies",
+    "providers": "Training Providers",
+    "about": "About ADA"
+  },
+  "menu": {
+    "open": "Menu"
+  },
+  "verify": {
+    "label": "Verify a credential",
+    "labelLong": "Verify a credential: certificate number, Doula ID or name",
+    "fieldLabel": "Certificate number, Doula ID or name",
+    "placeholder": "Certificate no., Doula ID or name",
+    "submit": "Verify",
+    "submitLong": "Check the registry",
+    "free": "Free. No account needed.",
+    "terms": "Free. No account needed. For verification only. Not for building contact or marketing lists."
+  },
+  "breadcrumb": {
+    "label": "Breadcrumb",
+    "home": "Home"
+  },
+  "footer": {
+    "programs": "Programs",
+    "postpartum": "Postpartum Doula",
+    "birth": "Birth Doula",
+    "ibclc": "IBCLC Exam-Prep",
+    "ce": "Continuing Education",
+    "trainer": "Trainer",
+    "registry": "Registry",
+    "verify": "Verify",
+    "reportConcern": "Report a concern",
+    "ada": "ADA",
+    "about": "About",
+    "governance": "Governance",
+    "education": "Education",
+    "contact": "Contact",
+    "help": "Help and legal",
+    "examDay": "Exam day and ID",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "entity": "{dba} is a dba of {legalName}, a California nonprofit public benefit corporation. {taxCode} public charity · EIN {ein} · {address}",
+    "entityShort": "{dba} is a dba of {legalName}, a California nonprofit public benefit corporation. {taxCode} public charity · EIN {ein}",
+    "copyright": "© {year} {legalName}"
+  },
+  "examType": {
+    "postpartum": "Postpartum Doula",
+    "birth": "Birth Doula"
+  },
+  "hero": {
+    "nextExam": "The next {type} exam is on {date}."
+  },
+  "dates": {
+    "caption": "Upcoming ADA exam dates",
+    "date": "Exam date*",
+    "type": "Exam",
+    "location": "Location",
+    "status": "Status",
+    "register": "Register",
+    "registerFor": "Register for the {type} exam on {date}",
+    "statusScheduled": "Scheduled",
+    "statusToday": "Today",
+    "noteFormat": "*Each exam has a {written}-minute written part and a {practical}-minute one-on-one practical part.",
+    "noteResults": "Results arrive by email in about {days} business days.",
+    "empty": "Exam sessions are scheduled after each training cohort.",
+    "emptyAction": "Contact us for the next date."
+  },
+  "alert": {
+    "label": "Notice for candidates",
+    "title": "Taking the exam on {date}?",
+    "body": "Bring a valid government-issued photo ID. Results arrive by email in about {days} business days.",
+    "link": "Exam day and ID",
+    "dismiss": "Dismiss this notice"
+  },
+  "status": {
+    "active": "Active",
+    "current": "Current",
+    "authorized": "Authorized",
+    "completed": "Completed",
+    "superseded": "Superseded",
+    "expired": "Expired",
+    "retired": "Retired",
+    "suspended": "Suspended",
+    "revoked": "Revoked",
+    "withdrawn": "Withdrawn"
+  },
+  "record": {
+    "label": "Registry record",
+    "print": "Print or save PDF",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "requestLetter": "Request a verification letter",
+    "reportConcern": "Report a concern",
+    "seal": "Asian Doula Alliance seal",
+    "title": "ADA Doula Registry — Official record",
+    "doulaId": "Doula ID",
+    "copyValue": "Copy {label}",
+    "copied": "Copied",
+    "retrieved": "Retrieved {when}",
+    "source": "Source: ADA registry, the primary source for ADA certification status",
+    "footNote": "This page is the primary source. A paper certificate shows status on the day it was issued.",
+    "certificateOnLink": "Certificate on this link",
+    "publicActions": {
+      "title": "Public actions on file",
+      "suspension": "Suspension",
+      "revocation": "Revocation",
+      "other": "Other public action",
+      "none": "None",
+      "note": "Public actions are suspensions and revocations under the ADA Code of Conduct. A suspension is shown while it is in effect."
+    }
+  },
+  "cookie": {
+    "label": "Cookie notice",
+    "text": "We use cookies and Google Analytics to understand how visitors use our site and improve your experience. No personal health information is collected.",
+    "learnMore": "Privacy policy",
+    "decline": "Decline",
+    "accept": "Accept"
+  }
+}

@@ -1,341 +1,122 @@
-import { createClient } from '@supabase/supabase-js';
-import Link from 'next/link';
-import Image from 'next/image';
-import { CREDENTIAL_LABELS } from '@/lib/constants';
-import type { CredentialType } from '@/lib/constants';
-import { ShieldCheck, ShieldAlert, ShieldX, Search, ArrowLeft } from 'lucide-react';
+/**
+ * /verify/[code]: a registry record (boards VerifyRecord, VerifyRecordLapsed,
+ * VerifyRecordZh, VerifyMobile). The permalink is unchanged: [code] is a
+ * certificate code (exact, case-sensitive), a certificate number, or a Doula
+ * ID with or without the # ("/verify/25-3107"). Rules: ../_lib/registry.ts.
+ *
+ * Records sit inside the page chrome: header, breadcrumb band and footer are
+ * the page's; the grey desk band, toolbar and white sheet are RecordFrame's.
+ */
+import type { Metadata } from 'next';
+import { cache } from 'react';
+import { getTranslations } from 'next-intl/server';
+import { Breadcrumb, VerifyField } from '@/components/site';
+import { getRecord, type RecordLookup } from '../_lib/registry';
+import { parseQuery } from '../_lib/query';
+import { RegistryNotFound } from '../_components/not-found';
+import { RecordMobile } from './_components/record-mobile';
+import { RecordSheet } from './_components/record-sheet';
 
-function getSupabase() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+export const dynamic = 'force-dynamic';
+
+type Params = { code: string };
+
+function decodeSegment(code: string): string {
+  try {
+    return decodeURIComponent(code);
+  } catch {
+    return code;
+  }
 }
 
-function formatDate(dateStr: string | null): string {
-  if (!dateStr) return '—';
-  const d = new Date(dateStr.includes('T') ? dateStr : `${dateStr}T12:00:00`);
-  if (isNaN(d.getTime())) return '—';
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-}
+/** Deduped per request (generateMetadata and the page both need it). */
+const lookup = cache(async (code: string): Promise<RecordLookup | null | 'error'> => {
+  try {
+    return await getRecord(decodeSegment(code));
+  } catch {
+    return 'error';
+  }
+});
 
-interface CredentialRow {
-  credential_type: string;
-  status: string;
-  expiration_date: string | null;
-}
-
-interface CertificateRow {
-  certificate_number: string;
-  certificate_type: string;
-  status: string;
-}
-
-export default async function VerifyResultPage({
-  params,
-}: {
-  params: Promise<{ code: string }>;
-}) {
-  const supabase = getSupabase();
+export async function generateMetadata({ params }: { params: Params | Promise<Params> }): Promise<Metadata> {
   const { code } = await params;
-  const decoded = decodeURIComponent(code);
+  const t = await getTranslations('record.meta');
+  const found = await lookup(code);
+  const robots = { index: false, follow: false };
+  if (!found || found === 'error') return { title: t('notFoundTitle'), robots };
+  return {
+    title: t('title', { id: found.record.doulaId }),
+    description: t('description', { id: found.record.doulaId }),
+    robots,
+  };
+}
 
-  // Find the doula — try verification_code, certificate_number, doula_id_code
-  let doulaId: string | null = null;
-  let doulaInfo: Record<string, string> | null = null;
+export default async function VerifyRecordPage({ params }: { params: Params | Promise<Params> }) {
+  const { code } = await params;
+  const t = await getTranslations('record');
+  const tv = await getTranslations('verify');
+  const decoded = decodeSegment(code);
+  const found = await lookup(code);
+  const retrievedAt = new Date();
 
-  // 1. Verification code → find certificate → get doula
-  const { data: byVerification } = await supabase
-    .from('certificates')
-    .select('doula_id, doulas(id, full_name, full_name_zh, doula_id_code, status)')
-    .eq('verification_code', decoded)
-    .limit(1)
-    .single();
+  const another = (
+    <section aria-labelledby="another-h" className="bg-white pt-14 pb-[72px] print:hidden">
+      <div className="ada2-wrap">
+        <div className="flex flex-col gap-4 pt-5 border-t-2 border-solid border-ada2-ink max-w-[820px]">
+          <h2 id="another-h" className="m-0 text-[28px] leading-[35px] font-light text-ada2-ink [text-wrap:balance]">
+            {t('another.title')}
+          </h2>
+          <VerifyField variant="inline" id="verify-another" />
+        </div>
+      </div>
+    </section>
+  );
 
-  if (byVerification) {
-    doulaId = byVerification.doula_id;
-    doulaInfo = byVerification.doulas as unknown as Record<string, string>;
-  }
-
-  // 2. Certificate number
-  if (!doulaId) {
-    const { data: byCertNum } = await supabase
-      .from('certificates')
-      .select('doula_id, doulas(id, full_name, full_name_zh, doula_id_code, status)')
-      .eq('certificate_number', decoded.toUpperCase())
-      .limit(1)
-      .single();
-
-    if (byCertNum) {
-      doulaId = byCertNum.doula_id;
-      doulaInfo = byCertNum.doulas as unknown as Record<string, string>;
-    }
-  }
-
-  // 3. Doula ID code
-  if (!doulaId) {
-    const normalizedId = decoded.startsWith('#') ? decoded : `#${decoded}`;
-    const { data: byDoulaId } = await supabase
-      .from('doulas')
-      .select('id, full_name, full_name_zh, doula_id_code, status')
-      .eq('doula_id_code', normalizedId)
-      .single();
-
-    if (byDoulaId) {
-      doulaId = byDoulaId.id;
-      doulaInfo = byDoulaId as unknown as Record<string, string>;
-    }
-  }
-
-  // ============ NOT FOUND ============
-  if (!doulaId || !doulaInfo) {
+  if (!found || found === 'error') {
+    const parsed = parseQuery(decoded);
     return (
       <>
-        <section className="bg-ada-navy pt-32 pb-20 md:pt-40 md:pb-24 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: 'repeating-linear-gradient(45deg, white 0, white 1px, transparent 1px, transparent 12px)',
-          }} />
-          <div className="relative max-w-[1000px] mx-auto px-6 text-center">
-            <div className="w-16 h-16 rounded-full border-2 border-white/10 flex items-center justify-center mx-auto mb-6 bg-white/5">
-              <ShieldX className="w-8 h-8 text-white/60" />
-            </div>
-            <h1 className="font-dm-serif text-3xl md:text-4xl text-white">
-              Record Not Found
-            </h1>
-            <p className="mt-4 text-white/60 font-outfit max-w-md mx-auto leading-relaxed">
-              The query &ldquo;{decoded}&rdquo; does not match any record in the ADA registry.
-            </p>
-            <Link
-              href="/verify"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-white/10 text-white px-5 py-2.5 text-sm font-outfit font-medium hover:bg-white/20 transition-colors"
-            >
-              <Search className="w-4 h-4" /> Try Again
-            </Link>
+        <Breadcrumb items={[{ label: tv('breadcrumb'), href: '/verify' }, { label: t('breadcrumbNotFound') }]} />
+        <div className="bg-ada2-band py-10">
+          <div className="ada2-wrap max-w-[1000px]">
+            {found === 'error' ? (
+              <p role="alert" className="m-0 py-4 px-5 bg-white border border-solid border-ada2-hairline border-l-4 border-l-ada2-suspended text-ada2-body">
+                {tv('search.searchError')}
+              </p>
+            ) : (
+              <RegistryNotFound
+                query={decoded.trim().slice(0, 80)}
+                numberLike={!parsed || parsed.kind !== 'name'}
+                retrievedAt={retrievedAt}
+                headingLevel="h1"
+              />
+            )}
           </div>
-        </section>
+        </div>
+        {another}
       </>
     );
   }
 
-  // ============ FOUND — fetch all credentials + latest active cert per type ============
-  const { data: credentials } = await supabase
-    .from('doula_credentials')
-    .select('credential_type, status, expiration_date')
-    .eq('doula_id', doulaId)
-    .order('credential_type');
-
-  const { data: activeCerts } = await supabase
-    .from('certificates')
-    .select('certificate_number, certificate_type, status')
-    .eq('doula_id', doulaId)
-    .eq('status', 'active')
-    .order('issued_date', { ascending: false });
-
-  const creds: CredentialRow[] = credentials ?? [];
-  const certs: CertificateRow[] = activeCerts ?? [];
-
-  // Doula-level overrides
-  const doulaStatus = doulaInfo.status;
-  const isDoulaRevoked = doulaStatus === 'revoked';
-  const isDoulaSuspended = doulaStatus === 'suspended';
-  const isDoulaUnderInvestigation = doulaStatus === 'under_investigation';
-  const isDoulaRetired = doulaStatus === 'retired';
-
-  // Determine overall status banner
-  let overallStatus: string;
-  let bannerColor: string;
-  let bannerIcon: React.ReactNode;
-
-  if (isDoulaRevoked) {
-    overallStatus = 'CREDENTIAL REVOKED';
-    bannerColor = 'bg-red-600';
-    bannerIcon = <ShieldX className="w-10 h-10 text-red-200" />;
-  } else if (isDoulaSuspended) {
-    overallStatus = 'CREDENTIAL SUSPENDED';
-    bannerColor = 'bg-red-600';
-    bannerIcon = <ShieldX className="w-10 h-10 text-red-200" />;
-  } else if (isDoulaUnderInvestigation) {
-    overallStatus = 'CREDENTIAL UNDER REVIEW';
-    bannerColor = 'bg-amber-600';
-    bannerIcon = <ShieldAlert className="w-10 h-10 text-amber-200" />;
-  } else if (isDoulaRetired) {
-    overallStatus = 'RETIRED — IN GOOD STANDING';
-    bannerColor = 'bg-gray-500';
-    bannerIcon = <ShieldAlert className="w-10 h-10 text-gray-200" />;
-  } else if (creds.length === 0) {
-    overallStatus = 'NO CREDENTIALS ON FILE';
-    bannerColor = 'bg-gray-500';
-    bannerIcon = <ShieldAlert className="w-10 h-10 text-gray-200" />;
-  } else {
-    const allExpired = creds.every(c => c.expiration_date && new Date(c.expiration_date) < new Date());
-    const anyRevoked = creds.some(c => c.status === 'revoked');
-    if (anyRevoked) {
-      overallStatus = 'CREDENTIAL ISSUE — SEE DETAILS';
-      bannerColor = 'bg-amber-600';
-      bannerIcon = <ShieldAlert className="w-10 h-10 text-amber-200" />;
-    } else if (allExpired) {
-      overallStatus = 'EXPIRED';
-      bannerColor = 'bg-amber-600';
-      bannerIcon = <ShieldAlert className="w-10 h-10 text-amber-200" />;
-    } else {
-      const anyExpired = creds.some(c => c.expiration_date && new Date(c.expiration_date) < new Date());
-      if (anyExpired) {
-        overallStatus = 'PARTIALLY EXPIRED — SEE DETAILS';
-        bannerColor = 'bg-amber-600';
-        bannerIcon = <ShieldAlert className="w-10 h-10 text-amber-200" />;
-      } else {
-        overallStatus = 'VERIFIED — ACTIVE';
-        bannerColor = 'bg-emerald-600';
-        bannerIcon = <ShieldCheck className="w-10 h-10 text-emerald-200" />;
-      }
-    }
-  }
-
   return (
     <>
-      {/* Header */}
-      <section className="bg-ada-navy pt-32 pb-16 md:pt-40 md:pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, white 0, white 1px, transparent 1px, transparent 12px)',
-        }} />
-        <div className="relative max-w-[1000px] mx-auto px-6 text-center">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Image src="/images/ada-logo-white.svg" alt="ADA" width={32} height={32} />
-            <div className="h-5 w-px bg-white/20" />
-            <span className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-white/60">
-              Official Verification Record
-            </span>
-          </div>
-          <h1 className="font-dm-serif text-3xl md:text-4xl text-white">
-            Credential Verification
-          </h1>
-        </div>
-      </section>
-
-      {/* Status banner */}
-      <div className={`${bannerColor} py-4`}>
-        <div className="max-w-[1000px] mx-auto px-6 flex items-center justify-center gap-3">
-          {bannerIcon}
-          <span className="font-outfit font-bold text-white tracking-wide text-sm md:text-base">
-            {overallStatus}
-          </span>
-        </div>
+      <div className="hidden md:block print:hidden">
+        <Breadcrumb
+          items={[{ label: tv('breadcrumb'), href: '/verify' }, { label: t('breadcrumb', { id: found.record.doulaId }) }]}
+        />
       </div>
 
-      {/* Doula info + all credentials */}
-      <section className="py-16 bg-white">
-        <div className="max-w-[640px] mx-auto px-6">
-          {/* Doula identity card */}
-          <div className="border-2 border-ada-navy/10 rounded-2xl overflow-hidden mb-6">
-            <div className="bg-ada-navy/[0.03] px-8 py-5 border-b border-ada-navy/10">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-ada-purple/10 flex items-center justify-center">
-                  <Image src="/images/ada-logo-white.svg" alt="ADA" width={20} height={20} className="opacity-50" />
-                </div>
-                <div>
-                  <p className="font-outfit text-xs text-ada-navy/40 uppercase tracking-wider font-semibold">
-                    Asian Doula Alliance
-                  </p>
-                  <p className="font-outfit text-sm text-ada-navy font-semibold">
-                    Credential Verification
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="divide-y divide-ada-navy/5">
-              <div className="flex justify-between items-center px-8 py-4">
-                <span className="text-sm text-ada-navy/40 font-outfit">Holder</span>
-                <span className="text-sm font-outfit font-semibold text-ada-navy">
-                  {doulaInfo.full_name}
-                  {doulaInfo.full_name_zh && (
-                    <span className="text-ada-navy/40 font-normal ml-2">({doulaInfo.full_name_zh})</span>
-                  )}
-                </span>
-              </div>
-              <div className="flex justify-between items-center px-8 py-4">
-                <span className="text-sm text-ada-navy/40 font-outfit">Doula ID</span>
-                <span className="text-sm font-mono text-ada-navy">{doulaInfo.doula_id_code}</span>
-              </div>
-            </div>
-          </div>
+      {/* Phones: the condensed record (VerifyMobile) */}
+      <div className="md:hidden print:hidden">
+        <RecordMobile lookup={found} retrievedAt={retrievedAt} />
+      </div>
 
-          {/* Credentials list */}
-          {creds.length === 0 ? (
-            <p className="text-sm text-ada-navy/40 font-outfit text-center">No credentials on file for this doula.</p>
-          ) : (
-            <div className="space-y-4">
-              {creds.map((cred) => {
-                const isExpired = cred.expiration_date && new Date(cred.expiration_date) < new Date();
-                const isCredRevoked = cred.status === 'revoked';
-                const isCredSuspended = cred.status === 'suspended';
-                const isCredActive = !isDoulaRevoked && !isDoulaSuspended && !isCredRevoked && !isCredSuspended && !isExpired;
-                const latestCert = certs.find(c => c.certificate_type === cred.credential_type);
+      {/* md and up, and print: the full sheet */}
+      <div className="hidden md:block print:block">
+        <RecordSheet lookup={found} retrievedAt={retrievedAt} />
+      </div>
 
-                const credStatusLabel = isDoulaRevoked ? 'Revoked' : isDoulaSuspended ? 'Suspended' : isCredRevoked ? 'Revoked' : isCredSuspended ? 'Suspended' : isExpired ? 'Expired' : 'Active';
-                const credStatusColor = isCredActive ? 'bg-emerald-50 text-emerald-700' : (isExpired ? 'bg-amber-50 text-amber-700' : 'bg-red-50 text-red-700');
-                const credDotColor = isCredActive ? 'bg-emerald-500' : (isExpired ? 'bg-amber-500' : 'bg-red-500');
-
-                return (
-                  <div key={cred.credential_type} className="border-2 border-ada-navy/10 rounded-2xl overflow-hidden">
-                    <div className="divide-y divide-ada-navy/5">
-                      <div className="flex justify-between items-center px-8 py-4">
-                        <span className="text-sm text-ada-navy/40 font-outfit">Credential</span>
-                        <span className="text-sm font-outfit font-semibold text-ada-navy">
-                          {CREDENTIAL_LABELS[cred.credential_type as CredentialType] || cred.credential_type}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center px-8 py-4">
-                        <span className="text-sm text-ada-navy/40 font-outfit">Status</span>
-                        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-outfit font-semibold ${credStatusColor}`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${credDotColor}`} />
-                          {credStatusLabel}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center px-8 py-4">
-                        <span className="text-sm text-ada-navy/40 font-outfit">Valid Through</span>
-                        <span className="text-sm font-outfit text-ada-navy">
-                          {cred.expiration_date ? formatDate(cred.expiration_date) : 'Permanent'}
-                        </span>
-                      </div>
-                      {latestCert && (
-                        <div className="flex justify-between items-center px-8 py-4">
-                          <span className="text-sm text-ada-navy/40 font-outfit">Certificate</span>
-                          <span className="text-sm font-mono text-ada-navy">{latestCert.certificate_number}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          {/* Footer */}
-          <div className="mt-8 bg-ada-navy/[0.03] rounded-xl px-6 py-4 border border-ada-navy/10">
-            <p className="text-xs text-ada-navy/30 font-outfit text-center">
-              This record was retrieved from the Asian Doula Alliance official certification registry.
-              <br />
-              Verification records are retrieved in real-time from the ADA registry.
-            </p>
-          </div>
-
-          {/* Actions */}
-          <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <Link
-              href="/verify"
-              className="inline-flex items-center gap-2 text-sm text-ada-navy/60 font-outfit hover:text-ada-navy transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" /> Verify Another Credential
-            </Link>
-            <Link
-              href="/support/contact"
-              className="text-sm text-ada-purple font-outfit hover:underline"
-            >
-              Report an Issue
-            </Link>
-          </div>
-        </div>
-      </section>
+      {another}
     </>
   );
 }

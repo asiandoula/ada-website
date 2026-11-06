@@ -1,47 +1,136 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { ContactForm } from '@/components/public/contact-form';
-import { SidebarNav } from '@/components/public/sidebar-nav';
-import { courseJsonLd, breadcrumbJsonLd } from '@/lib/json-ld';
-import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { Breadcrumb, CtaBox, Hero, LinkList } from '@/components/site';
+import type { Locale } from '@/i18n/config';
+import { CERTIFICATE, CONTACT, EXAM, RENEWAL, TRAINING, TRAINING_MODULES, range, usd } from '@/lib/facts';
+import { getUpcomingExamSessions } from '@/lib/exam-sessions';
+import { breadcrumbJsonLd, courseJsonLd } from '@/lib/json-ld';
+import { formatExamDate } from '@/lib/site-dates';
+import {
+  B,
+  D,
+  DataTable,
+  FaqSection,
+  InlineArrow,
+  InlineLink,
+  NW,
+  RailSection,
+  Rows,
+  SplitSection,
+  StepList,
+  TableHead,
+  h2Class,
+  noteClass,
+  thCol,
+} from '../_components/blocks';
+import { certFormat, languageList, photoDate } from '../_lib/facts';
+import { FeeRows, ModuleDescription } from './_parts';
 
-export const metadata: Metadata = {
-  title: 'Postpartum Doula Certification | Asian Doula Alliance',
-  description:
-    'The gold standard in culturally integrated postpartum care — recognized by 6 major insurance providers. Learn about ADA Postpartum Doula Certification.',
-};
-
-const sidebarLinkKeys: { labelKey: string; href: string }[] = [
-  { labelKey: 'sidebarStepsToCertification', href: '/certifications/postpartum-doula/steps' },
-  { labelKey: 'sidebarFindATraining', href: '/certifications/postpartum-doula/training' },
-  { labelKey: 'sidebarExamDetails', href: '/certifications/postpartum-doula/exam' },
-];
-
-const sidebarExtraLinks = [
-  { label: 'sidebarRenew', href: '/for-doulas/renew' },
-  { label: 'sidebarCodeOfConduct', href: '/for-doulas/code-of-conduct' },
-];
-
-const learningItems = [
-  'Evidence-based postpartum recovery support',
-  'Newborn care (feeding, bathing, sleep safety)',
-  'Breastfeeding fundamentals and support techniques',
-  'Cultural competency across Asian traditions',
-  'Family dynamics and communication',
-  'Professional ethics and boundaries',
-];
-
-const insurancePartners = [
-  'Medi-Cal',
-  'Kaiser',
-  'Cigna',
-  'IEHP',
-  'Carrot Fertility',
-  'Progyny',
-];
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('postpartum.meta');
+  return { title: t('title'), description: t('description') };
+}
 
 export default async function PostpartumDoulaPage() {
-  const t = await getTranslations('certPostpartum');
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations('postpartum');
+  const tc = await getTranslations('certifications');
+  const tSite = await getTranslations('site');
+  const [next] = await getUpcomingExamSessions({ type: 'postpartum', limit: 1 });
+  const nextDate = next ? formatExamDate(next.date, locale) : null;
+  // The rail box is narrow: CJK dates drop the weekday there so the no-wrap date fits.
+  const ctaDate = next ? formatExamDate(next.date, locale, { weekday: locale === 'en' }) : null;
+
+  const languages = languageList(locale, (code) => tc(`shared.languages.${code as 'en' | 'zh' | 'ja' | 'ko'}`));
+  const date = photoDate(locale);
+  const validity = tc('shared.validity', { years: CERTIFICATE.validityYears });
+  const examLink = (chunks: ReactNode) => <InlineArrow href="/exam-dates">{chunks}</InlineArrow>;
+
+  const steps = [
+    {
+      title: t('steps.s1.title'),
+      body: t.rich('steps.s1.body', {
+        count: TRAINING.moduleCount,
+        days: range(TRAINING.inPersonDays),
+        b: B,
+        link: (chunks) => <InlineArrow href="/programs">{chunks}</InlineArrow>,
+      }),
+    },
+    {
+      title: t('steps.s2.title'),
+      body: nextDate
+        ? t.rich('steps.s2.bodyNext', { date: nextDate, fee: usd(EXAM.feeUsd), b: B, d: D, link: examLink })
+        : t.rich('steps.s2.bodyNone', { fee: usd(EXAM.feeUsd), b: B, link: examLink }),
+    },
+    {
+      title: t('steps.s3.title'),
+      body: t.rich('steps.s3.body', {
+        location: EXAM.location.oneLine,
+        written: EXAM.writtenMinutes,
+        practical: EXAM.practicalMinutes,
+        b: B,
+        link: (chunks) => <InlineArrow href="/exam-day">{chunks}</InlineArrow>,
+      }),
+    },
+    {
+      title: t('steps.s4.title'),
+      body: t.rich('steps.s4.body', {
+        days: range(EXAM.resultsBusinessDays),
+        pass: EXAM.passScore,
+        max: EXAM.maxScore,
+        b: B,
+      }),
+    },
+    {
+      title: t('steps.s5.title'),
+      body: t.rich('steps.s5.body', {
+        format: certFormat('postpartum'),
+        validity,
+        fee: usd(RENEWAL.feeUsd),
+        b: B,
+        registry: (chunks) => (
+          <InlineArrow href="/verify" tone="registry">
+            {chunks}
+          </InlineArrow>
+        ),
+      }),
+    },
+  ];
+
+  const modules = TRAINING_MODULES.map((m) => ({
+    label: t(`modules.${m.key}.title`),
+    value: <ModuleDescription moduleKey={m.key} />,
+  }));
+
+  const links = [
+    { href: '/certifications/postpartum-doula/exam', key: 'handbook' },
+    { href: '/exam-dates', key: 'examDates' },
+    { href: '/exam-day', key: 'examDay' },
+    { href: '/for-doulas/renew', key: 'renew' },
+    { href: '/programs/scholarship', key: 'scholarships' },
+    { href: '/for-doulas/code-of-conduct', key: 'conduct' },
+  ] as const;
+
+  const faq = [
+    { q: t('faq.experience.q'), a: t('faq.experience.a') },
+    {
+      q: t('faq.register.q'),
+      a: t.rich('faq.register.a', {
+        email: CONTACT.email,
+        phone: CONTACT.phone.display,
+        mail: (chunks) => <InlineLink href={`mailto:${CONTACT.email}`}>{chunks}</InlineLink>,
+        tel: (chunks) => <InlineLink href={`tel:${CONTACT.phone.tel}`}>{chunks}</InlineLink>,
+      }),
+    },
+    {
+      q: t('faq.retake.q'),
+      a: t('faq.retake.a', { fee: usd(EXAM.retakeFeeUsd), days: EXAM.retakeWaitDays }),
+    },
+    { q: t('faq.languages.q'), a: t('faq.languages.a', { languages }) },
+    { q: t('faq.afterPass.q'), a: t('faq.afterPass.a', { validity }) },
+  ];
+
   return (
     <>
       <script
@@ -49,8 +138,8 @@ export default async function PostpartumDoulaPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: t('sidebarStepsToCertification'), path: '/certifications' },
-              { name: 'Postpartum Doula', path: '/certifications/postpartum-doula' },
+              { name: tc('shared.candidates'), path: '/certifications' },
+              { name: t('breadcrumb'), path: '/certifications/postpartum-doula' },
             ])
           ),
         }}
@@ -58,228 +147,102 @@ export default async function PostpartumDoulaPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            courseJsonLd({
-              name: 'ADA Postpartum Doula Certification',
-              description: t('heroDescription'),
-            })
-          ),
+          __html: JSON.stringify(courseJsonLd({ name: t('courseName'), description: t('meta.description') })),
         }}
       />
-      {/* Hero */}
-      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            {t('heroTitle')}
-          </span>
-          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            {t('heroSubtitle')}
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            {t('heroDescription')}
-          </p>
-        </div>
-      </section>
+      <Breadcrumb items={[{ label: tc('shared.candidates'), href: '/certifications' }, { label: t('breadcrumb') }]} />
 
-      {/* Main Content */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="lg:flex lg:gap-12">
-            {/* Sidebar */}
-            <aside className="lg:w-1/5 mb-10 lg:mb-0">
-              <div className="lg:sticky lg:top-32">
-                <span className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-navy/40 mb-4 block">
-                  {t('sidebarStepsToCertification')}
-                </span>
-                <SidebarNav
-                  items={sidebarLinkKeys.map((l) => ({
-                    label: t(l.labelKey),
-                    href: l.href,
-                  }))}
-                />
-                <div className="my-4 border-t border-gray-200" />
-                <nav className="flex flex-col">
-                  {sidebarExtraLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="block py-1.5 text-sm text-ada-navy/60 hover:text-ada-purple transition-colors"
-                    >
-                      {t(link.label)}
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-            </aside>
+      <Hero
+        title={t('hero.title')}
+        line={t('hero.line')}
+        deadline={nextDate ? tSite('hero.nextExam', { type: tSite('examType.postpartum'), date: nextDate }) : undefined}
+        actions={[
+          { href: '/exam-dates', label: tc('shared.register') },
+          { href: '/programs', label: tc('shared.findCourse') },
+        ]}
+        image={{ src: '/images/2026/ada-care-focus.jpg', alt: t('hero.imageAlt') }}
+      />
 
-            {/* Main column */}
-            <div className="lg:w-4/5 space-y-16">
-              {/* a. Intro */}
-              <div>
-                <p className="text-ada-navy/60 leading-relaxed max-w-3xl text-lg">
-                  {t('introDescription')}
-                </p>
-              </div>
+      <SplitSection
+        id="steps-title"
+        first
+        title={t('steps.title')}
+        intro={t('steps.intro')}
+        photo={{
+          src: '/images/2026/ada-exam-practical.jpg',
+          alt: tc('steps.imageAlt'),
+          caption: tc('steps.caption', { date }),
+        }}
+      >
+        <StepList steps={steps} labelledBy="steps-title" />
+      </SplitSection>
 
-              {/* a.5 Mission context — how program fees support our nonprofit work */}
-              <div className="bg-ada-purple/5 border-l-4 border-ada-purple rounded-r-xl p-6 md:p-7">
-                <h3 className="font-dm-serif text-lg text-ada-navy mb-3">
-                  How your program fees support our mission
-                </h3>
-                <p className="text-ada-navy/70 leading-relaxed text-[15px]">
-                  Asian Doula Alliance is a 501(c)(3) nonprofit. Certification
-                  fees directly fund the work of expanding access to
-                  professional postpartum care in underserved Asian
-                  communities &mdash; including need-based scholarships for
-                  first-generation caregivers, multilingual exam development
-                  across five languages, the free public verification registry,
-                  and curriculum that pairs evidence-based practice with
-                  traditional postpartum knowledge. Enrolling in an ADA program
-                  is both a step in your career and a contribution to the
-                  community we serve.
-                </p>
-                <p className="mt-3 text-ada-navy/60 text-sm">
-                  Learn more on our{' '}
-                  <Link
-                    href="/about-us/financials"
-                    className="text-ada-purple underline hover:text-ada-purple-hover"
-                  >
-                    Financials &amp; Accountability
-                  </Link>{' '}
-                  page, or{' '}
-                  <Link
-                    href="/donate"
-                    className="text-ada-purple underline hover:text-ada-purple-hover"
-                  >
-                    support our scholarship fund
-                  </Link>
-                  .
-                </p>
-              </div>
+      <SplitSection
+        id="exam-title"
+        title={t('exam.title')}
+        intro={t('exam.intro', { count: TRAINING.moduleCount })}
+        photo={{
+          src: '/images/2026/ada-trainer-teaching.jpg',
+          alt: t('exam.imageAlt'),
+          caption: t('exam.caption', { date }),
+          ratio: '1 / 1',
+          position: '70% 50%',
+        }}
+      >
+        <Rows rows={modules} labelWidth={220} />
+      </SplitSection>
 
-              {/* b. At a Glance */}
-              <div className="bg-ada-off-white rounded-2xl p-8">
-                <h3 className="font-dm-serif text-xl text-ada-navy mb-6">{t('atAGlanceTitle')}</h3>
-                <div className="grid grid-cols-3 gap-y-8 gap-x-6">
-                  <div className="border-l-2 border-ada-purple/20 pl-4">
-                    <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">{t('examFeeLabel')}</span>
-                    <span className="font-outfit font-semibold text-ada-navy">{t('examFeeValue')}</span>
-                  </div>
-                  <div className="border-l-2 border-ada-purple/20 pl-4">
-                    <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">{t('retakeFeeLabel')}</span>
-                    <span className="font-outfit font-semibold text-ada-navy">{t('retakeFeeValue')}</span>
-                  </div>
-                  <div className="border-l-2 border-ada-purple/20 pl-4">
-                    <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">{t('renewalFeeLabel')}</span>
-                    <span className="font-outfit font-semibold text-ada-navy">{t('renewalFeeValue')}</span>
-                  </div>
-                  <div className="border-l-2 border-ada-purple/20 pl-4">
-                    <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">{t('examFormatLabel')}</span>
-                    <span className="font-outfit font-semibold text-ada-navy">{t('examFormatValue')}</span>
-                  </div>
-                  <div className="border-l-2 border-ada-purple/20 pl-4">
-                    <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">{t('languagesLabel')}</span>
-                    <span className="font-outfit font-semibold text-ada-navy">{t('languagesValue')}</span>
-                  </div>
-                  <div className="border-l-2 border-ada-purple/20 pl-4">
-                    <span className="text-xs text-ada-navy/40 uppercase tracking-wider font-outfit block mb-1">{t('certificateLabel')}</span>
-                    <span className="font-outfit font-semibold text-ada-navy">{t('certificateValue')}</span>
-                  </div>
-                </div>
-              </div>
+      <RailSection
+        id="fees-title"
+        main={
+          <>
+            <h2 id="fees-title" className={h2Class}>
+              {t('fees.title')}
+            </h2>
+            <DataTable caption={t('fees.caption')} minWidth={600}>
+              <TableHead>
+                <th scope="col" className={thCol}>{t('fees.colFee')}</th>
+                <th scope="col" className={thCol}>{t('fees.colAmount')}</th>
+                <th scope="col" className={thCol}>{t('fees.colNotes')}</th>
+              </TableHead>
+              <tbody>
+                <FeeRows />
+              </tbody>
+            </DataTable>
+            <p className={noteClass}>{t('fees.footnote')}</p>
+          </>
+        }
+        rail={
+          ctaDate ? (
+            <CtaBox title={t.rich('cta.withDate', { date: ctaDate, nw: NW })} action={{ href: '/exam-dates', label: tc('shared.register') }} />
+          ) : (
+            <CtaBox title={t('cta.noDate')} action={{ href: '/support/contact', label: t('cta.askDate') }} />
+          )
+        }
+      />
 
-              {/* c. What You'll Learn */}
-              <div>
-                <h3 className="font-dm-serif text-2xl text-ada-navy mb-6">
-                  {t('whatYoullLearnTitle')}
-                </h3>
-                <ul className="space-y-3">
-                  {learningItems.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-3 text-ada-navy/70 text-sm leading-relaxed"
-                    >
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-ada-purple shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+      <div className="pt-24">
+        <LinkList
+          title={tc('shared.forCandidates')}
+          items={links.map((l) => ({
+            href: l.href,
+            label: tc(`shared.links.${l.key}.label`),
+            description:
+              l.key === 'renew'
+                ? t('links.renew', { years: CERTIFICATE.validityYears })
+                : tc(`shared.links.${l.key}.description`),
+          }))}
+        />
+      </div>
 
-              {/* d. Insurance Recognition */}
-              <div>
-                <h3 className="font-dm-serif text-2xl text-ada-navy mb-4">
-                  {t('insuranceRecognitionTitle')}
-                </h3>
-                <p className="text-ada-navy/60 leading-relaxed mb-4">
-                  {t('insuranceRecognitionDescription')}
-                </p>
-                <ul className="space-y-2">
-                  {insurancePartners.map((partner) => (
-                    <li
-                      key={partner}
-                      className="flex items-start gap-3 text-ada-navy/70 text-sm leading-relaxed"
-                    >
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-ada-purple shrink-0" />
-                      {partner}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* e. 3 Steps */}
-              <div>
-                <h3 className="font-dm-serif text-2xl text-ada-navy mb-6">
-                  {t('stepsToCertificationTitle')}
-                </h3>
-                <ol className="space-y-4">
-                  <li className="flex items-start gap-4">
-                    <span className="font-dm-serif text-2xl text-ada-purple shrink-0">1.</span>
-                    <span className="text-ada-navy/70 leading-relaxed pt-1">
-                      {t('step1')}
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <span className="font-dm-serif text-2xl text-ada-purple shrink-0">2.</span>
-                    <span className="text-ada-navy/70 leading-relaxed pt-1">
-                      {t('step2')}
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <span className="font-dm-serif text-2xl text-ada-purple shrink-0">3.</span>
-                    <span className="text-ada-navy/70 leading-relaxed pt-1">
-                      {t('step3')}
-                    </span>
-                  </li>
-                </ol>
-                <Link
-                  href="/certifications/postpartum-doula/steps"
-                  className="mt-4 inline-block text-sm text-ada-purple hover:text-ada-purple-hover transition-colors"
-                >
-                  {t('seeDetailedSteps')}
-                </Link>
-              </div>
-
-              {/* f. CTA */}
-              <div className="bg-ada-off-white rounded-2xl p-10 text-center">
-                <h3 className="font-dm-serif text-2xl text-ada-navy">{t('ctaTitle')}</h3>
-                <p className="mt-3 text-ada-navy/60 leading-relaxed">
-                  {t('ctaDescription')}
-                </p>
-                <Link
-                  href="/certifications/postpartum-doula/training"
-                  className="mt-6 inline-flex items-center rounded-full bg-ada-purple text-white px-4 py-2.5 text-sm font-medium hover:bg-ada-purple-hover transition-colors"
-                >
-                  {t('ctaButton')}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <ContactForm />
+      <FaqSection
+        title={tc('shared.questions')}
+        note={tc.rich('shared.notAnswered', {
+          email: CONTACT.email,
+          link: (chunks) => <InlineLink href={`mailto:${CONTACT.email}`}>{chunks}</InlineLink>,
+        })}
+        items={faq}
+      />
     </>
   );
 }

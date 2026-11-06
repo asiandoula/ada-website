@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "title": "Asian Doula Alliance: doula certification, exams and the ADA registry",
+    "description": "Asian Doula Alliance certifies postpartum and birth doulas, runs the ADA written and practical exam, and keeps a public registry anyone can check for free."
+  },
+  "hero": {
+    "title": "Become an <nw>ADA-certified</nw> doula.",
+    "line": "ADA training and exams are offered in {languages}.",
+    "imageAlt": "Four trainees in the ADA Postpartum Doula Program practise holding a newborn, using training dolls",
+    "register": "Register for the exam",
+    "findCourse": "Find an ADA course"
+  },
+  "registry": {
+    "title": "Check that a doula is <nw>ADA-certified</nw>",
+    "body": "Every ADA certificate has a public, dated record. It shows whether the credential is active today and lists any suspension or revocation.",
+    "example": "For example <nw>{cert}</nw>, <nw>{id}</nw> or {name}.",
+    "exampleLong": "Look up a record by certificate number, Doula ID or full name, for example <nw>{cert}</nw>, <nw>{id}</nw> or {name}.",
+    "counts": "As of {date}: <b>{doulas, number}</b> {doulas, plural, one {doula} other {doulas}} with an active credential · <b>{certificates, number}</b> {certificates, plural, one {certificate} other {certificates}} issued",
+    "trainer": "Verify a trainer's certificate"
+  },
+  "programs": {
+    "title": "ADA programs",
+    "postpartum": {
+      "title": "ADA Postpartum Doula",
+      "description": "The {modules}-module ADA program, then the ADA written and practical exam.",
+      "nextExam": "Next exam",
+      "fee": "Exam fee",
+      "feeValue": "{fee}, paid to ADA",
+      "validity": "Certificate",
+      "validityValue": "Valid for {years, plural, one {# year} other {# years}}",
+      "register": "Register for the exam",
+      "requirements": "Requirements and fees"
+    },
+    "birth": {
+      "title": "ADA Birth Doula",
+      "description": "Labor and delivery support. Cohorts run on a rolling basis.",
+      "program": "The program",
+      "examDates": "Exam dates"
+    },
+    "education": {
+      "title": "ADA Education",
+      "description": "The ADA curriculum, taught by ADA Certified Trainers and Approved Training Providers.",
+      "ibclc": "IBCLC Exam-Prep",
+      "ce": "Continuing Education",
+      "trainer": "Become a trainer"
+    }
+  },
+  "examDay": {
+    "title": "What to expect on exam day",
+    "imageAlt": "Four candidates write the ADA written exam at spaced desks",
+    "caption": "The written exam: one candidate to a desk. August 2024.",
+    "bring": "Bring",
+    "bringValue": "A valid government-issued photo ID.",
+    "where": "Where",
+    "written": "Written exam",
+    "writtenValue": "{minutes} minutes, in {languages}.",
+    "practical": "Practical exam",
+    "practicalValue": "{minutes} minutes, one-on-one with an ADA examiner.",
+    "results": "Results",
+    "resultsValue": "By email in about {days} business days. The pass mark is {pass}/{max}.",
+    "link": "Exam day and ID"
+  },
+  "audiences": {
+    "label": "For families, insurers and agencies",
+    "families": {
+      "title": "For families",
+      "body": "Hiring a doula? Check the doula's public ADA record first. It shows whether the credential is active today.",
+      "verify": "Verify a doula",
+      "find": "Find a certified doula",
+      "training": "How ADA trains doulas"
+    },
+    "insurers": {
+      "title": "For insurers and agencies",
+      "body": "ADA certification is recognized by {insurers}. Anyone can check a doula's credential in the ADA registry, free of charge.",
+      "verify": "Verify a credential",
+      "conduct": "Read the Code of Conduct",
+      "contact": "Contact ADA"
+    }
+  },
+  "about": {
+    "title": "About ADA",
+    "what": "What ADA does",
+    "whatDescription": "A California nonprofit that sets the curriculum, examines candidates and keeps the registry.",
+    "governance": "Governance",
+    "governanceDescription": "The ADA board of directors, and how board members are elected.",
+    "conduct": "Code of Conduct",
+    "conductDescription": "The principles every ADA-certified doula agrees to. Violations can lead to suspension or revocation.",
+    "providers": "Training providers",
+    "providersDescription": "Teach the ADA curriculum as an ADA Certified Trainer or an Approved Training Provider.",
+    "contact": "Contact",
+    "contactDescription": "Questions about the exam, the registry or your record: {email}"
+  },
+  "languages": {
+    "en": "English",
+    "zh": "Chinese (Mandarin)",
+    "ja": "Japanese",
+    "ko": "Korean"
+  }
+}

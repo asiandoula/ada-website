@@ -28,11 +28,14 @@ export function generateCertificateNumber(
   return `ADA-${prefix}-${year}-${sequence.toString().padStart(4, '0')}`;
 }
 
+/** Pass mark out of 100. Also the lower bound of "Proficient". */
+export const PASS_SCORE = 70;
+/** Lower bound of "Highly Proficient", out of 100. */
+export const HIGHLY_PROFICIENT_SCORE = 90;
+
 export function computeProficiencyLevel(score: number | null): string | null {
   if (score === null || score === undefined) return null;
-  if (score >= 90) return 'Highly Proficient';
-  if (score >= 70) return 'Proficient';
+  if (score >= HIGHLY_PROFICIENT_SCORE) return 'Highly Proficient';
+  if (score >= PASS_SCORE) return 'Proficient';
   return 'Not Proficient';
 }
-
-export const PASS_SCORE = 70;

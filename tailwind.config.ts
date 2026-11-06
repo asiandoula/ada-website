@@ -72,10 +72,64 @@ const config: Config = {
           'pink-light': '#ffe5f5',
           'yellow-light': '#fffee5',
         },
+        // Direction C (2026-11 redesign). Values copied from canvas KitC.dc.html.
+        // The legacy `ada.*` palette above stays until every page is rewritten.
+        ada2: {
+          // The two purples. Indigo = certification, blossom = registry. Nothing else is purple.
+          indigo: '#3F3F7A',
+          'indigo-hover': '#2E2E5E',
+          blossom: '#606090',
+          'blossom-hover': '#4E4E80',
+          // Page neutrals
+          ink: '#111827',
+          body: '#1F2937',
+          muted: '#4B5563',
+          hairline: '#D1D5DB',
+          band: '#F3F4F6',
+          'band-rule': '#E5E7EB', // breadcrumb bottom rule, light-pill hover, text on indigo
+          black: '#0B0B0F', // utility bar and footer
+          'table-head': '#2B2B33',
+          'tag-border': '#6B7280', // page tag outline, tile sublink chevron
+          'tag-text': '#374151', // page tag text, "Sample" status cell
+          'kit-rule': '#9CA3AF', // footer scope line on black
+          'footer-rule': '#3A3A44', // hairline inside the footer
+          'util-divider': '#4B4B55', // divider in the utility bar
+          // Status (as in A)
+          good: '#1D6A45',
+          'good-bg': '#DFF0E6',
+          'good-text': '#14573A',
+          suspended: '#B42318',
+          revoked: '#3A1013',
+          lapsed: '#6B7785',
+          'lapsed-text': '#3F4B57',
+          'retired-bg': '#E9EDF2',
+          'retired-text': '#33475A',
+          // Inside the record sheet only (A's tokens; never restyle the sheet)
+          record: {
+            ink: '#0C2231',
+            muted: '#5A6B7B',
+            soft: '#33475A',
+            hairline: '#C9D1DA',
+            control: '#8595A5',
+            panel: '#F5F7F9',
+          },
+        },
       },
       fontFamily: {
         'dm-serif': ['var(--font-dm-serif)', 'serif'],
         outfit: ['var(--font-outfit)', 'sans-serif'],
+        // Pages: Source Sans 3, CJK falls back to the Noto face for the element's lang
+        // (`--font-cjk` is set per :lang() in globals.css).
+        site: ['var(--font-source-sans)', 'var(--font-cjk)', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        // Records only (VerifyRecord sheet, letter, certificate).
+        // CJK falls back to Noto Sans (VerifyRecordZh), never a CJK serif.
+        'record-serif': ['var(--font-source-serif)', 'Georgia', 'Times New Roman', 'var(--font-cjk)', 'serif'],
+        'record-mono': ['var(--font-plex-mono)', 'ui-monospace', 'Menlo', 'Consolas', 'var(--font-cjk)', 'monospace'],
+        // Explicit CJK faces, for language links that must show in their own script.
+        'noto-sc': ['var(--font-noto-sc)', 'sans-serif'],
+        'noto-tc': ['var(--font-noto-tc)', 'sans-serif'],
+        'noto-jp': ['var(--font-noto-jp)', 'sans-serif'],
+        'noto-kr': ['var(--font-noto-kr)', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

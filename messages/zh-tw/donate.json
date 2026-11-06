@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "title": "支持 ADA",
+    "description": "支持 Asian Doula Alliance——一家 {taxCode} 非營利組織。您的捐款用於獎學金、多語言培訓和免費的公開認證註冊名錄。"
+  },
+  "breadcrumb": "支持 ADA",
+  "title": "支持 ADA",
+  "lead": "Asian Doula Alliance 是一家非營利組織。您的捐款幫助考生支付培訓費用，使課程資料以考生使用的語言提供，並使公開的認證註冊名錄保持免費。",
+  "status": "{taxCode} 公共慈善機構 · EIN {ein}",
+  "taxNote": "在美國法律允許的最大範圍內，捐款可抵稅。您收到的電子郵件收據會列明 ADA 的法定名稱（{legalName}）、EIN 及捐款中可抵稅的部分。",
+  "give": {
+    "title": "捐款",
+    "body": "歡迎任意金額的單次或定期捐款。您將在 ADA 安全的 Donorbox 頁面上捐款，可使用銀行卡、銀行轉賬（ACH）、Apple Pay 或 Google Pay。",
+    "action": "前往 Donorbox",
+    "actionLabel": "前往 Donorbox 捐款（在新標籤頁中打開 donorbox.org）",
+    "newTab": "將在新標籤頁中打開 donorbox.org。",
+    "secure": "付款在 Donorbox 的安全頁面上完成。ADA 不保存完整的銀行卡號。",
+    "receipt": "捐款處理完成後，您將很快通過電子郵件收到抵稅收據。"
+  },
+  "photo": {
+    "alt": "一位 ADA 產後導樂課程學員坐著抱著訓練用嬰兒模型",
+    "caption": "一位學員在 ADA 產後導樂課程中練習懷抱新生兒。{date}。"
+  },
+  "funds": {
+    "title": "您的捐款用於",
+    "side": "如需 ADA 的美國國稅局（IRS）免稅認定函及財務文件，請見“財務”頁面。",
+    "sideLink": "財務",
+    "scholarships": "獎學金",
+    "scholarshipsValue": "基於經濟需要和基於成績的獎學金，可部分或全額覆蓋培訓費和考試費。",
+    "scholarshipsLink": "瞭解獎學金",
+    "materials": "多語言資料",
+    "materialsValue": "以考生使用的語言提供課程和考試資料：{languages}。本網站提供 English、<zhHans>簡體</zhHans>、<zhHant>繁體</zhHant>、<ja>日本語</ja>和<ko>한국어</ko>版本。",
+    "registry": "公開的認證註冊名錄",
+    "registryValue": "家庭、保險公司和機構可通過它查詢導樂的 ADA 認證。無需註冊賬戶，完全免費。<registry>查詢認證註冊名錄</registry>"
+  },
+  "ways": {
+    "title": "其他捐款方式",
+    "side": "對捐款或收據有疑問？請發送電子郵件至 <mail>{email}</mail>。",
+    "check": "支票或電匯",
+    "checkValue": "請發送電子郵件至 <mail>{email}</mail> 瞭解詳情。",
+    "daf": "捐贈者建議基金",
+    "dafValue": "通過您的捐贈者建議基金（DAF）向 {legalName} dba {dba} 推薦一筆捐款，EIN 為 {ein}。",
+    "employer": "雇主配捐",
+    "employerValue": "許多雇主會為員工的慈善捐款提供配捐。請咨詢您的人力資源部門；ADA 將填寫您的雇主要求的任何覈實表格。<mail>咨詢配捐</mail>"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "title": "IBCLC Exam Prep",
+    "description": "ADA’s multilingual IBCLC Exam-Prep course: lactation-specific education hours toward IBLCE’s IBCLC prerequisites. ADA prepares candidates; IBLCE issues the IBCLC."
+  },
+  "breadcrumb": "ADA IBCLC Lactation Exam-Prep",
+  "courseName": "ADA IBCLC Exam Prep",
+  "courseDescription": "Multilingual IBCLC exam preparation with culturally integrated lactation education.",
+  "mailSubject": "IBCLC Exam Prep - Interest",
+  "hero": {
+    "title": "ADA IBCLC Lactation Exam-Prep",
+    "line": "Cohorts run on a rolling basis throughout the year.",
+    "findCohort": "Find a cohort",
+    "imageAlt": "An ADA instructor teaches from a slide on a wall screen, with training dolls on the table in front of her"
+  },
+  "req": {
+    "title": "Completion, not a credential",
+    "intro": "The course gives you the lactation-specific education hours that IBLCE, the International Board of Lactation Consultant Examiners, requires before you can sit the IBCLC exam. <b>It is not an IBCLC credential. IBLCE issues the IBCLC.</b>",
+    "caption": "What the ADA course covers of IBLCE’s requirements for the IBCLC exam",
+    "colRequirement": "IBLCE requirement*",
+    "colAda": "What the ADA course does",
+    "health": {
+      "label": "Health science education",
+      "value": "Not part of this course."
+    },
+    "lactation": {
+      "label": "Lactation-specific education hours",
+      "value": "<b>Covered</b>, with an ADA completion record**"
+    },
+    "clinical": {
+      "label": "Supervised clinical practice hours",
+      "value": "Not provided by ADA. ADA can refer you to partner IBCLC training organizations."
+    },
+    "exam": {
+      "label": "The IBCLC exam and credential",
+      "value": "Set and issued by IBLCE†"
+    },
+    "note1": "*A summary only. Check the current eligibility requirements at <link>iblce.org</link> before you enroll.",
+    "note2": "**The completion record is IBCLC Training Qualified. It records completion of education hours only.",
+    "note3": "†ADA does not set, score or issue the IBCLC exam or credential."
+  },
+  "cta": {
+    "title": "Ask about the next IBCLC Exam-Prep cohort."
+  },
+  "topics": {
+    "title": "What the course covers",
+    "intro": "The course covers the IBLCE content areas, including anatomy, physiology, pharmacology, pathology and clinical skills. It also addresses breastfeeding beliefs and practices in Asian cultures, from the effect of traditional confinement diets on milk supply to family dynamics around breastfeeding decisions.",
+    "listLabel": "IBCLC Exam-Prep topics",
+    "items": {
+      "anatomy": "Breast anatomy and physiology",
+      "oral": "Infant oral anatomy and suckling mechanics",
+      "management": "Breastfeeding management across the first year",
+      "challenges": "Low supply, engorgement, mastitis and tongue-tie",
+      "pharmacology": "Pharmacology and breastfeeding compatibility",
+      "special": "Preterm infants, multiples and the NICU",
+      "cultural": "Cultural considerations in lactation support",
+      "strategies": "Exam strategies and practice questions"
+    }
+  },
+  "who": {
+    "title": "Who it is for, and how it runs",
+    "intro": "Designed for working doulas and health professionals who are building toward the IBCLC.",
+    "imageAlt": "A trainee dresses a training doll on a changing table during an ADA training session",
+    "caption": "A trainee dresses a training doll during an ADA training session. {date}.",
+    "openTo": {
+      "label": "Open to",
+      "value": "Anyone who meets IBLCE’s eligibility requirements, including nurses, midwives and other health professionals."
+    },
+    "credential": {
+      "label": "ADA credential",
+      "value": "Not required. You do not need to be an ADA-certified doula first."
+    },
+    "format": {
+      "label": "Format",
+      "value": "Self-paced study plus live instruction sessions."
+    },
+    "cohorts": {
+      "label": "Cohorts",
+      "value": "On a rolling basis, throughout the year."
+    },
+    "languages": {
+      "label": "Languages"
+    },
+    "tuition": {
+      "label": "Tuition",
+      "value": "Write to <mail>{email}</mail> for current cohort pricing and payment plan options."
+    }
+  },
+  "record": {
+    "title": "Your completion record",
+    "intro": "When you finish the course, ADA records your completion in the ADA registry, where anyone can check it.",
+    "record": {
+      "label": "Record",
+      "value": "IBCLC Training Qualified"
+    },
+    "status": {
+      "label": "Status",
+      "note": "A permanent record. It does not expire."
+    },
+    "isNot": {
+      "label": "Is not",
+      "value": "An IBCLC credential. IBLCE issues the IBCLC."
+    }
+  },
+  "faq": {
+    "what": {
+      "q": "What is the IBCLC?",
+      "a": "The International Board Certified Lactation Consultant (IBCLC) is a credential for lactation care professionals, issued by the International Board of Lactation Consultant Examiners (IBLCE). It requires specialized education, clinical experience and a pass on IBLCE’s exam."
+    },
+    "issue": {
+      "q": "Does ADA issue the IBCLC credential?",
+      "a": "No. The IBCLC is issued by IBLCE. ADA provides the exam-prep course that covers the lactation-specific education hours required to sit the IBCLC exam, and records your completion."
+    },
+    "adaFirst": {
+      "q": "Do I need to be an ADA-certified doula first?",
+      "a": "No. The course is open to anyone who meets IBLCE’s eligibility requirements, including nurses, midwives and other health professionals."
+    },
+    "next": {
+      "q": "When is the next cohort?",
+      "a": "Cohorts run on a rolling basis throughout the year. Write to us to join the next cohort’s roster. We will share start dates, pricing and, if you need them, referrals to partner IBCLC training organizations for clinical hours."
+    },
+    "cost": {
+      "q": "How much will it cost?",
+      "a": "Write to <mail>{email}</mail> for current cohort pricing, payment plan options and referrals to partner programs for any clinical hours ADA does not provide."
+    }
+  }
+}

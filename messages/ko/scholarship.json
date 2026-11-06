@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "ADA scholarships",
+    "description": "Need-based and merit-based ADA scholarships toward training and exam fees: who can apply, what a scholarship covers and how to apply."
+  },
+  "breadcrumb": "ADA scholarships",
+  "hero": {
+    "title": "ADA scholarships",
+    "line": "Need-based and merit-based scholarships toward your ADA training and exam fees.",
+    "photoAlt": "Four trainees in an ADA training session practise holding a newborn, using training dolls",
+    "apply": "Apply by email",
+    "findCourse": "Find an ADA course"
+  },
+  "who": {
+    "title": "Who can apply",
+    "intro": "ADA offers need-based and merit-based scholarships, so that talent and dedication, not financial circumstances, decide who can become a certified doula.",
+    "photoAlt": "A trainee dresses a training doll on a changing table during an ADA training session",
+    "photoCaption": "A trainee dresses a training doll during an ADA training session. August 2024.",
+    "enrollment": "Enrollment",
+    "enrollmentText": "You are enrolled in, or accepted to, an ADA program with an ADA Certified Trainer or an Approved Training Provider.",
+    "need": "Need-based",
+    "needText": "You can show financial need.",
+    "commitment": "Commitment",
+    "commitmentText": "You plan to serve Asian communities after certification.",
+    "languages": "Languages",
+    "languagesText": "Speaking more than one language is preferred, but not required.",
+    "priority": "Priority",
+    "priorityText": "Candidates from underserved communities, multilingual speakers and first-generation caregivers, who bring language skills and perspective to the families they serve."
+  },
+  "covers": {
+    "title": "What a scholarship covers",
+    "intro": "A scholarship covers part or all of your training and exam fees, the largest cost for most candidates.",
+    "caption": "Costs a scholarship can cover",
+    "colCost": "Cost",
+    "colAmount": "Amount",
+    "colPaidTo": "Paid to",
+    "colScholarship": "Scholarship",
+    "tuition": "Program tuition",
+    "tuitionAmount": "Set by the training provider",
+    "tuitionPaidTo": "The trainer or training provider",
+    "exam": "ADA exam fee",
+    "examPaidTo": "ADA",
+    "partialOrFull": "Partial or full",
+    "note": "Tuition is paid to the trainer or training provider. Exam fees are paid to ADA."
+  },
+  "apply": {
+    "title": "How to apply",
+    "intro": "Apply once you are enrolled in, or accepted to, an ADA course.",
+    "photoAlt": "Candidates write the ADA written exam at desks in a training room",
+    "photoCaption": "Candidates at the ADA written exam. August 2024.",
+    "s1Title": "Get a place in an ADA course",
+    "s1Body": "Enroll in, or be accepted to, an ADA program with an ADA Certified Trainer or an Approved Training Provider. <link>Find an ADA course</link>",
+    "s2Title": "Email your application",
+    "s2Body": "Write to <mail>{email}</mail> with your name and background, the program and the trainer or provider, a brief statement of purpose, and any relevant experience.",
+    "s3Title": "ADA reviews it",
+    "s3Body": "Applications are reviewed on a rolling basis. ADA replies by email.",
+    "s4Title": "Use your award",
+    "s4Body": "ADA tells you the amount, and whether it goes to your tuition, the <strong>{fee}</strong> exam fee or both. <link>Exam dates</link>"
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "Questions about eligibility, what is covered, or an application you have sent.",
+    "email": "Email",
+    "phone": "Phone",
+    "mail": "Mail",
+    "mailValue": "{name}, {address}"
+  },
+  "cta": {
+    "title": "Applications are reviewed on a rolling basis.",
+    "action": "Apply by email"
+  },
+  "links": {
+    "title": "For candidates",
+    "postpartum": "ADA Postpartum Doula",
+    "postpartumText": "{count} modules, then the ADA written and practical exam.",
+    "birth": "ADA Birth Doula",
+    "birthText": "Labor and delivery support. Cohorts run on a rolling basis.",
+    "ibclc": "IBCLC Lactation Exam-Prep",
+    "ibclcText": "Lactation education hours toward IBLCE’s IBCLC prerequisites.",
+    "courses": "ADA education",
+    "coursesText": "The ADA curriculum, its modules, and how to teach it.",
+    "dates": "Exam dates",
+    "datesText": "Upcoming ADA exam dates, from the ADA exam schedule.",
+    "conduct": "Code of Conduct",
+    "conductText": "The principles every ADA-certified doula agrees to."
+  }
+}

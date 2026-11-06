@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "privacyTitle": "Privacy Policy",
+    "privacyDescription": "How Asian Doula Alliance collects, uses, and protects your personal information across our website, certification programs, and donor relationships.",
+    "termsTitle": "Terms of Service",
+    "termsDescription": "Terms that govern your use of the Asian Doula Alliance website, certification programs, and educational resources."
+  },
+  "pages": "Legal pages",
+  "privacy": "Privacy policy",
+  "terms": "Terms of service",
+  "onThisPage": "On this page",
+  "updated": "Last updated {date}",
+  "entity": "{legalName} dba {dba}",
+  "englishNote": "The legal text on this page is published in English only. The English text governs.",
+  "privacyLead": "What ADA collects, how ADA uses it, and the choices you have.",
+  "termsLead": "The terms for using the ADA website, certification programs and educational resources.",
+  "privacyCta": {
+    "title": "Ask ADA to show, correct or delete what it holds about you.",
+    "action": "Make a privacy request"
+  },
+  "termsCta": {
+    "title": "Questions about these terms? Write to ADA.",
+    "action": "Email ADA"
+  }
+}

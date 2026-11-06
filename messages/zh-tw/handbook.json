@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "title": "產後導樂考生手冊",
+    "description": "ADA 產後導樂考生手冊：報考資格、認證要求、筆試與實操考試、費用、考試結果、續證與職業行為準則。"
+  },
+  "breadcrumb": "考生手冊",
+  "title": "產後導樂考生手冊",
+  "lead": "ADA 產後導樂認證表明導樂已通過 ADA 的筆試和實操考試。本手冊說明如何取得認證，以及如何保持認證有效。",
+  "scope": "產後導樂在產後數周內為家庭提供非醫療支持：新生兒護理、餵養、產婦恢復以及家庭的適應調整。醫療問題由家庭的醫護人員處理。",
+  "facts": {
+    "credential": "認證",
+    "examFee": "考試費",
+    "examFeeValue": "{fee}，交付 ADA",
+    "exam": "考試",
+    "examValue": "筆試 {written} 分鐘，實操 {practical} 分鐘",
+    "passMark": "合格分數",
+    "passMarkValue": "{pass}/{max}",
+    "period": "認證有效期"
+  },
+  "toc": {
+    "title": "本頁內容",
+    "apply": "報考資格",
+    "requirements": "認證要求",
+    "exam": "考試",
+    "fees": "費用",
+    "results": "考試結果與證書",
+    "renewal": "續證",
+    "conduct": "職業行為準則",
+    "questions": "常見問題"
+  },
+  "apply": {
+    "graduates": {
+      "label": "ADA 培訓項目結業學員",
+      "value": "您已完成 ADA 認可的產後導樂培訓項目。"
+    },
+    "experience": {
+      "label": "相關經驗",
+      "value": "無需任何經驗。ADA 認可的培訓項目會帶您從零基礎達到應考水平。"
+    }
+  },
+  "requirements": {
+    "r1": {
+      "title": "完成 ADA 認可的培訓項目",
+      "body": "共 {count} 個模塊，通常為期 <b>{days} 天</b>的集中培訓，可線下或線上參加。培訓包含美國紅十字會嬰兒心肺復蘇（CPR）課程。培訓費用因機構而異。"
+    },
+    "r2": {
+      "title": "報名考試場次並繳納 {fee}",
+      "body": "您的培訓機構會指導您完成報名，您也可以直接聯繫 ADA。請在報名時選擇考試語言。"
+    },
+    "r3": {
+      "title": "攜帶有效的政府簽發帶照片身份證件",
+      "body": "考試當天需要出示。<link>需要攜帶的物品</link>"
+    },
+    "r4": {
+      "title": "通過筆試和實操考試",
+      "body": "合格分數為 <b>{pass}/{max}</b>。"
+    },
+    "r5": {
+      "title": "遵守《ADA 職業行為準則》",
+      "body": "每位 ADA 認證導樂都應遵守的職業與道德標準。<link>准則內容</link>"
+    }
+  },
+  "exam": {
+    "intro": "考試分為兩部分：筆試，以及與 ADA 認證考官一對一進行的實操考試。考試地點：{location}。",
+    "imageAlt": "四名考生在間隔排列的考桌前參加 ADA 筆試",
+    "caption": "筆試：每位考生一張考桌。{date}。",
+    "caption2": "ADA 產後導樂考試的兩個部分",
+    "colDetail": "考試項目",
+    "colWritten": "筆試",
+    "colPractical": "實操考試",
+    "length": {
+      "label": "時長",
+      "written": "{minutes} 分鐘",
+      "practical": "{minutes} 分鐘，與 ADA 認證考官一對一進行"
+    },
+    "format": {
+      "label": "形式",
+      "written": "選擇題和簡答題",
+      "practical": "現場演示導樂技能"
+    },
+    "content": {
+      "label": "考核內容",
+      "written": "產後護理、新生兒護理、母乳餵養支持、文化勝任力、安全規程以及與客戶的溝通",
+      "practical": "新生兒抱持、包裹襁褓、洗澡、產後恢復支持，以及與不同文化背景家庭的溝通"
+    },
+    "languages": {
+      "label": "語言",
+      "value": "{languages}。所有考試材料（包括說明和試題）均以您選擇的語言提供。"
+    }
+  },
+  "covers": {
+    "title": "考試涵蓋的內容",
+    "intro": "兩部分考試均涵蓋 ADA 產後導樂培訓項目的 {count} 個模塊。",
+    "caption": "ADA 產後導樂考試涵蓋的模塊",
+    "colModule": "模塊",
+    "colCovers": "涵蓋內容"
+  },
+  "booking": {
+    "title": "預約考試日期",
+    "how": {
+      "label": "如何報名",
+      "value": "您的培訓機構會指導您完成報名。您也可以通過 <mail>{email}</mail> 或 <tel>{phone}</tel> 直接聯繫 ADA。"
+    },
+    "examDay": "考試當天與身份證件要求"
+  },
+  "fees": {
+    "colWhen": "適用情形"
+  },
+  "results": {
+    "when": {
+      "label": "時間",
+      "value": "約在 {days} 個工作日內通過電子郵件發送。"
+    },
+    "result": {
+      "label": "您的成績",
+      "value": "滿分為 {max} 分的成績及等級：<b>高度熟練</b>（Highly Proficient，{high} 分及以上）、<b>熟練</b>（Proficient，{pass}–{proficientTop} 分）或<b>未達熟練</b>（Not Proficient，低於 {pass} 分）。合格分數為 {pass}/{max}。"
+    },
+    "pass": {
+      "label": "通過考試",
+      "value": "ADA 將為您頒發認證和唯一的考試編號，並將您列入 ADA 認證註冊名錄，任何人都可以查詢。"
+    },
+    "fail": {
+      "label": "未通過考試",
+      "value": "您可以重考，重考費為 {fee}，須在上次考試至少 {days} 天後進行。"
+    }
+  },
+  "number": {
+    "title": "您的證書編號",
+    "format": "每張證書都有獨立編號：ADA、認證類別（{pd} 為產後導樂，{bd} 為分娩導樂）、頒發年份和序號。",
+    "record": {
+      "label": "您的公開記錄",
+      "value": "顯示您當前的認證狀態。證書只反映頒發當天的狀態；認證註冊名錄中的記錄才是權威來源。"
+    }
+  },
+  "renewal": {
+    "intro": "您的認證有效期為 {validity}。請在記錄所示的到期日之前續證，以保持資格良好。",
+    "need": {
+      "label": "所需材料",
+      "value": "兩種途徑任選其一：專業推薦信，或合格分數為 {pass}/{max} 的重新認證考試；另需繳納續證費 {fee}。"
+    },
+    "start": {
+      "label": "如何開始",
+      "value": "先在 ADA 認證註冊名錄或“我的 ADA”中查看您的認證狀態和到期日，然後聯繫 ADA 辦理。"
+    },
+    "link": "辦理 ADA 認證續期"
+  },
+  "conduct": {
+    "intro": "每位 ADA 認證導樂都應遵守《ADA 職業行為準則》。",
+    "professional": {
+      "label": "職業標準",
+      "value": "保持專業技能和認證有效，在執業範圍內提供服務，並以專業方式溝通。"
+    },
+    "client": {
+      "label": "客戶照護",
+      "value": "以客戶需求為中心，事先徵得知情同意，對客戶信息保密，尊重每個家庭的文化，並一視同仁地服務所有家庭。"
+    },
+    "ethics": {
+      "label": "職業道德",
+      "value": "如實說明自己的資質，披露利益衝突，保持職業邊界，依法報告虐待、疏忽或安全隱患，並配合 ADA 的審查。"
+    },
+    "enforcement": {
+      "label": "違反准則的處理",
+      "value": "違反准則可能導致 ADA 認證被暫停或撤銷。任何人都可以發送郵件至 <mail>{email}</mail> 反映問題，所有舉報均保密處理。"
+    },
+    "readFull": "閱讀《職業行為準則》全文",
+    "report": "反映問題"
+  },
+  "questions": {
+    "course": {
+      "q": "在哪裡參加培訓課程？",
+      "a": "參加 ADA 認可的培訓項目，可線下或線上進行。培訓項目列在 <link>ADA 教育</link>頁面。"
+    },
+    "language": {
+      "q": "可以用我的母語參加考試嗎？",
+      "a": "可以。考試提供{languages}。請在報名時選擇考試語言。"
+    },
+    "check": {
+      "q": "家庭和保險機構如何覈實我的認證？",
+      "a": "他們可以在 <link>{url}</link> 查詢 ADA 認證註冊名錄。保險機構可以在名錄中覈實您的認證。"
+    }
+  }
+}

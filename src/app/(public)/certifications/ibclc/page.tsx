@@ -1,75 +1,70 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { Accordion } from '@/components/public/accordion';
-import { ContactForm } from '@/components/public/contact-form';
-import { courseJsonLd, breadcrumbJsonLd } from '@/lib/json-ld';
-import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { Breadcrumb, CtaBox, Hero, LinkList, Pill, StatusTag } from '@/components/site';
+import type { Locale } from '@/i18n/config';
+import { CONTACT, TRAINING } from '@/lib/facts';
+import { breadcrumbJsonLd, courseJsonLd } from '@/lib/json-ld';
+import {
+  B,
+  DataTable,
+  FaqSection,
+  InlineLink,
+  NW,
+  Notes,
+  RailSection,
+  Rows,
+  SplitSection,
+  TableHead,
+  TopicGrid,
+  h2Class,
+  noteClass,
+  td,
+  thCol,
+  thRow,
+} from '../_components/blocks';
+import { languageList, photoDate } from '../_lib/facts';
 
-export const metadata: Metadata = {
-  title: 'IBCLC Exam Prep & Resources | Asian Doula Alliance',
-  description:
-    "ADA's multilingual IBCLC Exam Prep course and partner-referral support: lactation-specific education to prepare for the International Board Certified Lactation Consultant exam. ADA prepares candidates; IBLCE issues the credential.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('ibclc.meta');
+  return { title: t('title'), description: t('description') };
+}
+
+/** Course topics from the live IBCLC page, in its order. */
+const TOPICS = ['anatomy', 'oral', 'management', 'challenges', 'pharmacology', 'special', 'cultural', 'strategies'] as const;
 
 export default async function IBCLCExamPrepPage() {
-  const t = await getTranslations('certIbclc');
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations('ibclc');
+  const tc = await getTranslations('certifications');
 
-  const whyAdaItems = [
-    {
-      title: t('multilingualInstruction'),
-      description: t('multilingualInstructionDescription'),
-    },
-    {
-      title: t('culturallyIntegratedContent'),
-      description: t('culturallyIntegratedContentDescription'),
-    },
-    {
-      title: t('examFocusedCurriculum'),
-      description: t('examFocusedCurriculumDescription'),
-    },
-    {
-      title: t('flexibleLearning'),
-      description: t('flexibleLearningDescription'),
-    },
+  const languages = languageList(locale, (code) => tc(`shared.languages.${code as 'en' | 'zh' | 'ja' | 'ko'}`));
+  const date = photoDate(locale);
+  const askHref = `mailto:${CONTACT.email}?subject=${encodeURIComponent(t('mailSubject'))}`;
+  const mail = (chunks: ReactNode) => <InlineLink href={`mailto:${CONTACT.email}`}>{chunks}</InlineLink>;
+
+  const requirementRows = [
+    { label: t('req.health.label'), value: t('req.health.value') },
+    { label: t('req.lactation.label'), value: t.rich('req.lactation.value', { b: B }) },
+    { label: t('req.clinical.label'), value: t('req.clinical.value') },
+    { label: t('req.exam.label'), value: t('req.exam.value') },
   ];
 
-  const courseTopics = [
-    t('breastAnatomyAndPhysiology'),
-    t('infantOralAnatomyAndSucklingMechanics'),
-    t('breastfeedingManagementAcrossTheFirstYear'),
-    t('commonChallengesLowSupplyEngorgementMastitisTongueTie'),
-    t('pharmacologyAndBreastfeedingCompatibility'),
-    t('specialCircumstancesPretermInfantsMultiplesNICU'),
-    t('culturalConsiderationsInLactationSupport'),
-    t('ibclcExamStrategiesAndPracticeQuestions'),
-  ];
+  const links = [
+    { href: '/certifications/postpartum-doula', key: 'postpartum' },
+    { href: '/certifications/birth-doula', key: 'birth' },
+    { href: '/programs/scholarship', key: 'scholarships' },
+    { href: '/programs', key: 'courses' },
+    { href: '/verify', key: 'verify' },
+    { href: '/support/contact', key: 'contact' },
+  ] as const;
 
-  const faqItems = [
-    {
-      question: t('whatIsIbclcQuestion'),
-      answer: t('ibclcDescription'),
-    },
-    {
-      question: t('doesAdaIssueIbclcCredential'),
-      answer: t('doesAdaIssueIbclcCredentialAnswer'),
-    },
-    {
-      question: t('doINeedToBeAdaCertifiedDoula'),
-      answer: t('doINeedToBeAdaCertifiedDoulaAnswer'),
-    },
-    {
-      question: t('whenWillTheCourseLaunch'),
-      answer: t('whenWillTheCourseLaunchAnswer'),
-    },
-    {
-      question: t('howMuchWillItCost'),
-      answer: t('howMuchWillItCostAnswer'),
-    },
-  ];
-
-  const sidebarLinks = [
-    { label: t('postpartumDoula'), href: '/certifications/postpartum-doula' },
-    { label: t('birthDoula'), href: '/certifications/birth-doula' },
+  const faq = [
+    { q: t('faq.what.q'), a: t('faq.what.a') },
+    { q: t('faq.issue.q'), a: t('faq.issue.a') },
+    { q: t('faq.adaFirst.q'), a: t('faq.adaFirst.a') },
+    { q: t('faq.next.q'), a: t('faq.next.a') },
+    { q: t('faq.cost.q'), a: t.rich('faq.cost.a', { email: CONTACT.email, mail }) },
   ];
 
   return (
@@ -79,8 +74,8 @@ export default async function IBCLCExamPrepPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: t('certifications'), path: '/certifications' },
-              { name: t('ibclcExamPrep'), path: '/certifications/ibclc' },
+              { name: tc('shared.candidates'), path: '/certifications' },
+              { name: t('breadcrumb'), path: '/certifications/ibclc' },
             ])
           ),
         }}
@@ -88,151 +83,133 @@ export default async function IBCLCExamPrepPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            courseJsonLd({
-              name: t('adaIbclcExamPrep'),
-              description: t('multilingualIbclcExamPreparationWithCulturallyIntegratedLactationEducation'),
-            })
-          ),
+          __html: JSON.stringify(courseJsonLd({ name: t('courseName'), description: t('courseDescription') })),
         }}
       />
-      {/* Hero */}
-      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            {t('heroTitle')}
-          </span>
-          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            {t('heroTitle')}
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            {t('heroSubtitle')}
-          </p>
-        </div>
-      </section>
+      <Breadcrumb items={[{ label: tc('shared.candidates'), href: '/certifications' }, { label: t('breadcrumb') }]} />
 
-      {/* Main Content + Sidebar */}
-      <section className="bg-white py-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex flex-col-reverse lg:flex-row gap-12 lg:gap-16">
-            {/* Main Content */}
-            <div className="lg:w-4/5 space-y-16">
-              {/* What is IBCLC? */}
-              <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-6">
-                  {t('whatIsIbclc')}
-                </h2>
-                <p className="text-ada-navy/60 leading-relaxed">
-                  {t('ibclcDescription')}
-                </p>
-                <p className="text-ada-navy/60 leading-relaxed mt-4">
-                  {t('ibclcCourseDescription')}
-                </p>
-              </div>
+      <Hero
+        title={t.rich('hero.title', { nw: NW })}
+        line={t('hero.line')}
+        actions={[
+          { href: '/programs', label: t('hero.findCohort') },
+          { href: askHref, label: tc('shared.askCohort') },
+        ]}
+        image={{ src: '/images/2026/ada-trainer-slide.jpg', alt: t('hero.imageAlt') }}
+      />
 
-              {/* Why ADA's IBCLC Prep? */}
-              <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-8">
-                  {t('whyAdaIbclcPrep')}
-                </h2>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {whyAdaItems.map((item) => (
-                    <div key={item.title}>
-                      <h3 className="font-outfit font-semibold text-ada-navy mb-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-ada-navy/60 text-sm leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+      <RailSection
+        id="req-title"
+        first
+        main={
+          <>
+            <h2 id="req-title" className={h2Class}>
+              {t.rich('req.title', { nw: NW })}
+            </h2>
+            <p className="m-0 text-ada2-body [text-wrap:pretty]">{t.rich('req.intro', { b: B })}</p>
+            <DataTable caption={t('req.caption')} minWidth={0}>
+              <TableHead>
+                <th scope="col" className={`${thCol} w-[30%]`}>{t('req.colRequirement')}</th>
+                <th scope="col" className={thCol}>{t('req.colAda')}</th>
+              </TableHead>
+              <tbody>
+                {requirementRows.map((r, i) => (
+                  <tr key={i}>
+                    <th scope="row" className={thRow}>{r.label}</th>
+                    <td className={td}>{r.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </DataTable>
+            <Notes>
+              <p className={noteClass}>
+                {t.rich('req.note1', {
+                  link: (chunks) => (
+                    <InlineLink href="https://iblce.org" external>
+                      {chunks}
+                    </InlineLink>
+                  ),
+                })}
+              </p>
+              <p className={noteClass}>{t('req.note2')}</p>
+              <p className={noteClass}>{t('req.note3')}</p>
+            </Notes>
+          </>
+        }
+        rail={<CtaBox title={t('cta.title')} action={{ href: askHref, label: tc('shared.askCohort') }} />}
+      />
 
-              {/* IBCLC Requirements Overview */}
-              <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-8">
-                  {t('examRequirementsOverview')}
-                </h2>
-                <div className="border-l-4 border-ada-purple pl-6 py-2">
-                  <p className="text-ada-navy/60 leading-relaxed">
-                    {t('examRequirementsDescription')}
-                  </p>
-                </div>
-              </div>
+      <SplitSection id="topics-title" title={t('topics.title')} intro={t('topics.intro')}>
+        <TopicGrid label={t('topics.listLabel')} items={TOPICS.map((k) => t(`topics.items.${k}`))} />
+      </SplitSection>
 
-              {/* Course Content Preview */}
-              <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-8">
-                  {t('courseContentPreview')}
-                </h2>
-                <ul className="space-y-3">
-                  {courseTopics.map((topic) => (
-                    <li key={topic} className="flex items-start gap-3 text-ada-navy/60">
-                      <span className="text-ada-purple mt-0.5">&#x2022;</span>
-                      {topic}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+      <SplitSection
+        id="who-title"
+        title={t('who.title')}
+        intro={t('who.intro')}
+        photo={{
+          src: '/images/2026/ada-course-practice.jpg',
+          alt: t('who.imageAlt'),
+          caption: t('who.caption', { date }),
+        }}
+      >
+        <Rows
+          rows={[
+            { label: t('who.openTo.label'), value: t('who.openTo.value') },
+            { label: t('who.credential.label'), value: t('who.credential.value') },
+            { label: t('who.format.label'), value: t('who.format.value') },
+            { label: t('who.cohorts.label'), value: t('who.cohorts.value') },
+            { label: t('who.languages.label'), value: languages },
+            { label: t('who.tuition.label'), value: t.rich('who.tuition.value', { email: CONTACT.email, mail }) },
+          ]}
+        />
+      </SplitSection>
 
-              {/* Get Notified */}
-              <div className="bg-ada-purple/5 border border-ada-purple/20 rounded-2xl p-8 text-center">
-                <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy mb-3">
-                  {t('beTheFirstToKnow')}
-                </h2>
-                <p className="text-ada-navy/60 mb-6">
-                  {t('getNotifiedDescription')}
-                </p>
-                <a
-                  href="mailto:contact@asiandoula.org?subject=IBCLC%20Exam%20Prep%20-%20Interest"
-                  className="inline-block font-outfit font-medium text-white bg-ada-purple hover:bg-ada-purple-hover px-8 py-3 rounded-full transition-colors"
-                >
-                  {t('notifyMe')}
-                </a>
-              </div>
-
-              {/* FAQ */}
-              <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy mb-8">
-                  {t('frequentlyAskedQuestions')}
-                </h2>
-                <Accordion items={faqItems} />
-              </div>
-            </div>
-
-            {/* Sidebar */}
-            <aside className="lg:w-1/5">
-              <div className="lg:sticky lg:top-32">
-                <p className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-purple mb-4">
-                  {t('certifications')}
-                </p>
-                <nav className="space-y-2">
-                  {sidebarLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="block font-outfit text-sm text-ada-navy/60 hover:text-ada-navy transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                  <div className="border-t border-gray-200 my-3" />
-                  <Link
-                    href="/certifications"
-                    className="block font-outfit text-sm text-ada-navy/60 hover:text-ada-navy transition-colors"
-                  >
-                    {t('allCertifications')}
-                  </Link>
-                </nav>
-              </div>
-            </aside>
+      <SplitSection
+        id="record-title"
+        title={t('record.title')}
+        intro={t('record.intro')}
+        aside={
+          <div className="pt-1">
+            <Pill href="/verify" variant="registry" icon="search">
+              {tc('shared.checkRegistry')}
+            </Pill>
           </div>
-        </div>
-      </section>
+        }
+      >
+        <Rows
+          rows={[
+            { label: t('record.record.label'), value: t('record.record.value') },
+            {
+              label: t('record.status.label'),
+              value: (
+                <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <StatusTag status="completed" />
+                  <span>{t('record.status.note')}</span>
+                </span>
+              ),
+            },
+            { label: t('record.isNot.label'), value: t('record.isNot.value') },
+          ]}
+        />
+      </SplitSection>
 
-      {/* Contact */}
-      <ContactForm />
+      <div className="pt-24">
+        <LinkList
+          title={tc('shared.forCandidates')}
+          items={links.map((l) => ({
+            href: l.href,
+            label: tc(`shared.links.${l.key}.label`),
+            description: tc(`shared.links.${l.key}.description`, { count: TRAINING.moduleCount }),
+          }))}
+        />
+      </div>
+
+      <FaqSection
+        title={tc('shared.questions')}
+        note={tc.rich('shared.notAnswered', { email: CONTACT.email, link: mail })}
+        items={faq}
+      />
     </>
   );
 }

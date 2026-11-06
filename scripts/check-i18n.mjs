@@ -1,11 +1,20 @@
 #!/usr/bin/env node
 /**
- * i18n guard: validates literal t('…') calls against messages/en.json
- * and locale drift across all messages/*.json files.
+ * i18n guard: validates literal t('…') calls against the merged English
+ * messages and locale drift across all locales.
+ *
+ * Messages per locale = legacy messages/<locale>.json, with every namespace
+ * file messages/<locale>/<ns>.json deep-merged over it under key <ns> (the
+ * namespace file wins). This is the same merge as src/i18n/request.ts.
+ * Every check below runs on the merged result.
+ *
+ * Also checks that src/i18n/namespaces.ts lists exactly the files in
+ * messages/en/ (run `node scripts/sync-locales.mjs` to regenerate it), and
+ * that no locale has a namespace file en does not have.
  *
  * Exit code:
- *   0  — all literal keys resolve in en.json AND all locales match en.json key set
- *   1  — at least one literal key is missing OR locale drift detected
+ *   0  — all literal keys resolve in merged en AND all locales match en's key set
+ *   1  — a literal key is missing, locale drift, HTML entities, or namespace mismatch
  *
  * Dynamic t(`…${x}…`) / t(someVar) calls CANNOT be checked statically;
  * the script emits a warning listing their file:line for human review but
@@ -15,7 +24,7 @@
  *   node scripts/check-i18n.mjs
  */
 
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -66,13 +75,63 @@ function flattenLeaves(obj, prefix = '') {
   return leaves;
 }
 
+function isPlainObject(v) {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+
+// Same semantics as deepMerge() in src/i18n/request.ts: `over` wins.
+function deepMerge(base, over) {
+  const out = { ...base };
+  for (const [k, v] of Object.entries(over)) {
+    out[k] = isPlainObject(out[k]) && isPlainObject(v) ? deepMerge(out[k], v) : v;
+  }
+  return out;
+}
+
+function namespaceFiles(loc) {
+  const dir = join(MESSAGES_DIR, loc);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter((n) => n.endsWith('.json')).map((n) => n.slice(0, -5)).sort();
+}
+
+const namespaceErrors = [];
+
+// The runtime loads only the namespaces listed in src/i18n/namespaces.ts.
+const NAMESPACES_TS = join(ROOT, 'src', 'i18n', 'namespaces.ts');
+const nsSource = readFileSync(NAMESPACES_TS, 'utf8');
+const nsBlock = /MESSAGE_NAMESPACES\s*=\s*\[([\s\S]*?)\]/.exec(nsSource);
+const registered = nsBlock ? [...nsBlock[1].matchAll(/['"]([^'"]+)['"]/g)].map((m) => m[1]).sort() : [];
+const enNamespaces = namespaceFiles('en');
+for (const ns of enNamespaces) {
+  if (!registered.includes(ns)) namespaceErrors.push(`messages/en/${ns}.json is not listed in src/i18n/namespaces.ts (run: node scripts/sync-locales.mjs)`);
+}
+for (const ns of registered) {
+  if (!enNamespaces.includes(ns)) namespaceErrors.push(`src/i18n/namespaces.ts lists "${ns}" but messages/en/${ns}.json does not exist`);
+}
+
 const localeKeys = {};
 const localeJson = {};
 for (const loc of LOCALES) {
-  const raw = readFileSync(join(MESSAGES_DIR, `${loc}.json`), 'utf8');
-  const parsed = JSON.parse(raw);
-  localeJson[loc] = parsed;
-  localeKeys[loc] = flattenKeys(parsed);
+  let merged = JSON.parse(readFileSync(join(MESSAGES_DIR, `${loc}.json`), 'utf8'));
+  for (const ns of namespaceFiles(loc)) {
+    if (!enNamespaces.includes(ns)) {
+      namespaceErrors.push(`messages/${loc}/${ns}.json has no English source messages/en/${ns}.json`);
+    }
+    let body;
+    try {
+      body = JSON.parse(readFileSync(join(MESSAGES_DIR, loc, `${ns}.json`), 'utf8'));
+    } catch (err) {
+      namespaceErrors.push(`messages/${loc}/${ns}.json is not valid JSON: ${err.message}`);
+      continue;
+    }
+    if (!isPlainObject(body)) {
+      namespaceErrors.push(`messages/${loc}/${ns}.json must be a JSON object (the namespace body)`);
+      continue;
+    }
+    merged = { ...merged, [ns]: deepMerge(isPlainObject(merged[ns]) ? merged[ns] : {}, body) };
+  }
+  localeJson[loc] = merged;
+  localeKeys[loc] = flattenKeys(merged);
 }
 const enKeys = localeKeys.en;
 
@@ -194,9 +253,15 @@ for (const loc of LOCALES.filter((l) => l !== 'en')) {
 
 let failed = false;
 
+if (namespaceErrors.length) {
+  failed = true;
+  console.error(`\n[i18n] ERROR: ${namespaceErrors.length} namespace file problem(s):`);
+  for (const e of namespaceErrors) console.error(`  ${e}`);
+}
+
 if (literalHits.length) {
   failed = true;
-  console.error(`\n[i18n] ERROR: ${literalHits.length} literal t() call(s) do not resolve in messages/en.json:`);
+  console.error(`\n[i18n] ERROR: ${literalHits.length} literal t() call(s) do not resolve in the merged English messages:`);
   for (const h of literalHits) {
     console.error(`  ${h.file}:${h.line}`);
     console.error(`    tried: ${h.tried.join(' | ')}`);
@@ -208,11 +273,11 @@ if (drift.length) {
   console.error(`\n[i18n] ERROR: locale drift detected:`);
   for (const d of drift) {
     if (d.missing.length) {
-      console.error(`  [${d.locale}] missing ${d.missing.length} key(s) vs en.json:`);
+      console.error(`  [${d.locale}] missing ${d.missing.length} key(s) vs en (merged):`);
       for (const k of d.missing) console.error(`    - ${k}`);
     }
     if (d.extra.length) {
-      console.error(`  [${d.locale}] extra ${d.extra.length} key(s) not in en.json:`);
+      console.error(`  [${d.locale}] extra ${d.extra.length} key(s) not in en (merged):`);
       for (const k of d.extra) console.error(`    + ${k}`);
     }
   }
@@ -247,4 +312,4 @@ if (failed) {
   process.exit(1);
 }
 
-console.log(`[i18n] OK — ${enKeys.size} keys in en.json, ${LOCALES.length - 1} locales in sync, 0 HTML entities, ${dynamicHits.length} dynamic call(s) flagged for review`);
+console.log(`[i18n] OK — ${enKeys.size} keys in merged en (legacy + ${enNamespaces.length} namespace file(s)), ${LOCALES.length - 1} locales in sync, 0 HTML entities, ${dynamicHits.length} dynamic call(s) flagged for review`);

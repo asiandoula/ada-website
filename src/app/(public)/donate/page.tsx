@@ -1,351 +1,260 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
+import { getLocale, getTranslations } from 'next-intl/server';
+import type { ReactNode } from 'react';
+import { Breadcrumb } from '@/components/site';
+import { ArrowLink, pillClassName } from '@/components/site/pill';
+import type { Locale } from '@/i18n/config';
+import { ENTITY, PROGRAM_LANGUAGES } from '@/lib/facts';
 import { breadcrumbJsonLd } from '@/lib/json-ld';
-
-export const metadata: Metadata = {
-  title: 'Donate | Support Asian Doula Alliance',
-  description:
-    'Support the Asian Doula Alliance, a 501(c)(3) nonprofit that funds scholarships, multilingual training, and certification access for underserved Asian doulas across the United States.',
-  openGraph: {
-    title: 'Donate to Asian Doula Alliance',
-    description:
-      'Your gift funds scholarships, multilingual certification, and culturally integrated postpartum education.',
-    url: 'https://asiandoula.org/donate',
-  },
-};
+import { cn } from '@/lib/utils';
+import { DefRows, PageIntro, h2Class, inlineLink, registryLink } from '../support/_kit/page-shell';
 
 // Donorbox campaign slug — public value, safe to hardcode.
 // Live: https://donorbox.org/general-fund-938446
+// The payment mechanism is unchanged: a link to the hosted Donorbox page in a
+// new tab, plus mailto:finance@ for check, wire and employer-match questions.
 const DONORBOX_CAMPAIGN = 'general-fund-938446';
+const DONORBOX_URL = `https://donorbox.org/${DONORBOX_CAMPAIGN}`;
+const FINANCE_EMAIL = 'finance@asiandoula.org';
 
-const fundedPrograms = [
-  {
-    title: 'Doula Training Scholarships',
-    body: 'Need-based grants that cover ADA-approved training program fees for first-generation caregivers and doulas from underserved Asian communities.',
-  },
-  {
-    title: 'Multilingual Certification Access',
-    body: 'Development and maintenance of certification exams in English, Mandarin, Cantonese, Japanese, and Korean — removing language barriers to professional credentialing.',
-  },
-  {
-    title: 'Culturally Integrated Curriculum',
-    body: 'Research, translation, and authoring of postpartum care curriculum that pairs evidence-based clinical practice with traditional Asian postpartum traditions.',
-  },
-  {
-    title: 'Community Verification Registry',
-    body: "A free public registry that lets families and insurance providers verify a doula's ADA credential — protecting families from unqualified providers.",
-  },
-];
+/** Month of the ADA training photos (board caption "August 2024"). */
+const PHOTO_MONTH = { year: 2024, month: 8 } as const;
 
-export default function DonatePage() {
+const INTL: Record<Locale, string> = { en: 'en-GB', 'zh-cn': 'zh-CN', 'zh-tw': 'zh-TW', ja: 'ja-JP', ko: 'ko-KR' };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('donate.meta');
+  const description = t('description', { taxCode: ENTITY.taxCode });
+  return {
+    title: t('title'),
+    description,
+    openGraph: { title: `${t('title')} | Asian Doula Alliance`, description, url: 'https://asiandoula.org/donate' },
+  };
+}
+
+function SplitSection({
+  id,
+  title,
+  side,
+  children,
+}: {
+  id: string;
+  title: ReactNode;
+  side: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <section aria-labelledby={`${id}-title`} className="flex flex-wrap items-start gap-x-16 gap-y-6">
+      <div className="flex-[1_1_280px] min-w-0 flex flex-col gap-3">
+        <h2 id={`${id}-title`} className={h2Class}>
+          {title}
+        </h2>
+        {side}
+      </div>
+      <div className="flex-[999_1_560px] min-w-0">{children}</div>
+    </section>
+  );
+}
+
+export default async function DonatePage() {
+  const t = await getTranslations('donate');
+  const tLang = await getTranslations('faq.lang');
+  const locale = (await getLocale()) as Locale;
+
+  const langName = { en: tLang('en'), zh: tLang('zh'), ja: tLang('ja'), ko: tLang('ko') } as const;
+  const languages = new Intl.ListFormat(INTL[locale] ?? 'en-GB', { style: 'long', type: 'conjunction' }).format(
+    PROGRAM_LANGUAGES.map((l) => langName[l.code])
+  );
+  const photoDate = new Intl.DateTimeFormat(INTL[locale] ?? 'en-GB', {
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(Date.UTC(PHOTO_MONTH.year, PHOTO_MONTH.month - 1, 1)));
+
+  const financeMail = (chunks: ReactNode, subject?: string) => (
+    <a
+      href={`mailto:${FINANCE_EMAIL}${subject ? `?subject=${encodeURIComponent(subject)}` : ''}`}
+      className={cn(inlineLink, 'whitespace-nowrap')}
+    >
+      {chunks}
+    </a>
+  );
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            breadcrumbJsonLd([{ name: 'Donate', path: '/donate' }])
-          ),
+          __html: JSON.stringify(breadcrumbJsonLd([{ name: t('breadcrumb'), path: '/donate' }])),
         }}
       />
-
-      {/* Hero */}
-      <section className="bg-ada-cream pt-32 pb-12 md:pt-40 md:pb-14">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            Support our mission
-          </span>
-          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            Help build the future of Asian postpartum care
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            Asian Doula Alliance is a 501(c)(3) nonprofit. Every gift directly
-            funds scholarships, multilingual education, and the only culturally
-            integrated postpartum doula certification in the United States.
+      <Breadcrumb items={[{ label: t('breadcrumb') }]} />
+      <div className="ada2-wrap pt-12 pb-[104px] flex flex-col gap-16">
+        <PageIntro className="max-w-[880px]" title={t('title')} lead={t('lead')}>
+          <p className="m-0 text-[17px] leading-6 font-semibold text-ada2-ink [font-variant-numeric:tabular-nums_lining-nums] [text-wrap:pretty]">
+            {t('status', { taxCode: ENTITY.taxCode, ein: ENTITY.ein })}
           </p>
-        </div>
-      </section>
+          <p className="m-0 text-[14px] leading-[21px] text-ada2-muted [text-wrap:pretty]">
+            {t('taxNote', { legalName: ENTITY.legalName })}
+          </p>
+        </PageIntro>
 
-      {/* Give now — Donorbox embed if configured, otherwise mail/wire instructions */}
-      <section className="bg-ada-cream pb-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-ada-navy/5">
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-8 lg:gap-12 items-start">
-              <div>
-                <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                  Make your gift
-                </h2>
-                <p className="mt-4 text-ada-navy/60 leading-relaxed">
-                  One-time or recurring gifts in any amount are welcome. All
-                  donations are tax-deductible to the fullest extent permitted
-                  by U.S. law. You will receive an emailed receipt with our
-                  legal name, EIN, and the deductible portion of your
-                  contribution.
-                </p>
-                <dl className="mt-6 space-y-3 text-sm">
-                  <div className="flex items-baseline gap-2">
-                    <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs shrink-0 w-20">
-                      Legal name
-                    </dt>
-                    <dd className="text-ada-navy">Asian Doula Alliance</dd>
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs shrink-0 w-20">
-                      EIN
-                    </dt>
-                    <dd className="text-ada-navy font-mono">93-3935047</dd>
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs shrink-0 w-20">
-                      Status
-                    </dt>
-                    <dd className="text-ada-navy">
-                      501(c)(3) public charity, California
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-
-              {/* Right panel — CTA button to Donorbox hosted page,
-                  not an embedded iframe. Keeps this page's design
-                  intact; the donation form lives on donorbox.org. */}
-              <div className="bg-ada-off-white rounded-2xl p-8 md:p-10 border border-ada-purple/20 flex flex-col items-center justify-center text-center min-h-[260px]">
-                <p className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-purple">
-                  Give online
-                </p>
-                <h3 className="mt-2 font-dm-serif text-2xl md:text-3xl text-ada-navy">
-                  Donate by card or bank
-                </h3>
-                <p className="mt-4 text-ada-navy/60 text-sm leading-relaxed max-w-[360px]">
-                  One-time or recurring gifts on our secure Donorbox page.
-                  Apple Pay, Google Pay, card, and ACH all accepted.
-                </p>
-                <a
-                  href={`https://donorbox.org/${DONORBOX_CAMPAIGN}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-8 inline-flex items-center gap-2 px-8 py-3.5 bg-ada-purple text-white font-outfit text-[12px] tracking-[0.18em] uppercase font-semibold rounded-full hover:bg-ada-purple-hover transition-colors"
-                >
-                  Donate now
-                  <span aria-hidden="true">→</span>
-                </a>
-                <p className="mt-4 text-ada-navy/40 text-[11px] tracking-wide">
-                  Opens donorbox.org in a new tab
-                </p>
-                <p className="mt-6 text-ada-navy/55 text-xs leading-relaxed">
-                  Prefer check or wire?{' '}
-                  <a
-                    href="mailto:finance@asiandoula.org?subject=Donation%20%E2%80%94%20Check%20or%20Wire%20Instructions"
-                    className="text-ada-purple underline hover:text-ada-purple-hover"
-                  >
-                    Email finance@asiandoula.org
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why your gift matters */}
-      <section className="bg-white py-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 items-start">
-            <div>
-              <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-                Why your gift matters
-              </h2>
-              <p className="mt-4 text-ada-navy/60 leading-relaxed">
-                For too many Asian families in the U.S., postpartum care has
-                been shaped by language barriers, cultural mismatch, and lack of
-                vetted professionals. ADA exists to change that &mdash; and we
-                cannot do it without community support.
-              </p>
-              <p className="mt-4 text-ada-navy/60 leading-relaxed">
-                More than half of our certified doulas trained on a scholarship.
-                Every dollar you give moves us closer to a future where every
-                Asian family has access to safe, professional, culturally
-                respectful postpartum care.
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-4">
-              {fundedPrograms.map((p) => (
-                <div
-                  key={p.title}
-                  className="bg-ada-off-white rounded-2xl p-6 border border-ada-navy/5"
-                >
-                  <h3 className="font-outfit font-semibold text-ada-navy">
-                    {p.title}
-                  </h3>
-                  <p className="mt-2 text-ada-navy/60 text-sm leading-relaxed">
-                    {p.body}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Other ways to give */}
-      <section className="bg-ada-off-white py-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-dm-serif text-3xl md:text-4xl text-ada-navy">
-              More ways to give
-            </h2>
-            <p className="mt-2 text-ada-navy/60 max-w-2xl mx-auto">
-              Choose the option that works for your situation. All donations
-              are tax-deductible to the fullest extent allowed by law.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col">
-              <h3 className="font-dm-serif text-xl text-ada-navy">
-                Donor-Advised Funds
-              </h3>
-              <p className="mt-3 text-ada-navy/60 text-sm leading-relaxed flex-1">
-                Recommend a grant to Asian Doula Alliance through your DAF
-                (Fidelity Charitable, Schwab Charitable, Vanguard Charitable,
-                and others). Use our EIN{' '}
-                <span className="font-mono text-ada-navy">93-3935047</span> to
-                direct your gift.
-              </p>
-              <Link
-                href="#tax-info"
-                className="mt-4 inline-flex items-center gap-2 text-ada-purple text-sm font-medium hover:text-ada-purple-hover transition-colors"
-              >
-                Tax details <span aria-hidden="true">&rarr;</span>
-              </Link>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col">
-              <h3 className="font-dm-serif text-xl text-ada-navy">
-                Employer Matching
-              </h3>
-              <p className="mt-3 text-ada-navy/60 text-sm leading-relaxed flex-1">
-                Many employers match charitable contributions dollar-for-dollar.
-                Check with your HR team and double your impact &mdash; we&rsquo;ll
-                handle any verification forms your employer requires.
-              </p>
-              <a
-                href="mailto:finance@asiandoula.org?subject=Employer%20Match%20Question"
-                className="mt-4 inline-flex items-center gap-2 text-ada-purple text-sm font-medium hover:text-ada-purple-hover transition-colors"
-              >
-                Get help <span aria-hidden="true">&rarr;</span>
-              </a>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col">
-              <h3 className="font-dm-serif text-xl text-ada-navy">
-                Planned giving
-              </h3>
-              <p className="mt-3 text-ada-navy/60 text-sm leading-relaxed flex-1">
-                Include ADA in your estate plan, name us as a beneficiary of a
-                retirement account or life insurance policy, or contribute
-                appreciated securities. Your gift will support future
-                generations of Asian doulas.
-              </p>
-              <a
-                href="mailto:finance@asiandoula.org?subject=Planned%20Giving%20Inquiry"
-                className="mt-4 inline-flex items-center gap-2 text-ada-purple text-sm font-medium hover:text-ada-purple-hover transition-colors"
-              >
-                Start a conversation <span aria-hidden="true">&rarr;</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tax-deductibility */}
-      <section className="bg-white py-20">
-        <div className="max-w-[800px] mx-auto px-6">
-          <div
-            id="tax-info"
-            className="bg-ada-purple/5 border border-ada-purple/20 rounded-2xl p-8"
+        <div className="flex flex-wrap items-stretch gap-x-12 gap-y-8">
+          <section
+            aria-labelledby="give-title"
+            className="flex-[1_1_520px] min-w-0 box-border flex flex-col gap-6 pt-7 px-[clamp(20px,2.4vw,32px)] pb-8 bg-ada2-band border-t-2 border-ada2-ink"
           >
-            <h2 className="font-dm-serif text-2xl text-ada-navy mb-4">
-              Tax-deductibility &amp; EIN
+            <h2 id="give-title" className={h2Class}>
+              {t('give.title')}
             </h2>
-            <p className="text-ada-navy/60 leading-relaxed">
-              Asian Doula Alliance is a registered 501(c)(3) tax-exempt
-              organization. Donations are deductible to the fullest extent
-              permitted by U.S. law.
-            </p>
-            <dl className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
-              <div>
-                <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
-                  Legal name
-                </dt>
-                <dd className="text-ada-navy font-medium mt-1">
-                  Asian Doula Alliance
-                </dd>
-              </div>
-              <div>
-                <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
-                  EIN
-                </dt>
-                <dd className="text-ada-navy font-mono mt-1">93-3935047</dd>
-              </div>
-              <div>
-                <dt className="text-ada-navy/50 font-outfit uppercase tracking-wider text-xs">
-                  IRS classification
-                </dt>
-                <dd className="text-ada-navy mt-1">
-                  501(c)(3) public charity, California
-                </dd>
-              </div>
-            </dl>
-            <p className="mt-6 text-ada-navy/50 text-xs leading-relaxed">
-              Your tax receipt will be emailed shortly after your gift is
-              processed. For our IRS determination letter or annual financial
-              summaries, please see our{' '}
-              <Link
-                href="/about-us/financials"
-                className="underline hover:text-ada-purple"
+            <p className="m-0 max-w-[560px] text-ada2-body [text-wrap:pretty]">{t('give.body')}</p>
+            <div className="flex flex-col items-start gap-2.5 pt-1">
+              <a
+                href={DONORBOX_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('give.actionLabel')}
+                className={pillClassName('primary', 'md')}
               >
-                Financials &amp; Accountability
-              </Link>{' '}
-              page.
-            </p>
-          </div>
+                {t('give.action')}
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+                </svg>
+              </a>
+              <p className="m-0 text-[14px] leading-[21px] text-ada2-muted">{t('give.newTab')}</p>
+            </div>
+            <div className="flex flex-col gap-1.5 pt-5 border-t border-ada2-hairline text-[14px] leading-[21px] text-ada2-muted">
+              <p className="m-0 [text-wrap:pretty]">{t('give.secure')}</p>
+              <p className="m-0 [text-wrap:pretty]">{t('give.receipt')}</p>
+            </div>
+          </section>
+          <figure className="flex-[1_1_440px] min-w-0 m-0 flex flex-col gap-2.5">
+            <div className="relative flex-[1_1_auto] min-h-[320px]">
+              <Image
+                src="/images/2026/ada-care-seated.jpg"
+                alt={t('photo.alt')}
+                fill
+                sizes="(min-width: 1120px) 45vw, 100vw"
+                className="object-cover"
+                style={{ objectPosition: '30% 50%' }}
+              />
+            </div>
+            <figcaption className="text-[14px] leading-5 text-ada2-muted">
+              {t('photo.caption', { date: photoDate })}
+            </figcaption>
+          </figure>
         </div>
-      </section>
 
-      {/* Other ways to support */}
-      <section className="bg-ada-off-white py-16">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
-            Other ways to support ADA
-          </h2>
-          <p className="mt-3 text-ada-navy/60 max-w-2xl mx-auto leading-relaxed">
-            Not in a position to give financially? You can still help us grow
-            the certified Asian doula workforce.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/about-us/board/election"
-              className="inline-flex items-center px-5 py-2.5 rounded-full bg-white border border-ada-navy/10 text-ada-navy text-sm font-medium hover:border-ada-purple hover:text-ada-purple transition-colors"
-            >
-              Volunteer on the Board
-            </Link>
-            <Link
-              href="/for-families/find-a-doula"
-              className="inline-flex items-center px-5 py-2.5 rounded-full bg-white border border-ada-navy/10 text-ada-navy text-sm font-medium hover:border-ada-purple hover:text-ada-purple transition-colors"
-            >
-              Hire a Certified Doula
-            </Link>
-            <Link
-              href="/articles"
-              className="inline-flex items-center px-5 py-2.5 rounded-full bg-white border border-ada-navy/10 text-ada-navy text-sm font-medium hover:border-ada-purple hover:text-ada-purple transition-colors"
-            >
-              Share Our Mission
-            </Link>
-          </div>
-        </div>
-      </section>
+        <SplitSection
+          id="funds"
+          title={t('funds.title')}
+          side={
+            <>
+              <p className="m-0 text-[16px] leading-[25px] text-ada2-muted [text-wrap:pretty]">{t('funds.side')}</p>
+              <ArrowLink href="/about-us/financials" className="self-start">
+                {t('funds.sideLink')}
+              </ArrowLink>
+            </>
+          }
+        >
+          <DefRows
+            labelWidth={200}
+            rowClassName="py-3.5"
+            rows={[
+              {
+                label: t('funds.scholarships'),
+                value: (
+                  <>
+                    {t('funds.scholarshipsValue')}{' '}
+                    <Link href="/programs/scholarship" className={cn(inlineLink, 'font-semibold whitespace-nowrap')}>
+                      {t('funds.scholarshipsLink')}
+                    </Link>
+                  </>
+                ),
+              },
+              {
+                label: t('funds.materials'),
+                value: t.rich('funds.materialsValue', {
+                  languages,
+                  zhHans: (chunks) => (
+                    <span lang="zh-Hans" className="font-noto-sc">
+                      {chunks}
+                    </span>
+                  ),
+                  zhHant: (chunks) => (
+                    <span lang="zh-Hant" className="font-noto-tc">
+                      {chunks}
+                    </span>
+                  ),
+                  ja: (chunks) => (
+                    <span lang="ja" className="font-noto-jp">
+                      {chunks}
+                    </span>
+                  ),
+                  ko: (chunks) => (
+                    <span lang="ko" className="font-noto-kr">
+                      {chunks}
+                    </span>
+                  ),
+                }),
+              },
+              {
+                label: t('funds.registry'),
+                value: t.rich('funds.registryValue', {
+                  registry: (chunks) => (
+                    <Link href="/verify" className={cn(registryLink, 'whitespace-nowrap')}>
+                      {chunks}
+                    </Link>
+                  ),
+                }),
+              },
+            ]}
+          />
+        </SplitSection>
+
+        <SplitSection
+          id="ways"
+          title={t('ways.title')}
+          side={
+            <p className="m-0 text-[16px] leading-[25px] text-ada2-muted [text-wrap:pretty]">
+              {t.rich('ways.side', { email: FINANCE_EMAIL, mail: (c) => financeMail(c) })}
+            </p>
+          }
+        >
+          <DefRows
+            labelWidth={200}
+            rowClassName="py-3.5"
+            rows={[
+              {
+                label: t('ways.check'),
+                value: t.rich('ways.checkValue', {
+                  email: FINANCE_EMAIL,
+                  mail: (c) => financeMail(c, 'Donation — Check or Wire Instructions'),
+                }),
+              },
+              {
+                label: t('ways.daf'),
+                value: t('ways.dafValue', { legalName: ENTITY.legalName, dba: ENTITY.dba, ein: ENTITY.ein }),
+              },
+              {
+                label: t('ways.employer'),
+                value: t.rich('ways.employerValue', { mail: (c) => financeMail(c, 'Employer Match Question') }),
+              },
+            ]}
+          />
+        </SplitSection>
+      </div>
     </>
   );
 }

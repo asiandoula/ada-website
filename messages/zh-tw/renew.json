@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "title": "ADA 認證續證",
+    "description": "ADA 導樂認證的續證方式：認證有效期 {years} 年，續證費 {fee}，可選擇推薦信或再認證考試。"
+  },
+  "breadcrumb": "ADA 認證續證",
+  "title": "ADA 認證續證",
+  "lead": "請在認證有效期結束前完成續證，以保持資格良好。如需開始辦理，請聯繫 ADA。",
+  "facts": {
+    "label": "續證要點",
+    "period": "認證有效期",
+    "periodValue": "{years} 年",
+    "fee": "續證費",
+    "pathways": "續證途徑",
+    "pathwaysValue": "推薦信或再認證考試"
+  },
+  "onThisPage": "本頁內容",
+  "need": {
+    "title": "所需材料",
+    "photoAlt": "一位講師在幻燈片旁講授新生兒護理課程，桌上擺放著訓練用娃娃",
+    "photoCaption": "ADA 產後導樂課程中的新生兒護理課。2024 年 8 月。",
+    "doulaId": "您的導樂編號",
+    "doulaIdValue": "格式為 <nowrap>#YY-NNNN</nowrap>，印在您的原始證書上。",
+    "email": "您的註冊郵箱",
+    "emailValue": "您在 ADA 登記的電子郵箱地址。",
+    "pathway": "一種續證途徑",
+    "pathwayValue": "途徑 A：專業推薦信；或途徑 B：再認證考試。<link>比較兩種途徑</link>",
+    "fee": "續證費",
+    "feeValue": "{fee}，支付給 ADA。"
+  },
+  "pathways": {
+    "title": "續證途徑",
+    "intro": "請選擇最適合您的一種。每種途徑都用於向 ADA 證明您仍在良好執業。",
+    "caption": "ADA 續證途徑",
+    "colPathway": "途徑",
+    "colWhat": "您需要做什麼",
+    "colDetails": "具體要求",
+    "aName": "A · 專業推薦信",
+    "aWhat": "提交 {count} 封專業推薦信，推薦人可以是客戶、同事或醫療專業人員，須能說明您作為導樂的工作情況。",
+    "aDetailsTitle": "每封推薦信須包括：",
+    "aItem1": "推薦人的全名",
+    "aItem2": "電話號碼或電子郵箱地址",
+    "aItem3": "介紹您導樂工作的書面推薦",
+    "bName": "B · 再認證考試",
+    "bWhat": "參加一場較短的再認證考試，證明您在產後導樂照護方面持續具備專業能力。",
+    "bDetailsTitle": "考試說明：",
+    "bItem1": "比首次認證考試更短",
+    "bItem2": "涵蓋最新的實踐與操作規範",
+    "bItem3": "合格分數：{pass}/{max}"
+  },
+  "steps": {
+    "title": "續證步驟",
+    "s1Title": "查看您的認證狀態",
+    "s1Body": "在 ADA 認證註冊名錄中查看您當前的認證狀態和到期日期，或登錄導樂門戶查看。您需要準備導樂編號（格式為 <nowrap>#YY-NNNN</nowrap>）和註冊郵箱。",
+    "s1Verify": "查詢您的認證記錄",
+    "s1Portal": "導樂登錄",
+    "s2Title": "選擇續證途徑",
+    "s2Body": "途徑 A：專業推薦信；或途徑 B：再認證考試。<link>比較兩種途徑</link>",
+    "s3Title": "提交續證申請",
+    "s3Body": "提交續證申請時，請附上所選途徑的材料（推薦信或考試成績），並繳納 <strong>{fee} 續證費</strong>。",
+    "s3Contact": "請聯繫 ADA 開始辦理：<mail>{email}</mail> · <tel>{phone}</tel>",
+    "s4Title": "領取續期後的認證",
+    "s4Body": "ADA 審核並批准您的申請後，您將獲得續期後的認證，自續證之日起再有效 <strong>{years} 年</strong>。",
+    "s4ReceiveTitle": "您將獲得：",
+    "s4Item1": "更新後的電子證書",
+    "s4Item2": "ADA 認證註冊名錄和導樂門戶中已更新的認證狀態",
+    "s4Item3": "繼續保持保險服務名單的資格",
+    "action": "發郵件給 ADA 辦理續證",
+    "questions": "如有疑問：<mail>{email}</mail> · <tel>{phone}</tel>"
+  },
+  "status": {
+    "title": "您的認證記錄顯示什麼",
+    "intro": "家庭、保險公司和機構會在 ADA 認證註冊名錄中查看您的公開記錄，因此記錄始終顯示您當前的狀態。記錄中的每項認證都會顯示以下狀態之一。",
+    "active": "在所示日期之前符合 ADA 認證要求。",
+    "superseded": "已被較新證書取代的舊證書，通常發生在續證時。",
+    "expired": "曾獲認證，但未在到期日前續證，目前不屬於 ADA 認證導樂。這不是紀律處分。",
+    "suspended": "根據《行為準則》，在一定期限內不屬於 ADA 認證導樂。",
+    "revoked": "根據《行為準則》，認證已被撤銷。",
+    "link": "查詢認證註冊名錄"
+  },
+  "cta": {
+    "title": "準備續證？請聯繫 ADA 開始辦理。",
+    "action": "發郵件給 ADA"
+  }
+}

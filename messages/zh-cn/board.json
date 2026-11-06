@@ -1,0 +1,119 @@
+{
+  "metaTitle": "董事会与选举",
+  "metaDescription": "管理 Asian Doula Alliance 的志愿董事会：董事成员、ADA 认证导乐如何选举董事会，以及利益冲突规则。",
+  "electionMetaTitle": "董事会选举",
+  "electionMetaDescription": "ADA 认证导乐如何提名和选举董事会、哪些人可以参选，以及提名方式。",
+  "breadcrumbAbout": "关于 ADA",
+  "breadcrumb": "董事会与选举",
+  "title": "董事会与选举",
+  "lead": "ADA 由志愿董事会管理。董事会确定 ADA 的发展方向，监督其财务，并确保 ADA 忠于其使命。",
+  "meta": "{legalName} 的董事会。{legalName} 以 {dba} 的名义开展业务。",
+  "cta": {
+    "title": "资格良好的认证导乐可以提名董事人选。",
+    "action": "了解提名方式"
+  },
+  "toc": {
+    "title": "本页内容",
+    "board": "董事会",
+    "directors": "董事简介",
+    "election": "选举流程",
+    "conflicts": "利益冲突"
+  },
+  "table": {
+    "caption": "ADA 董事会",
+    "director": "董事",
+    "role": "职务",
+    "basedIn": "所在地"
+  },
+  "roles": {
+    "founderEmeritus": "荣誉创始人",
+    "president": "会长",
+    "independentDirector": "独立董事",
+    "director": "董事"
+  },
+  "composition": {
+    "independent": "独立董事",
+    "industry": "行业董事",
+    "chair": "董事会主席",
+    "chairValue": "{name}，会长",
+    "founder": "创始人",
+    "founderValue": "{name}，荣誉创始人",
+    "pay": "报酬",
+    "payValue": "董事均为志愿者，不从 ADA 领取任何报酬。"
+  },
+  "boardSection": {
+    "title": "董事会",
+    "intro": "董事会的 {count} 位志愿董事负责制定 ADA 的认证标准、管理这一非营利机构，且不领取报酬。"
+  },
+  "directors": {
+    "title": "董事简介"
+  },
+  "people": {
+    "qiWang": {
+      "location": "南加州",
+      "bio": "导乐及导乐讲师。{year}年，Qi Wang 以一个由亚裔移民产后照护者组成的微信社群为起点，播下了日后 Asian Doula Alliance 的种子，并使其逐步发展为一个全国性专业机构的雏形。她始终坚信：融合文化传统的产后照护，既应享有正式认证所带来的尊严，也需要一个保护从业女性的社群。这一信念至今仍是 ADA 的立会之本。作为荣誉创始人，她在 ADA 超越其创立根基、不断发展的过程中，就社群建设与文化传承提供建议。"
+    },
+    "sethMeng": {
+      "location": "纽约州布法罗",
+      "bio": "Seth Meng 在 {year}年董事会会议上当选为 ADA 首任董事会会长，负责技术、治理与标准方面的执行工作。他曾在罗切斯特大学医学中心（University of Rochester Medical Center）从事老年照护成效的分析与研究，运用统计学和机器学习研究长期照护质量及其对家庭照护者的影响。这种注重测量、量化工具和保护性系统设计的思路，如今塑造着 ADA 的认证平台、多语言考试架构以及公开的认证注册名录。Seth 加入 ADA，源于他长期以来对建设公益机构的投入。"
+    },
+    "wesleyLau": {
+      "location": "加州洛杉矶",
+      "bio": "Wesley Lau 是一位连续创业者和风险投资人，职业生涯横跨科技、金融以及社区公益等多个领域。在本职工作之外，他长期活跃于社区和公益组织，热衷于社区清洁等不起眼、常被忽视的志愿工作。他把同样的理念带到 ADA 董事会：好的组织，是由那些把细小、重复的工作做得与战略决策一样认真的人建立起来的。"
+    },
+    "minyuZhang": {
+      "location": "加州洛杉矶",
+      "bio": "Minyu Zhang 早年从事金融工作，此后将大量时间和精力投入公益事业。她参与多项社区和非营利项目的志愿工作，尤其关注动物福利与救助。在 ADA 董事会中，她将财务上的严谨与对使命驱动型组织的持续投入相结合，认真审阅预算，并因关心工作背后的人而亲力亲为。"
+    },
+    "veronicaTseng": {
+      "location": "加州尔湾",
+      "bio": "Veronica Tseng 从事产后导乐服务运营工作，覆盖湾区、南加州、西雅图、纽约市和芝加哥，专注于导乐协调和面向家庭的项目执行。她把来自一线的视角带到 ADA 董事会，为会员需求、项目质量，以及认证标准如何落实到导乐和 ADA 所服务家庭的日常实践等议题提供参考。"
+    },
+    "miaLiu": {
+      "location": "加州尔湾",
+      "bio": "Mia Liu 负责一家导乐服务机构的运营工作，统筹导乐人员协调、区域服务交付，以及规模化开展融合文化传统的产后照护的日常工作。她为 ADA 董事会带来行业的实际情况：各地区的服务市场、承担这项工作的导乐，以及她们所服务的家庭，并协助董事会根据实际运营情况校准认证标准。"
+    }
+  },
+  "election": {
+    "title": "选举流程",
+    "intro": "董事会由 ADA 认证导乐群体选举产生。董事任期 {years} 年。",
+    "step1Title": "提名",
+    "step1Body": "任何资格良好的 ADA 认证导乐均可提名自己或同事。被提名人须持有有效认证至少 {months} 个月，并须确认愿意任职。",
+    "step2Title": "候选人审核",
+    "step2Body": "董事会审核每一项提名，确认是否符合资格。审核结果将告知候选人，并请其提交一份简短的候选人陈述。",
+    "step3Title": "投票",
+    "step3Body": "认证状态有效的导乐通过电子选票投票，每个席位一票。计票工作独立进行。",
+    "step4Title": "公布结果与交接",
+    "step4Body": "ADA 公布新当选的董事，其任期随即开始。卸任董事协助完成为期 {days} 天的交接。",
+    "eligibleTitle": "参选资格",
+    "certification": "认证",
+    "certificationValue": "持有有效的 ADA 认证，且持有时间至少 {months} 个月。",
+    "standing": "资格状态",
+    "standingValue": "资格良好，且没有正在进行的纪律处分。",
+    "standingLink": "查询记录",
+    "commitment": "承诺",
+    "commitmentValue": "完成 {years} 年完整任期，并出席至少 {percent}% 的季度董事会会议。",
+    "term": "任期",
+    "termValue": "每届任期 {years} 年。任期次数不设上限，董事可连选连任。",
+    "nominateTitle": "提名方式",
+    "nominateBody": "请发送电子邮件至 <mail></mail>，邮件主题填写“{subject}”，并附上简短的意向说明。ADA 全年接受提名。",
+    "nominateSubject": "董事会提名",
+    "nominateAction": "发送提名邮件"
+  },
+  "conflicts": {
+    "title": "利益冲突",
+    "everyYear": "每年",
+    "everyYearValue": "每位董事签署一份利益冲突披露声明。",
+    "abstaining": "回避",
+    "abstainingValue": "对某项决定存在重大利益关系的董事须回避，不参与该项表决。",
+    "relatedParties": "关联方",
+    "relatedPartiesValue": "关联方交易须经独立董事投票同意。",
+    "policy": "政策",
+    "policyValue": "书面利益冲突政策，每年审阅一次。可发送电子邮件至 <mail></mail> 索取副本。",
+    "policySubject": "利益冲突政策",
+    "accountability": "问责",
+    "accountabilityValue": "ADA 每年提交一份公开的 {form990}，自 {year} 财年起。",
+    "financialsLink": "财务信息与文件",
+    "governanceLink": "治理"
+  }
+}

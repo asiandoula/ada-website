@@ -1,0 +1,90 @@
+{
+  "metaTitle": "关于 ADA",
+  "metaDescription": "Asian Doula Alliance 是一家面向产后导乐的非营利标准机构。本页介绍其法律实体、董事会、利益冲突规则、相关文件及联系方式。",
+  "breadcrumb": "关于 ADA",
+  "title": "面向产后导乐的非营利标准机构",
+  "lead": "Asian Doula Alliance 为亚裔移民社区的产后导乐编写课程、制定职业标准，负责考核考生并维护公开的认证注册名录。ADA 不为家庭安排导乐，也不提供护理服务。",
+  "cta": {
+    "title": "如需索取 ADA 的 {form990}、章程或各项政策，请联系我们。",
+    "action": "索取文件",
+    "subject": "索取文件"
+  },
+  "toc": {
+    "title": "本页内容",
+    "does": "ADA 的职能",
+    "entity": "法律实体",
+    "board": "董事会",
+    "independence": "独立性与利益冲突",
+    "documents": "财务与文件",
+    "contact": "联系方式"
+  },
+  "does": {
+    "title": "ADA 的职能",
+    "photoAlt": "一名讲师站在显示课件的屏幕旁，讲授 ADA 产后导乐课程",
+    "photoCaption": "一名讲师讲授 ADA 产后导乐课程。{date}。",
+    "doesTitle": "ADA 负责",
+    "does1": "发布职业标准和《行为准则》",
+    "does2": "编写 ADA 课程并审批培训项目",
+    "does3": "组织认证考试并评分",
+    "does4": "维护 ADA 认证导乐的公开认证注册名录",
+    "does5": "审查有关 ADA 认证导乐的举报",
+    "doesNotTitle": "ADA 不负责",
+    "doesNot1": "为家庭匹配导乐或提供护理服务",
+    "doesNot2": "颁发州政府执照",
+    "link": "职业标准与《行为准则》"
+  },
+  "entity": {
+    "title": "法律实体",
+    "legalName": "法定名称",
+    "operatingName": "经营名称",
+    "operatingNameValue": "{dba}（dba）",
+    "type": "类型",
+    "typeValue": "加利福尼亚州非营利公益法人",
+    "incorporated": "注册成立",
+    "incorporatedValue": "加利福尼亚州，{year}年",
+    "taxStatus": "税务身份",
+    "taxStatusValue": "{taxCode} 公共慈善机构",
+    "ein": "EIN（联邦税号）",
+    "address": "通信地址"
+  },
+  "board": {
+    "title": "董事会",
+    "intro": "董事会共有 {count} 位志愿董事。董事不领取报酬。",
+    "chosen": "董事的产生方式",
+    "chosenValue": "由 ADA 认证导乐群体选举产生，任期 {years} 年。",
+    "link": "董事会与选举"
+  },
+  "independence": {
+    "title": "独立性与利益冲突",
+    "body": "每位董事每年签署一份利益冲突披露声明。对某项决定存在重大利益关系的董事不参与该项表决；关联方交易须经独立董事投票同意。",
+    "curriculum": "课程",
+    "curriculumValue": "ADA 编写课程并制定职业标准。",
+    "training": "培训",
+    "trainingValue": "由 ADA 批准的培训项目讲授 ADA 课程。",
+    "exam": "考核",
+    "examValue": "ADA 自行组织认证考试并评分：{written} 分钟笔试，以及 {practical} 分钟一对一实操考试。",
+    "registry": "认证注册名录",
+    "registryValue": "ADA 维护公开的认证注册名录。任何人都可以在其中免费查询导乐的认证，无需注册账户。",
+    "link": "查询认证注册名录"
+  },
+  "documents": {
+    "title": "财务与文件",
+    "caption": "ADA 财务与治理文件",
+    "colDocument": "文件",
+    "colStatus": "状态*",
+    "form990Status": "可应要求提供。首份申报涵盖 {year} 财年。",
+    "irs": "美国国税局（IRS）免税资格认定函",
+    "charitableTrusts": "加州慈善信托登记处申报文件",
+    "bylaws": "章程",
+    "coi": "利益冲突政策",
+    "onRequest": "可应要求提供",
+    "note": "*发送至 <mail></mail> 的索取请求将在 {days} 个工作日内答复。",
+    "link": "财务信息"
+  },
+  "contact": {
+    "title": "联系方式",
+    "general": "一般咨询",
+    "finance": "财务与文件",
+    "mail": "邮寄地址"
+  }
+}

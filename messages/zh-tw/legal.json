@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "privacyTitle": "隱私政策",
+    "privacyDescription": "Asian Doula Alliance 如何在網站、認證項目和捐贈關係中收集、使用和保護您的個人信息。",
+    "termsTitle": "服務條款",
+    "termsDescription": "適用於您使用 Asian Doula Alliance 網站、認證項目和教育資源的條款。"
+  },
+  "pages": "法律信息頁面",
+  "privacy": "隱私政策",
+  "terms": "服務條款",
+  "onThisPage": "本頁內容",
+  "updated": "最後更新：{date}",
+  "entity": "{legalName} dba {dba}",
+  "englishNote": "本頁法律文本僅以英文發佈，以英文文本為準。",
+  "privacyLead": "ADA 收集哪些信息、如何使用，以及您可以做出的選擇。",
+  "termsLead": "使用 ADA 網站、認證項目和教育資源的條款。",
+  "privacyCta": {
+    "title": "您可以要求 ADA 提供、更正或刪除其持有的您的信息。",
+    "action": "提出隱私請求"
+  },
+  "termsCta": {
+    "title": "對本條款有疑問？請致函 ADA。",
+    "action": "發送電子郵件"
+  }
+}

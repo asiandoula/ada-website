@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "title": "考试"
+  },
+  "chrome": {
+    "product": "ADA 考试",
+    "homeLabel": "ADA 考试首页",
+    "session": "考场",
+    "language": "语言",
+    "privacy": "隐私政策"
+  },
+  "start": {
+    "eyebrow": "ADA 产后导乐考试",
+    "title": "选择考试语言",
+    "lead": "笔试说明将以您选择的语言显示。实操考核以中文进行，并附英文标题。",
+    "languagesLabel": "考试语言",
+    "partsTitle": "然后选择考试部分",
+    "partsLead": "先进行笔试；实操考试为一对一进行。",
+    "partWritten": "{part} · {minutes} 分钟",
+    "partPractical": "{part} · {minutes} 分钟，一对一",
+    "checkInTitle": "请先向监考老师签到",
+    "idTitle": "出示证件",
+    "idBody": "请携带有效的政府签发带照片身份证件。",
+    "startTitle": "等待开考",
+    "startBody": "选择语言和笔试后请等待。监考老师开始考试后，考试计时随即开始。",
+    "helpTitle": "需要帮助",
+    "helpBody": "请举手示意。",
+    "examDayLink": "考试当天与证件要求"
+  },
+  "parts": {
+    "eyebrow": "ADA 产后导乐考试",
+    "title": "选择考试部分",
+    "writtenMeta": "{minutes} 分钟",
+    "practicalMeta": "{count} 项考核 · {minutes} 分钟，一对一",
+    "open": "进入",
+    "changeLanguage": "更换语言"
+  },
+  "controls": {
+    "fullscreen": "全屏",
+    "exitFullscreen": "退出全屏",
+    "pause": "暂停",
+    "resume": "继续",
+    "previous": "上一步",
+    "next": "下一步",
+    "finish": "完成",
+    "invalidLanguage": "无效的语言。"
+  },
+  "audio": {
+    "title": "语音说明",
+    "play": "播放",
+    "pause": "暂停",
+    "playing": "正在播放",
+    "progress": "播放进度"
+  },
+  "written": {
+    "rulesTitle": "考场规则",
+    "ofMinutes": "共 {minutes} 分钟"
+  },
+  "practical": {
+    "instructionsTitle": "实操考试流程说明",
+    "intro": "考试共 {count} 项考核模块。每项考核模块有具体的考核内容和时间限制。请按照提示依次完成。",
+    "itemsTitle": "考核模块",
+    "steps": "{count} 步",
+    "stepFallback": "步骤 {number}",
+    "scoring": "评分",
+    "scoreFor": "模块 {number}：{title}",
+    "pass": "通过",
+    "fail": "未通过",
+    "notScored": "未评分",
+    "notes": "备注（可选）",
+    "taskTimer": "考核计时",
+    "notStarted": "未开始",
+    "timerNote": "语音结束后，考核计时自动开始。",
+    "startTimer": "开始计时",
+    "reset": "重置",
+    "now": "进行中",
+    "proctorControls": "监考操作",
+    "summaryTitle": "评分汇总",
+    "summaryCount": "已评分 {scored} / {total} 个模块，通过 {passed} 个",
+    "restart": "重新开始"
+  },
+  "lookup": {
+    "title": "考试成绩查询",
+    "lead": "请确认您的姓名以查看考试成绩。",
+    "examId": "考试 ID",
+    "fullName": "全名",
+    "fullNameHint": "请输入与您 ADA 档案一致的全名。",
+    "submit": "查看我的成绩",
+    "submitting": "正在核验…",
+    "errors": {
+      "notFound": "未找到考试记录，请检查考试 ID。",
+      "tooMany": "尝试次数过多，请稍后再试。",
+      "noMatch": "姓名与我们的记录不符，请重试。",
+      "failed": "核验未成功，请重试。",
+      "network": "网络错误，请检查网络连接后重试。"
+    }
+  },
+  "result": {
+    "metaTitle": "考试成绩",
+    "eyebrow": "ADA {credential}考试 · 笔试与实操",
+    "title": "您的考试成绩",
+    "candidate": "考生",
+    "doulaId": "导乐 ID",
+    "examDate": "考试日期",
+    "session": "考场",
+    "notRecorded": "未记录",
+    "overall": "总分",
+    "outOf": "/ {max}",
+    "passed": "通过",
+    "notPassed": "未通过",
+    "passMark": "及格线为 {pass} 分（满分 {max} 分）。",
+    "whereFalls": "您的成绩所处等级",
+    "scaleLabel": "您的总分为 {score} 分，分数范围为 {min}–{max} 分",
+    "yourLevel": "您的等级",
+    "levels": {
+      "highlyProficient": "高度熟练",
+      "proficient": "熟练",
+      "notProficient": "未达熟练"
+    },
+    "levelRange": {
+      "highlyProficient": "{min} 分及以上",
+      "proficient": "{min}–{max} 分",
+      "notProficient": "低于 {pass} 分"
+    },
+    "areasTitle": "各领域成绩",
+    "areasLead": "各领域满分均为 {max} 分。每条进度条上的竖线标示 {pass} 分。",
+    "areasCaption": "各领域成绩，对照及格线 {pass} 分",
+    "colArea": "领域",
+    "colScore": "成绩",
+    "colAgainst": "对照及格线 {pass} 分",
+    "atOrAbove": "{pass} 分及以上",
+    "below": "低于 {pass} 分",
+    "overallRow": "总分",
+    "areas": {
+      "score_terminology": "专业术语",
+      "score_newborn": "新生儿护理",
+      "score_lactation": "哺乳指导",
+      "score_emergency": "应急处理",
+      "score_practical": "实操技能",
+      "score_postpartum": "产后护理",
+      "score_knowledge": "专业知识",
+      "score_ethics": "职业伦理"
+    },
+    "nextTitle": "后续事项",
+    "recordTitle": "您的公开记录",
+    "recordBody": "家庭、机构和保险公司可在 ADA 认证注册名录中免费查询您的认证，无需账户。您的考试成绩不会在名录中显示。",
+    "recordAction": "打开您的公开记录",
+    "renewTitle": "保持资格良好",
+    "renewBody": "每项 ADA 认证有效期为 {years} 年，续期费用为 {fee}。",
+    "renewLink": "了解如何续期",
+    "retakeTitle": "重新参加考试",
+    "retakeBody": "本次考试 {days} 天后即可重新参加考试，重考费用为 {fee}。",
+    "questionsTitle": "如有疑问",
+    "questionsBody": "请发送邮件至 {email} 或致电 {phone}。",
+    "cta": "您的考试成绩与认证可在 My ADA 中查看。",
+    "ctaAction": "前往 My ADA",
+    "photoAlt": "ADA 产后导乐课程的一名学员正在用教学娃娃练习新生儿抱姿",
+    "photoCaption": "ADA 产后导乐课程的学员。{date}。",
+    "noneTitle": "未找到考试成绩",
+    "noneBody": "未找到此 ID 的考试记录。如果您近期刚参加考试，成绩可能仍在处理中。",
+    "types": {
+      "postpartum": "产后导乐",
+      "birth": "分娩导乐"
+    }
+  }
+}

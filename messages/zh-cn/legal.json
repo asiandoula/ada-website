@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "privacyTitle": "隐私政策",
+    "privacyDescription": "Asian Doula Alliance 如何在网站、认证项目和捐赠关系中收集、使用和保护您的个人信息。",
+    "termsTitle": "服务条款",
+    "termsDescription": "适用于您使用 Asian Doula Alliance 网站、认证项目和教育资源的条款。"
+  },
+  "pages": "法律信息页面",
+  "privacy": "隐私政策",
+  "terms": "服务条款",
+  "onThisPage": "本页内容",
+  "updated": "最后更新：{date}",
+  "entity": "{legalName} dba {dba}",
+  "englishNote": "本页法律文本仅以英文发布，以英文文本为准。",
+  "privacyLead": "ADA 收集哪些信息、如何使用，以及您可以做出的选择。",
+  "termsLead": "使用 ADA 网站、认证项目和教育资源的条款。",
+  "privacyCta": {
+    "title": "您可以要求 ADA 提供、更正或删除其持有的您的信息。",
+    "action": "提出隐私请求"
+  },
+  "termsCta": {
+    "title": "对本条款有疑问？请致函 ADA。",
+    "action": "发送电子邮件"
+  }
+}

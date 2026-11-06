@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "ADA 奖学金",
+    "description": "ADA 奖学金分为基于经济需要和基于成绩两类，用于资助培训费和考试费：申请资格、资助范围与申请方式。"
+  },
+  "breadcrumb": "ADA 奖学金",
+  "hero": {
+    "title": "ADA 奖学金",
+    "line": "基于经济需要和基于成绩的奖学金，用于资助您的 ADA 培训费和考试费。",
+    "photoAlt": "四名学员在 ADA 培训课上用训练娃娃练习抱新生儿",
+    "apply": "发邮件申请",
+    "findCourse": "查找 ADA 课程"
+  },
+  "who": {
+    "title": "申请资格",
+    "intro": "ADA 提供基于经济需要和基于成绩的奖学金，让才能与投入，而不是经济条件，决定谁能成为认证导乐。",
+    "photoAlt": "在 ADA 培训课上，一名学员在护理台上为训练用娃娃穿衣",
+    "photoCaption": "在 ADA 培训课上，学员为训练娃娃穿衣。2024 年 8 月。",
+    "enrollment": "报名情况",
+    "enrollmentText": "您已报名或已被录取参加由 ADA 认证培训师或 ADA 认可的培训机构开设的 ADA 课程。",
+    "need": "经济需要",
+    "needText": "您能够证明存在经济困难。",
+    "commitment": "服务承诺",
+    "commitmentText": "您计划在获得认证后服务亚裔社区。",
+    "languages": "语言能力",
+    "languagesText": "会说多种语言者优先，但并非必要条件。",
+    "priority": "优先考虑",
+    "priorityText": "来自服务不足社区的考生、会说多种语言的人士以及第一代照护者，他们能为所服务的家庭带来语言能力和独特视角。"
+  },
+  "covers": {
+    "title": "奖学金资助范围",
+    "intro": "奖学金可资助您的部分或全部培训费和考试费，这是大多数考生最大的一笔开支。",
+    "caption": "奖学金可资助的费用",
+    "colCost": "费用",
+    "colAmount": "金额",
+    "colPaidTo": "支付对象",
+    "colScholarship": "奖学金",
+    "tuition": "课程学费",
+    "tuitionAmount": "由培训机构确定",
+    "tuitionPaidTo": "培训师或培训机构",
+    "exam": "ADA 考试费",
+    "examPaidTo": "ADA",
+    "partialOrFull": "部分或全额",
+    "note": "学费支付给培训师或培训机构，考试费支付给 ADA。"
+  },
+  "apply": {
+    "title": "申请方式",
+    "intro": "请在报名或被录取参加 ADA 课程后提出申请。",
+    "photoAlt": "考生在培训教室的课桌前参加 ADA 笔试",
+    "photoCaption": "参加 ADA 笔试的考生。2024 年 8 月。",
+    "s1Title": "取得 ADA 课程名额",
+    "s1Body": "报名或被录取参加由 ADA 认证培训师或 ADA 认可的培训机构开设的 ADA 课程。<link>查找 ADA 课程</link>",
+    "s2Title": "发送电子邮件申请",
+    "s2Body": "请发送电子邮件至 <mail>{email}</mail>，写明您的姓名与背景、所报课程及培训师或培训机构、一段简短的申请说明，以及相关经历。",
+    "s3Title": "ADA 审核",
+    "s3Body": "申请采取滚动审核，ADA 将通过电子邮件回复。",
+    "s4Title": "使用奖学金",
+    "s4Body": "ADA 会告知您资助金额，以及资助用于学费、<strong>{fee}</strong> 考试费，还是两者兼有。<link>考试日期</link>"
+  },
+  "contact": {
+    "title": "联系方式",
+    "intro": "关于申请资格、资助范围或已提交申请的问题。",
+    "email": "电子邮箱",
+    "phone": "电话",
+    "mail": "邮寄地址",
+    "mailValue": "{name}，{address}"
+  },
+  "cta": {
+    "title": "申请采取滚动审核。",
+    "action": "发邮件申请"
+  },
+  "links": {
+    "title": "考生须知",
+    "postpartum": "ADA 产后导乐",
+    "postpartumText": "{count} 个模块，之后参加 ADA 笔试和实操考核。",
+    "birth": "ADA 分娩导乐",
+    "birthText": "为待产和分娩提供支持。课程班滚动开课。",
+    "ibclc": "IBCLC 哺乳备考课程",
+    "ibclcText": "提供 IBLCE 规定的 IBCLC 报考所需的哺乳专业教育学时。",
+    "courses": "ADA 教育与课程",
+    "coursesText": "ADA 课程体系、课程模块，以及如何讲授 ADA 课程。",
+    "dates": "考试日期",
+    "datesText": "ADA 考试安排中的近期考试日期。",
+    "conduct": "行为准则",
+    "conductText": "每一位 ADA 认证导乐都承诺遵守的各项原则。"
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "title": "分娩导乐认证",
+    "description": "ADA 分娩导乐认证：面向分娩过程支持的文化融合培训，课程全年滚动开班，考试包括笔试与实操考试。"
+  },
+  "breadcrumb": "ADA 分娩导乐",
+  "courseName": "ADA 分娩导乐认证",
+  "courseDescription": "面向分娩过程支持的文化融合培训与认证。",
+  "mailSubject": "Birth Doula Certification - Interest",
+  "hero": {
+    "title": "ADA 分娩导乐",
+    "line": "课程全年滚动开班。",
+    "findCohort": "查找分娩导乐课程",
+    "imageAlt": "在 ADA 培训课上，一名学员以新生儿抱姿抱着训练娃娃"
+  },
+  "steps": {
+    "title": "如何取得认证",
+    "intro": "分娩导乐在分娩全程为家庭提供持续的身体、情感和信息支持，从早期阵痛直至产后即时阶段。从参加 ADA 课程到 ADA 认证注册名录中的公开记录，共四个步骤。",
+    "s1": {
+      "title": "参加 ADA 分娩导乐课程",
+      "body": "课程全年滚动开班。报读无需任何经验。如需了解近期开课日期和当期学费，请联系我们。<link>查找 ADA 课程</link>"
+    },
+    "s2": {
+      "title": "完成分娩导乐培训项目",
+      "body": "共 {count} 个主题，从产程各阶段到产后即时支持。"
+    },
+    "s3": {
+      "title": "参加 ADA 分娩导乐考试",
+      "bodyNext": "包括笔试和实操考试。下一场分娩导乐考试定于 <d>{date}</d>。<link>考试日期</link>",
+      "bodyNone": "包括笔试和实操考试。"
+    },
+    "s4": {
+      "title": "列入认证注册名录，并按期续证",
+      "body": "ADA 将为您颁发证书，编号格式为 <b>{format}</b>，并将您列入 ADA 认证注册名录。认证有效期为 {validity}。<registry>查询认证注册名录</registry>"
+    }
+  },
+  "topics": {
+    "title": "培训内容",
+    "intro": "分娩导乐培训项目沿用产后项目的文化融合方法：将亚洲传统分娩习俗与现代循证护理相结合，并以家庭偏好的语言提供服务。",
+    "imageAlt": "ADA 培训课上，讲师对照墙上屏幕的幻灯片授课",
+    "caption": "讲师为 ADA 产后导乐培训项目授课。{date}。",
+    "listLabel": "分娩导乐培训主题",
+    "items": {
+      "stages": "产程各阶段与自然分娩",
+      "comfort": "舒适照护与疼痛管理",
+      "breathing": "呼吸与放松",
+      "medicalTeams": "与医疗团队的沟通",
+      "family": "伴侣与家人的参与",
+      "traditions": "各地文化中的分娩传统",
+      "emergency": "紧急情况识别与转介",
+      "postpartum": "产后即时支持"
+    }
+  },
+  "details": {
+    "title": "项目详情",
+    "cohorts": {
+      "label": "开班",
+      "value": "全年滚动开班。"
+    },
+    "exam": {
+      "label": "考试",
+      "value": "笔试和实操考试。"
+    },
+    "languages": {
+      "label": "语言"
+    },
+    "prerequisites": {
+      "label": "报读要求",
+      "value": "无。报读无需任何经验，也无需先取得产后导乐认证。"
+    },
+    "validity": {
+      "label": "有效期"
+    },
+    "tuition": {
+      "label": "学费",
+      "value": "如需了解当期学费、奖学金名额和付款方式，请联系我们。<link>奖学金</link>"
+    }
+  },
+  "compare": {
+    "title": "与产后导乐的区别",
+    "intro": "分娩导乐是独立的认证方向。您可以单独报读，也可以同时持有两项认证。",
+    "caption": "ADA 分娩导乐与 ADA 产后导乐的比较",
+    "colBirth": "ADA 分娩导乐",
+    "colPostpartum": "ADA 产后导乐",
+    "role": {
+      "birth": "在分娩过程中为家庭提供支持",
+      "postpartum": "在分娩后为家庭提供支持"
+    },
+    "place": {
+      "birth": "在医院或分娩中心陪伴",
+      "postpartum": "在家庭住所提供服务"
+    },
+    "focus": {
+      "birth": "重点：分娩期间的舒适、权益维护与情感支持",
+      "postpartum": "重点：产后恢复、新生儿护理与家庭适应"
+    },
+    "program": {
+      "birth": "培训：全年滚动开班",
+      "postpartum": "培训：{count} 个模块，通常为期 {days} 天的集中培训"
+    },
+    "exam": {
+      "birth": "考试：笔试和实操考试",
+      "postpartum": "考试：{written} 分钟笔试和 {practical} 分钟实操考试，考试费 {fee} 交付 ADA*"
+    },
+    "certificate": "证书编号：{format}†",
+    "noteExamNext": "*下一场产后导乐考试：<nw>{date}</nw>。<link>全部考试日期</link>",
+    "noteExamNone": "*考试场次在每期培训结束后安排。<link>考试日期</link>",
+    "noteRecord": "†每项认证在 ADA 认证注册名录中都有各自的状态和有效期。"
+  },
+  "cta": {
+    "title": "咨询下一期分娩导乐课程。"
+  },
+  "faq": {
+    "next": {
+      "q": "下一期分娩导乐课程什么时候开课？",
+      "a": "课程全年滚动开班。请发送邮件给我们，加入下一期课程的报名名单，我们会告知近期的开课日期。"
+    },
+    "languages": {
+      "q": "培训项目提供多种语言吗？",
+      "a": "是的。与产后导乐认证相同，培训与考试提供{languages}。"
+    },
+    "postpartumFirst": {
+      "q": "我需要先成为产后导乐吗？",
+      "a": "不需要。分娩导乐是独立的认证方向，可以单独报读。"
+    },
+    "cost": {
+      "q": "费用是多少？",
+      "a": "如需了解当期学费、奖学金名额和付款方式，请发送邮件至 <mail>{email}</mail>。"
+    }
+  }
+}

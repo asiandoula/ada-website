@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "title": "認證",
+    "description": "ADA 產後導樂認證、分娩導樂認證及 IBCLC 備考課程：各項認證的取得方式、考試、費用與續證。"
+  },
+  "shared": {
+    "candidates": "考生",
+    "questions": "常見問題",
+    "notAnswered": "未找到答案？請發送郵件至 <link>{email}</link>。",
+    "forCandidates": "考生資源",
+    "checkRegistry": "查詢認證註冊名錄",
+    "validity": "{years} 年",
+    "renewEvery": "{years, plural, =1 {每年一次} other {每 # 年一次}}",
+    "register": "報名考試",
+    "findCourse": "查找 ADA 課程",
+    "examDates": "考試日期",
+    "examDay": "考試當天與身份證件",
+    "askCohort": "咨詢下一期課程",
+    "languages": {
+      "en": "英語",
+      "zh": "中文（普通話）",
+      "ja": "日語",
+      "ko": "韓語"
+    },
+    "links": {
+      "postpartum": {
+        "label": "ADA 產後導樂",
+        "description": "{count} 個培訓模塊，之後參加 ADA 筆試與實操考試。"
+      },
+      "birth": {
+        "label": "ADA 分娩導樂",
+        "description": "在分娩過程中為家庭提供支持。課程全年滾動開班。"
+      },
+      "ibclc": {
+        "label": "IBCLC 泌乳備考課程",
+        "description": "提供 IBLCE 規定的 IBCLC 報考前提中的泌乳專項教育學時。"
+      },
+      "handbook": {
+        "label": "考生手冊",
+        "description": "報考資格、考試、費用、成績與續證，一頁說明。"
+      },
+      "examDates": {
+        "label": "考試日期",
+        "description": "即將舉行的產後導樂與分娩導樂考試場次。"
+      },
+      "examDay": {
+        "label": "考試當天與身份證件要求",
+        "description": "需要攜帶的物品，以及各部分考試的進行方式。"
+      },
+      "renew": {
+        "label": "認證續期",
+        "description": "續證的要求與費用。"
+      },
+      "education": {
+        "label": "ADA 教育",
+        "description": "ADA 認可的培訓項目，以及產後導樂項目的 {count} 個培訓模塊。"
+      },
+      "courses": {
+        "label": "課程與開班信息",
+        "description": "ADA 認可的培訓項目，可線下或線上參加。"
+      },
+      "scholarships": {
+        "label": "獎學金",
+        "description": "為符合條件的學員提供培訓費與考試費資助。"
+      },
+      "portal": {
+        "label": "我的 ADA",
+        "description": "您的認證記錄、證書與考試記錄。"
+      },
+      "conduct": {
+        "label": "職業行為準則",
+        "description": "每位 ADA 認證導樂都應遵守的職業與道德標準。"
+      },
+      "verify": {
+        "label": "查詢導樂認證",
+        "description": "每項 ADA 認證都在 ADA 認證註冊名錄中有公開記錄。"
+      },
+      "contact": {
+        "label": "聯繫 ADA",
+        "description": "咨詢開班、費用或臨床實踐學時的轉介。"
+      }
+    }
+  },
+  "hero": {
+    "title": "取得 ADA 認證。",
+    "line": "提供{languages}培訓與考試。",
+    "imageAlt": "考生在間隔排列的考桌前參加 ADA 筆試，監考人員在旁監考"
+  },
+  "credentials": {
+    "title": "ADA 頒發的認證",
+    "intro": "下列每項認證均在 ADA 認證註冊名錄中有公開記錄，任何人都可以查詢。",
+    "caption": "ADA 頒發的認證：編號前綴、取得方式、有效期與續證",
+    "colCredential": "認證",
+    "colPrefix": "編號前綴",
+    "colHow": "取得方式",
+    "colPeriod": "有效期*",
+    "colRenewal": "續證**",
+    "noPrefix": "無編號前綴",
+    "postpartum": {
+      "name": "產後導樂",
+      "how": "完成 ADA 認可的培訓項目，然後參加 {written} 分鐘筆試和 {practical} 分鐘實操考試。合格分數為 {pass}/{max}。考試費 {fee}。"
+    },
+    "birth": {
+      "name": "分娩導樂",
+      "how": "參加 ADA 分娩導樂課程，然後參加筆試和實操考試。"
+    },
+    "ibclc": {
+      "name": "IBCLC 培訓合格†",
+      "how": "ADA 的 IBCLC 備考課程：提供 IBLCE 規定的 IBCLC 報考前提中的泌乳專項教育學時。",
+      "period": "永久記錄",
+      "renewal": "無需續證"
+    },
+    "noteStanding": "*依據《ADA 職業行為準則》，認證可被暫停或撤銷。",
+    "noteRenewal": "**續證費為 {fee}。",
+    "noteIbclc": "†此為結業記錄，並非 IBCLC 資格。IBCLC 由 IBLCE 頒發。",
+    "lookup": "在認證註冊名錄中查詢任何認證"
+  },
+  "steps": {
+    "title": "認證流程",
+    "intro": "取得 ADA 產後導樂認證的步驟：完成 ADA 認可的培訓項目，通過 ADA 考試，獲得公開記錄，之後按期續證。",
+    "imageAlt": "ADA 考官為考生的實操考試評分，牆上屏幕正在計時",
+    "caption": "實操考試：考官在計時期間評分。{date}。",
+    "s1": {
+      "title": "完成 ADA 認可的培訓項目",
+      "body": "產後導樂項目通常為期 <b>{days} 天</b>的集中培訓，可線下或線上參加。培訓費用因機構而異。<link>查找 ADA 課程</link>"
+    },
+    "s2": {
+      "title": "報名考試場次",
+      "bodyNext": "下一場考試定於 <d>{date}</d>。考試費為 <b>{fee}</b>，交付 ADA。<link>考試日期</link>",
+      "bodyNone": "考試場次在每期培訓結束後安排。考試費為 <b>{fee}</b>，交付 ADA。<link>考試日期</link>"
+    },
+    "s3": {
+      "title": "參加筆試和實操考試",
+      "body": "<b>{written} 分鐘</b>筆試和 <b>{practical} 分鐘</b>一對一實操考試。請攜帶有效的政府簽發帶照片身份證件。<link>考試當天與身份證件</link>"
+    },
+    "s4": {
+      "title": "獲得考試結果和公開記錄",
+      "body": "考試結果約在 {days} 個工作日內通過電子郵件發送。合格分數為 <b>{pass}/{max}</b>。通過後，ADA 將為您頒發證書，並將您列入 ADA 認證註冊名錄，任何人都可以查詢。<registry>查詢認證註冊名錄</registry>"
+    },
+    "s5": {
+      "title": "按期續證，保持資格良好",
+      "body": "證書有效期為 {validity}。續證費為 <b>{fee}</b>，可通過專業推薦信或重新認證考試完成續證。<link>認證續期</link>"
+    }
+  },
+  "links": {
+    "title": "考生與認證導樂資源"
+  }
+}

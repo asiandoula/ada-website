@@ -1,0 +1,119 @@
+{
+  "metaTitle": "Board of directors and elections",
+  "metaDescription": "The volunteer board that governs Asian Doula Alliance: its directors, how ADA’s certified doulas elect it, and its conflict of interest rules.",
+  "electionMetaTitle": "Board elections",
+  "electionMetaDescription": "How ADA’s certified doulas nominate and elect the board of directors, who can stand for election, and how to nominate.",
+  "breadcrumbAbout": "About ADA",
+  "breadcrumb": "Board of directors and elections",
+  "title": "Board of directors and elections",
+  "lead": "A volunteer board governs ADA. It sets ADA’s direction, oversees its finances and holds ADA to its mission.",
+  "meta": "The board of {legalName}, which does business as {dba}.",
+  "cta": {
+    "title": "Certified doulas in good standing can nominate a director.",
+    "action": "How to nominate"
+  },
+  "toc": {
+    "title": "On this page",
+    "board": "The board",
+    "directors": "The directors",
+    "election": "How elections work",
+    "conflicts": "Conflicts of interest"
+  },
+  "table": {
+    "caption": "ADA Board of Directors",
+    "director": "Director",
+    "role": "Role",
+    "basedIn": "Based in"
+  },
+  "roles": {
+    "founderEmeritus": "Founder Emeritus",
+    "president": "President",
+    "independentDirector": "Independent Director",
+    "director": "Director"
+  },
+  "composition": {
+    "independent": "Independent directors",
+    "industry": "Industry directors",
+    "chair": "Chair",
+    "chairValue": "{name}, President",
+    "founder": "Founder",
+    "founderValue": "{name}, Founder Emeritus",
+    "pay": "Pay",
+    "payValue": "Directors are volunteers and receive no compensation from ADA."
+  },
+  "boardSection": {
+    "title": "The board",
+    "intro": "{count} volunteer directors set ADA’s certification standards and steward the nonprofit, without compensation."
+  },
+  "directors": {
+    "title": "The directors"
+  },
+  "people": {
+    "qiWang": {
+      "location": "Southern California",
+      "bio": "Doula and doula educator. Qi Wang seeded what would become the Asian Doula Alliance in {year}, starting from a WeChat community of Asian-immigrant postpartum caregivers and growing it into the seed of a national professional body. Her conviction, that culturally integrated postpartum care deserved both the dignity of formal certification and a community that protected the women practicing it, remains ADA’s founding premise. As Founder Emeritus, she advises on community and cultural fidelity as ADA grows beyond its founding roots."
+    },
+    "sethMeng": {
+      "location": "Buffalo, NY",
+      "bio": "Seth Meng was elected ADA’s inaugural Board President at the {year} board meeting, where he serves as the executive lead for technology, governance and standards. His background is as an analyst and researcher in elder-care outcomes at the University of Rochester Medical Center, applying statistics and machine learning to questions of long-term care quality and family-caregiver impact. That orientation toward measurement, instrumentation and protective system design now shapes ADA’s certification platform, multilingual exam architecture and public verification registry. Seth came to ADA out of a long-standing commitment to building public-benefit institutions."
+    },
+    "wesleyLau": {
+      "location": "Los Angeles, CA",
+      "bio": "Wesley Lau is a serial entrepreneur and venture capital investor whose career has crossed several industries, from technology and finance to community-focused initiatives. Outside his professional work, he has been a steady presence in community and public-benefit organizations, drawn to neighborhood cleanups and the unglamorous volunteer work others overlook. He brings that same orientation to ADA’s board: that good organizations are built by people who do the small, repeatable work as carefully as the strategic decisions."
+    },
+    "minyuZhang": {
+      "location": "Los Angeles, CA",
+      "bio": "Minyu Zhang spent her earlier career in finance before turning much of her time and energy toward public-benefit work. She volunteers across a range of community and nonprofit initiatives, with a particular commitment to animal welfare and rescue. On ADA’s board, she pairs financial discipline with steady engagement in mission-driven organizations, reading budgets carefully and showing up for the work because she cares about the people behind it."
+    },
+    "veronicaTseng": {
+      "location": "Irvine, CA",
+      "bio": "Veronica Tseng works in postpartum doula service operations across the Bay Area, Southern California, Seattle, New York City and Chicago, where she focuses on doula coordination and family-facing program delivery. She brings that ground-level view to ADA’s board, informing conversations on member needs, program quality, and how certification standards translate into daily practice for the doulas and families ADA serves."
+    },
+    "miaLiu": {
+      "location": "Irvine, CA",
+      "bio": "Mia Liu leads operations for a doula services organization, overseeing doula workforce coordination, regional service delivery and the day-to-day work of running culturally integrated postpartum care at scale. She brings to ADA’s board the practical realities of the field: the regional service markets, the doulas who carry the work, and the families they serve. She helps the board calibrate certification standards against operational reality."
+    }
+  },
+  "election": {
+    "title": "How elections work",
+    "intro": "ADA’s certified doula community elects the board. Directors serve {years}-year terms.",
+    "step1Title": "Nominations",
+    "step1Body": "Any ADA-certified doula in good standing can nominate themselves or a colleague. A nominee must have held an active certification for at least {months} months, and must confirm that they are willing to serve.",
+    "step2Title": "Candidate review",
+    "step2Body": "The board reviews every nomination to confirm eligibility. Candidates are told the result and asked for a short candidate statement.",
+    "step3Title": "Voting",
+    "step3Body": "Certified doulas with active status vote by electronic ballot, one vote per position. The results are tallied independently.",
+    "step4Title": "Results and handover",
+    "step4Body": "ADA announces the newly elected directors, and their {years}-year term begins. Outgoing directors support a {days}-day handover.",
+    "eligibleTitle": "Who can stand for election",
+    "certification": "Certification",
+    "certificationValue": "An active ADA certification, held for at least {months} months.",
+    "standing": "Standing",
+    "standingValue": "In good standing, with no active disciplinary action.",
+    "standingLink": "Check a record",
+    "commitment": "Commitment",
+    "commitmentValue": "Serve a full {years}-year term and attend at least {percent}% of the quarterly board meetings.",
+    "term": "Term",
+    "termValue": "{years} years. There are no term limits, so directors may stand again.",
+    "nominateTitle": "How to nominate",
+    "nominateBody": "Email <mail></mail> with the subject line “{subject}” and a short statement of intent. ADA accepts nominations year-round.",
+    "nominateSubject": "Board nomination",
+    "nominateAction": "Email a nomination"
+  },
+  "conflicts": {
+    "title": "Conflicts of interest",
+    "everyYear": "Every year",
+    "everyYearValue": "Each director signs a conflict of interest disclosure.",
+    "abstaining": "Abstaining",
+    "abstainingValue": "A director with a material interest in a decision abstains and does not vote on it.",
+    "relatedParties": "Related parties",
+    "relatedPartiesValue": "A related-party transaction needs the affirmative vote of the independent directors.",
+    "policy": "The policy",
+    "policyValue": "A written conflict of interest policy, reviewed every year. A copy is available on request from <mail></mail>.",
+    "policySubject": "Conflict of interest policy",
+    "accountability": "Accountability",
+    "accountabilityValue": "ADA files a public {form990} every year, starting with fiscal year {year}.",
+    "financialsLink": "Financial information and documents",
+    "governanceLink": "Governance"
+  }
+}

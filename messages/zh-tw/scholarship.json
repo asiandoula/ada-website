@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "ADA 獎學金",
+    "description": "ADA 獎學金分為基於經濟需要和基於成績兩類，用於資助培訓費和考試費：申請資格、資助範圍與申請方式。"
+  },
+  "breadcrumb": "ADA 獎學金",
+  "hero": {
+    "title": "ADA 獎學金",
+    "line": "基於經濟需要和基於成績的獎學金，用於資助您的 ADA 培訓費和考試費。",
+    "photoAlt": "四名學員在 ADA 培訓課上用訓練娃娃練習抱新生兒",
+    "apply": "發郵件申請",
+    "findCourse": "查找 ADA 課程"
+  },
+  "who": {
+    "title": "申請資格",
+    "intro": "ADA 提供基於經濟需要和基於成績的獎學金，讓才能與投入，而不是經濟條件，決定誰能成為認證導樂。",
+    "photoAlt": "在 ADA 培訓課上，一名學員在護理台上為訓練用娃娃穿衣",
+    "photoCaption": "在 ADA 培訓課上，學員為訓練娃娃穿衣。2024 年 8 月。",
+    "enrollment": "報名情況",
+    "enrollmentText": "您已報名或已被錄取參加由 ADA 認證培訓師或 ADA 認可的培訓機構開設的 ADA 課程。",
+    "need": "經濟需要",
+    "needText": "您能夠證明存在經濟困難。",
+    "commitment": "服務承諾",
+    "commitmentText": "您計劃在獲得認證後服務亞裔社區。",
+    "languages": "語言能力",
+    "languagesText": "會說多種語言者優先，但並非必要條件。",
+    "priority": "優先考慮",
+    "priorityText": "來自服務不足社區的考生、會說多種語言的人士以及第一代照護者，他們能為所服務的家庭帶來語言能力和獨特視角。"
+  },
+  "covers": {
+    "title": "獎學金資助範圍",
+    "intro": "獎學金可資助您的部分或全部培訓費和考試費，這是大多數考生最大的一筆開支。",
+    "caption": "獎學金可資助的費用",
+    "colCost": "費用",
+    "colAmount": "金額",
+    "colPaidTo": "支付對象",
+    "colScholarship": "獎學金",
+    "tuition": "課程學費",
+    "tuitionAmount": "由培訓機構確定",
+    "tuitionPaidTo": "培訓師或培訓機構",
+    "exam": "ADA 考試費",
+    "examPaidTo": "ADA",
+    "partialOrFull": "部分或全額",
+    "note": "學費支付給培訓師或培訓機構，考試費支付給 ADA。"
+  },
+  "apply": {
+    "title": "申請方式",
+    "intro": "請在報名或被錄取參加 ADA 課程後提出申請。",
+    "photoAlt": "考生在培訓教室的課桌前參加 ADA 筆試",
+    "photoCaption": "參加 ADA 筆試的考生。2024 年 8 月。",
+    "s1Title": "取得 ADA 課程名額",
+    "s1Body": "報名或被錄取參加由 ADA 認證培訓師或 ADA 認可的培訓機構開設的 ADA 課程。<link>查找 ADA 課程</link>",
+    "s2Title": "發送電子郵件申請",
+    "s2Body": "請發送電子郵件至 <mail>{email}</mail>，寫明您的姓名與背景、所報課程及培訓師或培訓機構、一段簡短的申請說明，以及相關經歷。",
+    "s3Title": "ADA 審核",
+    "s3Body": "申請採取滾動審核，ADA 將通過電子郵件回復。",
+    "s4Title": "使用獎學金",
+    "s4Body": "ADA 會告知您資助金額，以及資助用於學費、<strong>{fee}</strong> 考試費，還是兩者兼有。<link>考試日期</link>"
+  },
+  "contact": {
+    "title": "聯繫方式",
+    "intro": "關於申請資格、資助範圍或已提交申請的問題。",
+    "email": "電子郵箱",
+    "phone": "電話",
+    "mail": "郵寄地址",
+    "mailValue": "{name}，{address}"
+  },
+  "cta": {
+    "title": "申請採取滾動審核。",
+    "action": "發郵件申請"
+  },
+  "links": {
+    "title": "考生須知",
+    "postpartum": "ADA 產後導樂",
+    "postpartumText": "{count} 個模塊，之後參加 ADA 筆試和實操考核。",
+    "birth": "ADA 分娩導樂",
+    "birthText": "為待產和分娩提供支持。課程班滾動開課。",
+    "ibclc": "IBCLC 哺乳備考課程",
+    "ibclcText": "提供 IBLCE 規定的 IBCLC 報考所需的哺乳專業教育學時。",
+    "courses": "ADA 教育與課程",
+    "coursesText": "ADA 課程體系、課程模塊，以及如何講授 ADA 課程。",
+    "dates": "考試日期",
+    "datesText": "ADA 考試安排中的近期考試日期。",
+    "conduct": "行為準則",
+    "conductText": "每一位 ADA 認證導樂都承諾遵守的各項原則。"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "title": "Record {id}",
+    "description": "ADA registry record {id}: certification status as of the time it is retrieved.",
+    "notFoundTitle": "No ADA record"
+  },
+  "breadcrumb": "Record {id}",
+  "breadcrumbNotFound": "No record",
+  "credential": {
+    "postpartum": "Postpartum Doula",
+    "birth": "Birth Doula",
+    "ibclc_training": "IBCLC Training Qualified",
+    "trainer": "ADA Certified Trainer",
+    "cpr": "Infant CPR (American Red Cross)"
+  },
+  "notCurrent": "Not current",
+  "link": {
+    "current": "This is the holder's current certificate.",
+    "expiredOn": "Its credential expired on {date}.",
+    "expired": "Its credential has expired.",
+    "suspended": "Its credential is suspended.",
+    "retired": "The holder has retired in good standing.",
+    "withdrawn": "This certificate is no longer valid.",
+    "replaced": "It was replaced by <id>{number}</id> on {date}. The holder's current standing is below.",
+    "replacedNoCurrent": "It was replaced by a newer certificate. The holder's current standing is below."
+  },
+  "holder": {
+    "title": "Holder",
+    "name": "Name as certified",
+    "native": "Name in primary language",
+    "doulaId": "Doula ID"
+  },
+  "standing": {
+    "title": "Standing",
+    "good": "In good standing",
+    "goodBody": "Holds an active ADA credential. No suspension, revocation or other public action is in effect.",
+    "retired": "Retired in good standing",
+    "retiredBody": "Not practicing as ADA-certified. No suspension, revocation or other public action is in effect.",
+    "lapsed": "No active ADA certification",
+    "lapsedOne": "Was ADA-certified. The {credential} certification was not renewed by {date}. This is an administrative lapse, not a disciplinary action.",
+    "lapsedOneNoDate": "Was ADA-certified. The {credential} certification has expired. This is an administrative lapse, not a disciplinary action.",
+    "lapsedMany": "Was ADA-certified. The certifications below were not renewed. This is an administrative lapse, not a disciplinary action.",
+    "notGood": "Not in good standing",
+    "suspendedBody": "{count, plural, one {The {credentials} certification is suspended.} other {The {credentials} certifications are suspended.}} Not ADA-certified during the suspension.",
+    "revokedBodyOn": "The {credentials} certification was revoked on {date}. Not ADA-certified.",
+    "revokedBody": "{count, plural, one {The {credentials} certification was revoked.} other {The {credentials} certifications were revoked.}} Not ADA-certified.",
+    "note": "Standing is computed from every credential below and any public action in effect.",
+    "banner": {
+      "good": "In good standing",
+      "retired": "Retired in good standing",
+      "lapsed": "No active certification",
+      "suspended": "Not in good standing",
+      "revoked": "Not in good standing"
+    }
+  },
+  "credentials": {
+    "title": "Credentials",
+    "colCredential": "Credential",
+    "colStatus": "Status",
+    "colFirst": "First certified",
+    "colEnds": "Current period ends",
+    "colEnded": "Period ended",
+    "colCert": "Current certificate",
+    "noEnd": "No end date",
+    "none": "None",
+    "empty": "No ADA credential is on record. The certificate history is below.",
+    "note": "Only credentials ADA has issued appear here. Exam results, applications and complaints under review are never public."
+  },
+  "meaning": {
+    "activeThrough": "Meets ADA certification requirements through {date}.",
+    "active": "Meets ADA certification requirements. No end date.",
+    "expiredBy": "Not renewed by {date}. Not currently ADA-certified.",
+    "expired": "Not currently ADA-certified.",
+    "suspended": "Suspended. Not ADA-certified during the suspension.",
+    "revokedOn": "Revoked on {date}. Not ADA-certified.",
+    "revoked": "Revoked. Not ADA-certified.",
+    "retired": "Retired in good standing. Not practicing as ADA-certified."
+  },
+  "actions": {
+    "inEffect": "In effect",
+    "effective": "Effective {date}",
+    "onFile": "On file",
+    "credential": "{credential} certification",
+    "withCredential": "{action} ({credential})",
+    "separator": "; "
+  },
+  "history": {
+    "title": "Certificate history",
+    "colNumber": "Number",
+    "colCredential": "Credential",
+    "colIssued": "Issued",
+    "colStatus": "Status",
+    "replacedBy": "Replaced by <id>{number}</id> on {date}.",
+    "replaced": "Replaced by a newer certificate.",
+    "withdrawnOn": "Withdrawn on {date}.",
+    "issued": "Issued {date}.",
+    "empty": "No certificate is on file for this record."
+  },
+  "about": {
+    "title": "About this record",
+    "primary": "<b>Primary source.</b> This page is the ADA registry's official record and the primary source for ADA certification status. A certificate shows status on the day it was issued; this page shows status now.",
+    "currency": "<b>Currency.</b> Reflects the registry at the time shown above. Changes are recorded by ADA registry staff.",
+    "use": "<b>Use.</b> For verification only. Not for solicitation or marketing lists.",
+    "corrections": "<b>Corrections.</b> If something on this record looks wrong, contact <link>{email}</link>."
+  },
+  "another": {
+    "title": "Verify another credential"
+  },
+  "mobile": {
+    "savePdf": "Save as PDF",
+    "aboutPrimary": "This page is the primary source for ADA certification status. A paper certificate shows status on the day it was issued.",
+    "aboutUse": "For verification only. Not for building contact or marketing lists. To correct a record, email <link>{email}</link>.",
+    "rowLabel": "{label}: "
+  }
+}

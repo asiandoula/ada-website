@@ -104,3 +104,71 @@
 .animate-hero-buttons {
   animation: fadeSlideUp 0.8s ease-out 0.4s both;
 }
+
+/* ==========================================================================
+   Direction C (2026-11 redesign): public-site foundation.
+   Source of truth: canvas KitC.dc.html. Tokens live in tailwind.config.ts (ada2.*).
+   ========================================================================== */
+
+/* CJK fallback per language. Every locale uses the same Source Sans 3 scale;
+   CJK glyphs fall back to the Noto face for the element's own lang, so a
+   language link with lang="ja" shows in Noto Sans JP even on the 简体 site. */
+:root { --font-cjk: var(--font-noto-sc); }
+:lang(zh-Hant), :lang(zh-TW), :lang(zh-HK) { --font-cjk: var(--font-noto-tc); }
+:lang(ja) { --font-cjk: var(--font-noto-jp); }
+:lang(ko) { --font-cjk: var(--font-noto-kr); }
+:lang(zh-Hans), :lang(zh-CN) { --font-cjk: var(--font-noto-sc); }
+
+@layer components {
+  /* The page column: max 1344, side gutter clamp(16px, 3.4vw, 48px). */
+  .ada2-wrap {
+    /* width:100% so it still fills a flex-column parent (auto margins disable stretch). */
+    width: 100%;
+    max-width: 1344px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    padding-left: clamp(16px, 3.4vw, 48px);
+    padding-right: clamp(16px, 3.4vw, 48px);
+  }
+
+  /* Hero copy column: aligns its left edge with .ada2-wrap while the photo bleeds right. */
+  .ada2-hero-copy {
+    padding: 56px clamp(16px, 3.4vw, 48px) 64px
+      max(clamp(16px, 3.4vw, 48px), calc(50% - 672px + clamp(16px, 3.4vw, 48px)));
+  }
+
+  /* Visually hidden (labels, captions). */
+  .ada2-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+/* Public pages: blossom focus ring (KitC), replacing the legacy purple ring. */
+.ada2-root a:focus-visible,
+.ada2-root button:focus-visible,
+.ada2-root input:focus-visible,
+.ada2-root select:focus-visible,
+.ada2-root textarea:focus-visible,
+.ada2-root summary:focus-visible {
+  outline: 3px solid #606090;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
+@media print {
+  .ada2-no-print { display: none !important; }
+}
+
+/* CJK families are loaded from Google Fonts' CSS in src/app/layout.tsx. */
+:root {
+  --font-noto-sc: 'Noto Sans SC';
+  --font-noto-tc: 'Noto Sans TC';
+  --font-noto-jp: 'Noto Sans JP';
+  --font-noto-kr: 'Noto Sans KR';
+}

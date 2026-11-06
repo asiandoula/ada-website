@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "helpTitle": "帮助与联系",
+    "helpDescription": "联系 Asian Doula Alliance，查找解答您问题的页面，或在线留言。",
+    "contactTitle": "联系 ADA",
+    "contactDescription": "在线给 Asian Doula Alliance 留言，或通过 ADA 的联系方式写信、致电。"
+  },
+  "breadcrumb": {
+    "help": "帮助与联系",
+    "contact": "联系 ADA"
+  },
+  "intro": {
+    "helpTitle": "帮助与联系",
+    "helpLead": "您可以向 ADA 咨询认证、考试、续证、认证注册名录或 ADA 课程。请先查看与您问题相关的页面，或在下方留言。",
+    "contactTitle": "联系 ADA",
+    "contactLead": "请通过下方表单给 ADA 留言，或使用本页下方的联系方式写信、致电。"
+  },
+  "details": {
+    "title": "联系 ADA",
+    "titleOther": "其他联系方式",
+    "email": "电子邮件",
+    "phone": "电话",
+    "mail": "邮寄地址",
+    "mailValue": "{legalName} dba {dba}, {address}"
+  },
+  "routing": {
+    "title": "从哪里开始",
+    "intro": "许多问题在本网站上已有解答。请先查看最后一列中的页面。",
+    "label": "ADA 可协助的事项，以及应先阅读的页面",
+    "colTopic": "事项",
+    "colAbout": "咨询内容",
+    "colStart": "从这里开始",
+    "certification": "认证",
+    "certificationAbout": "报考资格、ADA 产后导乐课程、证书，以及更正您的记录",
+    "certificationLink": "如何获得认证",
+    "registry": "认证注册名录与查询",
+    "registryAbout": "查询导乐的 ADA 认证，以及看似有误的记录",
+    "registryLink": "查询认证",
+    "exams": "考试",
+    "examsAbout": "报名、考试日期、考试便利安排、改期及考试结果",
+    "examsLinkDates": "考试日期",
+    "examsLinkDay": "考试当天与身份证件",
+    "renewals": "续证",
+    "renewalsAbout": "续证途径、续证费用，以及已失效的认证",
+    "renewalsLink": "续证",
+    "providers": "培训机构",
+    "providersAbout": "成为认可培训机构或 ADA 认证培训师，以及讲授 ADA 课程",
+    "providersLink": "ADA 教育与课程",
+    "note": "如需就上述任何事项致函 ADA，请发送电子邮件至 <mail>{email}</mail>，并在邮件主题中注明事项。"
+  },
+  "form": {
+    "title": "在线留言",
+    "intro": "如果您的问题涉及您本人的记录，请在留言中注明您的导乐编号，以便 ADA 查找。本表单不受理对导乐的投诉：如需投诉，请使用<concern>举报问题</concern>。",
+    "required": "电话和事项为选填项，其他各项均为必填项。",
+    "name": "您的姓名",
+    "email": "电子邮件",
+    "phone": "电话（选填）",
+    "phoneConsent": "选填。提供手机号码即表示您同意 Asian Doula Alliance 就您的咨询向您发送短信；如果您是我们网络中的导乐，还会就客户匹配、工作单和排班向您发送短信。短信频率不定，可能产生短信和流量费用。回复 STOP 退订，回复 HELP 获取帮助。同意接收短信并非获得任何服务的前提条件。详见我们的<privacy>隐私政策</privacy>和<terms>服务条款</terms>。",
+    "topic": "事项（选填）",
+    "topicPlaceholder": "请选择事项",
+    "topicBecoming": "成为导乐",
+    "topicHiring": "聘请导乐",
+    "topicTraining": "培训课程",
+    "topicOther": "其他",
+    "message": "留言内容",
+    "messageHint": "请勿在此发送身份证件、银行卡号或医疗信息。",
+    "consent": "提交本表单即表示您同意 ADA 使用以上信息回复您。详见<privacy>隐私政策</privacy>。",
+    "submit": "发送留言",
+    "sending": "正在发送…",
+    "replyNote": "ADA 将回复至您填写的电子邮箱。",
+    "sent": "留言已发送。ADA 将回复至您填写的电子邮箱。",
+    "errorGeneric": "出现问题，请重试。",
+    "errorTooMany": "此网络连接发送的留言过多，请稍后再试。",
+    "errorInvalid": "请检查您的姓名、电子邮件和留言内容，然后重试。",
+    "errorNetwork": "留言未能发送。请检查网络连接后重试，或发送电子邮件至 {email}。"
+  },
+  "concern": {
+    "title": "举报问题",
+    "body": "如果您对某位 ADA 认证导乐有疑虑，请发送电子邮件至 <mail>{email}</mail> 向 ADA 举报。违反《ADA 职业行为准则》可能导致纪律处分，包括暂停或撤销 ADA 认证。",
+    "link": "阅读职业行为准则"
+  },
+  "security": {
+    "title": "如果有人自称来自 ADA",
+    "messages": "短信与电子邮件",
+    "messagesValue": "如果有信息要求您发送身份证件、密码或银行卡号，请勿回复，并将其转发至 <mail>{email}</mail>。",
+    "exams": "考试",
+    "examsValue": "ADA 不出售考题、分数或证书。如有人向您提供上述任何内容，请告知 ADA。",
+    "certificates": "证书",
+    "certificatesValue": "只有在认证注册名录中有对应记录的证书才是真实有效的。<registry>查询认证注册名录</registry>"
+  },
+  "more": {
+    "title": "更多帮助",
+    "faq": "常见问题",
+    "faqDescription": "面向考生、认证导乐、家庭、保险公司与机构，以及培训机构。",
+    "examDay": "考试当天与身份证件",
+    "examDayDescription": "需要携带的物品，以及考试结束后的流程。",
+    "privacy": "隐私政策",
+    "privacyDescription": "ADA 收集哪些信息、如何使用，以及您可以做出的选择。",
+    "donate": "支持 ADA",
+    "donateDescription": "为奖学金、多语言课程资料和公开的认证注册名录捐款。"
+  },
+  "cta": {
+    "title": "大多数问题已在常见问题中解答。",
+    "action": "阅读常见问题"
+  }
+}

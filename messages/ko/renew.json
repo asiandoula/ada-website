@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "title": "Renew your ADA certification",
+    "description": "How to renew your ADA doula certification: a certification period of {years, plural, one {# year} other {# years}}, a {fee} renewal fee, and a choice of reference letters or a recertification exam."
+  },
+  "breadcrumb": "Renew your ADA certification",
+  "title": "Renew your ADA certification",
+  "lead": "Renew before your certification period ends and you stay in good standing. To begin, contact ADA.",
+  "facts": {
+    "label": "Renewal at a glance",
+    "period": "Certification period",
+    "periodValue": "{years, plural, one {# year} other {# years}}",
+    "fee": "Renewal fee",
+    "pathways": "Renewal pathways",
+    "pathwaysValue": "Reference letters or an exam"
+  },
+  "onThisPage": "On this page",
+  "need": {
+    "title": "What you need",
+    "photoAlt": "An instructor teaching a newborn-care lesson beside a slide, with training dolls on the table",
+    "photoCaption": "A newborn-care lesson in the ADA Postpartum Doula Program. August 2024.",
+    "doulaId": "Your Doula ID",
+    "doulaIdValue": "In the form <nowrap>#YY-NNNN</nowrap>. It is on your original certificate.",
+    "email": "Your registered email",
+    "emailValue": "The email address ADA has on file for you.",
+    "pathway": "One pathway",
+    "pathwayValue": "Pathway A, professional reference letters, or Pathway B, the recertification exam. <link>Compare the pathways</link>",
+    "fee": "The renewal fee",
+    "feeValue": "{fee}, paid to ADA."
+  },
+  "pathways": {
+    "title": "Renewal pathways",
+    "intro": "Choose the one that works best for you. Each shows ADA that you are still practicing well.",
+    "caption": "The ADA renewal pathways",
+    "colPathway": "Pathway",
+    "colWhat": "What you do",
+    "colDetails": "Details",
+    "aName": "A · Professional references",
+    "aWhat": "Submit {count} professional reference letters from clients, colleagues or healthcare professionals who can speak to your work as a doula.",
+    "aDetailsTitle": "Each reference must include:",
+    "aItem1": "The full name of the reference",
+    "aItem2": "A phone number or email address",
+    "aItem3": "A written recommendation describing your doula work",
+    "bName": "B · Recertification exam",
+    "bWhat": "Take a shorter recertification exam to show your continued competency in postpartum doula care.",
+    "bDetailsTitle": "Exam details:",
+    "bItem1": "Shorter than the initial certification exam",
+    "bItem2": "Covers updated practices and protocols",
+    "bItem3": "Passing score: {pass}/{max}"
+  },
+  "steps": {
+    "title": "How to renew",
+    "s1Title": "Check your certification status",
+    "s1Body": "Check your current status and expiration date in the ADA registry, or sign in to your doula portal. You need your Doula ID, in the form <nowrap>#YY-NNNN</nowrap>, and your registered email address.",
+    "s1Verify": "Look up your record",
+    "s1Portal": "Doula sign in",
+    "s2Title": "Choose your renewal pathway",
+    "s2Body": "Pathway A, professional reference letters, or Pathway B, the recertification exam. <link>Compare the pathways</link>",
+    "s3Title": "Submit your renewal application",
+    "s3Body": "Send your renewal application with your pathway materials (reference letters or exam results) and the <strong>{fee} renewal fee</strong>.",
+    "s3Contact": "Contact ADA to begin: <mail>{email}</mail> · <tel>{phone}</tel>",
+    "s4Title": "Receive your renewed certification",
+    "s4Body": "Once ADA reviews and approves your application, you receive your renewed certification, valid for another <strong>{years, plural, one {# year} other {# years}}</strong> from the renewal date.",
+    "s4ReceiveTitle": "You receive:",
+    "s4Item1": "An updated digital certificate",
+    "s4Item2": "Your verification status, updated in the ADA registry and your doula portal",
+    "s4Item3": "Continued eligibility for insurance panels",
+    "action": "Email ADA to renew",
+    "questions": "Questions: <mail>{email}</mail> · <tel>{phone}</tel>"
+  },
+  "status": {
+    "title": "What your record shows",
+    "intro": "Families, insurers and agencies check your public record in the ADA registry, so it always shows your current standing. Each credential on it carries one of these statuses.",
+    "active": "Meets ADA certification requirements through the date shown.",
+    "superseded": "An older certificate replaced by a newer one, usually at renewal.",
+    "expired": "Was certified, but not renewed by the end date. Not currently ADA-certified. This is not a disciplinary action.",
+    "suspended": "Not ADA-certified for a set period under the Code of Conduct.",
+    "revoked": "Certification withdrawn under the Code of Conduct.",
+    "link": "Check the registry"
+  },
+  "cta": {
+    "title": "Ready to renew? Contact ADA to begin.",
+    "action": "Email ADA"
+  }
+}

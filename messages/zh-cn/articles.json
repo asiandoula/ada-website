@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "title": "新闻与文章",
+    "description": "来自 Asian Doula Alliance 的新闻、教育资源和社区故事。",
+    "notFound": "未找到文章"
+  },
+  "breadcrumb": {
+    "about": "关于 ADA",
+    "list": "新闻与文章"
+  },
+  "title": "新闻与文章",
+  "lead": "来自 Asian Doula Alliance 的新闻、教育资源和社区故事。",
+  "listLabel": "文章",
+  "filterLabel": "按类别筛选",
+  "category": {
+    "all": "全部",
+    "news": "新闻",
+    "education": "教育",
+    "community": "社区",
+    "certification": "认证"
+  },
+  "noteAll": "全部类别，按发布时间从新到旧排列",
+  "noteCategory": "{category}，按发布时间从新到旧排列",
+  "pageNote": "第 {page} 页，共 {pages} 页",
+  "empty": "此类别暂无文章。",
+  "emptyAction": "查看全部文章",
+  "older": "更早的文章",
+  "newer": "较新的文章",
+  "pagination": "更多文章",
+  "press": "媒体咨询：<mail>{email}</mail>",
+  "cta": {
+    "examAction": "查看考试日期",
+    "defaultTitle": "成为 ADA 认证产后导乐。",
+    "defaultAction": "如何获得认证"
+  },
+  "article": {
+    "byline": "作者：{author}",
+    "readingTime": "阅读时间约 {minutes} 分钟",
+    "toc": "本文内容",
+    "related": "相关内容",
+    "relatedMeta": "文章 · {category} · {date}",
+    "all": "全部新闻与文章",
+    "allDescription": "来自 ADA 的新闻、教育资源和社区故事。",
+    "categoryLink": "更多{category}类文章",
+    "ctaCertificationTitle": "成为 ADA 认证产后导乐。",
+    "ctaCertificationAction": "如何获得认证",
+    "ctaEducationTitle": "了解 ADA 的课程与继续教育。",
+    "ctaEducationAction": "查看 ADA 教育与课程",
+    "ctaDefaultTitle": "有问题想咨询 ADA，或有故事想分享？请致函 ADA。",
+    "ctaDefaultAction": "联系 ADA"
+  }
+}

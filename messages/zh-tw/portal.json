@@ -1,0 +1,169 @@
+{
+  "meta": {
+    "titleSignedOut": "登錄 My ADA | Asian Doula Alliance",
+    "titleSignedIn": "{name}：My ADA | Asian Doula Alliance"
+  },
+  "breadcrumb": {
+    "signIn": "登錄 My ADA",
+    "account": "My ADA"
+  },
+  "signIn": {
+    "title": "登錄 My ADA",
+    "lead": "供 ADA 導樂及考生使用。查看您的認證與考試成績，並下載證書。",
+    "formTitle": "登錄",
+    "doulaId": "導樂 ID",
+    "doulaIdHint": "可在您的 ADA 證書及 ADA 發送的郵件中找到，例如 {example}。",
+    "method": "驗證方式",
+    "methodEmail": "郵箱",
+    "methodPhone": "手機號",
+    "emailLabel": "您在 ADA 登記的郵箱",
+    "emailHint": "ADA 向您發送考試及證書通知所用的郵箱。",
+    "phoneLabel": "您在 ADA 登記的手機號",
+    "phoneHint": "ADA 檔案中登記的您的手機號碼。",
+    "submit": "登錄",
+    "submitting": "正在核驗…",
+    "note": "無需密碼。ADA 會將您的導樂 ID 與您檔案中登記的郵箱或手機號進行核對。",
+    "errors": {
+      "tooMany": "嘗試次數過多，請稍後再試。",
+      "noMatch": "該導樂 ID 與所填{method, select, email {郵箱} other {手機號}}不匹配。請檢查後重試。",
+      "failed": "登錄未成功，請重試。",
+      "network": "網絡錯誤，請重試。"
+    }
+  },
+  "who": {
+    "title": "誰使用 My ADA",
+    "doulasTitle": "導樂及考生",
+    "doulasBody": "查看您的認證與考試成績，並下載證書 PDF。",
+    "familiesTitle": "家庭、保險公司與機構",
+    "familiesBody": "查詢導樂無需賬戶。認證註冊名錄免費公開。",
+    "familiesLink": "查詢認證",
+    "staffTitle": "ADA 工作人員",
+    "staffBody": "工作人員不使用 My ADA，請使用員工賬戶登錄管理後台。",
+    "staffLink": "員工登錄"
+  },
+  "trouble": {
+    "title": "無法登錄？",
+    "idTitle": "查找您的導樂 ID",
+    "idBody": "可在您的 ADA 證書及 ADA 發送的郵件中找到。",
+    "methodTitle": "改用另一種方式",
+    "methodBody": "如果郵箱不匹配，請選擇“手機號”並輸入檔案中登記的號碼，反之亦然。",
+    "askTitle": "聯繫 ADA",
+    "askBody": "請發送郵件至 {email} 或致電 {phone}，並提供您的全名和導樂 ID。",
+    "photoAlt": "ADA 產後導樂課程的一名學員正在用教學娃娃練習新生兒抱姿",
+    "photoCaption": "ADA 產後導樂課程的學員練習新生兒抱姿。{date}。"
+  },
+  "account": {
+    "title": "My ADA",
+    "doulaId": "導樂 ID",
+    "signOut": "退出登錄",
+    "sectionsLabel": "My ADA 欄目",
+    "nav": {
+      "standing": "資格狀態",
+      "credentials": "認證",
+      "results": "考試成績",
+      "profile": "個人信息",
+      "help": "幫助"
+    }
+  },
+  "standing": {
+    "title": "您的資格狀態",
+    "goodStanding": "資格良好",
+    "status": {
+      "registered": "已註冊",
+      "active": "有效",
+      "under_investigation": "審核中",
+      "suspended": "已暫停",
+      "revoked": "已撤銷",
+      "retired": "已退休"
+    },
+    "bodyActive": "{count, plural, =0 {您的 ADA 檔案有效，目前尚無有效認證。} other {您的 ADA 檔案有效，您持有 # 項有效的 ADA 認證。}}",
+    "bodyRegistered": "您已在 ADA 註冊。ADA 頒發認證後，認證將顯示在此處。",
+    "bodyReview": "ADA 正在審核您的檔案。如有疑問，請聯繫 ADA。",
+    "bodyOther": "如需瞭解您的檔案狀態，請聯繫 ADA。",
+    "statActive": "有效認證",
+    "statValidThrough": "{credential}有效期至",
+    "statCertificates": "在檔證書",
+    "publicRecord": "查看您的公開記錄"
+  },
+  "cta": {
+    "renew": "請在您的{credential}認證於 {date} 到期前完成續期。",
+    "renewAction": "瞭解如何續期"
+  },
+  "credentials": {
+    "title": "您的認證與證書",
+    "caption": "{name}（導樂 ID {id}）持有的認證與證書",
+    "colCredential": "認證",
+    "colStatus": "狀態",
+    "colCertificate": "證書編號*",
+    "colCertified": "認證日期",
+    "colValidThrough": "有效期至",
+    "colPdf": "證書 PDF",
+    "footnote": "*點擊編號可在 ADA 認證註冊名錄中打開您的公開記錄。",
+    "empty": "暫無認證或證書記錄。",
+    "certificate": "證書",
+    "noCertificate": "尚未頒發",
+    "noExpiry": "長期有效",
+    "download": "下載",
+    "downloadPdf": "下載證書 PDF",
+    "downloadLabel": "下載{credential}證書 {number} 的 PDF",
+    "noPdf": "暫無 PDF",
+    "expired": "已過期",
+    "expiresInDays": "{days} 天後到期",
+    "expiresInMonths": "{months} 個月後到期",
+    "expiresInYears": "{years} 年{months, plural, =0 {} other {# 個月}}後到期",
+    "underReview": "審核中",
+    "types": {
+      "postpartum": "產後導樂",
+      "birth": "分娩導樂",
+      "ibclc_training": "IBCLC 培訓",
+      "cpr": "嬰兒心肺復蘇",
+      "trainer": "培訓師"
+    }
+  },
+  "results": {
+    "title": "您的考試成績",
+    "empty": "暫無考試記錄。",
+    "session": "考場",
+    "score": "成績",
+    "outOf": "/ {max}",
+    "passed": "通過",
+    "notPassed": "未通過",
+    "show": "查看各領域成績",
+    "hide": "收起各領域成績",
+    "caption": "考場 {session} 的各領域成績",
+    "colArea": "領域",
+    "colScore": "成績",
+    "colAgainst": "對照及格線 {pass} 分",
+    "atOrAbove": "{pass} 分及以上",
+    "below": "低於 {pass} 分",
+    "areas": {
+      "score_terminology": "專業術語",
+      "score_newborn": "新生兒護理",
+      "score_lactation": "哺乳指導",
+      "score_emergency": "應急處理",
+      "score_practical": "實操技能",
+      "score_postpartum": "產後護理",
+      "score_knowledge": "專業知識",
+      "score_ethics": "職業倫理"
+    }
+  },
+  "profile": {
+    "title": "個人信息",
+    "email": "郵箱",
+    "phone": "手機號",
+    "languages": "語言",
+    "region": "地區",
+    "note": "如需更新信息，請聯繫 ADA：{email} 或 {phone}。"
+  },
+  "help": {
+    "title": "幫助",
+    "renew": "認證續期",
+    "renewDesc": "每項認證有效期為 {years} 年，續期費用為 {fee}。",
+    "conduct": "職業行為準則",
+    "conductDesc": "每位 ADA 認證導樂承諾遵守的職業標準。",
+    "contact": "聯繫 ADA",
+    "contactDesc": "{email} · {phone}",
+    "registry": "查詢認證",
+    "registryDesc": "按姓名、導樂 ID 或證書編號查詢 ADA 導樂。"
+  }
+}

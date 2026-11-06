@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "考試當天須知與身份證件要求",
+    "description": "ADA 考試前需要完成的事項、須攜帶的物品，以及考試當天和考試之後的安排。"
+  },
+  "breadcrumb": {
+    "candidates": "考生",
+    "current": "考試當天須知與身份證件要求"
+  },
+  "title": "考試當天須知與身份證件要求",
+  "lead": "ADA 考試前需要完成的事項、須攜帶的物品，以及考試當天和考試之後的安排。",
+  "scope": "適用於 ADA 產後導樂考試。",
+  "toc": {
+    "title": "本頁內容",
+    "before": "考試之前",
+    "onTheDay": "考試當天",
+    "after": "考試之後"
+  },
+  "before": {
+    "title": "考試之前",
+    "register": "報名",
+    "registerValue": "請通過您的培訓機構報名，或直接聯繫 ADA 報名：<mail>{email}</mail> 或 <tel>{phone}</tel>。",
+    "date": "考試日期",
+    "dateNoSession": "考試場次在每期培訓結束後安排。<link>考試日期</link>",
+    "dateLink": "全部考試日期",
+    "language": "考試語言",
+    "languageValue": "報名時可選擇{languages}。全部考試材料均以您所選的語言提供。"
+  },
+  "onTheDay": {
+    "title": "考試當天",
+    "imageAlt": "實操考試中，一位考生為訓練娃娃洗澡，考官在旁觀察，身後屏幕顯示計時器",
+    "caption": "實操考試現場，屏幕上顯示計時器。2024年8月。",
+    "bring": "須攜帶",
+    "bringValue": "政府簽發的有效帶照片身份證件。",
+    "where": "考試地點",
+    "written": "筆試",
+    "writtenValue": "{minutes} 分鐘。",
+    "practical": "實操考試",
+    "practicalValue": "{minutes} 分鐘，由 ADA 考官一對一進行。"
+  },
+  "after": {
+    "title": "考試之後",
+    "results": "成績通知",
+    "resultsValue": "約 {days} 個工作日內以電子郵件發送。",
+    "score": "成績內容",
+    "scoreValue": "滿分 {max} 分的成績及等級：高度熟練（Highly Proficient，{high} 分及以上）、熟練（Proficient，{pass}–{highBelow} 分）或未達熟練（Not Proficient，{pass} 分以下）。合格分數為 {pass}/{max}。",
+    "pass": "通過考試後",
+    "passValue": "ADA 將為您頒發有效期 {years} 年的證書，並在 ADA 認證註冊名錄中公佈您的記錄。<link>查詢認證註冊名錄</link>",
+    "fail": "未通過考試",
+    "failValue": "可在上次考試後至少 {days} 天報名參加之後的考試日期。重考費為 {fee}。<link>考試日期</link>"
+  },
+  "cta": {
+    "title": "如對考試有任何疑問，請聯繫 ADA。",
+    "action": "聯繫 ADA"
+  },
+  "languages": {
+    "en": "英語",
+    "zh": "中文（普通話）",
+    "ja": "日語",
+    "ko": "韓語"
+  }
+}

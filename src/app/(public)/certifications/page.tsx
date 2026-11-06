@@ -1,168 +1,257 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import type { ReactNode } from 'react';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { ArrowLink, Breadcrumb, Hero, LinkList } from '@/components/site';
+import { ArrowIcon } from '@/components/site/icons';
+import type { Locale } from '@/i18n/config';
+import { CERTIFICATE, EXAM, RENEWAL, TRAINING, range, usd } from '@/lib/facts';
+import { getUpcomingExamSessions } from '@/lib/exam-sessions';
+import { breadcrumbJsonLd } from '@/lib/json-ld';
+import { formatExamDate } from '@/lib/site-dates';
+import {
+  B,
+  D,
+  DataTable,
+  InlineArrow,
+  Notes,
+  SplitSection,
+  StepList,
+  TableHead,
+  h2Class,
+  noteClass,
+  td,
+  thCol,
+} from './_components/blocks';
+import { CERT_PREFIX, languageList, photoDate } from './_lib/facts';
 
-export const metadata: Metadata = {
-  title: 'Certifications | Asian Doula Alliance',
-  description:
-    'Three certification tracks to advance your career in maternal and newborn care — Postpartum Doula, Birth Doula, and IBCLC Exam Prep.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('certifications.meta');
+  return { title: t('title'), description: t('description') };
+}
 
-// Each track uses a static set of keys — the `keyPrefix` is a literal so the
-// i18n guard can statically verify each lookup. Do NOT derive keys from titles
-// via string manipulation; that silently breaks when JSON uses different case.
-const tracks = [
-  {
-    keyPrefix: 'trackPostpartumDoula',
-    badge: 'Now Enrolling',
-    badgeClass: 'bg-green-50 text-green-700',
-    href: '/certifications/postpartum-doula',
-    cardBorder: 'border-ada-purple/20',
-    opacity: '',
-    hasFacts: true,
-  },
-  {
-    keyPrefix: 'trackBirthDoula',
-    badge: 'Coming Soon',
-    badgeClass: 'bg-ada-purple/10 text-ada-purple',
-    href: '/certifications/birth-doula',
-    cardBorder: 'border-gray-200',
-    opacity: 'opacity-90',
-    hasFacts: false,
-  },
-  {
-    keyPrefix: 'trackIbclcExamPrep',
-    badge: 'Coming Soon',
-    badgeClass: 'bg-ada-purple/10 text-ada-purple',
-    href: '/certifications/ibclc',
-    cardBorder: 'border-gray-200',
-    opacity: 'opacity-90',
-    hasFacts: false,
-  },
-] as const;
+export default async function CertificationsPage() {
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations('certifications');
+  const tSite = await getTranslations('site');
+  const sessions = await getUpcomingExamSessions();
+  const next = sessions[0] ?? null;
+  const nextPostpartum = sessions.find((s) => s.examType === 'postpartum') ?? null;
 
-const sharedLinks = [
-  { labelKey: 'sharedLinkRenewCertification', href: '/for-doulas/renew' },
-  { labelKey: 'sharedLinkCodeOfConduct', href: '/for-doulas/code-of-conduct' },
-  { labelKey: 'sharedLinkVerifyADoula', href: '/verify' },
-] as const;
+  const languages = languageList(locale, (code) => t(`shared.languages.${code as 'en' | 'zh' | 'ja' | 'ko'}`));
+  const date = photoDate(locale);
+  const validity = t('shared.validity', { years: CERTIFICATE.validityYears });
+  const renewEvery = t('shared.renewEvery', { years: CERTIFICATE.validityYears });
 
-export default function CertificationsPage() {
-  const t = useTranslations('certifications');
+  const examLink = (chunks: ReactNode) => <InlineArrow href="/exam-dates">{chunks}</InlineArrow>;
+
+  const steps = [
+    {
+      title: t('steps.s1.title'),
+      body: t.rich('steps.s1.body', {
+        days: range(TRAINING.inPersonDays),
+        b: B,
+        link: (chunks) => <InlineArrow href="/programs">{chunks}</InlineArrow>,
+      }),
+    },
+    {
+      title: t('steps.s2.title'),
+      body: nextPostpartum
+        ? t.rich('steps.s2.bodyNext', {
+            date: formatExamDate(nextPostpartum.date, locale),
+            fee: usd(EXAM.feeUsd),
+            b: B,
+            d: D,
+            link: examLink,
+          })
+        : t.rich('steps.s2.bodyNone', { fee: usd(EXAM.feeUsd), b: B, link: examLink }),
+    },
+    {
+      title: t('steps.s3.title'),
+      body: t.rich('steps.s3.body', {
+        written: EXAM.writtenMinutes,
+        practical: EXAM.practicalMinutes,
+        b: B,
+        link: (chunks) => <InlineArrow href="/exam-day">{chunks}</InlineArrow>,
+      }),
+    },
+    {
+      title: t('steps.s4.title'),
+      body: t.rich('steps.s4.body', {
+        days: range(EXAM.resultsBusinessDays),
+        pass: EXAM.passScore,
+        max: EXAM.maxScore,
+        b: B,
+        registry: (chunks) => (
+          <InlineArrow href="/verify" tone="registry">
+            {chunks}
+          </InlineArrow>
+        ),
+      }),
+    },
+    {
+      title: t('steps.s5.title'),
+      body: t.rich('steps.s5.body', {
+        validity,
+        fee: usd(RENEWAL.feeUsd),
+        b: B,
+        link: (chunks) => <InlineArrow href="/for-doulas/renew">{chunks}</InlineArrow>,
+      }),
+    },
+  ];
+
+  const credentialRows = [
+    {
+      href: '/certifications/postpartum-doula',
+      name: t('credentials.postpartum.name'),
+      prefix: CERT_PREFIX.postpartum,
+      how: t('credentials.postpartum.how', {
+        written: EXAM.writtenMinutes,
+        practical: EXAM.practicalMinutes,
+        pass: EXAM.passScore,
+        max: EXAM.maxScore,
+        fee: usd(EXAM.feeUsd),
+      }),
+      period: validity,
+      renewal: renewEvery,
+    },
+    {
+      href: '/certifications/birth-doula',
+      name: t('credentials.birth.name'),
+      prefix: CERT_PREFIX.birth,
+      how: t('credentials.birth.how'),
+      period: validity,
+      renewal: renewEvery,
+    },
+    {
+      href: '/certifications/ibclc',
+      name: t('credentials.ibclc.name'),
+      prefix: null,
+      how: t('credentials.ibclc.how'),
+      period: t('credentials.ibclc.period'),
+      renewal: t('credentials.ibclc.renewal'),
+    },
+  ];
+
+  const links = [
+    { href: '/exam-dates', key: 'examDates' },
+    { href: '/for-doulas/renew', key: 'renew' },
+    { href: '/exam-day', key: 'examDay' },
+    { href: '/programs', key: 'education' },
+    { href: '/portal', key: 'portal' },
+    { href: '/for-doulas/code-of-conduct', key: 'conduct' },
+  ] as const;
 
   return (
     <>
-      {/* Hero */}
-      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            {t('certificationsTitle')}
-          </span>
-          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            {t('heroChooseYourPath')}
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-ada-navy/60 max-w-3xl mx-auto leading-relaxed">
-            {t('heroDescription')}
-          </p>
-        </div>
-      </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: tSite('breadcrumb.home'), path: '/' },
+              { name: t('shared.candidates'), path: '/certifications' },
+            ])
+          ),
+        }}
+      />
+      <Breadcrumb items={[{ label: t('shared.candidates') }]} />
 
-      {/* Three Track Cards */}
-      <section className="bg-white py-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {tracks.map((track) => {
-              // Static key lookups — one branch per track. The guard script
-              // verifies each literal key against messages/en.json at build time.
-              let title: string;
-              let description: string;
-              let facts: string | null;
-              let linkText: string;
-              switch (track.keyPrefix) {
-                case 'trackPostpartumDoula':
-                  title = t('trackPostpartumDoulaTitle');
-                  description = t('trackPostpartumDoulaDescription');
-                  facts = track.hasFacts ? t('trackPostpartumDoulaFacts') : null;
-                  linkText = t('trackPostpartumDoulaLinkText');
-                  break;
-                case 'trackBirthDoula':
-                  title = t('trackBirthDoulaTitle');
-                  description = t('trackBirthDoulaDescription');
-                  facts = null;
-                  linkText = t('trackBirthDoulaLinkText');
-                  break;
-                case 'trackIbclcExamPrep':
-                  title = t('trackIbclcExamPrepTitle');
-                  description = t('trackIbclcExamPrepDescription');
-                  facts = null;
-                  linkText = t('trackIbclcExamPrepLinkText');
-                  break;
-              }
-              return (
-                <div
-                  key={track.keyPrefix}
-                  className={`bg-white border-2 ${track.cardBorder} rounded-2xl p-8 hover:shadow-lg hover:-translate-y-1 transition-[transform,box-shadow] duration-300 ${track.opacity}`}
-                >
-                  <span
-                    className={`inline-block ${track.badgeClass} text-xs px-2.5 py-0.5 rounded-full font-medium mb-4`}
-                  >
-                    {track.badge}
-                  </span>
-                  <h2 className="font-dm-serif text-2xl text-ada-navy">{title}</h2>
-                  <p className="mt-3 text-ada-navy/60 text-sm leading-relaxed">
-                    {description}
-                  </p>
-                  {facts && (
-                    <p className="mt-4 text-xs text-ada-navy/40 font-outfit">
-                      {facts}
-                    </p>
-                  )}
-                  <Link
-                    href={track.href}
-                    className="mt-6 inline-flex items-center rounded-full bg-ada-purple text-white px-4 py-2.5 text-sm font-medium hover:bg-ada-purple-hover transition-colors"
-                  >
-                    {linkText}
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      <Hero
+        title={t('hero.title')}
+        line={t('hero.line', { languages })}
+        deadline={
+          next
+            ? tSite('hero.nextExam', {
+                type: next.examType === 'birth' ? tSite('examType.birth') : tSite('examType.postpartum'),
+                date: formatExamDate(next.date, locale),
+              })
+            : undefined
+        }
+        actions={[
+          { href: '/exam-dates', label: t('shared.register') },
+          { href: '/programs', label: t('shared.findCourse') },
+        ]}
+        image={{ src: '/images/2026/ada-exam-written.jpg', alt: t('hero.imageAlt') }}
+      />
 
-      {/* Shared Resources */}
-      <section className="bg-ada-off-white py-16">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy mb-8">
-            {t('sharedResourcesTitle')}
+      {/* Credentials ADA issues */}
+      <section aria-labelledby="creds-title" className="bg-white pt-20">
+        <div className="ada2-wrap flex flex-col gap-4">
+          <h2 id="creds-title" className={h2Class}>
+            {t('credentials.title')}
           </h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-            {sharedLinks.map((link) => {
-              let label: string;
-              switch (link.labelKey) {
-                case 'sharedLinkRenewCertification':
-                  label = t('sharedLinkRenewCertification');
-                  break;
-                case 'sharedLinkCodeOfConduct':
-                  label = t('sharedLinkCodeOfConduct');
-                  break;
-                case 'sharedLinkVerifyADoula':
-                  label = t('sharedLinkVerifyADoula');
-                  break;
-              }
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-ada-navy/70 hover:text-ada-purple text-sm font-outfit transition-colors"
-                >
-                  {label} &rarr;
-                </Link>
-              );
-            })}
-          </div>
+          <p className="m-0 max-w-[880px] text-ada2-body [text-wrap:pretty]">{t('credentials.intro')}</p>
+          <DataTable caption={t('credentials.caption')} minWidth={880} className="leading-[23px]">
+            <TableHead>
+              <th scope="col" className={`${thCol} w-[22%]`}>{t('credentials.colCredential')}</th>
+              <th scope="col" className={thCol}>{t('credentials.colPrefix')}</th>
+              <th scope="col" className={`${thCol} w-[34%]`}>{t('credentials.colHow')}</th>
+              <th scope="col" className={thCol}>{t('credentials.colPeriod')}</th>
+              <th scope="col" className={thCol}>{t('credentials.colRenewal')}</th>
+            </TableHead>
+            <tbody>
+              {credentialRows.map((row) => (
+                <tr key={row.href}>
+                  <th scope="row" className="text-left align-top py-3 px-4 font-semibold">
+                    <Link
+                      href={row.href}
+                      className="inline-flex items-center gap-2 min-h-[44px] -my-2.5 text-ada2-ink text-[17px] leading-[23px] font-semibold no-underline hover:text-black hover:underline underline-offset-[3px]"
+                    >
+                      {row.name}
+                      <ArrowIcon size={16} className="flex-none" />
+                    </Link>
+                  </th>
+                  <td className="align-top py-3 px-4 font-semibold text-ada2-ink whitespace-nowrap">
+                    {row.prefix ?? (
+                      <>
+                        <span aria-hidden="true">—</span>
+                        <span className="ada2-sr">{t('credentials.noPrefix')}</span>
+                      </>
+                    )}
+                  </td>
+                  <td className={`${td} py-3`}>{row.how}</td>
+                  <td className={`${td} py-3`}>{row.period}</td>
+                  <td className={`${td} py-3`}>{row.renewal}</td>
+                </tr>
+              ))}
+            </tbody>
+          </DataTable>
+          <Notes>
+            <p className={noteClass}>{t('credentials.noteStanding')}</p>
+            <p className={noteClass}>{t('credentials.noteRenewal', { fee: usd(RENEWAL.feeUsd) })}</p>
+            <p className={noteClass}>{t('credentials.noteIbclc')}</p>
+          </Notes>
+          <ArrowLink href="/verify" tone="registry" className="self-start">
+            {t('credentials.lookup')}
+          </ArrowLink>
         </div>
       </section>
+
+      {/* How certification works */}
+      <SplitSection
+        id="steps-title"
+        title={t('steps.title')}
+        intro={t('steps.intro')}
+        photo={{
+          src: '/images/2026/ada-exam-practical.jpg',
+          alt: t('steps.imageAlt'),
+          caption: t('steps.caption', { date }),
+        }}
+      >
+        <StepList steps={steps} labelledBy="steps-title" />
+      </SplitSection>
+
+      <div className="pt-24 pb-[104px]">
+        <LinkList
+          title={t('links.title')}
+          items={links.map((l) => ({
+            href: l.href,
+            label: t(`shared.links.${l.key}.label`),
+            description: t(`shared.links.${l.key}.description`, { count: TRAINING.moduleCount }),
+          }))}
+        />
+      </div>
     </>
   );
 }

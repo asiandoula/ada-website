@@ -1,0 +1,72 @@
+{
+  "metaTitle": "查找 ADA 认证导乐",
+  "metaDescription": "聘请产后导乐或分娩导乐之前，请先确认其持有 ADA 认证。可在免费的 ADA 认证注册名录中按姓名、导乐编号或证书编号查询。",
+  "breadcrumb": "查找导乐",
+  "title": "查找 <nb>ADA 认证</nb>导乐",
+  "lead": "每一位 ADA 认证导乐在 ADA 认证注册名录中都有一份正式记录。聘请导乐之前，请先查看其记录。ADA 不为家庭匹配导乐，也不安排护理服务。",
+  "meta": "面向家庭。免费查询，无需注册账户。",
+  "cta": {
+    "title": "每一位 ADA 认证导乐都已通过 ADA 笔试和实操考试。",
+    "action": "了解 ADA 如何认证导乐"
+  },
+  "languages": {
+    "en": "英语",
+    "zh": "中文（普通话）",
+    "ja": "日语",
+    "ko": "韩语"
+  },
+  "choose": {
+    "title": "选择导乐之前",
+    "photoAlt": "一名 ADA 产后导乐课程学员坐着，怀抱新生儿训练娃娃",
+    "photoCaption": "一名学员用训练娃娃练习怀抱新生儿。{date}。",
+    "typeLabel": "服务类型",
+    "typeValue": "产后导乐在分娩后到家中为家庭提供支持；分娩导乐在分娩过程中陪伴和支持您。请确认导乐持有的是哪一项认证。",
+    "languageLabel": "语言",
+    "languageValue": "ADA 以{languages}培训和考核导乐。请向每位导乐确认其使用的语言。",
+    "insuranceLabel": "保险",
+    "insuranceValue": "ADA 认证获得 {insurers} 的认可。具体承保范围取决于您的保险计划，请向您的保险计划和导乐确认。",
+    "coverageLabel": "您的保险",
+    "coverageValue": "请拨打保险卡背面的会员服务电话，询问您的计划是否涵盖产后导乐服务，告知对方导乐持有 ADA 认证，并询问是否需要预先授权以及服务次数是否有上限。",
+    "recordLabel": "查看记录",
+    "recordValue": "每一位 ADA 认证导乐都有一份正式的 ADA 记录。聘请之前请打开查看，确认其认证目前有效。",
+    "link": "查询导乐记录"
+  },
+  "check": {
+    "title": "查询导乐记录",
+    "body": "可按证书编号、导乐编号或全名查询 ADA 认证注册名录。记录会列出导乐持有的每一项认证，以及该认证目前是否有效。"
+  },
+  "more": {
+    "title": "更多家庭资源",
+    "verifyLabel": "免费查询任何一位导乐",
+    "verifyBody": "认证注册名录收录每一位 ADA 认证导乐。可按姓名、导乐编号或证书编号查询。",
+    "trainingLabel": "ADA 如何培训导乐",
+    "trainingBody": "ADA 产后导乐课程：共 {modules} 个模块，为期 {days} 天的密集授课。",
+    "concernLabel": "举报问题",
+    "concernBody": "如果 ADA 认证导乐的服务出现问题，请告知 ADA。ADA 将依据《行为准则》审查相关举报。",
+    "faqLabel": "常见问题",
+    "faqBody": "关于培训、考试、认证以及 ADA 认证导乐工作内容的解答。"
+  },
+  "contact": {
+    "title": "联系 ADA",
+    "body": "对认证、认证注册名录或导乐记录有疑问？欢迎给 ADA 留言。",
+    "emailLabel": "电子邮箱",
+    "phoneLabel": "电话",
+    "nameLabel": "姓名",
+    "emailFieldLabel": "电子邮箱",
+    "phoneFieldLabel": "电话（选填）",
+    "topicLabel": "主题（选填）",
+    "topicPlaceholder": "请选择主题",
+    "topicBecoming": "成为导乐",
+    "topicHiring": "聘请导乐",
+    "topicTraining": "培训课程",
+    "topicOther": "其他",
+    "messageLabel": "留言内容",
+    "smsConsent": "电话为选填项。提供手机号码即表示您同意 Asian Doula Alliance 就您的咨询向您发送短信；如您是我们网络中的导乐，还可能就客户匹配、工作单和排班事宜向您发送短信。短信频率不定，可能产生短信和数据费用。回复 STOP 退订，回复 HELP 获取帮助。同意接收短信并非获得任何服务的条件。详见我们的<privacy>隐私政策</privacy>和<terms>服务条款</terms>。",
+    "submit": "发送留言",
+    "sending": "正在发送…",
+    "requiredNote": "除标注“选填”的项目外，均为必填项。",
+    "success": "留言已发送。ADA 将通过电子邮件回复您。",
+    "error": "出现问题，请重试。",
+    "network": "留言未能发送。请检查网络连接后重试，或发送电子邮件至 {email}。"
+  }
+}

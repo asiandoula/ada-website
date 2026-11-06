@@ -1,25 +1,61 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { breadcrumbJsonLd } from '@/lib/json-ld';
-import { ContactForm } from '@/components/public/contact-form';
-import { RenewalSteps } from './renewal-steps';
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { ArrowLink, Breadcrumb, CtaBox, StatusTag, type StatusKind } from '@/components/site';
+import { CERTIFICATE, CONTACT, EXAM, RENEWAL, usd } from '@/lib/facts';
+import { breadcrumbJsonLd } from '@/lib/json-ld';
+import {
+  DocSection,
+  InnerPage,
+  OnThisPage,
+  PageHead,
+  Photo,
+  Rows,
+  DataTable,
+  inlineLink,
+} from '../_components/page-kit';
+import { RenewalSteps } from './renewal-steps';
 
-export const metadata: Metadata = {
-  title: 'Renew & Recertification | Asian Doula Alliance',
-  description:
-    'Learn how to renew your ADA doula certification. Certificates are valid for 1 year with two renewal pathways: reference letters or recertification exam.',
-};
+/**
+ * Pathway A asks for this many reference letters (live renewal steps:
+ * "Submit 3 professional reference letters"). Not yet in facts.ts; passed to
+ * the message as an argument so no number is typed into copy.
+ */
+const REFERENCE_LETTERS = 3;
 
-const sidebarLinks = [
-  { label: 'Postpartum Doula', href: '/certifications/postpartum-doula' },
-  { label: 'Birth Doula', href: '/certifications/birth-doula' },
-  { label: 'IBCLC Prep', href: '/certifications/ibclc' },
-  { label: 'Code of Conduct', href: '/for-doulas/code-of-conduct' },
-];
 
-export default async function RenewRecertificationPage() {
-  const t = await getTranslations('renewCert');
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('renew.meta');
+  const description = t('description', { years: CERTIFICATE.validityYears, fee: usd(RENEWAL.feeUsd) });
+  return {
+    title: t('title'),
+    description,
+    openGraph: { title: t('title'), description, images: [{ url: '/images/hero.webp', width: 1200, height: 630 }] },
+  };
+}
+
+export default async function RenewPage() {
+  const t = await getTranslations('renew');
+  const tSite = await getTranslations('site');
+
+  const fee = usd(RENEWAL.feeUsd);
+  const years = CERTIFICATE.validityYears;
+
+  const facts = [
+    { label: t('facts.period'), value: t('facts.periodValue', { years }) },
+    { label: t('facts.fee'), value: fee },
+    { label: t('facts.pathways'), value: t('facts.pathwaysValue') },
+  ];
+
+  const nowrap = (c: React.ReactNode) => <span className="whitespace-nowrap">{c}</span>;
+
+  /** Statuses a credential or certificate can carry on the public record. */
+  const statuses: { kind: StatusKind; text: string }[] = [
+    { kind: 'active', text: t('status.active') },
+    { kind: 'superseded', text: t('status.superseded') },
+    { kind: 'expired', text: t('status.expired') },
+    { kind: 'suspended', text: t('status.suspended') },
+    { kind: 'revoked', text: t('status.revoked') },
+  ];
 
   return (
     <>
@@ -28,114 +64,141 @@ export default async function RenewRecertificationPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: t('forDoulas'), path: '/for-doulas' },
-              { name: t('renewalSteps'), path: '/for-doulas/renew' },
+              { name: tSite('audience.doulas'), path: '/portal' },
+              { name: t('breadcrumb'), path: '/for-doulas/renew' },
             ])
           ),
         }}
       />
-      {/* Hero */}
-      <section className="bg-ada-cream pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <span className="font-outfit text-sm font-semibold tracking-widest uppercase text-ada-purple">
-            {t('forDoulas')}
-          </span>
-          <h1 className="mt-4 font-dm-serif text-4xl md:text-5xl lg:text-6xl text-ada-navy">
-            {t('heroTitle')}
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-ada-navy/70 max-w-3xl mx-auto leading-relaxed">
-            {t('ctaDescription')}
-          </p>
-        </div>
-      </section>
+      <Breadcrumb items={[{ label: tSite('audience.doulas'), href: '/portal' }, { label: t('breadcrumb') }]} />
 
-      {/* Main Content */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
-            {/* Main content column */}
-            <div className="lg:w-4/5 space-y-16">
-              {/* Key Info — 2x2 Grid */}
-              <div className="grid grid-cols-2 gap-4 md:gap-6">
-                <div className="bg-[#f3ebf9] rounded-2xl p-6 md:p-8">
-                  <p className="font-outfit text-sm text-ada-navy/50 mb-1">{t('certificateValidity')}</p>
-                  <p className="text-3xl md:text-4xl font-outfit font-bold text-ada-purple">{t('validityDuration')}</p>
-                </div>
-                <div className="bg-[#e6f7fe] rounded-2xl p-6 md:p-8">
-                  <p className="font-outfit text-sm text-ada-navy/50 mb-1">{t('renewalFee')}</p>
-                  <p className="text-3xl md:text-4xl font-outfit font-bold text-ada-purple">{t('renewalCost')}</p>
-                </div>
-                <div className="bg-[#f3f9eb] rounded-2xl p-6 md:p-8">
-                  <p className="font-outfit text-sm text-ada-navy/50 mb-1">{t('renewalPathways')}</p>
-                  <p className="text-3xl md:text-4xl font-outfit font-bold text-ada-purple">{t('optionsCount')}</p>
-                </div>
-                <div className="bg-[#fdede7] rounded-2xl p-6 md:p-8">
-                  <p className="font-outfit text-sm text-ada-navy/50 mb-1">{t('insurancePartners')}</p>
-                  <p className="font-outfit text-sm text-ada-navy/70 leading-relaxed mt-1">
-                    {t('insurancePartnersList')}
-                  </p>
-                </div>
+      <InnerPage
+        aside={
+          <CtaBox
+            title={t('cta.title')}
+            action={{ href: `mailto:${CONTACT.email}`, label: t('cta.action') }}
+          />
+        }
+      >
+        <PageHead title={t('title')} lead={t('lead')}>
+          <dl
+            aria-label={t('facts.label')}
+            className="mt-2 mb-0 flex flex-wrap gap-x-12 gap-y-4 py-4 border-t-2 border-ada2-ink border-b border-b-ada2-hairline [font-variant-numeric:tabular-nums_lining-nums]"
+          >
+            {facts.map((f) => (
+              <div key={f.label} className="flex flex-col gap-0.5">
+                <dt className="text-[14px] leading-5 font-semibold text-ada2-muted">{f.label}</dt>
+                <dd className="m-0 text-[20px] leading-7 font-semibold text-ada2-ink">{f.value}</dd>
               </div>
+            ))}
+          </dl>
+        </PageHead>
 
-              {/* Interactive Steps */}
-              <RenewalSteps />
+        <OnThisPage
+          title={t('onThisPage')}
+          items={[
+            { href: '#need', label: t('need.title') },
+            { href: '#pathways', label: t('pathways.title') },
+            { href: '#steps', label: t('steps.title') },
+            { href: '#status', label: t('status.title') },
+          ]}
+        />
 
-              {/* CTA */}
-              <div className="bg-ada-off-white rounded-2xl p-10 text-center">
-                <h2 className="font-dm-serif text-2xl md:text-3xl text-ada-navy">
-                  {t('ctaTitle')}
-                </h2>
-                <p className="mt-3 text-ada-navy/70 leading-relaxed max-w-xl mx-auto">
-                  {t('ctaDescription')}
-                </p>
-                <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link
-                    href="/verify"
-                    className="inline-flex items-center justify-center rounded-full bg-ada-purple text-white px-6 py-3 text-sm font-medium hover:bg-ada-purple-hover transition-colors"
-                  >
-                    {t('checkCertificationStatus')}
-                  </Link>
-                  <Link
-                    href="/portal"
-                    className="inline-flex items-center justify-center rounded-full border border-ada-navy/20 text-ada-navy px-6 py-3 text-sm font-medium hover:bg-ada-navy/5 transition-colors"
-                  >
-                    {t('myPortal')}
-                  </Link>
-                  <a
-                    href="mailto:contact@asiandoula.org"
-                    className="inline-flex items-center justify-center rounded-full border border-ada-navy/20 text-ada-navy px-6 py-3 text-sm font-medium hover:bg-ada-navy/5 transition-colors"
-                  >
-                    {t('contactUs')}
-                  </a>
-                </div>
+        <DocSection id="need" title={t('need.title')}>
+          <Photo
+            src="/images/2026/ada-trainer-slide.jpg"
+            alt={t('need.photoAlt')}
+            caption={t('need.photoCaption')}
+            aspect="5 / 2"
+            position="50% 12%"
+            sizes="(min-width: 1120px) 66vw, 100vw"
+          />
+          <Rows
+            rows={[
+              { label: t('need.doulaId'), value: t.rich('need.doulaIdValue', { nowrap }) },
+              { label: t('need.email'), value: t('need.emailValue') },
+              {
+                label: t('need.pathway'),
+                value: t.rich('need.pathwayValue', {
+                  link: (c) => (
+                    <a href="#pathways" className={`${inlineLink} whitespace-nowrap`}>
+                      {c}
+                    </a>
+                  ),
+                }),
+              },
+              { label: t('need.fee'), value: t('need.feeValue', { fee }) },
+            ]}
+          />
+        </DocSection>
+
+        <DocSection id="pathways" title={t('pathways.title')} intro={<p className="m-0">{t('pathways.intro')}</p>}>
+          <DataTable
+            caption={t('pathways.caption')}
+            minWidth={680}
+            columns={[
+              { label: t('pathways.colPathway'), className: 'w-[24%]' },
+              { label: t('pathways.colWhat'), className: 'w-[40%]' },
+              { label: t('pathways.colDetails') },
+            ]}
+            rows={[
+              [
+                t('pathways.aName'),
+                t('pathways.aWhat', { count: REFERENCE_LETTERS }),
+                <DetailList
+                  key="a"
+                  title={t('pathways.aDetailsTitle')}
+                  items={[t('pathways.aItem1'), t('pathways.aItem2'), t('pathways.aItem3')]}
+                />,
+              ],
+              [
+                t('pathways.bName'),
+                t('pathways.bWhat'),
+                <DetailList
+                  key="b"
+                  title={t('pathways.bDetailsTitle')}
+                  items={[
+                    t('pathways.bItem1'),
+                    t('pathways.bItem2'),
+                    t('pathways.bItem3', { pass: EXAM.passScore, max: EXAM.maxScore }),
+                  ]}
+                />,
+              ],
+            ]}
+          />
+        </DocSection>
+
+        <RenewalSteps />
+
+        <DocSection id="status" title={t('status.title')} intro={<p className="m-0">{t('status.intro')}</p>}>
+          <dl className="m-0 flex flex-col border-t-2 border-ada2-ink">
+            {statuses.map((s) => (
+              <div key={s.kind} className="flex flex-wrap items-baseline gap-x-6 gap-y-1.5 py-3 border-b border-ada2-hairline">
+                <dt className="flex-[0_0_200px]">
+                  <StatusTag status={s.kind} />
+                </dt>
+                <dd className="flex-[1_1_300px] min-w-0 m-0 [text-wrap:pretty]">{s.text}</dd>
               </div>
-            </div>
-
-            {/* Sidebar */}
-            <aside className="lg:w-1/5">
-              <div className="sticky top-32">
-                <span className="font-outfit text-xs font-semibold tracking-widest uppercase text-ada-navy/40">
-                  {t('forDoulas')}
-                </span>
-                <nav className="mt-4 flex flex-col">
-                  {sidebarLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="block py-1.5 text-sm text-ada-navy/60 hover:text-ada-purple transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <ContactForm />
+            ))}
+          </dl>
+          <ArrowLink href="/verify" tone="registry" className="self-start">
+            {t('status.link')}
+          </ArrowLink>
+        </DocSection>
+      </InnerPage>
     </>
+  );
+}
+
+function DetailList({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div className="flex flex-col gap-1">
+      <p className="m-0 font-semibold text-ada2-ink">{title}</p>
+      <ul className="m-0 pl-5 list-disc marker:text-ada2-muted flex flex-col gap-0.5">
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
   );
 }

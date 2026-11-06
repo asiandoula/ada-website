@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "title": "Certifications",
+    "description": "ADA Postpartum Doula and Birth Doula certification, and the IBCLC Exam-Prep course: how each credential is earned, the exam, fees and renewal."
+  },
+  "shared": {
+    "candidates": "Candidates",
+    "questions": "Questions",
+    "notAnswered": "Not answered here? Write to <link>{email}</link>.",
+    "forCandidates": "For candidates",
+    "checkRegistry": "Check the registry",
+    "validity": "{years, plural, one {# year} other {# years}}",
+    "renewEvery": "{years, plural, one {Every year} other {Every # years}}",
+    "register": "Register for the exam",
+    "findCourse": "Find an ADA course",
+    "examDates": "Exam dates",
+    "examDay": "Exam day and ID",
+    "askCohort": "Ask about the next cohort",
+    "languages": {
+      "en": "English",
+      "zh": "Chinese (Mandarin)",
+      "ja": "Japanese",
+      "ko": "Korean"
+    },
+    "links": {
+      "postpartum": {
+        "label": "ADA Postpartum Doula",
+        "description": "{count} modules, then the ADA written and practical exam."
+      },
+      "birth": {
+        "label": "ADA Birth Doula",
+        "description": "Labor and delivery support. Cohorts run on a rolling basis."
+      },
+      "ibclc": {
+        "label": "IBCLC Lactation Exam-Prep",
+        "description": "Lactation-specific education hours toward IBLCE’s IBCLC prerequisites."
+      },
+      "handbook": {
+        "label": "Candidate handbook",
+        "description": "Who can apply, the exam, fees, results and renewal, in one place."
+      },
+      "examDates": {
+        "label": "Exam dates",
+        "description": "Upcoming Postpartum Doula and Birth Doula exam sessions."
+      },
+      "examDay": {
+        "label": "Exam day and ID requirements",
+        "description": "What to bring, and how each part of the exam runs."
+      },
+      "renew": {
+        "label": "Renew your certification",
+        "description": "What renewal needs and what it costs."
+      },
+      "education": {
+        "label": "ADA education",
+        "description": "ADA-approved training programs, and the {count} modules of the Postpartum Doula program."
+      },
+      "courses": {
+        "label": "Courses and sessions",
+        "description": "ADA-approved training programs, in person or online."
+      },
+      "scholarships": {
+        "label": "Scholarships",
+        "description": "Help with training and exam fees for qualifying trainees."
+      },
+      "portal": {
+        "label": "My ADA",
+        "description": "Your certification records, certificates and exam history."
+      },
+      "conduct": {
+        "label": "Code of Conduct",
+        "description": "The professional and ethical standards every ADA-certified doula upholds."
+      },
+      "verify": {
+        "label": "Verify a doula",
+        "description": "Every ADA credential has a public record in the ADA registry."
+      },
+      "contact": {
+        "label": "Contact ADA",
+        "description": "Questions about cohorts, pricing or referrals for clinical hours."
+      }
+    }
+  },
+  "hero": {
+    "title": "Earn an ADA credential.",
+    "line": "Training and exams in {languages}.",
+    "imageAlt": "Candidates write the ADA written exam at spaced desks while a proctor watches"
+  },
+  "credentials": {
+    "title": "Credentials ADA issues",
+    "intro": "Each credential below has a public record in the ADA registry, where anyone can check it.",
+    "caption": "Credentials ADA issues, with number prefix, how each is earned, period and renewal",
+    "colCredential": "Credential",
+    "colPrefix": "Number prefix",
+    "colHow": "How it is earned",
+    "colPeriod": "Period*",
+    "colRenewal": "Renewal**",
+    "noPrefix": "No number prefix",
+    "postpartum": {
+      "name": "Postpartum Doula",
+      "how": "An ADA-approved training program, then a {written}-minute written and a {practical}-minute practical exam. Pass mark {pass}/{max}. Exam fee {fee}."
+    },
+    "birth": {
+      "name": "Birth Doula",
+      "how": "An ADA Birth Doula cohort, then a written and a practical exam."
+    },
+    "ibclc": {
+      "name": "IBCLC Training Qualified†",
+      "how": "ADA’s IBCLC Exam-Prep course: lactation-specific education hours toward IBLCE’s IBCLC prerequisites.",
+      "period": "Permanent record",
+      "renewal": "Not renewed"
+    },
+    "noteStanding": "*A credential can be suspended or revoked under the ADA Code of Conduct.",
+    "noteRenewal": "**The renewal fee is {fee}.",
+    "noteIbclc": "†A completion record, not an IBCLC credential. IBLCE issues the IBCLC.",
+    "lookup": "Look up any credential in the registry"
+  },
+  "steps": {
+    "title": "How certification works",
+    "intro": "The path to the ADA Postpartum Doula credential: an ADA-approved program, the ADA exam, a public record, then renewal.",
+    "imageAlt": "An ADA examiner scores a candidate’s practical exam while a timer runs on the wall screen",
+    "caption": "A practical exam: the examiner scores while the timer runs. {date}.",
+    "s1": {
+      "title": "Complete an ADA-approved training program",
+      "body": "Usually <b>{days} days</b> of intensive instruction for the Postpartum Doula program, in person or online. Training fees vary by provider. <link>Find an ADA course</link>"
+    },
+    "s2": {
+      "title": "Register for an exam date",
+      "bodyNext": "The next exam is on <d>{date}</d>. The exam fee is <b>{fee}</b>, paid to ADA. <link>Exam dates</link>",
+      "bodyNone": "Exam sessions are scheduled after each training cohort. The exam fee is <b>{fee}</b>, paid to ADA. <link>Exam dates</link>"
+    },
+    "s3": {
+      "title": "Sit the written and practical exams",
+      "body": "A <b>{written}-minute</b> written exam and a <b>{practical}-minute</b> one-on-one practical exam. Bring a valid government-issued photo ID. <link>Exam day and ID</link>"
+    },
+    "s4": {
+      "title": "Get your result and your public record",
+      "body": "By email in about {days} business days. The pass mark is <b>{pass}/{max}</b>. If you pass, ADA issues your certificate and lists you in the ADA registry, where anyone can check it. <registry>Check the registry</registry>"
+    },
+    "s5": {
+      "title": "Renew to stay in good standing",
+      "body": "Your certificate is valid for {validity}. Renewal costs <b>{fee}</b>, with professional reference letters or a recertification exam. <link>Renew your certification</link>"
+    }
+  },
+  "links": {
+    "title": "For candidates and certified doulas"
+  }
+}

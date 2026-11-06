@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "title": "Birth Doula Certification",
+    "description": "ADA Birth Doula certification: culturally integrated training for labor and delivery support, cohorts on a rolling basis, and a written and practical exam."
+  },
+  "breadcrumb": "ADA Birth Doula",
+  "courseName": "ADA Birth Doula Certification",
+  "courseDescription": "Culturally integrated training and certification for labor and delivery support.",
+  "mailSubject": "Birth Doula Certification - Interest",
+  "hero": {
+    "title": "ADA Birth Doula",
+    "line": "Cohorts run on a rolling basis throughout the year.",
+    "findCohort": "Find a Birth Doula cohort",
+    "imageAlt": "A trainee holds a training doll in a newborn hold during an ADA training session"
+  },
+  "steps": {
+    "title": "How to get certified",
+    "intro": "A birth doula gives families continuous physical, emotional and informational support through labor and delivery, from early labor to the immediate postpartum period. Four steps take you from an ADA cohort to a public record in the ADA registry.",
+    "s1": {
+      "title": "Join an ADA Birth Doula cohort",
+      "body": "Cohorts run on a rolling basis throughout the year. No prior experience is required. Contact us for upcoming start dates and current cohort pricing. <link>Find an ADA course</link>"
+    },
+    "s2": {
+      "title": "Complete the Birth Doula Program",
+      "body": "{count} topics, from the stages of labor to immediate postpartum support."
+    },
+    "s3": {
+      "title": "Sit the ADA Birth Doula exam",
+      "bodyNext": "A written and a practical exam. The next Birth Doula exam is on <d>{date}</d>. <link>Exam dates</link>",
+      "bodyNone": "A written and a practical exam."
+    },
+    "s4": {
+      "title": "Join the registry, then renew",
+      "body": "ADA issues your certificate, numbered in the form <b>{format}</b>, and lists you in the ADA registry. Certification is valid for {validity}. <registry>Check the registry</registry>"
+    }
+  },
+  "topics": {
+    "title": "What the program covers",
+    "intro": "The Birth Doula Program brings the same culturally integrated approach as the postpartum program: traditional Asian birthing practices with modern evidence-based care, delivered in the family’s preferred language.",
+    "imageAlt": "An instructor teaches a session of an ADA program, with a slide on a wall screen",
+    "caption": "An instructor teaches a session of the ADA Postpartum Doula Program. {date}.",
+    "listLabel": "Birth Doula Program topics",
+    "items": {
+      "stages": "Stages of labor and physiological birth",
+      "comfort": "Comfort measures and pain management",
+      "breathing": "Breathing and relaxation",
+      "medicalTeams": "Communication with medical teams",
+      "family": "Partner and family involvement",
+      "traditions": "Cultural birthing traditions",
+      "emergency": "Emergency awareness and referral",
+      "postpartum": "Immediate postpartum support"
+    }
+  },
+  "details": {
+    "title": "Program details",
+    "cohorts": {
+      "label": "Cohorts",
+      "value": "On a rolling basis, throughout the year."
+    },
+    "exam": {
+      "label": "Exam",
+      "value": "Written and practical."
+    },
+    "languages": {
+      "label": "Languages"
+    },
+    "prerequisites": {
+      "label": "Prerequisites",
+      "value": "None. You need no prior experience, and you do not need to be a Postpartum Doula first."
+    },
+    "validity": {
+      "label": "Validity"
+    },
+    "tuition": {
+      "label": "Tuition",
+      "value": "Contact us for current cohort pricing, scholarship availability and payment options. <link>Scholarships</link>"
+    }
+  },
+  "compare": {
+    "title": "How it differs from Postpartum Doula",
+    "intro": "Birth Doula is an independent certification track. You can pursue it on its own, and you can hold both credentials.",
+    "caption": "ADA Birth Doula compared with ADA Postpartum Doula",
+    "colBirth": "ADA Birth Doula",
+    "colPostpartum": "ADA Postpartum Doula",
+    "role": {
+      "birth": "Supports the family during labor and delivery",
+      "postpartum": "Supports the family after delivery"
+    },
+    "place": {
+      "birth": "Present in the hospital or birth center",
+      "postpartum": "Present in the family’s home"
+    },
+    "focus": {
+      "birth": "Focus: comfort, advocacy and emotional support during birth",
+      "postpartum": "Focus: recovery, newborn care and family adjustment"
+    },
+    "program": {
+      "birth": "Program: cohorts on a rolling basis",
+      "postpartum": "Program: {count} modules, usually {days} days of intensive instruction"
+    },
+    "exam": {
+      "birth": "Exam: written and practical",
+      "postpartum": "Exam: {written}-minute written and {practical}-minute practical, {fee} paid to ADA*"
+    },
+    "certificate": "Certificate: {format}†",
+    "noteExamNext": "*Next Postpartum Doula exam: <nw>{date}</nw>. <link>All exam dates</link>",
+    "noteExamNone": "*Exam sessions are scheduled after each training cohort. <link>Exam dates</link>",
+    "noteRecord": "†Each credential has its own status and period in the ADA registry."
+  },
+  "cta": {
+    "title": "Ask about the next Birth Doula cohort."
+  },
+  "faq": {
+    "next": {
+      "q": "When is the next Birth Doula cohort?",
+      "a": "Cohorts run on a rolling basis throughout the year. Write to us to be added to the next cohort’s enrollment list, and we will share the upcoming start dates."
+    },
+    "languages": {
+      "q": "Is the program available in more than one language?",
+      "a": "Yes. As with the Postpartum Doula track, training and exams are offered in {languages}."
+    },
+    "postpartumFirst": {
+      "q": "Do I need to be a Postpartum Doula first?",
+      "a": "No. Birth Doula is an independent certification track and can be pursued on its own."
+    },
+    "cost": {
+      "q": "How much will it cost?",
+      "a": "Write to <mail>{email}</mail> for current cohort pricing, scholarship availability and payment options."
+    }
+  }
+}

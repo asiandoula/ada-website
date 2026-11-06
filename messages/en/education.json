@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "title": "ADA education",
+    "description": "The ADA curriculum: the Postpartum Doula Program and its {count} modules, continuing education, and how to teach the ADA curriculum as a trainer or training provider."
+  },
+  "breadcrumb": "ADA education",
+  "hero": {
+    "title": "Learn the ADA curriculum.",
+    "line": "ADA writes the curriculum. ADA Certified Trainers and Approved Training Providers teach it, and ADA examines every candidate.",
+    "photoAlt": "An instructor of the ADA Postpartum Doula Program teaches beside a slide, with training dolls and baby baths on the table",
+    "examDates": "See exam dates",
+    "teach": "Teach the ADA curriculum"
+  },
+  "tiles": {
+    "title": "ADA programs",
+    "postpartumTitle": "ADA Postpartum Doula Program",
+    "postpartumText": "ADA’s core curriculum: {count} modules, in person over {days} days or online, then the ADA exam. Tuition is set by the training provider.",
+    "nextExam": "Next exam",
+    "examFee": "Exam fee",
+    "examFeeValue": "{fee}, paid to ADA",
+    "examDates": "See exam dates",
+    "credential": "The Postpartum Doula credential",
+    "birthTitle": "ADA Birth Doula",
+    "birthText": "Labor and delivery support. Cohorts run on a rolling basis.",
+    "birthProgram": "The program",
+    "birthCohort": "Ask about the next cohort",
+    "coursesTitle": "Courses and CE",
+    "coursesText": "IBCLC Exam-Prep, Continuing Education and Train-the-Trainer, taught by ADA Certified Trainers.",
+    "ibclc": "IBCLC Exam-Prep",
+    "ce": "Continuing Education",
+    "teach": "Become a trainer or provider"
+  },
+  "how": {
+    "title": "How ADA education works",
+    "photoAlt": "A trainee dresses a training doll during a newborn-care lesson of the ADA Postpartum Doula Program",
+    "photoCaption": "A newborn-care lesson with a training doll. August 2024.",
+    "curriculum": "Curriculum",
+    "curriculumText": "ADA writes and owns the curriculum and the standards behind every ADA program. Every trainer and every provider teaches the same material.",
+    "teaching": "Teaching",
+    "teachingText": "ADA Certified Trainers and Approved Training Providers teach it, in person and online. ADA reviews every provider each year.",
+    "examination": "Examination",
+    "examinationText": "ADA examines and grades every candidate itself. Trainers, proctors and providers cannot change scores.",
+    "registry": "Registry",
+    "registryText": "Graduates who pass get a certificate number and a public, dated record in the ADA registry. ADA Certified Trainers have public records too.",
+    "languages": "Languages",
+    "languagesText": "{languages}.",
+    "link": "Upcoming exam dates"
+  },
+  "language": {
+    "en": "English",
+    "zh": "Mandarin",
+    "ja": "Japanese",
+    "ko": "Korean"
+  },
+  "program": {
+    "title": "The Postpartum Doula Program",
+    "intro": "ADA’s core curriculum, taught by an ADA Certified Trainer or an Approved Training Provider. Before class, each student works through short skills videos with exercises.",
+    "modulesTitle": "{count} modules",
+    "detailsTitle": "Program details",
+    "format": "Format",
+    "formatValue": "In person, {days} days of intensive instruction, or online.",
+    "includes": "Includes",
+    "includesValue": "{provider} infant CPR",
+    "tuition": "Tuition",
+    "tuitionValue": "Set by the trainer or training provider",
+    "scholarships": "Scholarships",
+    "scholarshipsValue": "Need-based and merit-based. <link>ADA scholarships</link>",
+    "leadsTo": "Leads to",
+    "leadsToValue": "The ADA Postpartum Doula exam. The exam fee is {fee}, paid to ADA.",
+    "ctaNext": "Graduates can register for the {date} exam.",
+    "ctaNone": "Graduates register for the ADA exam with ADA.",
+    "ctaAction": "Register for the exam"
+  },
+  "module": {
+    "postpartumRecovery": "Stages of body recovery, wound care assessment, vital-sign monitoring, and traditional recovery principles such as warming and circulation.",
+    "newbornCare": "Bottle and breast feeding technique, bathing and umbilical care, safe sleep, soothing, burping, diapering, spit-up, tummy time and milestone tracking.",
+    "breastfeedingSupport": "Latch and positioning, engorgement, low supply and nipple pain, pumping, and when to refer to a lactation consultant.",
+    "culturalTraditions": "Chinese zuo yuezi (<zh>坐月子</zh>), Korean sanhujori (<ko>산후조리</ko>) and Japanese satogaeri (<ja>里帰り</ja>), along with confinement meals and family dynamics.",
+    "nutrition": "Postpartum recipes across Asian traditions, and dietary guidance for breastfeeding.",
+    "emotionalWellness": "Recognizing perinatal depression and anxiety, active listening, stigma, boundaries and referral protocols.",
+    "safetyEmergency": "Infant CPR ({provider}), choking response, emergency protocols, safe-sleep setup, and when to call {emergency} and when to call the pediatrician."
+  },
+  "moduleTitle": {
+    "postpartumRecovery": "Postpartum Recovery",
+    "newbornCare": "Newborn Care",
+    "breastfeedingSupport": "Breastfeeding Support",
+    "culturalTraditions": "Cultural Traditions",
+    "nutrition": "Nutrition & Meal Planning",
+    "emotionalWellness": "Emotional Wellness",
+    "safetyEmergency": "Safety & Emergency"
+  },
+  "dates": {
+    "title": "Upcoming ADA exam dates",
+    "intro": "Each trainer or training provider sets its own session dates and handles enrollment and tuition. When you finish the program, you register for the ADA exam with ADA. The exam fee is {fee}."
+  },
+  "teach": {
+    "title": "Continuing education and teaching",
+    "ce": "Continuing education",
+    "ceText": "ADA-approved workshops and updated coursework that keep certified doulas current with postpartum care and safety protocols.",
+    "trainer": "ADA Certified Trainer",
+    "trainerText": "For experienced ADA-certified doulas in good standing who want to teach the ADA curriculum, through Train-the-Trainer. An ADA Certified Trainer has a TR certificate number.",
+    "provider": "Approved Training Provider",
+    "providerText": "For organizations that deliver the ADA curriculum. ADA reviews each provider every year against its standards for facilities, curriculum delivery and instructor qualifications.",
+    "apply": "To apply as a trainer or a provider, write to ADA at <mail>{email}</mail>.",
+    "verifyTitle": "Verify an ADA Certified Trainer",
+    "verifyText": "Every ADA Certified Trainer holds an ADA certificate with a public, dated record in the ADA registry. Look it up by name or certificate number.",
+    "verifyAction": "Check the registry"
+  }
+}

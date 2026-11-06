@@ -1,0 +1,72 @@
+{
+  "metaTitle": "Find an ADA-certified doula",
+  "metaDescription": "Check that a postpartum or birth doula is ADA-certified before you hire. Search the free ADA registry by name, Doula ID or certificate number.",
+  "breadcrumb": "Find a doula",
+  "title": "Find an <nb>ADA-certified</nb> doula",
+  "lead": "Every ADA-certified doula has an official record in the ADA registry. Check a doula’s record before you hire. ADA does not match families with doulas or arrange care.",
+  "meta": "For families. Free to search, no account needed.",
+  "cta": {
+    "title": "Every ADA-certified doula has passed the ADA written and practical exams.",
+    "action": "How ADA certifies doulas"
+  },
+  "languages": {
+    "en": "English",
+    "zh": "Chinese (Mandarin)",
+    "ja": "Japanese",
+    "ko": "Korean"
+  },
+  "choose": {
+    "title": "Before you choose",
+    "photoAlt": "A trainee in the ADA Postpartum Doula Program sits holding a newborn training doll",
+    "photoCaption": "A trainee practises holding a newborn, with a training doll. {date}.",
+    "typeLabel": "Type of support",
+    "typeValue": "A postpartum doula supports the family at home after the birth. A birth doula supports you during labor. Check which credential the doula holds.",
+    "languageLabel": "Language",
+    "languageValue": "ADA trains and examines doulas in {languages}. Ask each doula which languages they speak.",
+    "insuranceLabel": "Insurance",
+    "insuranceValue": "ADA certification is recognized by {insurers}. What is covered depends on your plan. Ask your plan and the doula.",
+    "coverageLabel": "Your coverage",
+    "coverageValue": "Call member services on the back of your insurance card. Ask whether your plan covers postpartum doula services, mention ADA certification, and ask about pre-authorization and visit limits.",
+    "recordLabel": "Check the record",
+    "recordValue": "Every ADA-certified doula has an official ADA record. Open it before you hire, to confirm the credential is active today.",
+    "link": "Check a doula’s record"
+  },
+  "check": {
+    "title": "Check a doula’s record",
+    "body": "Search the ADA registry by certificate number, Doula ID or full name. The record shows each credential the doula holds and whether it is active today."
+  },
+  "more": {
+    "title": "More for families",
+    "verifyLabel": "Look up any doula, free",
+    "verifyBody": "The registry lists every ADA-certified doula. Search by name, Doula ID or certificate number.",
+    "trainingLabel": "How ADA trains doulas",
+    "trainingBody": "The ADA Postpartum Doula Program: {modules} modules over {days} days of intensive instruction.",
+    "concernLabel": "Report a concern",
+    "concernBody": "If something went wrong with an ADA-certified doula, tell ADA. Reports are reviewed under the Code of Conduct.",
+    "faqLabel": "Questions and answers",
+    "faqBody": "Training, exams, certification and what an ADA-certified doula does."
+  },
+  "contact": {
+    "title": "Write to ADA",
+    "body": "Questions about certification, the registry or a doula’s record? Send ADA a message.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "nameLabel": "Full name",
+    "emailFieldLabel": "Email",
+    "phoneFieldLabel": "Phone (optional)",
+    "topicLabel": "Topic (optional)",
+    "topicPlaceholder": "Choose a topic",
+    "topicBecoming": "Becoming a doula",
+    "topicHiring": "Hiring a doula",
+    "topicTraining": "Training programs",
+    "topicOther": "Other",
+    "messageLabel": "Message",
+    "smsConsent": "Phone is optional. By sharing your mobile number, you agree that Asian Doula Alliance may text you about your inquiry and, if you are a doula in our network, about client matches, work orders and scheduling. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of any service. See our <privacy>Privacy Policy</privacy> and <terms>Terms of Service</terms>.",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "requiredNote": "All fields are required unless marked optional.",
+    "success": "Message sent. ADA will reply by email.",
+    "error": "Something went wrong. Please try again.",
+    "network": "Could not send your message. Check your connection and try again, or email {email}."
+  }
+}

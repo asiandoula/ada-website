@@ -1,9 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { ShieldCheck, FileText, GraduationCap, Download, LogOut, Phone, Mail, User, Globe } from 'lucide-react';
+import { useState, useEffect, type ReactNode } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import {
+  ArrowLink,
+  Breadcrumb,
+  CtaBox,
+  LinkList,
+  Pill,
+  RuledRows,
+  StatusTag,
+  certificateStatusTag,
+  credentialStatusTag,
+  pillClassName,
+} from '@/components/site';
+import { ScoreTable } from '@/components/exam/score-table';
+import { htmlLang, type Locale } from '@/i18n/config';
+import { CERTIFICATE, CONTACT, EXAM, RENEWAL, usd } from '@/lib/facts';
+import { formatExamDate } from '@/lib/site-dates';
+import { cn } from '@/lib/utils';
 
 // ============ TYPES ============
 
@@ -60,310 +75,209 @@ interface PortalData {
   exam_results: ExamResult[];
 }
 
-// ============ I18N ============
-
-type Lang = 'en' | 'zh';
-
-const t = {
-  en: {
-    credentialPortal: 'Credential Portal',
-    portalSubtitle: 'Access your certification records, download certificates, and review exam history.',
-    signIn: 'Sign In',
-    signInDesc: 'Enter your Doula ID and contact information to access your portal.',
-    doulaIdCode: 'Doula ID Code',
-    verifyWith: 'Verify with',
-    email: 'Email',
-    phone: 'Phone',
-    accessPortal: 'Access Portal',
-    verifying: 'Verifying...',
-    idHint: 'Your ID code can be found on your ADA certification certificate or in the email from ADA.',
-    verifyDoula: 'Need to verify a doula?',
-    publicVerification: 'Public Verification',
-    signOut: 'Sign Out',
-    certificates: 'My Certificates',
-    certificatesEmpty: 'No certificates issued yet.',
-    download: 'Download PDF',
-    noPdf: 'No PDF',
-    issued: 'Issued',
-    examHistory: 'Exam Results',
-    examEmpty: 'No exam results on file.',
-    scoreBreakdown: 'Score Breakdown',
-    passed: 'Passed',
-    failed: 'Failed',
-    credentials: 'My Credentials',
-    credentialsEmpty: 'No credentials on file.',
-    certified: 'Certified',
-    expires: 'Expires',
-    permanent: 'Permanent',
-    expired: 'Expired',
-    expiresInDays: (d: number) => `Expires in ${d} days`,
-    expiresInMonths: (m: number) => `Expires in ${m} months`,
-    expiresInYears: (y: number, m: number) => `Expires in ${y}yr ${m}mo`,
-    profile: 'Profile Information',
-    profileUpdateNote: 'To update your information, contact ADA at contact@asiandoula.org or (714) 202-6501.',
-    region: 'Region',
-    languages: 'Languages',
-    superseded: 'Superseded',
-    networkError: 'Network error. Please try again.',
-    // Status labels
-    status_registered: 'Registered',
-    status_active: 'Active',
-    status_under_investigation: 'Under Review',
-    status_suspended: 'Suspended',
-    status_revoked: 'Revoked',
-    status_retired: 'Retired',
-    // Credential types
-    cred_postpartum: 'Postpartum Doula',
-    cred_birth: 'Birth Doula',
-    cred_ibclc_training: 'IBCLC Training',
-    // Score labels
-    score_terminology: 'Terminology',
-    score_newborn: 'Newborn Care',
-    score_lactation: 'Lactation',
-    score_emergency: 'Emergency',
-    score_practical: 'Practical',
-    score_postpartum: 'Postpartum',
-    score_knowledge: 'Knowledge',
-    score_ethics: 'Ethics',
-  },
-  zh: {
-    credentialPortal: '资质门户',
-    portalSubtitle: '查看您的认证记录、下载证书、查看考试成绩。',
-    signIn: '登录',
-    signInDesc: '输入您的导乐ID和联系方式来访问您的门户。',
-    doulaIdCode: '导乐 ID',
-    verifyWith: '验证方式',
-    email: '邮箱',
-    phone: '手机号',
-    accessPortal: '进入门户',
-    verifying: '验证中...',
-    idHint: '您的ID可以在ADA认证证书或ADA发送的邮件中找到。',
-    verifyDoula: '需要验证导乐资质？',
-    publicVerification: '公开验证',
-    signOut: '退出登录',
-    certificates: '我的证书',
-    certificatesEmpty: '暂无证书。',
-    download: '下载 PDF',
-    noPdf: '暂无 PDF',
-    issued: '颁发日期',
-    examHistory: '考试成绩',
-    examEmpty: '暂无考试记录。',
-    scoreBreakdown: '成绩明细',
-    passed: '通过',
-    failed: '未通过',
-    credentials: '我的资质',
-    credentialsEmpty: '暂无资质记录。',
-    certified: '认证日期',
-    expires: '到期日期',
-    permanent: '永久',
-    expired: '已过期',
-    expiresInDays: (d: number) => `${d}天后到期`,
-    expiresInMonths: (m: number) => `${m}个月后到期`,
-    expiresInYears: (y: number, m: number) => `${y}年${m}个月后到期`,
-    profile: '个人信息',
-    profileUpdateNote: '如需更新信息，请联系 ADA：contact@asiandoula.org 或 (714) 202-6501。',
-    region: '地区',
-    languages: '语言',
-    superseded: '已替代',
-    networkError: '网络错误，请重试。',
-    // Status labels
-    status_registered: '已注册',
-    status_active: '有效',
-    status_under_investigation: '审核中',
-    status_suspended: '已暂停',
-    status_revoked: '已撤销',
-    status_retired: '已退休',
-    // Credential types
-    cred_postpartum: '产后导乐',
-    cred_birth: '分娩导乐',
-    cred_ibclc_training: 'IBCLC 培训',
-    // Score labels
-    score_terminology: '专业术语',
-    score_newborn: '新生儿护理',
-    score_lactation: '哺乳指导',
-    score_emergency: '应急处理',
-    score_practical: '实操技能',
-    score_postpartum: '产后护理',
-    score_knowledge: '专业知识',
-    score_ethics: '职业伦理',
-  },
-} as const;
-
-function detectLang(): Lang {
-  if (typeof navigator === 'undefined') return 'en';
-  const lang = navigator.language || '';
-  return lang.startsWith('zh') ? 'zh' : 'en';
-}
-
 // ============ HELPERS ============
 
-const statusStyles: Record<string, { dot: string; bg: string }> = {
-  registered: { dot: 'bg-blue-500', bg: 'bg-blue-50 text-blue-700' },
-  active: { dot: 'bg-emerald-500', bg: 'bg-emerald-50 text-emerald-700' },
-  under_investigation: { dot: 'bg-amber-500', bg: 'bg-amber-50 text-amber-700' },
-  suspended: { dot: 'bg-red-500', bg: 'bg-red-50 text-red-700' },
-  revoked: { dot: 'bg-red-500', bg: 'bg-red-50 text-red-700' },
-  retired: { dot: 'bg-gray-400', bg: 'bg-gray-50 text-gray-600' },
-};
+/** ADA's phone for running text: no line break inside the number. */
+const PHONE = CONTACT.phone.display.replace(/ /g, '\u00A0');
 
-function StatusBadge({ status, lang }: { status: string; lang: Lang }) {
-  const style = statusStyles[status] || { dot: 'bg-gray-400', bg: 'bg-gray-50 text-gray-600' };
-  const label = t[lang][`status_${status}` as keyof typeof t.en] as string || status;
-  return (
-    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold font-outfit ${style.bg}`}>
-      <span className={`w-1.5 h-1.5 rounded-full ${style.dot}`} />
-      {label}
-    </span>
-  );
-}
-
-function formatDate(dateStr: string | null, lang: Lang): string {
-  if (!dateStr) return '—';
-  // Append T12:00 to avoid timezone shifting (date-only strings parse as UTC midnight)
-  const d = new Date(dateStr.includes('T') ? dateStr : `${dateStr}T12:00:00`);
-  if (isNaN(d.getTime())) return '—';
-  const locale = lang === 'zh' ? 'zh-CN' : 'en-US';
-  return d.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
-}
-
-function expiryText(dateStr: string | null, lang: Lang): { text: string; color: string } | null {
-  if (!dateStr) return null;
-  const diff = new Date(dateStr).getTime() - Date.now();
-  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-  if (days <= 0) return { text: t[lang].expired, color: 'text-red-600' };
-  if (days <= 90) return { text: t[lang].expiresInDays(days), color: 'text-amber-600' };
-  const months = Math.floor(days / 30);
-  const years = Math.floor(months / 12);
-  const remMonths = months % 12;
-  if (years > 0) return { text: t[lang].expiresInYears(years, remMonths), color: 'text-emerald-600' };
-  return { text: t[lang].expiresInMonths(months), color: 'text-emerald-600' };
-}
+/** Shown in the Doula ID hint ("for example …"). */
+const DOULA_ID_EXAMPLE = '#25-0001';
+/** The sign-in photo (ADA training photos, August 2024). */
+const PHOTO_DATE = Date.UTC(2024, 7, 1);
 
 const scoreKeys = [
   'score_terminology', 'score_newborn', 'score_lactation', 'score_emergency',
   'score_practical', 'score_postpartum', 'score_knowledge', 'score_ethics',
 ] as const;
 
-// ============ COMPONENTS ============
+type Translate = ReturnType<typeof useTranslations<'portal'>>;
 
-function ExamSection({ examResults, lang }: { examResults: ExamResult[]; lang: Lang }) {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const labels = t[lang];
+function formatDate(dateStr: string | null, locale: Locale): string {
+  if (!dateStr) return '—';
+  return formatExamDate(dateStr, locale);
+}
 
+type ExpiryTone = 'expired' | 'soon' | 'ok';
+
+function expiryText(dateStr: string | null, t: Translate): { text: string; tone: ExpiryTone } | null {
+  if (!dateStr) return null;
+  const diff = new Date(dateStr).getTime() - Date.now();
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  if (days <= 0) return { text: t('credentials.expired'), tone: 'expired' };
+  if (days <= 90) return { text: t('credentials.expiresInDays', { days }), tone: 'soon' };
+  const months = Math.floor(days / 30);
+  const years = Math.floor(months / 12);
+  const remMonths = months % 12;
+  if (years > 0) return { text: t('credentials.expiresInYears', { years, months: remMonths }), tone: 'ok' };
+  return { text: t('credentials.expiresInMonths', { months }), tone: 'ok' };
+}
+
+const EXPIRY_TONE: Record<ExpiryTone, string> = {
+  expired: 'font-semibold text-ada2-suspended',
+  soon: 'font-semibold text-ada2-ink',
+  ok: 'text-ada2-muted',
+};
+
+function typeLabel(type: string, t: Translate): string {
+  const key = `credentials.types.${type}` as const;
+  return t.has(key as never) ? t(key as never) : type;
+}
+
+/** A plain tag in the record-tag shape, for statuses StatusTag has no kind for. */
+function PlainTag({ children }: { children: ReactNode }) {
   return (
-    <div>
-      <h2 className="font-outfit font-semibold text-ada-navy text-lg mb-5">
-        <GraduationCap className="w-5 h-5 inline-block mr-2 text-ada-purple" />
-        {labels.examHistory}
-      </h2>
-      {examResults.length === 0 ? (
-        <p className="text-sm text-ada-navy/40 font-outfit">{labels.examEmpty}</p>
-      ) : (
-        <div className="space-y-3">
-          {examResults.map((exam) => {
-            const isExpanded = expandedId === exam.id;
-            const credLabel = labels[`cred_${exam.exam_type}` as keyof typeof labels] as string || exam.exam_type;
-            return (
-              <div key={exam.id} className="border border-gray-200 rounded-xl overflow-hidden">
-                <button
-                  type="button"
-                  onClick={() => setExpandedId(isExpanded ? null : exam.id)}
-                  aria-expanded={isExpanded}
-                  className="w-full flex items-center justify-between px-6 py-4 hover:bg-ada-navy/[0.02] transition-colors text-left"
-                >
-                  <div>
-                    <p className="font-mono text-xs text-ada-navy/60">{exam.exam_session}</p>
-                    <p className="text-sm font-outfit text-ada-navy/60 mt-0.5">
-                      {credLabel} — {formatDate(exam.exam_date, lang)}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-2xl font-outfit font-bold text-ada-navy">{exam.overall_score}</span>
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold font-outfit ${
-                      exam.passed ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
-                    }`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${exam.passed ? 'bg-emerald-500' : 'bg-red-500'}`} />
-                      {exam.passed ? labels.passed : labels.failed}
-                    </span>
-                    <svg className={`w-4 h-4 text-ada-navy/30 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-                </button>
-
-                {isExpanded && (
-                  <div className="px-6 pb-5 pt-2 border-t border-gray-100 bg-ada-navy/[0.015]">
-                    <p className="text-xs text-ada-navy/40 font-outfit uppercase tracking-wider font-semibold mb-4">
-                      {labels.scoreBreakdown}
-                    </p>
-                    <div className="space-y-3">
-                      {scoreKeys.map((key) => {
-                        const score = exam[key as keyof ExamResult] as number;
-                        const label = labels[key as keyof typeof labels] as string;
-                        return (
-                          <div key={key} className="flex items-center gap-4">
-                            <span className="w-24 text-xs text-ada-navy/60 font-outfit shrink-0">{label}</span>
-                            <div className="flex-1 h-2 bg-ada-navy/5 rounded-full overflow-hidden">
-                              <div
-                                className={`h-full rounded-full ${
-                                  score >= 90 ? 'bg-emerald-400' : score >= 80 ? 'bg-blue-400' : 'bg-red-400'
-                                }`}
-                                style={{ width: `${Math.max(0, Math.min(100, score))}%` }}
-                              />
-                            </div>
-                            <span className={`w-8 text-right text-xs font-outfit font-semibold ${
-                              score >= 90 ? 'text-emerald-600' : score >= 80 ? 'text-blue-600' : 'text-red-600'
-                            }`}>{score}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
+    <span className="inline-flex items-center box-border min-h-[26px] px-2.5 border-[1.5px] border-solid border-ada2-lapsed rounded-[2px] bg-white font-bold text-[12px] leading-none tracking-[0.08em] uppercase whitespace-nowrap text-ada2-lapsed-text">
+      {children}
+    </span>
   );
 }
 
-function LangToggle({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
+function ResultTag({ passed, label }: { passed: boolean; label: string }) {
   return (
-    <button
-      onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
-      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 text-xs font-outfit text-white/50 hover:text-white hover:border-white/20 transition-colors"
-      title={lang === 'en' ? '切换中文' : 'Switch to English'}
+    <span
+      className={cn(
+        'inline-flex items-center gap-1.5 box-border min-h-[26px] px-2.5 border-[1.5px] border-solid rounded-[2px]',
+        'font-bold text-[12px] leading-none tracking-[0.08em] uppercase whitespace-nowrap',
+        passed ? 'bg-ada2-good-bg text-ada2-good-text border-transparent' : 'bg-white text-ada2-lapsed-text border-ada2-lapsed'
+      )}
     >
-      <Globe className="w-3.5 h-3.5" />
-      {lang === 'en' ? '中文' : 'EN'}
-    </button>
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" aria-hidden="true" focusable="false">
+        {passed ? <path d="M3.5 8.5l3 3 6-7" /> : <path d="M4 8h8" />}
+      </svg>
+      {label}
+    </span>
+  );
+}
+
+function DownloadGlyph() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true" focusable="false">
+      <path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19.5h14" />
+    </svg>
+  );
+}
+
+function ChevronGlyph({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+      focusable="false"
+      className={cn('flex-none transition-transform motion-reduce:transition-none', open && 'rotate-180')}
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+
+const inputClass =
+  'w-full min-w-0 box-border h-[52px] px-4 bg-white border-[1.5px] border-solid border-ada2-muted rounded-[4px] text-[18px] text-ada2-ink appearance-none placeholder:text-ada2-muted';
+const fieldLabelClass = 'text-[16px] leading-[22px] font-semibold text-ada2-ink';
+const hintClass = 'm-0 text-[15px] leading-[22px] text-ada2-muted [text-wrap:pretty]';
+const h2Class = 'm-0 text-[36px] leading-[44px] font-light text-ada2-ink [text-wrap:balance]';
+const monoIdClass =
+  'font-record-mono font-medium tracking-[0.02em] whitespace-nowrap [font-variant-numeric:tabular-nums_slashed-zero]';
+
+// ============ COMPONENTS ============
+
+function ExamSection({ examResults, t, locale }: { examResults: ExamResult[]; t: Translate; locale: Locale }) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  return (
+    <section id="results" aria-labelledby="h-results" className="bg-white scroll-mt-4">
+      <div className="ada2-wrap pt-16 flex flex-col gap-4">
+        <h2 id="h-results" className={h2Class}>
+          {t('results.title')}
+        </h2>
+        {examResults.length === 0 ? (
+          <p className="m-0 text-ada2-body">{t('results.empty')}</p>
+        ) : (
+          <ul className="m-0 p-0 list-none border-t-2 border-ada2-ink">
+            {examResults.map((exam) => {
+              const isExpanded = expandedId === exam.id;
+              const credLabel = typeLabel(exam.exam_type, t);
+              const panelId = `scores-${exam.id}`;
+              return (
+                <li key={exam.id} className="border-b border-ada2-hairline">
+                  <button
+                    type="button"
+                    onClick={() => setExpandedId(isExpanded ? null : exam.id)}
+                    aria-expanded={isExpanded}
+                    aria-controls={panelId}
+                    className="w-full flex flex-wrap items-center justify-between gap-x-8 gap-y-3 box-border py-4 px-1 text-left bg-transparent border-0 cursor-pointer text-ada2-ink hover:bg-ada2-band"
+                  >
+                    <span className="flex flex-col gap-0.5 min-w-0">
+                      <span className="text-[20px] leading-7 font-semibold">{credLabel}</span>
+                      <span className="text-[16px] leading-6 text-ada2-body [font-variant-numeric:tabular-nums_lining-nums]">
+                        {formatDate(exam.exam_date, locale)}
+                        {' · '}
+                        {t('results.session')} <span className={cn(monoIdClass, 'text-[15px] text-ada2-body')}>{exam.exam_session}</span>
+                      </span>
+                    </span>
+                    <span className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                      <span className="flex items-baseline gap-1.5 [font-variant-numeric:tabular-nums_lining-nums]">
+                        <span className="text-[32px] leading-none font-semibold">{exam.overall_score}</span>
+                        <span className="text-[17px] leading-none text-ada2-muted">{t('results.outOf', { max: EXAM.maxScore })}</span>
+                      </span>
+                      <ResultTag passed={exam.passed} label={exam.passed ? t('results.passed') : t('results.notPassed')} />
+                      <span className="inline-flex items-center gap-2 min-h-[44px] text-[16px] leading-[22px] font-semibold">
+                        {isExpanded ? t('results.hide') : t('results.show')}
+                        <ChevronGlyph open={isExpanded} />
+                      </span>
+                    </span>
+                  </button>
+
+                  {isExpanded && (
+                    <div id={panelId} className="pb-6 pt-1">
+                      <ScoreTable
+                        caption={t('results.caption', { session: exam.exam_session })}
+                        colArea={t('results.colArea')}
+                        colScore={t('results.colScore')}
+                        colAgainst={t('results.colAgainst', { pass: EXAM.passScore })}
+                        rows={scoreKeys.map((key) => ({
+                          key,
+                          label: t(`results.areas.${key}`),
+                          score: Number(exam[key as keyof ExamResult]) || 0,
+                        }))}
+                        pass={EXAM.passScore}
+                        max={EXAM.maxScore}
+                        atOrAbove={t('results.atOrAbove', { pass: EXAM.passScore })}
+                        below={t('results.below', { pass: EXAM.passScore })}
+                      />
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+    </section>
   );
 }
 
 // ============ MAIN ============
 
 export default function PortalPage() {
+  const t = useTranslations('portal');
+  const locale = useLocale() as Locale;
   const [data, setData] = useState<PortalData | null>(null);
   const [idCode, setIdCode] = useState('');
   const [contactValue, setContactValue] = useState('');
   const [contactMethod, setContactMethod] = useState<'email' | 'phone'>('email');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [lang, setLang] = useState<Lang>('en');
-
-  useEffect(() => {
-    setLang(detectLang());
-  }, []);
 
   useEffect(() => {
     document.title = data
-      ? `${data.doula.full_name} — ${t[lang].credentialPortal} | Asian Doula Alliance`
-      : `${t[lang].credentialPortal} | Asian Doula Alliance`;
-  }, [data, lang]);
-
-  const labels = t[lang];
+      ? t('meta.titleSignedIn', { name: data.doula.full_name })
+      : t('meta.titleSignedOut');
+  }, [data, t]);
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
@@ -385,9 +299,11 @@ export default function PortalPage() {
       const result = await res.json();
 
       if (res.ok) setData(result);
-      else setError(result.error || 'Verification failed.');
+      else if (res.status === 429) setError(t('signIn.errors.tooMany'));
+      else if (res.status === 401) setError(t('signIn.errors.noMatch', { method: contactMethod }));
+      else setError(t('signIn.errors.failed'));
     } catch {
-      setError(labels.networkError);
+      setError(t('signIn.errors.network'));
     } finally {
       setLoading(false);
     }
@@ -400,350 +316,537 @@ export default function PortalPage() {
     setError('');
   }
 
-  // ============ LOGIN FORM ============
+  const photoDate = new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : htmlLang[locale], {
+    year: 'numeric',
+    month: 'long',
+    timeZone: 'UTC',
+  }).format(PHOTO_DATE);
+
+  // ============ SIGN-IN FORM ============
   if (!data) {
+    const isEmail = contactMethod === 'email';
     return (
       <>
-        <section className="bg-ada-navy pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: 'repeating-linear-gradient(45deg, white 0, white 1px, transparent 1px, transparent 12px)',
-          }} />
-          <div className="relative max-w-[1000px] mx-auto px-6 text-center">
-            {/* Language toggle */}
-            <div className="absolute top-0 right-6">
-              <button
-                onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 text-xs font-outfit text-white/50 hover:text-white hover:border-white/20 transition-colors"
-              >
-                <Globe className="w-3.5 h-3.5" />
-                {lang === 'en' ? '中文' : 'EN'}
-              </button>
-            </div>
+        <Breadcrumb items={[{ label: t('breadcrumb.signIn') }]} />
 
-            <div className="flex items-center justify-center mb-8">
-              <div className="w-20 h-20 rounded-full border-2 border-white/20 flex items-center justify-center bg-white/5">
-                <Image src="/images/ada-logo-white.svg" alt="ADA Seal" width={44} height={44} />
-              </div>
-            </div>
-            <p className="font-outfit text-xs font-semibold tracking-[0.25em] uppercase text-white/50 mb-3">
-              Asian Doula Alliance
-            </p>
-            <h1 className="font-dm-serif text-4xl md:text-5xl text-white">
-              {labels.credentialPortal}
-            </h1>
-            <p className="mt-5 text-base text-white/50 font-outfit max-w-lg mx-auto leading-relaxed">
-              {labels.portalSubtitle}
-            </p>
-          </div>
-        </section>
-
-        <section className="py-20 bg-gray-50/50">
-          <div className="max-w-[440px] mx-auto px-6">
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-200/80 overflow-hidden">
-              <div className="px-8 pt-8 pb-6 border-b border-gray-100">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-ada-purple/10 flex items-center justify-center">
-                    <ShieldCheck className="w-4 h-4 text-ada-purple" />
-                  </div>
-                  <h2 className="font-outfit font-semibold text-ada-navy text-lg">
-                    {labels.signIn}
-                  </h2>
-                </div>
-                <p className="text-sm text-ada-navy/50 font-outfit">
-                  {labels.signInDesc}
+        <div className="flex flex-col gap-20 pt-12 pb-[104px]">
+          <div className="ada2-wrap flex flex-wrap items-start gap-x-16 gap-y-12">
+            <div className="flex-[3_1_560px] min-w-0 flex flex-col gap-7">
+              <div className="flex flex-col gap-4">
+                <h1 className="m-0 text-[clamp(40px,3.9vw,56px)] leading-[1.15] font-light text-ada2-ink [text-wrap:balance]">
+                  {t('signIn.title')}
+                </h1>
+                <p className="m-0 max-w-[640px] text-[22px] leading-[31px] font-light text-ada2-body [text-wrap:pretty]">
+                  {t('signIn.lead')}
                 </p>
               </div>
 
-              <form onSubmit={handleVerify} className="px-8 py-6 space-y-5">
-                <div>
-                  <label htmlFor="idCode" className="block text-sm font-outfit font-medium text-ada-navy mb-1.5">
-                    {labels.doulaIdCode}
-                  </label>
-                  <input
-                    id="idCode"
-                    type="text"
-                    value={idCode}
-                    onChange={(e) => setIdCode(e.target.value)}
-                    placeholder="#25-0001"
-                    required
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-ada-navy font-outfit text-sm focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple placeholder:text-gray-400"
-                  />
-                </div>
+              <section
+                aria-labelledby="signin-title"
+                className="box-border px-[clamp(20px,2.4vw,36px)] pt-7 pb-8 bg-ada2-band border-t-2 border-ada2-ink"
+              >
+                <form onSubmit={handleVerify} className="flex flex-col gap-[22px]">
+                  <h2 id="signin-title" className="m-0 text-[28px] leading-[35px] font-light text-ada2-ink">
+                    {t('signIn.formTitle')}
+                  </h2>
 
-                <div>
-                  <label className="block text-sm font-outfit font-medium text-ada-navy mb-1.5">
-                    {labels.verifyWith}
-                  </label>
-                  <div className="flex border border-gray-300 rounded-lg overflow-hidden mb-3">
-                    <button
-                      type="button"
-                      aria-pressed={contactMethod === 'email'}
-                      onClick={() => { setContactMethod('email'); setContactValue(''); }}
-                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 text-sm font-outfit font-medium transition-colors ${
-                        contactMethod === 'email'
-                          ? 'bg-ada-navy text-white'
-                          : 'bg-white text-ada-navy/50 hover:bg-gray-50'
-                      }`}
-                    >
-                      <Mail className="w-3.5 h-3.5" /> {labels.email}
-                    </button>
-                    <button
-                      type="button"
-                      aria-pressed={contactMethod === 'phone'}
-                      onClick={() => { setContactMethod('phone'); setContactValue(''); }}
-                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 text-sm font-outfit font-medium transition-colors border-l border-gray-300 ${
-                        contactMethod === 'phone'
-                          ? 'bg-ada-navy text-white'
-                          : 'bg-white text-ada-navy/50 hover:bg-gray-50'
-                      }`}
-                    >
-                      <Phone className="w-3.5 h-3.5" /> {labels.phone}
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="idCode" className={fieldLabelClass}>
+                      {t('signIn.doulaId')}
+                    </label>
+                    <input
+                      id="idCode"
+                      type="text"
+                      value={idCode}
+                      onChange={(e) => setIdCode(e.target.value)}
+                      required
+                      autoComplete="off"
+                      spellCheck={false}
+                      aria-describedby="idCode-hint"
+                      className={cn(inputClass, 'max-w-[320px] [font-variant-numeric:tabular-nums_lining-nums]')}
+                    />
+                    <p id="idCode-hint" className={hintClass}>
+                      {t('signIn.doulaIdHint', { example: DOULA_ID_EXAMPLE })}
+                    </p>
+                  </div>
+
+                  <fieldset className="min-w-0 m-0 p-0 border-0">
+                    <legend className="p-0 pb-2 text-[16px] leading-[22px] font-semibold text-ada2-ink">
+                      {t('signIn.method')}
+                    </legend>
+                    <div className="inline-flex flex-wrap gap-1 p-1 border border-solid border-ada2-hairline rounded-full bg-white">
+                      {(['email', 'phone'] as const).map((method) => {
+                        const on = contactMethod === method;
+                        return (
+                          <button
+                            key={method}
+                            type="button"
+                            aria-pressed={on}
+                            onClick={() => { setContactMethod(method); setContactValue(''); }}
+                            className={cn(
+                              'min-h-[44px] px-[18px] border-0 rounded-full text-[16px] leading-5 font-semibold cursor-pointer whitespace-nowrap',
+                              on ? 'bg-ada2-ink text-white' : 'bg-white text-ada2-ink hover:bg-ada2-band'
+                            )}
+                          >
+                            {method === 'email' ? t('signIn.methodEmail') : t('signIn.methodPhone')}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </fieldset>
+
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="contactValue" className={fieldLabelClass}>
+                      {isEmail ? t('signIn.emailLabel') : t('signIn.phoneLabel')}
+                    </label>
+                    <input
+                      id="contactValue"
+                      type={isEmail ? 'email' : 'tel'}
+                      inputMode={isEmail ? 'email' : 'tel'}
+                      autoComplete={isEmail ? 'email' : 'tel'}
+                      spellCheck={false}
+                      value={contactValue}
+                      onChange={(e) => setContactValue(e.target.value)}
+                      placeholder={isEmail ? 'name@example.com' : undefined}
+                      required
+                      aria-describedby="contactValue-hint"
+                      className={cn(inputClass, !isEmail && '[font-variant-numeric:tabular-nums_lining-nums]')}
+                    />
+                    <p id="contactValue-hint" className={hintClass}>
+                      {isEmail ? t('signIn.emailHint') : t('signIn.phoneHint')}
+                    </p>
+                  </div>
+
+                  {error && (
+                    <p role="alert" className="m-0 pl-3.5 border-l-4 border-solid border-ada2-suspended text-[16px] leading-6 text-ada2-ink">
+                      {error}
+                    </p>
+                  )}
+
+                  <div>
+                    <button type="submit" disabled={loading} className={pillClassName('primary')}>
+                      {loading ? t('signIn.submitting') : t('signIn.submit')}
                     </button>
                   </div>
-                  <input
-                    type={contactMethod === 'email' ? 'email' : 'tel'}
-                    value={contactValue}
-                    onChange={(e) => setContactValue(e.target.value)}
-                    placeholder={contactMethod === 'email' ? 'your@email.com' : '(626) 555-1234'}
-                    required
-                    aria-label={contactMethod === 'email' ? labels.email : labels.phone}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-ada-navy font-outfit text-sm focus:outline-none focus:ring-2 focus:ring-ada-purple/30 focus:border-ada-purple placeholder:text-gray-400"
-                  />
+
+                  <p className="m-0 pt-4 border-t border-ada2-hairline text-[15px] leading-[22px] text-ada2-muted [text-wrap:pretty]">
+                    {t('signIn.note')}
+                  </p>
+                </form>
+              </section>
+            </div>
+
+            <section aria-labelledby="who-title" className="flex-[2_1_380px] min-w-0 flex flex-col gap-4 pt-2">
+              <h2 id="who-title" className="m-0 text-[28px] leading-[35px] font-light text-ada2-ink">
+                {t('who.title')}
+              </h2>
+              <dl className="m-0 flex flex-col border-t-2 border-ada2-ink">
+                <div className="flex flex-col gap-0.5 py-3.5 border-b border-ada2-hairline">
+                  <dt className="text-[17px] leading-6 font-semibold text-ada2-ink">{t('who.doulasTitle')}</dt>
+                  <dd className="m-0 text-[16px] leading-6 text-ada2-body [text-wrap:pretty]">{t('who.doulasBody')}</dd>
                 </div>
-
-                {error && (
-                  <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-100 rounded-lg">
-                    <p className="text-sm text-red-700 font-outfit">{error}</p>
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-2.5 rounded-lg bg-ada-purple text-white font-outfit font-semibold text-sm hover:bg-ada-purple-hover transition-colors disabled:opacity-50"
-                >
-                  {loading ? labels.verifying : labels.accessPortal}
-                </button>
-              </form>
-            </div>
-
-            <div className="mt-6 text-center space-y-1.5">
-              <p className="text-xs text-ada-navy/35 font-outfit">
-                {labels.idHint}
-              </p>
-              <p className="text-xs text-ada-navy/35 font-outfit">
-                {labels.verifyDoula}{' '}
-                <Link href="/verify" className="text-ada-purple hover:underline font-medium">
-                  {labels.publicVerification} &rarr;
-                </Link>
-              </p>
-            </div>
+                <div className="flex flex-col gap-0.5 py-3.5 border-b border-ada2-hairline">
+                  <dt className="text-[17px] leading-6 font-semibold text-ada2-ink">{t('who.familiesTitle')}</dt>
+                  <dd className="m-0 text-[16px] leading-6 text-ada2-body [text-wrap:pretty]">{t('who.familiesBody')}</dd>
+                  <dd className="m-0">
+                    <ArrowLink href="/verify" tone="registry" size="sm">
+                      {t('who.familiesLink')}
+                    </ArrowLink>
+                  </dd>
+                </div>
+                <div className="flex flex-col gap-0.5 py-3.5 border-b border-ada2-hairline">
+                  <dt className="text-[17px] leading-6 font-semibold text-ada2-ink">{t('who.staffTitle')}</dt>
+                  <dd className="m-0 text-[16px] leading-6 text-ada2-body [text-wrap:pretty]">{t('who.staffBody')}</dd>
+                  <dd className="m-0">
+                    <ArrowLink href="/admin/login" size="sm">
+                      {t('who.staffLink')}
+                    </ArrowLink>
+                  </dd>
+                </div>
+              </dl>
+            </section>
           </div>
-        </section>
+
+          <RuledRows
+            id="trouble-title"
+            title={t('trouble.title')}
+            image={{
+              src: '/images/2026/ada-care-seated.jpg',
+              alt: t('trouble.photoAlt'),
+              caption: t('trouble.photoCaption', { date: photoDate }),
+            }}
+            rows={[
+              { label: t('trouble.idTitle'), value: t('trouble.idBody') },
+              { label: t('trouble.methodTitle'), value: t('trouble.methodBody') },
+              {
+                label: t('trouble.askTitle'),
+                value: t('trouble.askBody', { email: CONTACT.email, phone: PHONE }),
+              },
+            ]}
+          />
+        </div>
       </>
     );
   }
 
-  // ============ DASHBOARD ============
+  // ============ SIGNED IN ============
   const { doula, credentials, certificates, exam_results } = data;
-  const statusStyle = statusStyles[doula.status];
-  const statusLabel = labels[`status_${doula.status}` as keyof typeof labels] as string || doula.status;
+  const isActive = doula.status === 'active';
+  const statusKey = `standing.status.${doula.status}`;
+  const statusLabel = t.has(statusKey as never) ? t(statusKey as never) : doula.status;
+  const activeCredentials = credentials.filter((c) => c.status === 'active');
+
+  const standingBody = isActive
+    ? t('standing.bodyActive', { count: activeCredentials.length })
+    : doula.status === 'registered'
+      ? t('standing.bodyRegistered')
+      : doula.status === 'under_investigation'
+        ? t('standing.bodyReview')
+        : t('standing.bodyOther');
+
+  // Credentials joined with their active certificate (same type); active
+  // certificates with no matching credential (e.g. trainer, cpr) get their own row.
+  const activeCerts = certificates.filter((c) => c.status === 'active');
+  const usedCerts = new Set<string>();
+  type Row = {
+    key: string;
+    label: string;
+    tag: ReactNode;
+    cert: Certificate | null;
+    certified: string | null;
+    expires: string | null;
+    isCredential: boolean;
+  };
+  const credentialTag = (status: string) => {
+    const kind = credentialStatusTag(status);
+    if (kind) return <StatusTag status={kind} />;
+    return <PlainTag>{status === 'under_investigation' ? t('credentials.underReview') : status}</PlainTag>;
+  };
+  const rows: Row[] = [
+    ...credentials.map((cred) => {
+      const cert = activeCerts.find((c) => c.certificate_type === cred.credential_type && !usedCerts.has(c.id)) ?? null;
+      if (cert) usedCerts.add(cert.id);
+      return {
+        key: `cred-${cred.credential_type}`,
+        label: typeLabel(cred.credential_type, t),
+        tag: credentialTag(cred.status),
+        cert,
+        certified: cred.certification_date,
+        expires: cred.expiration_date,
+        isCredential: true,
+      };
+    }),
+    ...activeCerts
+      .filter((c) => !usedCerts.has(c.id))
+      .map((cert) => {
+        const kind = certificateStatusTag(cert.status);
+        return {
+          key: `cert-${cert.id}`,
+          label: typeLabel(cert.certificate_type, t),
+          tag: kind ? <StatusTag status={kind} /> : <PlainTag>{cert.status}</PlainTag>,
+          cert,
+          certified: cert.issued_date,
+          expires: null,
+          isCredential: false,
+        };
+      }),
+  ];
+
+  // The credential that expires next (for the standing panel and the renewal CTA).
+  const nextToExpire =
+    activeCredentials
+      .filter((c) => c.expiration_date)
+      .sort((a, b) => (a.expiration_date! < b.expiration_date! ? -1 : 1))[0] ?? null;
+
+  const publicRecordHref = `/verify/${encodeURIComponent(doula.doula_id_code.replace(/^#/, ''))}`;
+  const certHref = (cert: Certificate) => `/verify/${encodeURIComponent(cert.certificate_number)}`;
+
+  const validThrough = (row: Row) => {
+    if (!row.isCredential) return <span className="text-ada2-muted">—</span>;
+    const exp = expiryText(row.expires, t);
+    return (
+      <span className="flex flex-col gap-0.5">
+        <span className="font-semibold text-ada2-ink">
+          {row.expires ? formatDate(row.expires, locale) : t('credentials.noExpiry')}
+        </span>
+        {exp ? <span className={cn('text-[14px] leading-5', EXPIRY_TONE[exp.tone])}>{exp.text}</span> : null}
+      </span>
+    );
+  };
+
+  const certNumber = (row: Row) =>
+    row.cert ? (
+      <a
+        href={certHref(row.cert)}
+        className={cn(monoIdClass, 'text-[15px] text-ada2-blossom underline underline-offset-[3px] hover:text-ada2-blossom-hover')}
+      >
+        {row.cert.certificate_number}
+      </a>
+    ) : (
+      <span className="text-ada2-muted">{t('credentials.noCertificate')}</span>
+    );
+
+  const download = (row: Row, full = false) =>
+    row.cert?.pdf_url ? (
+      <a
+        href={row.cert.pdf_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t('credentials.downloadLabel', { credential: row.label, number: row.cert.certificate_number })}
+        className={pillClassName('secondary', full ? 'md' : 'sm', full ? 'w-full' : undefined)}
+      >
+        <DownloadGlyph />
+        {full ? t('credentials.downloadPdf') : t('credentials.download')}
+      </a>
+    ) : row.cert ? (
+      <span className="text-[15px] leading-5 text-ada2-muted">{t('credentials.noPdf')}</span>
+    ) : null;
+
+  const profileRows = [
+    doula.email ? { label: t('profile.email'), value: <span className="[overflow-wrap:anywhere]">{doula.email}</span> } : null,
+    doula.phone ? { label: t('profile.phone'), value: doula.phone } : null,
+    doula.languages && doula.languages.length > 0 ? { label: t('profile.languages'), value: doula.languages.join(', ') } : null,
+    doula.region ? { label: t('profile.region'), value: doula.region } : null,
+  ].filter(Boolean) as { label: string; value: ReactNode }[];
+
+  const navItems = [
+    { href: '#standing', label: t('account.nav.standing') },
+    { href: '#credentials', label: t('account.nav.credentials') },
+    { href: '#results', label: t('account.nav.results') },
+    { href: '#profile', label: t('account.nav.profile') },
+    { href: '#help', label: t('account.nav.help') },
+  ];
 
   return (
     <>
-      {/* Header */}
-      <section className="bg-ada-navy pt-32 pb-12 md:pt-40 md:pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, white 0, white 1px, transparent 1px, transparent 12px)',
-        }} />
-        <div className="relative max-w-[1000px] mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-full bg-ada-purple/20 flex items-center justify-center border-2 border-ada-purple/30 shrink-0">
-                <User className="w-7 h-7 text-ada-purple" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <Image src="/images/ada-logo-white.svg" alt="ADA" width={18} height={18} className="opacity-40" />
-                  <span className="font-outfit text-xs font-semibold tracking-[0.2em] uppercase text-white/30">
-                    {labels.credentialPortal}
+      <Breadcrumb items={[{ label: t('breadcrumb.account') }]} />
+
+      {/* Page head: plain H1, identity, section links */}
+      <section aria-labelledby="page-title" className="bg-white">
+        <div className="ada2-wrap pt-10 flex flex-col gap-3">
+          <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+            <div className="flex flex-col gap-3 min-w-0">
+              <h1 id="page-title" className="m-0 text-[clamp(40px,3.9vw,56px)] leading-[1.15] font-light text-ada2-ink [text-wrap:balance]">
+                {t('account.title')}
+              </h1>
+              <p className="m-0 flex flex-wrap items-baseline gap-x-4 gap-y-0.5 text-[22px] leading-[31px] font-light text-ada2-body">
+                <span className="font-semibold text-ada2-ink">{doula.full_name}</span>
+                {doula.full_name_zh && (
+                  <span lang="zh-Hans" className="font-normal text-ada2-muted">
+                    {doula.full_name_zh}
                   </span>
-                </div>
-                <h1 className="font-outfit text-xl md:text-2xl font-semibold text-white">
-                  {doula.full_name}
-                  {doula.full_name_zh && (
-                    <span className="text-white/30 ml-2 text-lg">({doula.full_name_zh})</span>
-                  )}
-                </h1>
-                <div className="mt-1 flex items-center gap-3">
-                  <span className="font-mono text-xs text-white/60">{doula.doula_id_code}</span>
-                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold font-outfit ${
-                    statusStyle?.bg || 'bg-gray-50 text-gray-600'
-                  }`}>
-                    <span className={`w-1.5 h-1.5 rounded-full ${statusStyle?.dot || 'bg-gray-400'}`} />
-                    {statusLabel}
-                  </span>
-                </div>
-              </div>
+                )}
+                <span className="text-[17px] leading-6 font-normal text-ada2-muted">
+                  {t('account.doulaId')}{' '}
+                  <span className={cn(monoIdClass, 'text-[17px] text-ada2-blossom')}>{doula.doula_id_code}</span>
+                </span>
+              </p>
             </div>
-            <div className="flex items-center gap-2 self-start md:self-auto">
-              <LangToggle lang={lang} setLang={setLang} />
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 text-sm font-outfit text-white/50 hover:text-white hover:border-white/20 transition-colors"
-              >
-                <LogOut className="w-4 h-4" /> {labels.signOut}
-              </button>
-            </div>
+            <Pill variant="secondary" onClick={handleLogout}>
+              {t('account.signOut')}
+            </Pill>
           </div>
+          <nav
+            aria-label={t('account.sectionsLabel')}
+            className="mt-3 hidden md:flex flex-wrap items-center gap-x-7 border-y border-ada2-hairline text-[16px] leading-5"
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="inline-flex items-center min-h-[48px] text-ada2-body no-underline hover:text-ada2-ink hover:underline underline-offset-4"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
         </div>
       </section>
 
-      {/* Main content — reordered: Certificates → Exams → Credentials → Profile */}
-      <section className="py-12 bg-white">
-        <div className="max-w-[1000px] mx-auto px-6 space-y-12">
+      {/* Standing + right-rail CTA */}
+      <div className="ada2-wrap pt-8 flex flex-wrap items-start gap-x-12 gap-y-8">
+        <section
+          id="standing"
+          aria-labelledby="h-standing"
+          className="flex-[999_1_560px] min-w-0 box-border px-[clamp(20px,2vw,28px)] pt-6 pb-7 bg-ada2-band border-t-2 border-ada2-ink flex flex-col gap-4 scroll-mt-4"
+        >
+          <h2 id="h-standing" className="m-0 text-[17px] leading-[22px] font-semibold text-ada2-ink">
+            {t('standing.title')}
+          </h2>
+          <div className="flex items-center gap-3.5">
+            {isActive ? (
+              <svg width="34" height="34" viewBox="0 0 16 16" fill="none" stroke="#1D6A45" strokeWidth="1.8" strokeLinecap="square" aria-hidden="true" focusable="false" className="flex-none">
+                <path d="M3.5 8.5l3 3 6-7" />
+              </svg>
+            ) : null}
+            <p className="m-0 text-[clamp(32px,3vw,40px)] leading-[1.2] font-light text-ada2-ink">
+              {isActive ? t('standing.goodStanding') : statusLabel}
+            </p>
+          </div>
+          <p className="m-0 max-w-[760px] text-ada2-body [text-wrap:pretty]">{standingBody}</p>
+          <dl className="m-0 flex flex-wrap gap-x-12 gap-y-4 py-4 border-y border-ada2-hairline [font-variant-numeric:tabular-nums_lining-nums]">
+            <div className="flex flex-col gap-0.5">
+              <dt className="text-[14px] leading-5 font-semibold text-ada2-muted">{t('standing.statActive')}</dt>
+              <dd className="m-0 text-[20px] leading-7 font-semibold text-ada2-ink">{activeCredentials.length}</dd>
+            </div>
+            {nextToExpire ? (
+              <div className="flex flex-col gap-0.5">
+                <dt className="text-[14px] leading-5 font-semibold text-ada2-muted">
+                  {t('standing.statValidThrough', { credential: typeLabel(nextToExpire.credential_type, t) })}
+                </dt>
+                <dd className="m-0 text-[20px] leading-7 font-semibold text-ada2-ink">
+                  {formatDate(nextToExpire.expiration_date, locale)}
+                </dd>
+              </div>
+            ) : null}
+            <div className="flex flex-col gap-0.5">
+              <dt className="text-[14px] leading-5 font-semibold text-ada2-muted">{t('standing.statCertificates')}</dt>
+              <dd className="m-0 text-[20px] leading-7 font-semibold text-ada2-ink">{activeCerts.length}</dd>
+            </div>
+          </dl>
+          <div className="flex flex-wrap items-center justify-end">
+            <ArrowLink href={publicRecordHref} tone="registry">
+              {t('standing.publicRecord')}
+            </ArrowLink>
+          </div>
+        </section>
+        {nextToExpire ? (
+          <CtaBox
+            title={t('cta.renew', {
+              credential: typeLabel(nextToExpire.credential_type, t),
+              date: formatDate(nextToExpire.expiration_date, locale),
+            })}
+            action={{ href: '/for-doulas/renew', label: t('cta.renewAction') }}
+          />
+        ) : null}
+      </div>
 
-          {/* 1. Certificates — most important, doulas need to download their PDF */}
-          <div>
-            <h2 className="font-outfit font-semibold text-ada-navy text-lg mb-5">
-              <FileText className="w-5 h-5 inline-block mr-2 text-ada-purple" />
-              {labels.certificates}
-            </h2>
-            {certificates.filter(c => c.status === 'active').length === 0 ? (
-              <p className="text-sm text-ada-navy/40 font-outfit">{labels.certificatesEmpty}</p>
-            ) : (
-              <div className="space-y-3">
-                {certificates.filter(c => c.status === 'active').map((cert) => (
-                  <div key={cert.id} className={`flex items-center justify-between border border-gray-200 rounded-xl px-6 py-4 ${cert.status !== 'active' ? 'opacity-50' : ''}`}>
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-ada-purple/10 flex items-center justify-center shrink-0">
-                        <FileText className="w-5 h-5 text-ada-purple/60" />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <p className="font-outfit font-semibold text-ada-navy text-sm">{cert.certificate_number}</p>
-                          {cert.status === 'superseded' && (
-                            <span className="text-[10px] font-outfit font-semibold px-1.5 py-0.5 rounded bg-gray-100 text-gray-400">
-                              {labels.superseded}
-                            </span>
-                          )}
-                          {cert.status === 'revoked' && (
-                            <span className="text-[10px] font-outfit font-semibold px-1.5 py-0.5 rounded bg-red-100 text-red-500">
-                              {lang === 'zh' ? '已撤销' : 'Revoked'}
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-xs text-ada-navy/40 font-outfit">{labels.issued} {formatDate(cert.issued_date, lang)}</p>
-                      </div>
+      {/* Credentials and certificates */}
+      <section id="credentials" aria-labelledby="h-cred" className="bg-white scroll-mt-4">
+        <div className="ada2-wrap pt-14 flex flex-col gap-4">
+          <h2 id="h-cred" className={h2Class}>
+            {t('credentials.title')}
+          </h2>
+          {rows.length === 0 ? (
+            <p className="m-0 text-ada2-body">{t('credentials.empty')}</p>
+          ) : (
+            <>
+              {/* Desktop: dark-header table */}
+              <div className="hidden lg:block overflow-x-auto border border-ada2-hairline">
+                <table className="w-full border-collapse bg-white text-[16px] leading-[22px] [font-variant-numeric:tabular-nums_lining-nums]">
+                  <caption className="ada2-sr">
+                    {t('credentials.caption', { name: doula.full_name, id: doula.doula_id_code })}
+                  </caption>
+                  <thead>
+                    <tr className="bg-ada2-table-head text-white">
+                      {[
+                        t('credentials.colCredential'),
+                        t('credentials.colStatus'),
+                        t('credentials.colCertificate'),
+                        t('credentials.colCertified'),
+                        t('credentials.colValidThrough'),
+                        t('credentials.colPdf'),
+                      ].map((label) => (
+                        <th key={label} scope="col" className="text-left align-bottom py-3 px-4 text-[14px] leading-[18px] font-semibold">
+                          {label}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows.map((row) => (
+                      <tr key={row.key} className="border-b border-ada2-hairline last:border-b-0">
+                        <th scope="row" className="text-left py-2.5 px-4 font-bold text-ada2-ink whitespace-nowrap">
+                          {row.label}
+                        </th>
+                        <td className="py-2.5 px-4 whitespace-nowrap">{row.tag}</td>
+                        <td className="py-2.5 px-4 whitespace-nowrap">{certNumber(row)}</td>
+                        <td className="py-2.5 px-4 whitespace-nowrap">{formatDate(row.certified, locale)}</td>
+                        <td className="py-2.5 px-4 whitespace-nowrap">{validThrough(row)}</td>
+                        <td className="py-2 px-4">{download(row)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Phone: one ruled block per credential (MyADAMobile) */}
+              <ul className="lg:hidden m-0 p-0 list-none flex flex-col gap-6">
+                {rows.map((row) => (
+                  <li key={row.key} className="flex flex-col gap-3 pt-4 border-t-2 border-ada2-ink">
+                    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                      <h3 className="m-0 text-[20px] leading-[26px] font-semibold text-ada2-ink">{row.label}</h3>
+                      {row.tag}
                     </div>
-                    {cert.pdf_url ? (
-                      <a
-                        href={cert.pdf_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-ada-purple text-white text-xs font-outfit font-semibold hover:bg-ada-purple-hover transition-colors"
-                      >
-                        <Download className="w-3.5 h-3.5" /> {labels.download}
-                      </a>
-                    ) : (
-                      <span className="text-xs text-ada-navy/20 font-outfit">{labels.noPdf}</span>
-                    )}
+                    <dl className="m-0 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-[16px] leading-6 [font-variant-numeric:tabular-nums_lining-nums]">
+                      <dt className="text-ada2-body">{t('credentials.certificate')}</dt>
+                      <dd className="m-0 min-w-0">{certNumber(row)}</dd>
+                      <dt className="text-ada2-body">{t('credentials.colCertified')}</dt>
+                      <dd className="m-0 text-ada2-ink">{formatDate(row.certified, locale)}</dd>
+                      <dt className="text-ada2-body">{t('credentials.colValidThrough')}</dt>
+                      <dd className="m-0">{validThrough(row)}</dd>
+                    </dl>
+                    {row.cert?.pdf_url ? <div className="pt-1">{download(row, true)}</div> : download(row, true)}
+                  </li>
+                ))}
+              </ul>
+
+              {rows.some((r) => r.cert) ? (
+                <p className="m-0 text-[14px] leading-[21px] text-ada2-muted [text-wrap:pretty]">{t('credentials.footnote')}</p>
+              ) : null}
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* Exam results */}
+      <ExamSection examResults={exam_results} t={t} locale={locale} />
+
+      {/* Profile */}
+      <section id="profile" aria-labelledby="h-profile" className="bg-white scroll-mt-4">
+        <div className="ada2-wrap pt-16 flex flex-col gap-5">
+          <div className="max-w-[760px] flex flex-col gap-5">
+            <h2 id="h-profile" className={h2Class}>
+              {t('profile.title')}
+            </h2>
+            {profileRows.length > 0 ? (
+              <dl className="m-0 flex flex-col border-t-2 border-ada2-ink">
+                {profileRows.map((row) => (
+                  <div key={row.label} className="flex flex-wrap gap-x-6 gap-y-0.5 py-3 border-b border-ada2-hairline">
+                    <dt className="flex-[0_0_160px] font-semibold text-ada2-ink">{row.label}</dt>
+                    <dd className="flex-[1_1_300px] min-w-0 m-0 text-ada2-body">{row.value}</dd>
                   </div>
                 ))}
-              </div>
-            )}
-          </div>
-
-          {/* 2. Exam Results — second most important */}
-          <ExamSection examResults={exam_results} lang={lang} />
-
-          {/* 3. Credentials */}
-          <div>
-            <h2 className="font-outfit font-semibold text-ada-navy text-lg mb-5">
-              <ShieldCheck className="w-5 h-5 inline-block mr-2 text-ada-purple" />
-              {labels.credentials}
-            </h2>
-            {credentials.length === 0 ? (
-              <p className="text-sm text-ada-navy/40 font-outfit">{labels.credentialsEmpty}</p>
-            ) : (
-              <div className={`grid gap-4 ${credentials.length === 1 ? 'grid-cols-1 max-w-lg' : 'grid-cols-1 md:grid-cols-2'}`}>
-                {credentials.map((cred) => {
-                  const exp = expiryText(cred.expiration_date, lang);
-                  const credLabel = labels[`cred_${cred.credential_type}` as keyof typeof labels] as string || cred.credential_type;
-
-                  return (
-                    <div key={cred.credential_type} className="border-2 border-ada-navy/10 rounded-2xl p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-outfit font-semibold text-ada-navy">
-                          {credLabel}
-                        </h3>
-                        <StatusBadge status={cred.status} lang={lang} />
-                      </div>
-                      <div className="space-y-2 text-sm font-outfit">
-                        <div className="flex justify-between">
-                          <span className="text-ada-navy/40">{labels.certified}</span>
-                          <span className="text-ada-navy">{formatDate(cred.certification_date, lang)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-ada-navy/40">{labels.expires}</span>
-                          <span className="text-ada-navy">{cred.expiration_date ? formatDate(cred.expiration_date, lang) : labels.permanent}</span>
-                        </div>
-                      </div>
-                      {exp && (
-                        <div className="mt-4 pt-3 border-t border-ada-navy/5">
-                          <span className={`text-xs font-outfit font-semibold ${exp.color}`}>
-                            {exp.text}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* 4. Profile */}
-          <div>
-            <h2 className="font-outfit font-semibold text-ada-navy text-lg mb-5">
-              {labels.profile}
-            </h2>
-            <div className="border-2 border-ada-navy/10 rounded-2xl overflow-hidden">
-              <div className="divide-y divide-ada-navy/5">
-                {doula.email && (
-                  <div className="flex justify-between items-center px-6 py-4">
-                    <span className="text-sm text-ada-navy/40 font-outfit">{labels.email}</span>
-                    <span className="text-sm font-outfit text-ada-navy">{doula.email}</span>
-                  </div>
-                )}
-                {doula.phone && (
-                  <div className="flex justify-between items-center px-6 py-4">
-                    <span className="text-sm text-ada-navy/40 font-outfit">{labels.phone}</span>
-                    <span className="text-sm font-outfit text-ada-navy">{doula.phone}</span>
-                  </div>
-                )}
-                {doula.languages && doula.languages.length > 0 && (
-                  <div className="flex justify-between items-center px-6 py-4">
-                    <span className="text-sm text-ada-navy/40 font-outfit">{labels.languages}</span>
-                    <span className="text-sm font-outfit text-ada-navy">{doula.languages.join(', ')}</span>
-                  </div>
-                )}
-                {doula.region && (
-                  <div className="flex justify-between items-center px-6 py-4">
-                    <span className="text-sm text-ada-navy/40 font-outfit">{labels.region}</span>
-                    <span className="text-sm font-outfit text-ada-navy">{doula.region}</span>
-                  </div>
-                )}
-              </div>
-              <div className="bg-ada-navy/[0.03] px-6 py-3 border-t border-ada-navy/10">
-                <p className="text-xs text-ada-navy/30 font-outfit">
-                  {labels.profileUpdateNote}
-                </p>
-              </div>
-            </div>
+              </dl>
+            ) : null}
+            <p className="m-0 text-[15px] leading-[22px] text-ada2-muted [text-wrap:pretty]">
+              {t('profile.note', { email: CONTACT.email, phone: PHONE })}
+            </p>
           </div>
         </div>
       </section>
+
+      {/* Help */}
+      <div id="help" className="pt-16 pb-[72px] scroll-mt-4">
+        <LinkList
+          id="help-title"
+          title={t('help.title')}
+          items={[
+            {
+              href: '/for-doulas/renew',
+              label: t('help.renew'),
+              description: t('help.renewDesc', { years: CERTIFICATE.validityYears, fee: usd(RENEWAL.feeUsd) }),
+            },
+            { href: '/for-doulas/code-of-conduct', label: t('help.conduct'), description: t('help.conductDesc') },
+            { href: '/verify', label: t('help.registry'), description: t('help.registryDesc') },
+            {
+              href: '/support/contact',
+              label: t('help.contact'),
+              description: t('help.contactDesc', { email: CONTACT.email, phone: PHONE }),
+            },
+          ]}
+        />
+      </div>
     </>
   );
 }

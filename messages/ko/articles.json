@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "title": "News and articles",
+    "description": "News, educational resources and community stories from the Asian Doula Alliance.",
+    "notFound": "Article not found"
+  },
+  "breadcrumb": {
+    "about": "About ADA",
+    "list": "News and articles"
+  },
+  "title": "News and articles",
+  "lead": "News, educational resources and community stories from the Asian Doula Alliance.",
+  "listLabel": "Articles",
+  "filterLabel": "Filter by category",
+  "category": {
+    "all": "All",
+    "news": "News",
+    "education": "Education",
+    "community": "Community",
+    "certification": "Certification"
+  },
+  "noteAll": "All categories, newest first",
+  "noteCategory": "{category}, newest first",
+  "pageNote": "Page {page} of {pages}",
+  "empty": "No articles found in this category.",
+  "emptyAction": "See all articles",
+  "older": "Older articles",
+  "newer": "Newer articles",
+  "pagination": "More articles",
+  "press": "Press and media questions: <mail>{email}</mail>",
+  "cta": {
+    "examAction": "See exam dates",
+    "defaultTitle": "Become an ADA-certified postpartum doula.",
+    "defaultAction": "How to get certified"
+  },
+  "article": {
+    "byline": "By {author}",
+    "readingTime": "About {minutes, plural, one {# minute} other {# minutes}} to read",
+    "toc": "In this article",
+    "related": "Related",
+    "relatedMeta": "Article · {category} · {date}",
+    "all": "All news and articles",
+    "allDescription": "News, educational resources and community stories from ADA.",
+    "categoryLink": "More {category} articles",
+    "ctaCertificationTitle": "Become an ADA-certified postpartum doula.",
+    "ctaCertificationAction": "How to get certified",
+    "ctaEducationTitle": "Find ADA programs and continuing education.",
+    "ctaEducationAction": "See ADA education",
+    "ctaDefaultTitle": "Questions for ADA, or a story to share? Write to ADA.",
+    "ctaDefaultAction": "Contact ADA"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "title": "考试当天须知与身份证件要求",
+    "description": "ADA 考试前需要完成的事项、须携带的物品，以及考试当天和考试之后的安排。"
+  },
+  "breadcrumb": {
+    "candidates": "考生",
+    "current": "考试当天须知与身份证件要求"
+  },
+  "title": "考试当天须知与身份证件要求",
+  "lead": "ADA 考试前需要完成的事项、须携带的物品，以及考试当天和考试之后的安排。",
+  "scope": "适用于 ADA 产后导乐考试。",
+  "toc": {
+    "title": "本页内容",
+    "before": "考试之前",
+    "onTheDay": "考试当天",
+    "after": "考试之后"
+  },
+  "before": {
+    "title": "考试之前",
+    "register": "报名",
+    "registerValue": "请通过您的培训机构报名，或直接联系 ADA 报名：<mail>{email}</mail> 或 <tel>{phone}</tel>。",
+    "date": "考试日期",
+    "dateNoSession": "考试场次在每期培训结束后安排。<link>考试日期</link>",
+    "dateLink": "全部考试日期",
+    "language": "考试语言",
+    "languageValue": "报名时可选择{languages}。全部考试材料均以您所选的语言提供。"
+  },
+  "onTheDay": {
+    "title": "考试当天",
+    "imageAlt": "实操考试中，一位考生为训练娃娃洗澡，考官在旁观察，身后屏幕显示计时器",
+    "caption": "实操考试现场，屏幕上显示计时器。2024年8月。",
+    "bring": "须携带",
+    "bringValue": "政府签发的有效带照片身份证件。",
+    "where": "考试地点",
+    "written": "笔试",
+    "writtenValue": "{minutes} 分钟。",
+    "practical": "实操考试",
+    "practicalValue": "{minutes} 分钟，由 ADA 考官一对一进行。"
+  },
+  "after": {
+    "title": "考试之后",
+    "results": "成绩通知",
+    "resultsValue": "约 {days} 个工作日内以电子邮件发送。",
+    "score": "成绩内容",
+    "scoreValue": "满分 {max} 分的成绩及等级：高度熟练（Highly Proficient，{high} 分及以上）、熟练（Proficient，{pass}–{highBelow} 分）或未达熟练（Not Proficient，{pass} 分以下）。合格分数为 {pass}/{max}。",
+    "pass": "通过考试后",
+    "passValue": "ADA 将为您颁发有效期 {years} 年的证书，并在 ADA 认证注册名录中公布您的记录。<link>查询认证注册名录</link>",
+    "fail": "未通过考试",
+    "failValue": "可在上次考试后至少 {days} 天报名参加之后的考试日期。重考费为 {fee}。<link>考试日期</link>"
+  },
+  "cta": {
+    "title": "如对考试有任何疑问，请联系 ADA。",
+    "action": "联系 ADA"
+  },
+  "languages": {
+    "en": "英语",
+    "zh": "中文（普通话）",
+    "ja": "日语",
+    "ko": "韩语"
+  }
+}

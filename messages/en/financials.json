@@ -1,0 +1,87 @@
+{
+  "metaTitle": "Financial information",
+  "metaDescription": "Asian Doula Alliance’s tax status and EIN, its filings and governing documents, how donations are used, and how to request any document.",
+  "breadcrumbAbout": "About ADA",
+  "breadcrumb": "Financial information",
+  "title": "Financial information",
+  "lead": "ADA’s tax status, its filings and governing documents, and how donations are used.",
+  "cta": {
+    "title": "Ask the finance office for any document.",
+    "action": "Request a document",
+    "subject": "Document request"
+  },
+  "toc": {
+    "title": "On this page",
+    "taxStatus": "Tax status",
+    "documents": "{form990} and documents",
+    "donations": "How donations are used",
+    "accountability": "Accountability"
+  },
+  "tax": {
+    "title": "Tax status",
+    "legalName": "Legal name",
+    "legalNameValue": "{legalName}, doing business as {dba}",
+    "organization": "Organization",
+    "organizationValue": "A California nonprofit public benefit corporation, incorporated in {year}.",
+    "status": "Tax status",
+    "statusValue": "{taxCode} public charity.",
+    "ein": "EIN",
+    "donations": "Donations",
+    "donationsValue": "Tax-deductible to the fullest extent allowed by law.",
+    "office": "Office"
+  },
+  "documents": {
+    "title": "{form990} and documents",
+    "intro": "Each document below is available on request from the finance office.",
+    "caption": "ADA tax filings and governing documents, with their status",
+    "colDocument": "Document",
+    "colCovers": "Covers",
+    "colStatus": "Status*",
+    "colAction": "Request",
+    "form990Covers": "Fiscal year {year}, the first filing",
+    "irs": "IRS determination letter",
+    "irsCovers": "{taxCode} status",
+    "charitableTrusts": "California Registry of Charitable Trusts filings",
+    "charitableTrustsCovers": "Filings with the California Attorney General",
+    "bylaws": "Bylaws",
+    "bylawsCovers": "Current version",
+    "coi": "Conflict of interest policy",
+    "coiCovers": "Reviewed every year",
+    "onRequest": "On request",
+    "request": "Request",
+    "requestLabel": "Request: {document}",
+    "requestSubject": "Document request: {document}",
+    "noteRequests": "*Requests to <mail></mail> are answered within {days} business days.",
+    "note990": "†{form990} is the information return a tax-exempt organization files with the IRS each year."
+  },
+  "donations": {
+    "title": "How donations are used",
+    "intro": "Donations support ADA’s nonprofit work in these areas. ADA reports what it spends on its {form990}.",
+    "certification": "Certification and the registry",
+    "certificationValue": "Multilingual exam development, examiner training, upkeep of the training curriculum and the public verification registry.",
+    "scholarships": "Scholarships",
+    "scholarshipsValue": "Need-based grants toward exam and training fees for doulas from underserved Asian communities.",
+    "community": "Community programs",
+    "communityValue": "Workshops, family education events, partner outreach and translated postpartum care materials.",
+    "administration": "Administration",
+    "administrationValue": "Technology, accounting, legal and insurance. Directors are volunteers and are not paid.",
+    "privacy": "Donor privacy",
+    "privacyValue": "ADA never sells or shares donor lists with other organizations.",
+    "link": "Make a donation"
+  },
+  "accountability": {
+    "title": "Accountability",
+    "review": "An independent review of finances and program outcomes every year",
+    "form990": "A public {form990} every year, starting with fiscal year {year}",
+    "board": "A volunteer board of directors: no director receives compensation",
+    "coi": "A written conflict of interest policy, reviewed every year",
+    "policies": "Whistleblower and document-retention policies"
+  },
+  "more": {
+    "title": "More about ADA",
+    "boardLabel": "Board of directors and elections",
+    "boardBody": "The board’s {count} volunteer directors, and how certified doulas elect them.",
+    "governanceLabel": "Governance",
+    "governanceBody": "What ADA does and does not do, its legal entity and its documents."
+  }
+}

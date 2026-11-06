@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "title": "Postpartum Doula Candidate Handbook",
+    "description": "The ADA Postpartum Doula candidate handbook: who can apply, requirements, the written and practical exam, fees, results, renewal and the Code of Conduct."
+  },
+  "breadcrumb": "Candidate handbook",
+  "title": "Postpartum Doula candidate handbook",
+  "lead": "The ADA Postpartum Doula credential shows that a doula has passed ADA’s written and practical exams. This handbook sets out how to earn it and how to keep it.",
+  "scope": "A postpartum doula gives non-medical support to a family in the weeks after birth: newborn care, feeding, the parent’s recovery and the household’s adjustment. Medical concerns go to the family’s clinicians.",
+  "facts": {
+    "credential": "Credential",
+    "examFee": "Exam fee",
+    "examFeeValue": "{fee}, paid to ADA",
+    "exam": "Exam",
+    "examValue": "{written} min written, {practical} min practical",
+    "passMark": "Pass mark",
+    "passMarkValue": "{pass}/{max}",
+    "period": "Certification period"
+  },
+  "toc": {
+    "title": "On this page",
+    "apply": "Who can apply",
+    "requirements": "Requirements",
+    "exam": "The examination",
+    "fees": "Fees",
+    "results": "Results and your certificate",
+    "renewal": "Renewal",
+    "conduct": "Code of Conduct",
+    "questions": "Questions"
+  },
+  "apply": {
+    "graduates": {
+      "label": "ADA program graduates",
+      "value": "You completed an ADA-approved Postpartum Doula training program."
+    },
+    "experience": {
+      "label": "Prior experience",
+      "value": "None is required. ADA-approved programs take you from beginner to exam-ready."
+    }
+  },
+  "requirements": {
+    "r1": {
+      "title": "Complete an ADA-approved training program",
+      "body": "{count} modules, usually <b>{days} days</b> of intensive instruction, in person or online. American Red Cross Infant CPR is included. Training fees vary by provider."
+    },
+    "r2": {
+      "title": "Register for an exam date and pay {fee}",
+      "body": "Your training provider guides you through registration, or you can contact ADA. Choose your exam language when you register."
+    },
+    "r3": {
+      "title": "Bring a valid government-issued photo ID",
+      "body": "You need it on exam day. <link>What to bring</link>"
+    },
+    "r4": {
+      "title": "Pass the written and the practical exam",
+      "body": "The pass mark is <b>{pass}/{max}</b>."
+    },
+    "r5": {
+      "title": "Uphold the ADA Code of Conduct",
+      "body": "The professional and ethical standards every ADA-certified doula is expected to uphold. <link>What they say</link>"
+    }
+  },
+  "exam": {
+    "intro": "The exam has two parts: a written exam and a one-on-one practical exam with a certified ADA examiner. Exams are held at {location}.",
+    "imageAlt": "Four candidates write the ADA written exam at spaced desks",
+    "caption": "The written exam: one candidate to a desk. {date}.",
+    "caption2": "The two parts of the ADA Postpartum Doula exam",
+    "colDetail": "Exam detail",
+    "colWritten": "Written exam",
+    "colPractical": "Practical exam",
+    "length": {
+      "label": "Length",
+      "written": "{minutes} minutes",
+      "practical": "{minutes} minutes, one-on-one with a certified ADA examiner"
+    },
+    "format": {
+      "label": "Format",
+      "written": "Multiple-choice and short-answer questions",
+      "practical": "A hands-on demonstration of doula skills"
+    },
+    "content": {
+      "label": "What it tests",
+      "written": "Postpartum care, newborn care, breastfeeding support, cultural competency, safety protocols and client communication",
+      "practical": "Newborn handling, swaddling, bathing, postpartum recovery support, and communication with families from diverse cultural backgrounds"
+    },
+    "languages": {
+      "label": "Languages",
+      "value": "{languages}. All exam materials, including instructions and questions, are in the language you choose."
+    }
+  },
+  "covers": {
+    "title": "What the exam covers",
+    "intro": "Both parts cover the {count} modules of the ADA Postpartum Doula program.",
+    "caption": "The modules the ADA Postpartum Doula exam covers",
+    "colModule": "Module",
+    "colCovers": "What it covers"
+  },
+  "booking": {
+    "title": "Booking a date",
+    "how": {
+      "label": "How to register",
+      "value": "Your training provider guides you through registration. You can also contact ADA at <mail>{email}</mail> or <tel>{phone}</tel>."
+    },
+    "examDay": "Exam day and ID requirements"
+  },
+  "fees": {
+    "colWhen": "When it applies"
+  },
+  "results": {
+    "when": {
+      "label": "When",
+      "value": "By email in about {days} business days."
+    },
+    "result": {
+      "label": "Your result",
+      "value": "A score out of {max} and a level: <b>Highly Proficient</b> ({high} and above), <b>Proficient</b> ({pass}–{proficientTop}) or <b>Not Proficient</b> (below {pass}). The pass mark is {pass}/{max}."
+    },
+    "pass": {
+      "label": "If you pass",
+      "value": "ADA issues your certification and a unique exam ID, and lists you in the ADA registry, where anyone can check it."
+    },
+    "fail": {
+      "label": "If you do not pass",
+      "value": "You can retake the exam for {fee}, at least {days} days after your attempt."
+    }
+  },
+  "number": {
+    "title": "Your certificate number",
+    "format": "Each certificate’s own number: ADA, the credential ({pd} for Postpartum Doula, {bd} for Birth Doula), the year issued and a sequence number.",
+    "record": {
+      "label": "Your public record",
+      "value": "Shows your standing today. A certificate shows your status on the day it was issued; the registry record is the primary source."
+    }
+  },
+  "renewal": {
+    "intro": "Your certification is valid for {validity}. Renew it before the end date on your record to stay in good standing.",
+    "need": {
+      "label": "What you need",
+      "value": "One of two pathways, professional reference letters or a recertification exam with a pass mark of {pass}/{max}, and the renewal fee of {fee}."
+    },
+    "start": {
+      "label": "How to start",
+      "value": "Check your status and end date in the ADA registry or in My ADA, then contact ADA to begin."
+    },
+    "link": "Renew your ADA certification"
+  },
+  "conduct": {
+    "intro": "Every ADA-certified doula is expected to uphold the ADA Code of Conduct.",
+    "professional": {
+      "label": "Professional standards",
+      "value": "Keep your skills and your certification current, practice within your scope, and communicate professionally."
+    },
+    "client": {
+      "label": "Client care",
+      "value": "Put the client’s needs at the center of care, seek informed consent, keep client information confidential, respect every family’s culture, and serve all families without discrimination."
+    },
+    "ethics": {
+      "label": "Ethics",
+      "value": "Represent your credentials honestly, disclose conflicts of interest, keep professional boundaries, report abuse, neglect or safety concerns as the law requires, and cooperate with ADA reviews."
+    },
+    "enforcement": {
+      "label": "If the Code is broken",
+      "value": "Violations can lead to suspension or revocation of ADA certification. Anyone can report a concern to <mail>{email}</mail>. Reports are reviewed confidentially."
+    },
+    "readFull": "Read the full Code of Conduct",
+    "report": "Report a concern"
+  },
+  "questions": {
+    "course": {
+      "q": "Where do I take the course?",
+      "a": "With an ADA-approved training program, in person or online. Programs are listed on the <link>ADA education</link> page."
+    },
+    "language": {
+      "q": "Can I take the exam in my own language?",
+      "a": "Yes. The exam is offered in {languages}. Choose your language when you register."
+    },
+    "check": {
+      "q": "How do families and insurers check my certification?",
+      "a": "They search the ADA registry at <link>{url}</link>. Insurance providers can verify your certification there."
+    }
+  }
+}

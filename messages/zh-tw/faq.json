@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "title": "常見問題",
+    "description": "關於 ADA 認證、考試、續證、認證註冊名錄及 ADA 培訓的簡要解答。"
+  },
+  "breadcrumb": {
+    "help": "幫助與聯繫",
+    "current": "常見問題"
+  },
+  "intro": {
+    "title": "常見問題",
+    "lead": "為考生、認證導樂、家庭、保險公司與機構，以及培訓機構提供的簡要解答。",
+    "note": "費用和日期請見各項目頁面和考試頁面。"
+  },
+  "onThisPage": "本頁內容",
+  "cta": {
+    "title": "如果您的問題未在此解答，請致函 ADA。",
+    "action": "聯繫 ADA"
+  },
+  "lang": {
+    "en": "英語",
+    "zh": "中文（普通話）",
+    "ja": "日語",
+    "ko": "韓語"
+  },
+  "modules": {
+    "postpartumRecovery": "產後恢復",
+    "newbornCare": "新生兒護理",
+    "breastfeedingSupport": "母乳餵養支持",
+    "culturalTraditions": "文化傳統",
+    "nutrition": "營養與膳食規劃",
+    "emotionalWellness": "情緒健康",
+    "safetyEmergency": "安全與急救"
+  },
+  "groups": {
+    "candidates": "考生",
+    "doulas": "認證導樂",
+    "families": "家庭",
+    "insurers": "保險公司與機構",
+    "providers": "培訓機構",
+    "about": "關於 ADA"
+  },
+  "candidates": {
+    "becomeQ": "如何獲得 ADA 認證？",
+    "becomeA": "報名並完成一項 ADA 認可的培訓課程，然後通過 ADA 認證考試：{written} 分鐘筆試和 {practical} 分鐘一對一實操考核。合格分數為 {pass}/{max} 分。",
+    "becomeLink": "如何獲得認證",
+    "experienceQ": "需要先有導樂經驗嗎？",
+    "experienceA": "不需要。報考無需任何導樂經驗。ADA 認可的培訓課程旨在幫助零基礎學員達到應考水平。",
+    "costQ": "費用是多少？",
+    "costA": "ADA 考試費為 {fee}。培訓費用因課程而異，符合條件的考生可申請獎學金。",
+    "costLink": "考試日期",
+    "scholarshipQ": "有獎學金嗎？",
+    "scholarshipA": "有。ADA 提供基於經濟需要和基於成績的獎學金，幫助更多人參加導樂培訓。獎學金可部分或全額覆蓋培訓費和考試費。",
+    "scholarshipLink": "獎學金",
+    "languagesQ": "培訓和考試使用哪些語言？",
+    "languagesA": "培訓和考試提供以下語言：{languages}。報名考試時請注明您希望使用的語言。",
+    "trainingQ": "培訓需要多長時間？",
+    "trainingA": "集中培訓為期 {days} 天，涵蓋 ADA 課程的 {modules} 個模塊，並包含美國紅十字會（American Red Cross）的嬰兒心肺復蘇（CPR）培訓。",
+    "trainingLink": "ADA 教育與課程",
+    "registerQ": "如何報名參加考試？",
+    "registerA": "完成 ADA 認可的培訓課程後，您的培訓機構會指導您完成考試報名。您也可以直接通過 {email} 或 {phone} 聯繫 ADA。",
+    "locationQ": "考試在哪裡舉行？",
+    "locationA": "考試地點為 {location}。根據需求，可能會增設其他考試地點。請聯繫 ADA 瞭解最新安排。",
+    "resultsQ": "什麼時候能收到考試結果？",
+    "resultsA": "考試結果約在 {days} 個工作日內通過電子郵件發送。通過考試後，ADA 將向您頒發證書，您的記錄將出現在 ADA 認證註冊名錄中。如未通過，您可以在至少 {wait} 天後重考，重考費為 {retakeFee}。",
+    "resultsLink": "考試當天與身份證件"
+  },
+  "doulas": {
+    "validityQ": "ADA 認證的有效期是多久？",
+    "validityA": "ADA 認證有效期為 {years} 年。期滿後，您需要續證以保持認證資格。",
+    "renewQ": "如何續證？",
+    "renewA": "續證費用為 {fee}，需提交專業推薦信或通過重新認證考試。",
+    "renewLink": "續證",
+    "checkedQ": "家庭和保險公司如何查詢我的認證？",
+    "checkedA": "他們可以按證書編號、導樂編號或姓名查詢 ADA 認證註冊名錄。記錄顯示的是查詢當天的認證狀態。",
+    "checkedLink": "查詢認證註冊名錄"
+  },
+  "families": {
+    "checkQ": "如何查詢導樂的認證？",
+    "checkA": "按證書編號、導樂編號或姓名查詢 ADA 認證註冊名錄。免費查詢，無需註冊賬戶。記錄顯示的是您查詢當天該導樂的認證狀態。",
+    "checkLink": "查詢認證註冊名錄",
+    "findQ": "如何找到 ADA 認證導樂？",
+    "findA": "請訪問“查找導樂”頁面。您也可以發送電子郵件至 {email} 聯繫 ADA。",
+    "findLink": "查找導樂",
+    "insuranceQ": "保險是否涵蓋 ADA 認證導樂的服務？",
+    "insuranceA": "認可 ADA 認證的保險公司和福利平台包括 {insurers}。具體保障取決於您的保險計劃，請向您的保險公司瞭解詳情。",
+    "concernQ": "如何舉報對導樂的疑慮？",
+    "concernA": "請發送電子郵件至 {email} 向 ADA 舉報。違反《ADA 職業行為準則》可能導致紀律處分，包括暫停或撤銷 ADA 認證。",
+    "concernLink": "閱讀職業行為準則"
+  },
+  "insurers": {
+    "sourceQ": "ADA 認證的原始來源是什麼？",
+    "sourceA": "ADA 認證註冊名錄中的實時記錄。紙質證書僅顯示頒發當日的狀態，如需瞭解當前狀態，請查詢認證註冊名錄。",
+    "sourceLink": "查詢認證",
+    "recognitionQ": "哪些保險公司認可 ADA 認證？",
+    "recognitionA": "認可 ADA 認證的保險公司和福利平台包括 {insurers}。",
+    "bulkQ": "可以一次查詢多位導樂嗎？",
+    "bulkA": "網站暫不支持批量查詢。請在“查詢認證”頁面逐一查詢證書編號或導樂編號，或發送電子郵件至 {email} 聯繫 ADA。"
+  },
+  "providers": {
+    "approvedQ": "機構如何成為認可培訓機構？",
+    "approvedA": "請發送電子郵件至 {email}，向 ADA 介紹貴機構及培訓課程。",
+    "approvedLink": "ADA 教育與課程",
+    "registrationQ": "誰為我們的學員報名考試？",
+    "registrationA": "學員完成 ADA 認可的培訓課程後，由培訓機構指導其完成考試報名。學員也可以直接聯繫 ADA。",
+    "curriculumQ": "ADA 課程涵蓋哪些內容？",
+    "curriculumA": "共 {count} 個模塊：{modules}。"
+  },
+  "about": {
+    "whatQ": "什麼是 Asian Doula Alliance？",
+    "whatA": "Asian Doula Alliance（ADA）是一家 {taxCode} 公共慈善機構，致力於通過文化融合的培訓、認證和多語言支持，為產後護理設立標準。ADA 是 {legalName} 的經營名稱（dba），{legalName} 是一家加利福尼亞州非營利公益法人。",
+    "differentQ": "ADA 與其他導樂認證組織有何不同？",
+    "differentA": "ADA 將傳統亞洲產後習俗（如坐月子、草本調理和飲食習慣）與現代循證護理相結合。ADA 考試提供{languages}版本，{insurers}等保險公司和福利平台認可 ADA 認證。",
+    "onlyAsianQ": "ADA 只面向亞裔導樂嗎？",
+    "onlyAsianA": "不是。ADA 歡迎各種背景的導樂。ADA 認證注重文化勝任力和多語言能力，任何致力於提供具有文化敏感性的產後護理的從業者都可以申請。"
+  }
+}

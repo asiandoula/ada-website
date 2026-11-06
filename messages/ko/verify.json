@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "title": "Verify a credential",
+    "description": "Look up an ADA-certified doula in the ADA registry and see each credential's status today. Free, no account needed."
+  },
+  "breadcrumb": "Verify",
+  "title": "Verify a credential",
+  "lede": "Look up an ADA-certified doula. The registry shows each credential's status today. A paper certificate shows status only on the day it was issued.",
+  "search": {
+    "heading": "Search the registry",
+    "by": "Search by",
+    "byNumber": "Certificate no. or Doula ID",
+    "byName": "Name",
+    "numberLabel": "Certificate number or Doula ID",
+    "numberPlaceholder": "e.g. ADA-PD-YYYY-NNNN",
+    "lookUp": "Look up",
+    "numberEmpty": "Enter a certificate number or Doula ID.",
+    "numberTooShort": "Enter at least {min} characters.",
+    "detected": {
+      "doula_id": "Doula ID",
+      "cert_number": "Certificate number",
+      "code_or_name": "Certificate code",
+      "name": "Name"
+    },
+    "howTo": "How to read an ADA number",
+    "segRegistry": "Registry",
+    "segCredential": "Credential",
+    "segYear": "Year issued",
+    "segSequence": "Sequence",
+    "prefixes": "PD = Postpartum Doula · BD = Birth Doula · TR = Trainer",
+    "doulaIdPattern": "#YY-NNNN",
+    "doulaIdFormat": "Doula ID, given to each doula by ADA. It starts with #.",
+    "exactOpens": "An exact number opens the record directly.",
+    "family": "Family name",
+    "given": "Given name",
+    "familyEmpty": "Enter a family name. Name searches need both names.",
+    "givenEmpty": "Enter a given name. Name searches need both names.",
+    "nameTooShort": "Enter at least {min} characters of the name.",
+    "nameHint": "Type the name in English, or as written in Chinese, Japanese or Korean, for example <zh>陈美琳</zh> or <ko>박지우</ko>.",
+    "submitName": "Search the registry",
+    "terms": "Free. No account needed. For verification only. Not for building contact or marketing lists.",
+    "searchError": "The registry could not be reached. Try again in a moment."
+  },
+  "results": {
+    "heading": "{count, plural, one {# record matches} other {# records match}} “{query}”",
+    "retrieved": "Retrieved {when}",
+    "scope": "Shown: ADA-certified doulas, including expired, suspended and revoked records. Candidates who have not yet passed the exam are not listed.",
+    "caption": "Matching ADA records",
+    "colName": "Name",
+    "colId": "Doula ID",
+    "colCredential": "Credential",
+    "colRecord": "Record",
+    "viewRecord": "View record",
+    "viewRecordFor": "View record for {name}",
+    "noCredential": "No credential on record. See the certificate history.",
+    "showingAll": "{count, plural, one {Showing 1 record.} other {Showing all # records.}}",
+    "showingFirst": "Showing the first {count}. Add more of the name to narrow the search.",
+    "notRight": "Not the right person? <link>Search by the certificate number</link> printed on the certificate."
+  },
+  "notFound": {
+    "heading": "No ADA record matches “{query}”.",
+    "body": "This can mean the name or number is spelled differently, or that the person is not ADA-certified.",
+    "tipNative": "Try the name as written in Chinese, Japanese or Korean.",
+    "tipNumber": "Use the certificate number printed on the certificate. It looks like <id>{pattern}</id>.",
+    "tipHash": "Check the hyphens, and the # at the start of a Doula ID.",
+    "contact": "Still can't find the person? Email the registry at <link>{email}</link>.",
+    "byName": "Search by name instead",
+    "byNumber": "Search by certificate number instead"
+  },
+  "rail": {
+    "heading": "About verification",
+    "legendTitle": "What the statuses mean",
+    "legend": {
+      "active": "Meets ADA certification requirements through the date shown.",
+      "expired": "Was certified, but not renewed by the end date. Not currently ADA-certified. This is not a disciplinary action.",
+      "suspended": "Not ADA-certified for a set period under the Code of Conduct.",
+      "revoked": "Certification withdrawn under the Code of Conduct.",
+      "retired": "Retired in good standing. Not practicing as ADA-certified.",
+      "superseded": "An older certificate replaced by a newer one, usually at renewal. Check the holder's current standing.",
+      "withdrawn": "A certificate that is no longer valid. Check the holder's current standing."
+    },
+    "realTitle": "How to tell a real record",
+    "real1": "Real ADA records are only on <b>{host}/verify</b>. Check the address bar.",
+    "real2": "Every record shows the date and time it was retrieved. A screenshot or PDF without that line is not proof.",
+    "real3": "Looking up a record is free and needs no account.",
+    "reportTitle": "Report a concern",
+    "reportBody": "If you have a concern about an ADA-certified doula, tell us. Reports are reviewed confidentially.",
+    "reportLink": "Report a concern"
+  }
+}

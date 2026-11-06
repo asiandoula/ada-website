@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "title": "ADA 教育与课程",
+    "description": "ADA 课程体系：产后导乐课程及其 {count} 个模块、继续教育，以及如何成为培训师或培训机构讲授 ADA 课程。"
+  },
+  "breadcrumb": "ADA 教育与课程",
+  "hero": {
+    "title": "学习 ADA 课程。",
+    "line": "课程由 ADA 编写，由 ADA 认证培训师和 ADA 认可的培训机构讲授，每一位考生都由 ADA 考核。",
+    "photoAlt": "一位 ADA 产后导乐课程讲师在幻灯片旁授课，桌上摆放着训练用娃娃和婴儿浴盆",
+    "examDates": "查看考试日期",
+    "teach": "讲授 ADA 课程"
+  },
+  "tiles": {
+    "title": "ADA 课程项目",
+    "postpartumTitle": "ADA 产后导乐课程",
+    "postpartumText": "ADA 的核心课程：共 {count} 个模块，面授 {days} 天或在线学习，之后参加 ADA 考试。学费由培训机构确定。",
+    "nextExam": "下一场考试",
+    "examFee": "考试费",
+    "examFeeValue": "{fee}，支付给 ADA",
+    "examDates": "查看考试日期",
+    "credential": "产后导乐认证",
+    "birthTitle": "ADA 分娩导乐",
+    "birthText": "为待产和分娩提供支持。课程班滚动开课。",
+    "birthProgram": "课程介绍",
+    "birthCohort": "咨询下一期课程班",
+    "coursesTitle": "课程与继续教育",
+    "coursesText": "IBCLC 备考课程、继续教育和培训师培训，均由 ADA 认证培训师讲授。",
+    "ibclc": "IBCLC 备考课程",
+    "ce": "继续教育",
+    "teach": "成为培训师或培训机构"
+  },
+  "how": {
+    "title": "ADA 教育如何运作",
+    "photoAlt": "在 ADA 产后导乐课程的新生儿护理课上，一名学员为训练用娃娃穿衣",
+    "photoCaption": "用训练娃娃上新生儿护理课。2024 年 8 月。",
+    "curriculum": "课程",
+    "curriculumText": "每个 ADA 项目的课程和标准均由 ADA 编写并拥有。每一位培训师和每一家培训机构讲授的内容都相同。",
+    "teaching": "教学",
+    "teachingText": "由 ADA 认证培训师和 ADA 认可的培训机构以面授和在线方式讲授。ADA 每年审核每一家培训机构。",
+    "examination": "考试",
+    "examinationText": "ADA 亲自考核并评分每一位考生。培训师、监考人员和培训机构均不能更改分数。",
+    "registry": "认证注册名录",
+    "registryText": "通过考试的学员会获得证书编号，并在 ADA 认证注册名录中留有注明日期的公开记录。ADA 认证培训师同样有公开记录。",
+    "languages": "授课语言",
+    "languagesText": "{languages}。",
+    "link": "近期考试日期"
+  },
+  "language": {
+    "en": "英语",
+    "zh": "普通话",
+    "ja": "日语",
+    "ko": "韩语"
+  },
+  "program": {
+    "title": "产后导乐课程",
+    "intro": "ADA 的核心课程，由 ADA 认证培训师或 ADA 认可的培训机构讲授。开课前，每位学员需完成一组附有练习的简短技能视频。",
+    "modulesTitle": "{count} 个模块",
+    "detailsTitle": "课程详情",
+    "format": "形式",
+    "formatValue": "面授：{days} 天集中授课；或在线学习。",
+    "includes": "包含",
+    "includesValue": "美国红十字会（{provider}）婴儿心肺复苏（CPR）",
+    "tuition": "学费",
+    "tuitionValue": "由培训师或培训机构确定",
+    "scholarships": "奖学金",
+    "scholarshipsValue": "基于经济需要和基于成绩两类。<link>ADA 奖学金</link>",
+    "leadsTo": "结业后",
+    "leadsToValue": "参加 ADA 产后导乐考试。考试费为 {fee}，支付给 ADA。",
+    "ctaNext": "结业学员可报名参加{date}的考试。",
+    "ctaNone": "结业学员向 ADA 报名参加 ADA 考试。",
+    "ctaAction": "报名参加考试"
+  },
+  "module": {
+    "postpartumRecovery": "身体恢复的各个阶段、伤口护理评估、生命体征监测，以及温养、促进血液循环等传统恢复理念。",
+    "newbornCare": "奶瓶喂养与母乳喂养技巧、洗澡与脐带护理、安全睡眠、安抚、拍嗝、换尿布、吐奶处理、俯卧练习以及发育里程碑记录。",
+    "breastfeedingSupport": "含接与哺乳姿势、乳房胀痛、奶量不足与乳头疼痛、吸奶，以及何时转介哺乳顾问。",
+    "culturalTraditions": "中国的<zh>坐月子</zh>、韩国的产后调理（<ko>산후조리</ko>）和日本的回娘家待产（<ja>里帰り</ja>），以及月子餐和家庭关系。",
+    "nutrition": "亚洲各地传统的产后食谱，以及哺乳期饮食指导。",
+    "emotionalWellness": "识别围产期抑郁和焦虑、积极倾听、病耻感、边界设定以及转介流程。",
+    "safetyEmergency": "婴儿心肺复苏（美国红十字会）、窒息急救、应急流程、安全睡眠环境布置，以及何时拨打 {emergency}、何时联系儿科医生。"
+  },
+  "moduleTitle": {
+    "postpartumRecovery": "产后恢复",
+    "newbornCare": "新生儿护理",
+    "breastfeedingSupport": "母乳喂养支持",
+    "culturalTraditions": "文化传统",
+    "nutrition": "营养与膳食规划",
+    "emotionalWellness": "情绪健康",
+    "safetyEmergency": "安全与应急"
+  },
+  "dates": {
+    "title": "近期 ADA 考试日期",
+    "intro": "各培训师或培训机构自行安排课程日期，并负责报名和学费事宜。完成课程后，您需向 ADA 报名参加 ADA 考试。考试费为 {fee}。"
+  },
+  "teach": {
+    "title": "继续教育与教学",
+    "ce": "继续教育",
+    "ceText": "ADA 认可的工作坊和更新课程，帮助认证导乐及时掌握产后照护和安全规范的最新要求。",
+    "trainer": "ADA 认证培训师",
+    "trainerText": "面向资格良好、经验丰富并希望讲授 ADA 课程的 ADA 认证导乐，须完成培训师培训。ADA 认证培训师持有 TR 开头的证书编号。",
+    "provider": "ADA 认可的培训机构",
+    "providerText": "面向讲授 ADA 课程的机构。ADA 每年依据其在场地设施、课程实施和讲师资质方面的标准审核每一家培训机构。",
+    "apply": "如需申请成为培训师或培训机构，请发送电子邮件至 <mail>{email}</mail>。",
+    "verifyTitle": "查询 ADA 认证培训师",
+    "verifyText": "每一位 ADA 认证培训师都持有 ADA 证书，并在 ADA 认证注册名录中留有注明日期的公开记录。可按姓名或证书编号查询。",
+    "verifyAction": "查询认证注册名录"
+  }
+}
