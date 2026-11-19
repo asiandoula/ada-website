@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import { getTranslations } from 'next-intl/server';
 import { ResultView } from './result-view';
+import { doulaByIdCode } from '@/lib/doula-id-resolve';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('examHome.result');
@@ -36,11 +37,13 @@ export default async function ExamResultPage({
   }
 
   // Fetch doula info
-  const { data: doula } = await supabase
-    .from('doulas')
-    .select('id, full_name, full_name_zh, doula_id_code')
-    .eq('doula_id_code', id)
-    .single();
+  // An old Doula ID that was merged into another record shows that record (019).
+  const { data: doula } = await doulaByIdCode<{
+    id: string;
+    full_name: string;
+    full_name_zh: string | null;
+    doula_id_code: string;
+  }>(supabase, id, 'id, full_name, full_name_zh, doula_id_code');
 
   if (!doula) {
     redirect(`/exam-home/exam-chs/${id}`);

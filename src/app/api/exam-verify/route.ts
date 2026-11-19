@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { doulaByIdCode } from '@/lib/doula-id-resolve';
 
 // In-memory rate limiter: doula_id_code -> { count, resetAt }
 // NOTE: This is per-instance and resets on cold start. Provides best-effort
@@ -67,11 +68,12 @@ export async function POST(request: NextRequest) {
 
   // Look up doula by doula_id_code
   const supabase = getSupabase();
-  const { data: doula, error } = await supabase
-    .from('doulas')
-    .select('id, doula_id_code, full_name')
-    .eq('doula_id_code', trimmedCode)
-    .single();
+  // An old Doula ID that was merged into another record finds that record (019).
+  const { data: doula, error } = await doulaByIdCode<{ id: string; doula_id_code: string; full_name: string }>(
+    supabase,
+    trimmedCode,
+    'id, doula_id_code, full_name'
+  );
 
   if (error || !doula) {
     return NextResponse.json(

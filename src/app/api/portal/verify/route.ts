@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { doulaByIdCode } from '@/lib/doula-id-resolve';
 
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 5;
@@ -59,11 +60,13 @@ export async function POST(request: NextRequest) {
   );
 
   // Find doula by ID code
-  const { data: doula, error: doulaError } = await supabase
-    .from('doulas')
-    .select('*')
-    .eq('doula_id_code', doula_id_code.trim())
-    .single();
+  // An old Doula ID that was merged into another record signs in to that record (019).
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: doula, error: doulaError } = await doulaByIdCode<Record<string, any>>(
+    supabase,
+    doula_id_code.trim(),
+    '*'
+  );
 
   if (doulaError || !doula) {
     return NextResponse.json({ error: 'Invalid credentials. Please check your ID code and try again.' }, { status: 401 });

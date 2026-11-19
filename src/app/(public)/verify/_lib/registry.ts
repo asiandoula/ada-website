@@ -36,6 +36,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { todayInPacific } from '@/lib/site-dates';
 import { couldBeName, doulaIdSlug, hasCjk, nameTokens, parseQuery, type ParsedQuery } from './query';
+import { doulaByIdCode } from '@/lib/doula-id-resolve';
 
 // ---------------------------------------------------------------------------
 // Public shapes
@@ -391,9 +392,10 @@ export async function getRecord(segment: string): Promise<RecordLookup | null> {
     doula = res.data as DoulaRow | null;
   } else {
     const idCode = `#${code.replace(/^#+/, '')}`;
-    const res = await client.from('doulas').select(DOULA_COLUMNS).eq('doula_id_code', idCode).maybeSingle();
+    // An old Doula ID that was merged into another record still opens that record (019).
+    const res = await doulaByIdCode<DoulaRow>(client, idCode, DOULA_COLUMNS);
     if (res.error) throw new Error('registry read failed');
-    doula = res.data as DoulaRow | null;
+    doula = res.data;
     if (doula) permalinkPath = doulaIdSlug(doula.doula_id_code);
   }
   if (!doula) return null;
@@ -477,9 +479,9 @@ export async function searchRegistry(raw: string | null | undefined): Promise<Se
     const client = db();
 
     if (parsed.kind === 'doula_id') {
-      const res = await client.from('doulas').select(DOULA_COLUMNS).eq('doula_id_code', parsed.value).maybeSingle();
+      const res = await doulaByIdCode<DoulaRow>(client, parsed.value, DOULA_COLUMNS);
       if (res.error) throw new Error('registry read failed');
-      const record = res.data ? (await loadRecords(client, [res.data as DoulaRow])).get((res.data as DoulaRow).id) : undefined;
+      const record = res.data ? (await loadRecords(client, [res.data])).get(res.data.id) : undefined;
       return record
         ? { status: 'exact', type: 'doula_id', query, href: recordPath(record), record }
         : { status: 'notFound', type: 'doula_id', query };

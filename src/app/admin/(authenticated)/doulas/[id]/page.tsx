@@ -27,6 +27,7 @@ import {
 import type { DoulaStatus, ExamStatus, CertificateType, CredentialType, CredentialStatus } from '@/lib/constants';
 import { ExamEditDialog, type ExamRecord } from '@/components/admin/exam-edit-dialog';
 import { EmailSendDialog, type EmailRecipient } from '@/components/admin/email-send-dialog';
+import { MergeDoulaCard } from '@/components/admin/merge-doula-card';
 import { computeProficiencyLevel, PASS_SCORE } from '@/lib/utils';
 
 export default function EditDoulaPage() {
@@ -663,6 +664,8 @@ export default function EditDoulaPage() {
           )}
         </CardContent>
       </Card>
+
+      <MergeDoulaCard targetId={String(params.id)} onMerged={reloadData} />
 
       {/* Danger Zone */}
       <Card className="border-red-200">

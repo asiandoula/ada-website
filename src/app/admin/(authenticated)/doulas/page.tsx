@@ -78,6 +78,9 @@ export default async function DoulasPage({
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold">Doulas</h1>
         <div className="flex items-center gap-3">
+          <Link href="/admin/doulas/duplicates">
+            <Button variant="outline">Possible duplicates</Button>
+          </Link>
           <ImportExcelButton />
           <Link href="/admin/doulas/new">
             <Button className="bg-ada-purple hover:bg-ada-purple/90">
