@@ -1,4 +1,11 @@
-import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import {
+  PDFDocument,
+  StandardFonts,
+  rgb,
+  pushGraphicsState,
+  popGraphicsState,
+  setCharacterSpacing,
+} from 'pdf-lib';
 import fs from 'fs';
 import path from 'path';
 
@@ -7,7 +14,9 @@ import path from 'path';
 //
 // Birth & Trainer use their own artwork (Canva exports → flat vector PDFs with
 // NO form fields). We draw the name / cert id directly onto the page so there is
-// no opaque field background covering the watermark, and they have no expiry line.
+// no opaque field background covering the watermark. Birth also gets the
+// "VALID THROUGH" + expiry block bottom-right, matching Postpartum (the Birth
+// artwork has no such label, so we draw both). Trainer has no expiry line.
 const TEMPLATE_FILES: Record<string, string> = {
   birth: 'cert-template-birth.pdf',
   trainer: 'cert-template-trainer.pdf',
@@ -20,6 +29,30 @@ const DRAW_LAYOUT = {
   name: { centerX: 396, baselineY: 300, size: 40 },
   certId: { centerX: 320, baselineY: 103, size: 13 },
 };
+
+// Birth expiry block, copied from the Postpartum certificate: a light-gray bold
+// caps "VALID THROUGH" label with the date in black 14pt under it, left-aligned
+// under the logo. Measured on the Postpartum render, then moved down 10.4pt
+// because the whole bottom block of the Birth artwork (logo, Certification ID)
+// sits 10.4pt lower. Postpartum's label is Arial Black; we use Helvetica-Bold
+// with letter spacing so it fills the same width (no font file to ship).
+const EXPIRY_LAYOUT = {
+  x: 568.5,
+  label: { text: 'VALID THROUGH', baselineY: 100, size: 8.7, charSpacing: 1.04, gray: 182 / 255 },
+  date: { baselineY: 81, size: 14 },
+};
+
+// Same wording as the Postpartum field: "November 19, 2027". Noon local time so
+// a DATE string never rolls back a day.
+function formatExpiry(expirationDate: string): string {
+  return new Date(
+    expirationDate.includes('T') ? expirationDate : `${expirationDate}T12:00:00`
+  ).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
 
 // Cache template bytes in memory per file — read once, never trigger file watcher again
 const templateCache: Record<string, Uint8Array> = {};
@@ -73,6 +106,30 @@ export async function generateCertificatePDF({
       font,
       color: rgb(0.16, 0.16, 0.3),
     });
+
+    // Birth credentials expire like Postpartum. No date (permanent) → no block.
+    if (certificateType === 'birth' && expirationDate) {
+      const { x, label, date } = EXPIRY_LAYOUT;
+      const labelFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+
+      page.pushOperators(pushGraphicsState(), setCharacterSpacing(label.charSpacing));
+      page.drawText(label.text, {
+        x,
+        y: label.baselineY,
+        size: label.size,
+        font: labelFont,
+        color: rgb(label.gray, label.gray, label.gray),
+      });
+      page.pushOperators(popGraphicsState());
+
+      page.drawText(formatExpiry(expirationDate), {
+        x,
+        y: date.baselineY,
+        size: date.size,
+        font,
+        color: rgb(0, 0, 0),
+      });
+    }
   } else {
     // Default (Postpartum / CPR / IBCLC) template — AcroForm fields.
     const form = pdfDoc.getForm();
@@ -83,14 +140,7 @@ export async function generateCertificatePDF({
     nameField.setText(fullName);
     form.getTextField('Text2').setText(certificateNumber);
 
-    const expFormatted = new Date(
-      expirationDate.includes('T') ? expirationDate : `${expirationDate}T12:00:00`
-    ).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-    form.getTextField('Text3').setText(expFormatted);
+    form.getTextField('Text3').setText(formatExpiry(expirationDate));
 
     form.flatten();
   }
