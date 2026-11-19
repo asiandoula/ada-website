@@ -12,6 +12,7 @@ import {
   CREDENTIAL_TYPES, CREDENTIAL_LABELS,
 } from '@/lib/constants';
 import { generateDoulaIdCode } from '@/lib/utils';
+import { describeRecord, findDuplicateDoulas, phoneKey, type DoulaLite } from '@/lib/doula-dedup';
 
 export default function NewDoulaPage() {
   const router = useRouter();
@@ -19,6 +20,10 @@ export default function NewDoulaPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [selectedCredentials, setSelectedCredentials] = useState<string[]>([]);
+  // One person = one record: same phone / email blocks; same name needs a confirmation.
+  const [contactDuplicates, setContactDuplicates] = useState<DoulaLite[]>([]);
+  const [nameDuplicates, setNameDuplicates] = useState<DoulaLite[]>([]);
+  const [confirmedDifferentPerson, setConfirmedDifferentPerson] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,6 +31,43 @@ export default function NewDoulaPage() {
     setError('');
 
     const form = new FormData(e.currentTarget);
+    setContactDuplicates([]);
+
+    const input = {
+      phone: String(form.get('phone') ?? ''),
+      email: String(form.get('email') ?? ''),
+      fullName: String(form.get('full_name') ?? ''),
+      fullNameZh: String(form.get('full_name_zh') ?? ''),
+    };
+    if (!phoneKey(input.phone)) {
+      setError('Phone is required (at least 10 digits). One phone number = one person; it is how records are matched.');
+      setLoading(false);
+      return;
+    }
+    let hits;
+    try {
+      hits = await findDuplicateDoulas(supabase, input);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Duplicate check failed. Try again.');
+      setLoading(false);
+      return;
+    }
+    const contact = [...hits.byPhone, ...hits.byEmail].filter((d, i, arr) => arr.findIndex((x) => x.id === d.id) === i);
+    if (contact.length > 0) {
+      setContactDuplicates(contact);
+      setError(
+        `Already in the registry with the same ${hits.byPhone.length > 0 ? 'phone' : 'email'}: ${contact
+          .map(describeRecord)
+          .join(', ')}. One person = one record — open that record instead of creating a new one.`
+      );
+      setLoading(false);
+      return;
+    }
+    if (hits.byName.length > 0 && !confirmedDifferentPerson) {
+      setNameDuplicates(hits.byName);
+      setLoading(false);
+      return;
+    }
 
     const { data: newDoula, error } = await supabase.from('doulas').insert({
       doula_id_code: generateDoulaIdCode(),
@@ -92,8 +134,8 @@ export default function NewDoulaPage() {
                 <Input id="email" name="email" type="email" />
               </div>
               <div>
-                <Label htmlFor="phone">Phone</Label>
-                <Input id="phone" name="phone" />
+                <Label htmlFor="phone">Phone *</Label>
+                <Input id="phone" name="phone" type="tel" required />
               </div>
             </div>
 
@@ -174,6 +216,43 @@ export default function NewDoulaPage() {
             </div>
 
             {error && <p className="text-sm text-red-600">{error}</p>}
+            {contactDuplicates.length > 0 && (
+              <ul className="text-sm list-disc pl-5">
+                {contactDuplicates.map((d) => (
+                  <li key={d.id}>
+                    <a href={`/admin/doulas/${d.id}`} className="text-ada-purple hover:underline">
+                      {describeRecord(d)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {nameDuplicates.length > 0 && (
+              <div className="rounded-md border border-amber-300 bg-amber-50 p-3 text-sm space-y-2">
+                <p>
+                  A record with the same name already exists. If this is the same person, open that record
+                  instead of creating a new one:
+                </p>
+                <ul className="list-disc pl-5">
+                  {nameDuplicates.map((d) => (
+                    <li key={d.id}>
+                      <a href={`/admin/doulas/${d.id}`} className="text-ada-purple hover:underline">
+                        {describeRecord(d)}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="rounded border-gray-300"
+                    checked={confirmedDifferentPerson}
+                    onChange={(e) => setConfirmedDifferentPerson(e.target.checked)}
+                  />
+                  It is a different person — create a new record
+                </label>
+              </div>
+            )}
 
             <div className="flex gap-3">
               <Button

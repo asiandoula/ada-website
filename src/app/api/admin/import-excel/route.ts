@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { createClient as createServerClient } from '@/lib/supabase/server';
 import { isAllowedAdminEmail } from '@/lib/auth/access';
 import * as XLSX from 'xlsx';
+import { nameKey } from '@/lib/doula-dedup';
 
 function getSupabase() {
   return createClient(
@@ -68,6 +69,13 @@ export async function POST(request: NextRequest) {
     const { data: dbDoulas } = await supabase.from('doulas').select('id, doula_id_code, full_name, status, exam_status');
     const dbByCode: Record<string, Record<string, string>> = {};
     dbDoulas?.forEach(d => { dbByCode[d.doula_id_code] = d; });
+    // One person = one record: a new Doula ID whose name is already in the registry is not
+    // imported (it is usually the same person under a second ID). Add it by hand after checking.
+    const dbByName: Record<string, string> = {};
+    dbDoulas?.forEach(d => {
+      const k = nameKey(d.full_name);
+      if (k && !dbByName[k]) dbByName[k] = d.doula_id_code;
+    });
 
     const results = { updated: 0, inserted: 0, skipped: 0, errors: [] as string[] };
 
@@ -99,6 +107,11 @@ export async function POST(request: NextRequest) {
         } else {
           results.skipped++;
         }
+      } else if (nameKey(name) && dbByName[nameKey(name)!]) {
+        results.skipped++;
+        results.errors.push(
+          `Not imported ${code} ${name}: the same name is already on ${dbByName[nameKey(name)!]}. If it is a different person, add the record by hand.`
+        );
       } else {
         // Insert new
         const { error } = await supabase.from('doulas').insert({
